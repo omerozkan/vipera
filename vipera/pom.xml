@@ -28,4 +28,8 @@
   		<url>http://www.gnu.org/copyleft/gpl.html</url>
   	</license>
   </licenses>
+  <modules>
+  	<module>vipera-jsf</module>
+  	<module>vipera-war</module>
+  </modules>
 </project>
