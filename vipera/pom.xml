@@ -6,4 +6,26 @@
   <packaging>war</packaging>
   <name>Vipera</name>
   <description>Vipera özgür bir hasta takip sistemidir</description>
+  <url>http://ozkan.info</url>
+  <contributors>
+  	<contributor>
+  		<name>Ömer Özkan</name>
+  		<email>omer@ozkan.info</email>
+  		<url>http://omerozkan.net</url>
+  	</contributor>
+  </contributors>
+  <scm>
+  	<connection>https://github.com/omerozkan/vipera</connection>
+  	<url>scm:git:https://github.com/omerozkan/vipera</url>
+  </scm>
+  <issueManagement>
+  	<system>Redmine</system>
+  	<url>http://issues.ozkan.info/projects/bitirme-projesi/</url>
+  </issueManagement>
+  <licenses>
+  	<license>
+  		<name>GPLv3</name>
+  		<url>http://www.gnu.org/copyleft/gpl.html</url>
+  	</license>
+  </licenses>
 </project>
