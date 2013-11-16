@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<title>Vipera Yönetim Paneli</title>
+</h:head> 
+<body> 
+	<h:form id="loginForm">
+		<p:panel id="loginPanel" header="Yönetici Giriş Formu">
+			<p:messages id="messages" />
+			<h:panelGrid columns="3">
+				<h:outputLabel for="username" value="Kullanıcı Adı:"/>
+				<p:inputText id="username" value="#{adminLogin.username}" required="true" label="Kullanıcı Adı">
+					<f:validateLength minimum="5"/>
+				</p:inputText>
+				<p:message for="username" display="icon" />
+				<h:outputLabel for="password" value="Parola:" />
+				<p:password id="password" value="#{adminLogin.password}" required="true" label="Parola">
+					<f:validateLength minimum="5"/>
+				</p:password>
+				<p:message for="password" display="icon" />
+			</h:panelGrid>
+			<p:commandButton id="loginButton" value="Giriş" update="loginPanel" action="#{adminLogin.login}" />
+		</p:panel>
+	</h:form>
+</body> 
+</html>
