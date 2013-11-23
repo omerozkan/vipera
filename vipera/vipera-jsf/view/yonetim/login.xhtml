@@ -8,9 +8,12 @@
 <h:head>
 	<title>Vipera Yönetim Paneli</title>
 </h:head> 
-<body> 
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="css/style.css" library="default" />
+	</f:facet> 
 	<h:form id="loginForm">
-		<p:panel id="loginPanel" header="Yönetici Giriş Formu">
+		<p:panel id="loginPanel" styleClass="loginPanel">
 			<p:messages id="messages" />
 			<h:panelGrid columns="3">
 				<h:outputLabel for="username" value="Kullanıcı Adı:"/>
@@ -24,8 +27,8 @@
 				</p:password>
 				<p:message for="password" display="icon" />
 			</h:panelGrid>
-			<p:commandButton id="loginButton" value="Giriş" update="loginPanel" action="#{adminLogin.login}" />
+			<p:commandButton id="loginButton" value="Giriş" update="loginPanel" action="#{adminLogin.login}" styleClass="loginSubmit"/>
 		</p:panel>
 	</h:form>
-</body> 
+</h:body> 
 </html>
