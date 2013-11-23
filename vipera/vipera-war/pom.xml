@@ -8,7 +8,13 @@
   <artifactId>vipera-war</artifactId>
   <name>vipera-war</name>
   <packaging>war</packaging>
-	
+ <build>
+		<resources>
+			<resource>
+				<directory>src/main/webapp</directory>
+			</resource>
+		</resources>
+	</build>
 	
 	<dependencies>
 		<dependency>
