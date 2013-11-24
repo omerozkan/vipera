@@ -3,18 +3,21 @@ package info.ozkan.vipera.business.login;
 import info.ozkan.vipera.entities.Administrator;
 
 public class AdministratorLoginResult {
-	private AdministratorLoginStatus statusCode;
+	private AdministratorLoginStatus status;
 	private Administrator administrator;
 
-	public AdministratorLoginStatus getStatusCode() {
-		return statusCode;
+	public AdministratorLoginStatus getStatus() {
+		return status;
 	}
-
-	public void setStatusCode(AdministratorLoginStatus statusCode) {
-		this.statusCode = statusCode;
+	public void setStatus(AdministratorLoginStatus status) {
+		this.status = status;
 	}
 
 	public void setAdministrator(Administrator administrator) {
 		this.administrator = administrator;
+	}
+	
+	public Administrator getAdministrator() {
+		return this.administrator;
 	}
 }
