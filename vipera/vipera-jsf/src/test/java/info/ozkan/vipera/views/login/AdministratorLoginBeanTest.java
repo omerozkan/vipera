@@ -1,9 +1,9 @@
 package info.ozkan.vipera.views.login;
 
 import static org.junit.Assert.*;
-import info.ozkan.vipera.business.login.LoginManager;
-import info.ozkan.vipera.business.login.LoginResult;
-import info.ozkan.vipera.business.login.StatusCode;
+import info.ozkan.vipera.business.login.AdministratorLoginManager;
+import info.ozkan.vipera.business.login.AdministratorLoginResult;
+import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
 
 import javax.faces.application.FacesMessage;
@@ -48,7 +48,7 @@ public class AdministratorLoginBeanTest {
 	/**
 	 * Business nesnesi
 	 */
-	private LoginManager manager;
+	private AdministratorLoginManager manager;
 
 	/**
 	 * Testler için gerekli verileri hazırlar
@@ -60,7 +60,7 @@ public class AdministratorLoginBeanTest {
 		PowerMockito.doReturn(context).when(FacesContext.class,
 				"getCurrentInstance");
 		loginBean = new AdministratorLoginBean();
-		manager = Mockito.mock(LoginManager.class);
+		manager = Mockito.mock(AdministratorLoginManager.class);
 		loginBean.setLoginManager(manager);
 	}
 
@@ -105,7 +105,7 @@ public class AdministratorLoginBeanTest {
 	 */
 	@Test
 	public void loginUsernameInvalid() throws Exception {
-		generateLoginResult(StatusCode.INVALID_USERNAME);
+		generateLoginResult(AdministratorLoginStatus.INVALID_USERNAME);
 		loginBean.setUsername(username);
 		loginBean.setPassword(password);
 		loginBean.login(null);
@@ -123,7 +123,7 @@ public class AdministratorLoginBeanTest {
 	 */
 	@Test
 	public void loginPasswordInvalid() throws Exception {
-		generateLoginResult(StatusCode.INVALID_PASSWORD);
+		generateLoginResult(AdministratorLoginStatus.INVALID_PASSWORD);
 		loginBean.setUsername(username);
 		loginBean.setPassword(password);
 		loginBean.login(null);
@@ -145,8 +145,8 @@ public class AdministratorLoginBeanTest {
 		admin.setPassword(username);
 		admin.setUsername(password);
 
-		LoginResult result = new LoginResult();
-		result.setStatusCode(StatusCode.SUCCESS);
+		AdministratorLoginResult result = new AdministratorLoginResult();
+		result.setStatusCode(AdministratorLoginStatus.SUCCESS);
 		result.setAdministrator(admin);
 
 		returnLoginResult(result);
@@ -164,7 +164,7 @@ public class AdministratorLoginBeanTest {
 	 * dönderecek şekilde ayarlar
 	 * @param result
 	 */
-	private void returnLoginResult(LoginResult result) {
+	private void returnLoginResult(AdministratorLoginResult result) {
 		Mockito.when(manager.login(username, password))
 			.thenReturn(result);
 	}
@@ -180,8 +180,8 @@ public class AdministratorLoginBeanTest {
 	 * İstenilen StatusCode'u içeren LoginResult nesnesi oluşturur
 	 * @param statusCode
 	 */
-	private void generateLoginResult(StatusCode statusCode) {
-		LoginResult loginResult = new LoginResult();
+	private void generateLoginResult(AdministratorLoginStatus statusCode) {
+		AdministratorLoginResult loginResult = new AdministratorLoginResult();
 		loginResult.setStatusCode(statusCode);
 		returnLoginResult(loginResult);
 	}

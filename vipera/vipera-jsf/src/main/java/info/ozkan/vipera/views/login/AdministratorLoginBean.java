@@ -1,8 +1,8 @@
 package info.ozkan.vipera.views.login;
 
-import info.ozkan.vipera.business.login.LoginManager;
-import info.ozkan.vipera.business.login.LoginResult;
-import info.ozkan.vipera.business.login.StatusCode;
+import info.ozkan.vipera.business.login.AdministratorLoginManager;
+import info.ozkan.vipera.business.login.AdministratorLoginResult;
+import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 
 import java.io.Serializable;
 
@@ -71,7 +71,7 @@ public class AdministratorLoginBean implements Serializable {
 	/**
 	 * Business katmanı nesnesi
 	 */
-	private LoginManager loginManager;
+	private AdministratorLoginManager loginManager;
 	/**
 	 * Kullanıcı giriş işlemi başarılı mı?
 	 */
@@ -81,7 +81,7 @@ public class AdministratorLoginBean implements Serializable {
 	 * LoginManager setter metod
 	 * @param manager
 	 */
-	public void setLoginManager(LoginManager manager) {
+	public void setLoginManager(AdministratorLoginManager manager) {
 		this.loginManager = manager;
 	}
 
@@ -124,7 +124,7 @@ public class AdministratorLoginBean implements Serializable {
 			context.addMessage(null, EMPTY_FIELD);
 			return;
 		}
-		LoginResult result = loginManager.login(username, password);
+		AdministratorLoginResult result = loginManager.login(username, password);
 		if(invalidUsername(result) || invalidPassword(result)) {
 			context.addMessage(null, INVALID_LOGIN);
 		}
@@ -138,8 +138,8 @@ public class AdministratorLoginBean implements Serializable {
 	 * @param result
 	 * @return
 	 */
-	private boolean isLoginSuccess(LoginResult result) {
-		return result.getStatusCode().equals(StatusCode.SUCCESS);
+	private boolean isLoginSuccess(AdministratorLoginResult result) {
+		return result.getStatusCode().equals(AdministratorLoginStatus.SUCCESS);
 	}
 
 	/**
@@ -147,9 +147,9 @@ public class AdministratorLoginBean implements Serializable {
 	 * @param result
 	 * @return
 	 */
-	private boolean invalidPassword(LoginResult result) {
+	private boolean invalidPassword(AdministratorLoginResult result) {
 		return result.getStatusCode().equals(
-				StatusCode.INVALID_PASSWORD);
+				AdministratorLoginStatus.INVALID_PASSWORD);
 	}
 
 	/**
@@ -157,8 +157,8 @@ public class AdministratorLoginBean implements Serializable {
 	 * @param result
 	 * @return
 	 */
-	private boolean invalidUsername(LoginResult result) {
+	private boolean invalidUsername(AdministratorLoginResult result) {
 		return result.getStatusCode().equals(
-				StatusCode.INVALID_USERNAME);
+				AdministratorLoginStatus.INVALID_USERNAME);
 	}
 }

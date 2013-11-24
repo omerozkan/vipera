@@ -1,12 +1,12 @@
 package info.ozkan.vipera.business.login;
 
-public enum StatusCode {
+public enum AdministratorLoginStatus {
 	SUCCESS(0),
 	INVALID_USERNAME(1),
 	INVALID_PASSWORD(2);
 	
 	private int code;
-	private StatusCode(int code) {
+	private AdministratorLoginStatus(int code) {
 		this.setCode(code);
 	}
 	
