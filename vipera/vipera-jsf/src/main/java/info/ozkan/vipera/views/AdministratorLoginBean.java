@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Component("adminLogin")
 @Scope("request")
-public class AdministrationLoginBean implements Serializable{
-	private static Logger LOGGER = LoggerFactory.getLogger(AdministrationLoginBean.class);
+public class AdministratorLoginBean implements Serializable{
+	private static Logger LOGGER = LoggerFactory.getLogger(AdministratorLoginBean.class);
 	private String username;
 	private String password;
 	
