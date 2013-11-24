@@ -41,15 +41,9 @@
 	</properties>
 	
 	<modules>
+		<module>vipera-common</module>
 		<module>vipera-jsf</module>
 		<module>vipera-war</module>
+		<module>vipera-domain</module>
 	</modules>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-	</dependencies>
 </project>
