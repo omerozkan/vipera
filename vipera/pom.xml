@@ -45,5 +45,6 @@
 		<module>vipera-jsf</module>
 		<module>vipera-war</module>
 		<module>vipera-domain</module>
+		<module>vipera-business</module>
 	</modules>
 </project>
