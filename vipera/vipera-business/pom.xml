@@ -6,4 +6,11 @@
     <version>1-SNAPSHOT</version>
   </parent>
   <artifactId>vipera-business</artifactId>
+  <dependencies>
+    <dependency>
+        <groupId>info.ozkan.vipera</groupId>
+        <artifactId>vipera-common</artifactId>
+        <version>${project.version}</version>
+    </dependency>
+  </dependencies>
 </project>
