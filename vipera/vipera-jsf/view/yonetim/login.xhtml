@@ -13,21 +13,19 @@
 		<h:outputStylesheet name="css/style.css" library="default" />
 	</f:facet> 
 	<h:form id="loginForm">
-		<p:panel id="loginPanel" styleClass="loginPanel">
-			<p:messages id="messages" />
-			<h:panelGrid columns="3">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:panel id="loginPanel" styleClass="loginPanel" header="Yönetici Girişi">
+			<h:panelGrid columns="2">
 				<h:outputLabel for="username" value="Kullanıcı Adı:"/>
-				<p:inputText id="username" value="#{adminLogin.username}" required="true" label="Kullanıcı Adı">
-					<f:validateLength minimum="5"/>
+				<p:inputText id="username" value="#{adminLogin.username}" label="Kullanıcı Adı">
 				</p:inputText>
-				<p:message for="username" display="icon" />
 				<h:outputLabel for="password" value="Parola:" />
-				<p:password id="password" value="#{adminLogin.password}" required="true" label="Parola">
-					<f:validateLength minimum="5"/>
+				<p:password id="password" value="#{adminLogin.password}" label="Parola">
 				</p:password>
-				<p:message for="password" display="icon" />
 			</h:panelGrid>
-			<p:commandButton id="loginButton" value="Giriş" update="loginPanel" action="#{adminLogin.login}" styleClass="loginSubmit"/>
+			<p:commandButton id="loginButton" value="Giriş" update="growl" action="#{adminLogin.login}"
+			 actionListener="#{adminLogin.login}"
+			 styleClass="loginSubmit" />
 		</p:panel>
 	</h:form>
 </h:body> 
