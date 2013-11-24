@@ -146,7 +146,7 @@ public class AdministratorLoginBeanTest {
 		admin.setUsername(password);
 
 		AdministratorLoginResult result = new AdministratorLoginResult();
-		result.setStatusCode(AdministratorLoginStatus.SUCCESS);
+		result.setStatus(AdministratorLoginStatus.SUCCESS);
 		result.setAdministrator(admin);
 
 		returnLoginResult(result);
@@ -182,7 +182,7 @@ public class AdministratorLoginBeanTest {
 	 */
 	private void generateLoginResult(AdministratorLoginStatus statusCode) {
 		AdministratorLoginResult loginResult = new AdministratorLoginResult();
-		loginResult.setStatusCode(statusCode);
+		loginResult.setStatus(statusCode);
 		returnLoginResult(loginResult);
 	}
 

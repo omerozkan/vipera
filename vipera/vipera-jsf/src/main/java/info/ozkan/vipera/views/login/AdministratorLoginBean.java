@@ -139,7 +139,7 @@ public class AdministratorLoginBean implements Serializable {
 	 * @return
 	 */
 	private boolean isLoginSuccess(AdministratorLoginResult result) {
-		return result.getStatusCode().equals(AdministratorLoginStatus.SUCCESS);
+		return result.getStatus().equals(AdministratorLoginStatus.SUCCESS);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class AdministratorLoginBean implements Serializable {
 	 * @return
 	 */
 	private boolean invalidPassword(AdministratorLoginResult result) {
-		return result.getStatusCode().equals(
+		return result.getStatus().equals(
 				AdministratorLoginStatus.INVALID_PASSWORD);
 	}
 
@@ -158,7 +158,7 @@ public class AdministratorLoginBean implements Serializable {
 	 * @return
 	 */
 	private boolean invalidUsername(AdministratorLoginResult result) {
-		return result.getStatusCode().equals(
+		return result.getStatus().equals(
 				AdministratorLoginStatus.INVALID_USERNAME);
 	}
 }
