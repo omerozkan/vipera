@@ -8,6 +8,21 @@
 		<param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
 		<param-value>info.ozkan.vipera.jsf.FaceletsResourceResolver</param-value>
 	</context-param>
+	<context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+   <listener>
+    <listener-class>
+        org.springframework.web.context.request.RequestContextListener
+    </listener-class>
+  </listener>
+	
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

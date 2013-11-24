@@ -1,0 +1,70 @@
+@CHARSET "UTF-8";
+
+* {margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; text-decoration:none;}
+
+.clear {clear:both;}
+
+body
+{
+	background-color: #f3f3f3;
+	font-family: 'Cantarell', sans-serif;
+}
+
+#container
+{
+	width: 960px;
+	margin: 10px auto;
+}
+/* PrimeFaces Styles */
+
+.ui-widget
+{
+	font-size: 14px !important;
+}
+
+/*----LOGIN----*/
+
+.loginPanel
+{
+	width: 300px;
+	margin: 150px auto;
+}
+
+
+/*----HEADER------*/
+
+#header
+{
+	background: #033 url("../img/header.png.html?ln=default");
+	color: #fff;
+	height: 80px;
+	padding: 10px 10px 10px 0;
+	
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#header #logo
+{
+	text-shadow: 3px 3px 4px #000;
+	color: #fff;
+	text-align: center;
+	width: 200px;
+	margin: 8px 0 0 0;
+}
+
+#header h1
+{
+	font-size: 30px;
+}
+
+#header h2
+{
+	font-size: 12px;
+}
+
+
