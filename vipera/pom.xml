@@ -46,5 +46,6 @@
 		<module>vipera-business</module>
 		<module>vipera-jsf</module>
 		<module>vipera-war</module>
+		<module>vipera-dao</module>
 	</modules>
 </project>
