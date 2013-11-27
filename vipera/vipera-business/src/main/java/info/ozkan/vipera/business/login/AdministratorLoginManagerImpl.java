@@ -28,7 +28,7 @@ public class AdministratorLoginManagerImpl implements AdministratorLoginManager{
 	public AdministratorLoginResult login(String username,
 			String password) {
 		AdministratorLoginDaoResult daoResult =
-				loginDao.login(username, password);
+				loginDao.findUser(username, password);
 		AdministratorLoginResult result =
 				new AdministratorLoginResult();
 		copyResult(daoResult, result);

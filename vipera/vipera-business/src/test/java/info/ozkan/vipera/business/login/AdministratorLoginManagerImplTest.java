@@ -57,7 +57,7 @@ public class AdministratorLoginManagerImplTest {
 		assertResult(AdministratorLoginStatus.INVALID_USERNAME);
 		verify();
 	}
-	
+
 	/**
 	 * Yönetici kullanıcı adı ve parolasını
 	 * girip login butonuna tıklar
@@ -101,7 +101,7 @@ public class AdministratorLoginManagerImplTest {
 	 * Metodların çağrılmasını onaylar
 	 */
 	private void verify() {
-		Mockito.verify(mockDao).login(username, password);
+		Mockito.verify(mockDao).findUser(username, password);
 	}
 	/**
 	 * İstenilen sonucu test eder ve sonucu
@@ -120,6 +120,6 @@ public class AdministratorLoginManagerImplTest {
 	 * @param daoResult
 	 */
 	private void setMockReturn(AdministratorLoginDaoResult daoResult) {
-		Mockito.when(mockDao.login(username, password)).thenReturn(daoResult);
+		Mockito.when(mockDao.findUser(username, password)).thenReturn(daoResult);
 	}
 }
