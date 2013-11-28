@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
+import info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl;
 import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
 import info.ozkan.vipera.entities.Administrator;
 

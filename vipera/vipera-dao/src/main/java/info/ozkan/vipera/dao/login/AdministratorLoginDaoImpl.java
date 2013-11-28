@@ -1,4 +1,4 @@
-package info.ozkan.vipera.dao;
+package info.ozkan.vipera.dao.login;
 
 import java.util.List;
 
