@@ -39,6 +39,10 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
         <property name="dataSource" ref="dataSource" />
         <property name="changeLog" value="classpath:liquibase/db.changelog.xml" />
     </bean>
-    <!-- PERSISTENCE LAYER OBJECTS -->
-    <bean id="administratorLoginDao" class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
+    <!-- PERSISTENCE LAYER BEANS -->
+    <bean id="administratorLoginDao"
+        class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
+    <!-- BUSINESS LAYER BEANS -->
+    <bean id="administratorLoginManager"
+        class="info.ozkan.vipera.business.login.AdministratorLoginManagerImpl" /> 
 </beans>
