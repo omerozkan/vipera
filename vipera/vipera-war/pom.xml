@@ -12,6 +12,10 @@
 	<build>
 		<resources>
 			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
 				<directory>src/main/webapp</directory>
 			</resource>
 		</resources>
@@ -19,6 +23,11 @@
 
 	<dependencies>
 		<!-- VIPERA -->
+		<dependency>
+			<groupId>info.ozkan.vipera</groupId>
+			<artifactId>vipera-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>info.ozkan.vipera</groupId>
 			<artifactId>vipera-dao</artifactId>
