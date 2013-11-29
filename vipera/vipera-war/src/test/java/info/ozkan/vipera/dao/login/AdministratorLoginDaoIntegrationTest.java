@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:WEB-INF/applicationContext.xml")
 public class AdministratorLoginDaoIntegrationTest {
+	/**
+	 * Persistence nesnesi
+	 */
 	@Autowired
 	private AdministratorLoginDao dao;
 	/**
@@ -22,9 +25,13 @@ public class AdministratorLoginDaoIntegrationTest {
 	public void testUsername() throws Exception {
 		String username = "admin";
 		String password = "password";
-		AdministratorLoginDaoResult result = dao.findUser(username, password);
-		assertEquals(AdministratorLoginStatus.SUCCESS, result.getStatus());
-		assertEquals(username, result.getAdministrator().getUsername());
-		assertEquals(password, result.getAdministrator().getPassword());
+		AdministratorLoginDaoResult result =
+				dao.findUser(username, password);
+		assertEquals(AdministratorLoginStatus.SUCCESS,
+				result.getStatus());
+		assertEquals(username,
+				result.getAdministrator().getUsername());
+		assertEquals(password,
+				result.getAdministrator().getPassword());
 	}
 }
