@@ -3,7 +3,11 @@ package info.ozkan.vipera.dao.login;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.dao.login.AdministratorLoginDao;
@@ -14,11 +18,12 @@ import info.ozkan.vipera.entities.Administrator;
  * katmanı sınıfı
  * @author Ömer Özkan
  */
+@Repository
 public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	/**
 	 * Yöneticiyi bilgibankasından çekmek için JQL sorgusu
 	 */
-	private static final String GET_USER_JQL = "from Administrator a where c.username = :username";
+	private static final String GET_USER_JQL = "from Administrator a where a.username = :username";
 	/**
 	 * Persistence
 	 */
@@ -31,12 +36,13 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	 * @param password Parola
 	 * @return Result nesnesi
 	 */
+	@Transactional
 	public AdministratorLoginDaoResult findUser(String username,
 			String password) {
 		AdministratorLoginDaoResult result =
 				new AdministratorLoginDaoResult();
 		Query query = em.createQuery(GET_USER_JQL);
-		query.setParameter(username, password);
+		query.setParameter("username", username);
 		List<Administrator> list = query.getResultList();
 
 		if (checkUsername(list)) {
@@ -92,6 +98,7 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	 * EntitiyManager
 	 * @param em
 	 */
+	@PersistenceContext
 	public void setEntityManager(EntityManager em) {
 		this.em = em;
 	}
