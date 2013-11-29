@@ -1,8 +1,8 @@
 package info.ozkan.vipera.dao;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.contains;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl;
 import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
@@ -46,7 +46,7 @@ public class AdministratorLoginDaoImplTest {
 	/**
 	 * Yönetici sorgusu
 	 */
-	private String jql = "from Administrator a where c.username = :username";
+	private String jql = "from Administrator a where a.username = :username";
 
 	/**
 	 * Test verilerini hazırlar
@@ -126,13 +126,14 @@ public class AdministratorLoginDaoImplTest {
 		list.add(admin);
 		return list;
 	}
+
 	/**
 	 * Mock metodlarının çağrıldığını onaylar
 	 */
 	private void verifyMockObjects() {
 		verify(em).createQuery(jql);
 		verify(query).setParameter(
-				contains(username), contains(password));
+				contains("username"), contains(username));
 		verify(query).getResultList();
 	}
 
@@ -141,9 +142,9 @@ public class AdministratorLoginDaoImplTest {
 	 * @param list
 	 */
 	private void configureMockObjects(List list) {
+		when(em.createQuery(jql)).thenReturn(query);
 		when(query.setParameter(contains("username"),
 				contains(username))).thenReturn(query);
 		when(query.getResultList()).thenReturn(list);
-		when(em.createQuery(jql)).thenReturn(query);
 	}
 }
