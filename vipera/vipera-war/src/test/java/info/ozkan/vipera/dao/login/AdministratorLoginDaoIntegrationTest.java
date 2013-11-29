@@ -18,7 +18,8 @@ public class AdministratorLoginDaoIntegrationTest extends IntegrationTest{
 	@Autowired
 	private AdministratorLoginDao dao;
 	/**
-	 * Bilgibankasında admin kullanıcı adına sahip bir yönetici bulunmaktadır
+	 * Bilgibankasında admin kullanıcı adına sahip
+	 * bir yönetici bulunmaktadır
 	 * Dao sınıfı aracılığı ile gereken nesneye erişilir
 	 * @throws Exception
 	 */
@@ -32,7 +33,5 @@ public class AdministratorLoginDaoIntegrationTest extends IntegrationTest{
 				result.getStatus());
 		assertEquals(username,
 				result.getAdministrator().getUsername());
-		assertEquals(password,
-				result.getAdministrator().getPassword());
 	}
 }

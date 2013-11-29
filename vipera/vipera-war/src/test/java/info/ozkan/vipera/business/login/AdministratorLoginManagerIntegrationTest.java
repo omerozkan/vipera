@@ -13,11 +13,14 @@ import info.ozkan.ozkan.vipera.test.IntegrationTest;
  *
  */
 public class AdministratorLoginManagerIntegrationTest extends IntegrationTest{
+	/**
+	 * Business katmanı nesnesi
+	 */
 	@Autowired
 	private AdministratorLoginManager manager;
 
 	/**
-	 * Bilgibankasında kullanıcı adı admin olan bir 
+	 * Bilgibankasında kullanıcı adı admin olan bir
 	 * yönetici vardır
 	 * Kullanıcı adı ve parola girildiğinde doğru
 	 * kullanıcıyı Dao katmanından çeker
@@ -27,8 +30,10 @@ public class AdministratorLoginManagerIntegrationTest extends IntegrationTest{
 	public void testUsername() throws Exception {
 		String username = "admin";
 		String password = "password";
-		AdministratorLoginResult result = manager.login(username, password);
-		assertEquals(AdministratorLoginStatus.SUCCESS, result.getStatus());
+		AdministratorLoginResult result =
+				manager.login(username, password);
+		assertEquals(AdministratorLoginStatus.SUCCESS,
+				result.getStatus());
 		assertEquals(username, result.getAdministrator().getUsername());
 	}
 }
