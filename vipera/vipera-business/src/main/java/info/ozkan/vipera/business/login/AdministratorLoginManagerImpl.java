@@ -1,5 +1,7 @@
 package info.ozkan.vipera.business.login;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import info.ozkan.vipera.dao.login.AdministratorLoginDao;
 import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
 import info.ozkan.vipera.entities.Administrator;
@@ -12,6 +14,7 @@ public class AdministratorLoginManagerImpl implements AdministratorLoginManager{
 	/**
 	 * Persistence katmanı nesnesi
 	 */
+	@Autowired
 	private AdministratorLoginDao loginDao;
 
 	/**
