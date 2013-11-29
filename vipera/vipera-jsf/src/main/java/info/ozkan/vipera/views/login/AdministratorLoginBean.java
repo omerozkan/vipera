@@ -12,6 +12,7 @@ import javax.faces.event.ActionEvent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -71,6 +72,7 @@ public class AdministratorLoginBean implements Serializable {
 	/**
 	 * Business katmanı nesnesi
 	 */
+	@Autowired
 	private AdministratorLoginManager loginManager;
 	/**
 	 * Kullanıcı giriş işlemi başarılı mı?
