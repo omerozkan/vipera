@@ -6,10 +6,12 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.auto.detection" value="class" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.use_sql_comments" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 		</properties>
+		<jar-file>lib/vipera-domain-${project.version}.jar</jar-file>
 	</persistence-unit>
 </persistence>
