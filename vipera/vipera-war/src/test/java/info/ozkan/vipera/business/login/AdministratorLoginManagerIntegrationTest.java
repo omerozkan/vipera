@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import info.ozkan.ozkan.vipera.test.IntegrationTest;
+import info.ozkan.vipera.test.IntegrationTest;
 
 /**
  * AdministratorLoginManager entegrasyon testi

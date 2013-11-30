@@ -1,8 +1,8 @@
 package info.ozkan.vipera.dao.login;
 
 import static org.junit.Assert.*;
-import info.ozkan.ozkan.vipera.test.IntegrationTest;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
+import info.ozkan.vipera.test.IntegrationTest;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

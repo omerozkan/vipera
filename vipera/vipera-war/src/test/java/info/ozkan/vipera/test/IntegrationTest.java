@@ -1,4 +1,4 @@
-package info.ozkan.ozkan.vipera.test;
+package info.ozkan.vipera.test;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
