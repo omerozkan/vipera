@@ -10,7 +10,7 @@
 	<groupId>info.ozkan.vipera</groupId>
 	<artifactId>vipera-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>Vipera</name>
+	<name>${project.name}-${project.version}</name>
 	<description>Vipera özgür bir hasta takip sistemidir</description>
 	<url>http://ozkan.info</url>
 
