@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>info.ozkan.vipera</groupId>
-		<artifactId>vipera</artifactId>
-		<version>1-SNAPSHOT</version>
+		<artifactId>vipera-parent</artifactId>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>vipera-war</artifactId>
-	<name>vipera-war</name>
+	<artifactId>vipera</artifactId>
+	<name>vipera</name>
 	<packaging>war</packaging>
 	<build>
 		<resources>

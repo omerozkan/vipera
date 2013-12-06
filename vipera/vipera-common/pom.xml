@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>info.ozkan.vipera</groupId>
-    <artifactId>vipera</artifactId>
-    <version>1-SNAPSHOT</version>
+    <artifactId>vipera-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
   </parent>
   <artifactId>vipera-common</artifactId>
   <name>vipera-common</name>

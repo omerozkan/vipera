@@ -4,11 +4,11 @@
 	<parent>
 		<groupId>info.ozkan.vipera.bom</groupId>
 		<artifactId>bom</artifactId>
-		<version>1-SNAPSHOT</version>
+		<version>0.1-SNAPSHOT</version>
 		<relativePath>../bom/pom.xml</relativePath>
 	</parent>
 	<groupId>info.ozkan.vipera</groupId>
-	<artifactId>vipera</artifactId>
+	<artifactId>vipera-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Vipera</name>
 	<description>Vipera özgür bir hasta takip sistemidir</description>

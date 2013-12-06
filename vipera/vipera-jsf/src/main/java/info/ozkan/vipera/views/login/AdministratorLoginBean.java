@@ -132,6 +132,8 @@ public class AdministratorLoginBean implements Serializable {
 		}
 		else if(isLoginSuccess(result)) {
 			isSuccess = true;
+			context.getExternalContext().getSessionMap()
+			 .put("administrator", result.getAdministrator());
 		}
 	}
 
