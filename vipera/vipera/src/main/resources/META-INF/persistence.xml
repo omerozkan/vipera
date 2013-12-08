@@ -10,7 +10,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.use_sql_comments" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
 		</properties>
 		<jar-file>lib/vipera-domain-${project.version}.jar</jar-file>
 	</persistence-unit>
