@@ -17,8 +17,17 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class AuthorizationListener implements PhaseListener{
+	/**
+	 * Yönetici session değişkeni
+	 */
 	private static final String ADMINISTRATOR = "administrator";
+	/**
+	 * Yönetim paneli yolu
+	 */
 	private static final String ADMINISTRATOR_PATH = "yonetim";
+	/**
+	 * Login sayfası
+	 */
 	private static final String LOGIN_PAGE = "login";
 	/**
 	 * Logger
@@ -39,11 +48,22 @@ public class AuthorizationListener implements PhaseListener{
 			checkAdministrator(facesContext, session);
 		}
 	}
-
+	/**
+	 * Bulunan sayfanın bir yönetim paneli olup olmadığını
+	 * kontrol eder
+	 * @param currentPage
+	 * @return
+	 */
 	private boolean isAdministratorPanel(String currentPage) {
 		return currentPage.contains(ADMINISTRATOR_PATH);
 	}
 
+	/**
+	 * Bulunan sayfanın bir login sayfası olup olmadığını kontrol
+	 * eder
+	 * @param currentPage
+	 * @return
+	 */
 	private boolean isLoginPage(String currentPage) {
 		return currentPage.contains(LOGIN_PAGE);
 	}
