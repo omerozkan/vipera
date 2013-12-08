@@ -1,12 +1,17 @@
 package info.ozkan.vipera.views.login;
 
 import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import info.ozkan.vipera.business.login.AdministratorLoginManager;
 import info.ozkan.vipera.business.login.AdministratorLoginResult;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.junit.Before;
@@ -139,24 +144,36 @@ public class AdministratorLoginBeanTest {
 	 */
 	@Test
 	public void loginSuccessfull() throws Exception {
-		//TODO: Sessionscope bir bean a yöneticinin enjekte
-		//edilmesi gerekiyor
 		Administrator admin = new Administrator();
 		admin.setPassword(username);
 		admin.setUsername(password);
 
-		AdministratorLoginResult result = new AdministratorLoginResult();
+		AdministratorLoginResult result =
+				new AdministratorLoginResult();
 		result.setStatus(AdministratorLoginStatus.SUCCESS);
 		result.setAdministrator(admin);
 
 		returnLoginResult(result);
 
+		Map<String, Object> sessionMap = new HashMap<String, Object>();
+		ExternalContext externalContext =
+				Mockito.mock(ExternalContext.class);
+		Mockito.when(context.getExternalContext())
+		 .thenReturn(externalContext);
+		Mockito.when(externalContext.getSessionMap())
+			.thenReturn(sessionMap);
+
 		loginBean.setUsername(username);
 		loginBean.setPassword(password);
 		loginBean.login(null);
+
 		assertEquals(loginBean.login(),
 				AdministratorLoginBean.INDEX_PAGE);
+		assertNotEquals(sessionMap.size(), 0);
+		assertSame(admin, sessionMap.get("administrator"));
 		verifyLoginManager();
+		Mockito.verify(context).getExternalContext();
+		Mockito.verify(externalContext).getSessionMap();
 	}
 
 	/**
