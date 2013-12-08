@@ -10,7 +10,7 @@
 	<groupId>info.ozkan.vipera</groupId>
 	<artifactId>vipera-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>${project.name}-${project.version}</name>
+	<name>${project.artifactId} ${project.version}</name>
 	<description>Vipera özgür bir hasta takip sistemidir</description>
 	<url>http://ozkan.info</url>
 
@@ -46,6 +46,6 @@
 		<module>vipera-dao</module>
 		<module>vipera-business</module>
 		<module>vipera-jsf</module>
-		<module>vipera-war</module>
+		<module>vipera</module>
 	</modules>
 </project>
