@@ -6,7 +6,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * Entegrasyon test sınıflarının olması gereken ortak özelliklerini
  * barındırır
- * @author omer
+ * @author Ömer Özkan
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)

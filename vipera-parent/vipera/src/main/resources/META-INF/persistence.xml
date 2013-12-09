@@ -12,6 +12,6 @@
 			<property name="hibernate.use_sql_comments" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
 		</properties>
-		<jar-file>lib/vipera-domain-${project.version}.jar</jar-file>
+		<!--<jar-file>lib/vipera-domain-${project.version}.jar</jar-file>-->
 	</persistence-unit>
 </persistence>
