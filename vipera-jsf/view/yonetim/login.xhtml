@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<title>Vipera Yönetim Paneli</title>
+</h:head> 
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="css/style.css" library="default" />
+	</f:facet> 
+	<h:form id="loginForm">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:panel id="loginPanel" styleClass="loginPanel" header="Yönetici Girişi">
+			<h:panelGrid columns="2">
+				<h:outputLabel for="username" value="Kullanıcı Adı:"/>
+				<p:inputText id="username" value="#{adminLogin.username}" label="Kullanıcı Adı">
+				</p:inputText>
+				<h:outputLabel for="password" value="Parola:" />
+				<p:password id="password" value="#{adminLogin.password}" label="Parola">
+				</p:password>
+			</h:panelGrid>
+			<p:commandButton id="loginButton" value="Giriş" update="growl" action="#{adminLogin.login}"
+			 actionListener="#{adminLogin.login}"
+			 styleClass="loginSubmit" />
+		</p:panel>
+	</h:form>
+</h:body> 
+</html>
