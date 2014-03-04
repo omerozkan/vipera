@@ -6,9 +6,13 @@
 *.ear
 /target
 */target
+*/*/target
 .project
 */.project
 .classpath
 */.classpath
 .settings/
 .settings/*
+*/.gitignore
+*/*/.gitignore
+*/*/.springBeans
