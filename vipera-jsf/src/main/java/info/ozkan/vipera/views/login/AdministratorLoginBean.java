@@ -1,6 +1,5 @@
 package info.ozkan.vipera.views.login;
 
-import info.ozkan.vipera.business.login.AdministratorLoginManager;
 import info.ozkan.vipera.business.login.AdministratorLoginResult;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 
@@ -14,6 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component("adminLogin")
@@ -23,7 +27,7 @@ public class AdministratorLoginBean implements Serializable {
 	 * Logging
 	 */
 	private static Logger LOGGER = LoggerFactory
-			.getLogger(AdministratorLoginBean.class);
+	        .getLogger(AdministratorLoginBean.class);
 	/**
 	 * Login sayfası
 	 */
@@ -39,27 +43,24 @@ public class AdministratorLoginBean implements Serializable {
 	/**
 	 * Alanların boş olduğu durumda gösterilecek olan hata mesajı
 	 */
-	private static final String EMPTY_FIELD_MESSAGE =
-			"Lütfen kullanıcı adınızı ve parolanızı giriniz!";
+	private static final String EMPTY_FIELD_MESSAGE = "Lütfen kullanıcı adınızı ve parolanızı giriniz!";
 	/**
-	 * Girilen bilgilerin geçersiz olduğu durumda gösterilecek
-	 * olan hata mesajı
+	 * Girilen bilgilerin geçersiz olduğu durumda gösterilecek olan hata mesajı
 	 */
-	private static final String INVALID_LOGIN_MESSAGE =
-			"Geçersiz kullanıcı adı ve parola girdiniz."
-			+ "Lütfen bilgilerinizi kontrol ederek tekrar deneyin!";
+	private static final String INVALID_LOGIN_MESSAGE = "Geçersiz kullanıcı adı ve parola girdiniz."
+	        + "Lütfen bilgilerinizi kontrol ederek tekrar deneyin!";
 	/**
-	 * {@link AdministratorLoginBean#INVALID_LOGIN_MESSAGE}
-	 * mesajını içeren FacesMessage nesnesi
+	 * {@link AdministratorLoginBean#INVALID_LOGIN_MESSAGE} mesajını içeren
+	 * FacesMessage nesnesi
 	 */
-	protected static final FacesMessage INVALID_LOGIN =
-			new FacesMessage(MESSAGE_TITLE, INVALID_LOGIN_MESSAGE);
+	protected static final FacesMessage INVALID_LOGIN = new FacesMessage(
+	        MESSAGE_TITLE, INVALID_LOGIN_MESSAGE);
 	/**
-	 * {@link AdministratorLoginBean#EMPTY_FIELD_MESSAGE}
-	 * mesajını içeren FacesMessage nesnesi
+	 * {@link AdministratorLoginBean#EMPTY_FIELD_MESSAGE} mesajını içeren
+	 * FacesMessage nesnesi
 	 */
-	protected static final FacesMessage EMPTY_FIELD =
-			new FacesMessage(MESSAGE_TITLE, EMPTY_FIELD_MESSAGE);
+	protected static final FacesMessage EMPTY_FIELD = new FacesMessage(
+	        MESSAGE_TITLE, EMPTY_FIELD_MESSAGE);
 
 	/**
 	 * Kullanıcı adı
@@ -73,25 +74,17 @@ public class AdministratorLoginBean implements Serializable {
 	 * Business katmanı nesnesi
 	 */
 	@Autowired
-	private AdministratorLoginManager loginManager;
+	private AuthenticationManager authenticationManager;
 	/**
 	 * Kullanıcı giriş işlemi başarılı mı?
 	 */
 	private boolean isSuccess;
 
-	/**
-	 * LoginManager setter metod
-	 * @param manager
-	 */
-	public void setLoginManager(AdministratorLoginManager manager) {
-		this.loginManager = manager;
-	}
-
 	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -99,14 +92,14 @@ public class AdministratorLoginBean implements Serializable {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
 	/**
-	 * Login işlemi sonucunda
-	 * login sayfasına veya yönetici anasayfasına
+	 * Login işlemi sonucunda login sayfasına veya yönetici anasayfasına
 	 * yönlendirilmesini sağlar
+	 * 
 	 * @return yeni sayfa
 	 */
 	public String login() {
@@ -115,54 +108,63 @@ public class AdministratorLoginBean implements Serializable {
 	}
 
 	/**
-	 * Girilen bilgileri kontrol eder
-	 * gerektiğinde hata mesajı gösterir
+	 * Girilen bilgileri kontrol eder gerektiğinde hata mesajı gösterir
+	 * 
 	 * @param ae
 	 */
-	public void login(ActionEvent ae) {
-		FacesContext context = FacesContext.getCurrentInstance();
+	public void login(final ActionEvent ae) {
+		final FacesContext context = FacesContext.getCurrentInstance();
 		isSuccess = false;
 		if (username.isEmpty() || password.isEmpty()) {
 			context.addMessage(null, EMPTY_FIELD);
 			return;
 		}
-		AdministratorLoginResult result = loginManager.login(username, password);
-		if(invalidUsername(result) || invalidPassword(result)) {
-			context.addMessage(null, INVALID_LOGIN);
-		}
-		else if(isLoginSuccess(result)) {
+		try {
+			final Authentication request = new UsernamePasswordAuthenticationToken(
+			        username, password);
+			final Authentication result = authenticationManager
+			        .authenticate(request);
+			SecurityContextHolder.getContext().setAuthentication(result);
 			isSuccess = true;
-			context.getExternalContext().getSessionMap()
-			 .put("administrator", result.getAdministrator());
+		} catch (final BadCredentialsException e) {
+			context.addMessage(null, INVALID_LOGIN);
 		}
 	}
 
 	/**
 	 * Login başarılı mı?
+	 * 
 	 * @param result
 	 * @return
 	 */
-	private boolean isLoginSuccess(AdministratorLoginResult result) {
+	private boolean isLoginSuccess(final AdministratorLoginResult result) {
 		return result.getStatus().equals(AdministratorLoginStatus.SUCCESS);
 	}
 
 	/**
 	 * Parola geçersiz mi?
+	 * 
 	 * @param result
 	 * @return
 	 */
-	private boolean invalidPassword(AdministratorLoginResult result) {
+	private boolean invalidPassword(final AdministratorLoginResult result) {
 		return result.getStatus().equals(
-				AdministratorLoginStatus.INVALID_PASSWORD);
+		        AdministratorLoginStatus.INVALID_PASSWORD);
 	}
 
 	/**
 	 * Kullanıcı adı geçersiz mi
+	 * 
 	 * @param result
 	 * @return
 	 */
-	private boolean invalidUsername(AdministratorLoginResult result) {
+	private boolean invalidUsername(final AdministratorLoginResult result) {
 		return result.getStatus().equals(
-				AdministratorLoginStatus.INVALID_USERNAME);
+		        AdministratorLoginStatus.INVALID_USERNAME);
+	}
+
+	public void setAuthenticationManager(
+	        final AuthenticationManager authenticationManager) {
+		this.authenticationManager = authenticationManager;
 	}
 }

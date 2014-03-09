@@ -1,14 +1,15 @@
 package info.ozkan.vipera.views.login;
 
-import static org.junit.Assert.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 import info.ozkan.vipera.business.login.AdministratorLoginManager;
 import info.ozkan.vipera.business.login.AdministratorLoginResult;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -23,8 +24,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
- * AdministratorLoginBean birim test sınıfı
- * issueNo: 35
+ * AdministratorLoginBean birim test sınıfı issueNo: 35
+ * 
  * @author Ömer Özkan
  */
 @RunWith(PowerMockRunner.class)
@@ -37,15 +38,15 @@ public class AdministratorLoginBeanTest {
 	/**
 	 * Kullanıcı adı
 	 */
-	private String username = "admin";
+	private final String username = "admin";
 	/**
 	 * Testler için kullanılan boş string
 	 */
-	private String empty = "";
+	private final String empty = "";
 	/**
 	 * parola
 	 */
-	private String password = "password";
+	private final String password = "password";
 	/**
 	 * Test edilen sınıf nesnesi
 	 */
@@ -63,17 +64,17 @@ public class AdministratorLoginBeanTest {
 		context = Mockito.mock(FacesContext.class);
 		PowerMockito.mockStatic(FacesContext.class);
 		PowerMockito.doReturn(context).when(FacesContext.class,
-				"getCurrentInstance");
+		        "getCurrentInstance");
 		loginBean = new AdministratorLoginBean();
 		manager = Mockito.mock(AdministratorLoginManager.class);
-		loginBean.setLoginManager(manager);
+		// loginBean.setLoginManager(manager);
 	}
 
 	/**
-	 * Yönetici kullanıcı adını boş bırakarak
-	 * login butonuna basar. Login işlemi başarısızdır.
-	 * Lütfen Kullanıcı adınızı ve parolanızı giriniz
-	 * hata mesajı gönderilir
+	 * Yönetici kullanıcı adını boş bırakarak login butonuna basar. Login işlemi
+	 * başarısızdır. Lütfen Kullanıcı adınızı ve parolanızı giriniz hata mesajı
+	 * gönderilir
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -86,10 +87,10 @@ public class AdministratorLoginBeanTest {
 	}
 
 	/**
-	 * Yönetici parolasını boş bırakarak
-	 * login butonuna basar. Login işlemi başarısızdır.
-	 * Lütfen Kullanıcı adınızı ve parolanızı giriniz
-	 * hata mesajı gönderilir.
+	 * Yönetici parolasını boş bırakarak login butonuna basar. Login işlemi
+	 * başarısızdır. Lütfen Kullanıcı adınızı ve parolanızı giriniz hata mesajı
+	 * gönderilir.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -102,10 +103,10 @@ public class AdministratorLoginBeanTest {
 	}
 
 	/**
-	 * Yönetici kullanıcı adını ve parolasını girerek login
-	 * butonuna tıklar. Kullanıcı adı sistemde bulunmaz
-	 * "Geçersiz giriş, lütfen kullanıcı adınızı ve parolanızı
-	 * tekrar giriniz!" hatası gösterilir.
+	 * Yönetici kullanıcı adını ve parolasını girerek login butonuna tıklar.
+	 * Kullanıcı adı sistemde bulunmaz "Geçersiz giriş, lütfen kullanıcı adınızı
+	 * ve parolanızı tekrar giriniz!" hatası gösterilir.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -118,12 +119,13 @@ public class AdministratorLoginBeanTest {
 		verifyMessage(AdministratorLoginBean.INVALID_LOGIN);
 		verifyLoginManager();
 	}
+
 	/**
-	 * Yönetici kullanıcı adını ve parolasını girerek login
-	 * butonuna tıklar. Kullanıcı adı sistemde kayıtlıdır
-	 * fakat parola yanlıştır
-	 * "Geçersiz giriş, lütfen kullanıcı adınızı ve parolanızı
-	 * tekrar giriniz!" hatası gösterilir.
+	 * Yönetici kullanıcı adını ve parolasını girerek login butonuna tıklar.
+	 * Kullanıcı adı sistemde kayıtlıdır fakat parola yanlıştır "Geçersiz giriş,
+	 * lütfen kullanıcı adınızı ve parolanızı tekrar giriniz!" hatası
+	 * gösterilir.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -137,38 +139,34 @@ public class AdministratorLoginBeanTest {
 	}
 
 	/**
-	 * Yönetici kullanıcı adı ve parolasını girer.
-	 * Bilgiler geçerlidir.
-	 * Yönetici yönetim paneline yönlendirilir.
+	 * Yönetici kullanıcı adı ve parolasını girer. Bilgiler geçerlidir. Yönetici
+	 * yönetim paneline yönlendirilir.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void loginSuccessfull() throws Exception {
-		Administrator admin = new Administrator();
+		final Administrator admin = new Administrator();
 		admin.setPassword(username);
 		admin.setUsername(password);
 
-		AdministratorLoginResult result =
-				new AdministratorLoginResult();
+		final AdministratorLoginResult result = new AdministratorLoginResult();
 		result.setStatus(AdministratorLoginStatus.SUCCESS);
 		result.setAdministrator(admin);
 
 		returnLoginResult(result);
 
-		Map<String, Object> sessionMap = new HashMap<String, Object>();
-		ExternalContext externalContext =
-				Mockito.mock(ExternalContext.class);
-		Mockito.when(context.getExternalContext())
-		 .thenReturn(externalContext);
-		Mockito.when(externalContext.getSessionMap())
-			.thenReturn(sessionMap);
+		final Map<String, Object> sessionMap = new HashMap<String, Object>();
+		final ExternalContext externalContext = Mockito
+		        .mock(ExternalContext.class);
+		Mockito.when(context.getExternalContext()).thenReturn(externalContext);
+		Mockito.when(externalContext.getSessionMap()).thenReturn(sessionMap);
 
 		loginBean.setUsername(username);
 		loginBean.setPassword(password);
 		loginBean.login(null);
 
-		assertEquals(loginBean.login(),
-				AdministratorLoginBean.INDEX_PAGE);
+		assertEquals(loginBean.login(), AdministratorLoginBean.INDEX_PAGE);
 		assertNotEquals(sessionMap.size(), 0);
 		assertSame(admin, sessionMap.get("administrator"));
 		verifyLoginManager();
@@ -177,17 +175,17 @@ public class AdministratorLoginBeanTest {
 	}
 
 	/**
-	 * LoginManager nesnesini LoginResult nesnesini
-	 * dönderecek şekilde ayarlar
+	 * LoginManager nesnesini LoginResult nesnesini dönderecek şekilde ayarlar
+	 * 
 	 * @param result
 	 */
-	private void returnLoginResult(AdministratorLoginResult result) {
-		Mockito.when(manager.login(username, password))
-			.thenReturn(result);
+	private void returnLoginResult(final AdministratorLoginResult result) {
+		Mockito.when(manager.login(username, password)).thenReturn(result);
 	}
+
 	/**
-	 * {@link AdministratorLoginBeanTest#manager}
-	 * nesnesinin login metodunu onaylar
+	 * {@link AdministratorLoginBeanTest#manager} nesnesinin login metodunu
+	 * onaylar
 	 */
 	private void verifyLoginManager() {
 		Mockito.verify(manager).login(username, password);
@@ -195,38 +193,38 @@ public class AdministratorLoginBeanTest {
 
 	/**
 	 * İstenilen StatusCode'u içeren LoginResult nesnesi oluşturur
+	 * 
 	 * @param statusCode
 	 */
-	private void generateLoginResult(AdministratorLoginStatus statusCode) {
-		AdministratorLoginResult loginResult = new AdministratorLoginResult();
+	private void generateLoginResult(final AdministratorLoginStatus statusCode) {
+		final AdministratorLoginResult loginResult = new AdministratorLoginResult();
 		loginResult.setStatus(statusCode);
 		returnLoginResult(loginResult);
 	}
 
 	/**
-	 * FacesMessage nesnesinin istenilen mesaj
-	 * olup olmadığını kontrol eder
+	 * FacesMessage nesnesinin istenilen mesaj olup olmadığını kontrol eder
+	 * 
 	 * @param message
 	 */
-	private void verifyMessage(FacesMessage message) {
+	private void verifyMessage(final FacesMessage message) {
 		Mockito.verify(context).addMessage(null, message);
 	}
 
 	/**
-	 * Kullanıcı ve parola alanlarının boş girilmesi
-	 * durumunda test edilecek olan mesaj
+	 * Kullanıcı ve parola alanlarının boş girilmesi durumunda test edilecek
+	 * olan mesaj
 	 */
 	private void assertEmptyField() {
 		verifyMessage(AdministratorLoginBean.EMPTY_FIELD);
 	}
 
 	/**
-	 * Login işlemi başarısız olduğu durumlarda
-	 * tekrar login sayfasına yönlendirilmesini
-	 * test eder
+	 * Login işlemi başarısız olduğu durumlarda tekrar login sayfasına
+	 * yönlendirilmesini test eder
 	 */
 	private void assertAccessDenied() {
-		String returnedPage = loginBean.login();
+		final String returnedPage = loginBean.login();
 		assertEquals(AdministratorLoginBean.LOGIN_PAGE, returnedPage);
 	}
 }
