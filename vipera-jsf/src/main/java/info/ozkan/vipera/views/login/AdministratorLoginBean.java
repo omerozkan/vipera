@@ -1,8 +1,5 @@
 package info.ozkan.vipera.views.login;
 
-import info.ozkan.vipera.business.login.AdministratorLoginResult;
-import info.ozkan.vipera.business.login.AdministratorLoginStatus;
-
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
@@ -14,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +32,7 @@ public class AdministratorLoginBean implements Serializable {
 	/**
 	 * Panel ana sayfa
 	 */
-	protected static final String INDEX_PAGE = "index";
+	protected static final String INDEX_PAGE = "index?faces-redirect=true";
 	/**
 	 * Mesaj başlığı
 	 */
@@ -74,7 +71,7 @@ public class AdministratorLoginBean implements Serializable {
 	 * Business katmanı nesnesi
 	 */
 	@Autowired
-	private AuthenticationManager authenticationManager;
+	private AuthenticationManager adminAuthManager;
 	/**
 	 * Kullanıcı giriş işlemi başarılı mı?
 	 */
@@ -122,49 +119,12 @@ public class AdministratorLoginBean implements Serializable {
 		try {
 			final Authentication request = new UsernamePasswordAuthenticationToken(
 			        username, password);
-			final Authentication result = authenticationManager
+			final Authentication result = adminAuthManager
 			        .authenticate(request);
 			SecurityContextHolder.getContext().setAuthentication(result);
 			isSuccess = true;
-		} catch (final BadCredentialsException e) {
+		} catch (final AuthenticationException e) {
 			context.addMessage(null, INVALID_LOGIN);
 		}
-	}
-
-	/**
-	 * Login başarılı mı?
-	 * 
-	 * @param result
-	 * @return
-	 */
-	private boolean isLoginSuccess(final AdministratorLoginResult result) {
-		return result.getStatus().equals(AdministratorLoginStatus.SUCCESS);
-	}
-
-	/**
-	 * Parola geçersiz mi?
-	 * 
-	 * @param result
-	 * @return
-	 */
-	private boolean invalidPassword(final AdministratorLoginResult result) {
-		return result.getStatus().equals(
-		        AdministratorLoginStatus.INVALID_PASSWORD);
-	}
-
-	/**
-	 * Kullanıcı adı geçersiz mi
-	 * 
-	 * @param result
-	 * @return
-	 */
-	private boolean invalidUsername(final AdministratorLoginResult result) {
-		return result.getStatus().equals(
-		        AdministratorLoginStatus.INVALID_USERNAME);
-	}
-
-	public void setAuthenticationManager(
-	        final AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
 	}
 }
