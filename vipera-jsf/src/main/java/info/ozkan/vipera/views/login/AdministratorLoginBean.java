@@ -127,4 +127,8 @@ public class AdministratorLoginBean implements Serializable {
 			context.addMessage(null, INVALID_LOGIN);
 		}
 	}
+
+	public void setAdminAuthManager(final AuthenticationManager adminAuthManager) {
+		this.adminAuthManager = adminAuthManager;
+	}
 }
