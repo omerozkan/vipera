@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * 
  */
 public class AdministratorLoginManager implements AuthenticationProvider {
+	protected static final String ROLE_ADMIN = "ROLE_ADMIN";
 	/**
 	 * Persistence katmanı nesnesi
 	 */
@@ -48,7 +49,7 @@ public class AdministratorLoginManager implements AuthenticationProvider {
 		final AdministratorLoginStatus status = result.getStatus();
 		if (status.equals(AdministratorLoginStatus.SUCCESS)) {
 			final Collection<? extends GrantedAuthority> authorities = AuthorityUtils
-			        .createAuthorityList("ROLE_ADMIN");
+			        .createAuthorityList(ROLE_ADMIN);
 
 			final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 			        result.getAdministrator(), result.getAdministrator()

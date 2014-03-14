@@ -1,18 +1,21 @@
 package info.ozkan.vipera.business.login;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import info.ozkan.vipera.test.IntegrationTest;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import info.ozkan.vipera.test.IntegrationTest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * AdministratorLoginManager entegrasyon testi
+ * 
  * @author Ömer Özkan
- *
+ * 
  */
-public class AdministratorLoginManagerIntegrationTest extends IntegrationTest{
+public class AdministratorLoginManagerIntegrationTest extends IntegrationTest {
 	/**
 	 * Business katmanı nesnesi
 	 */
@@ -20,20 +23,21 @@ public class AdministratorLoginManagerIntegrationTest extends IntegrationTest{
 	private AdministratorLoginManager manager;
 
 	/**
-	 * Bilgibankasında kullanıcı adı admin olan bir
-	 * yönetici vardır
-	 * Kullanıcı adı ve parola girildiğinde doğru
-	 * kullanıcıyı Dao katmanından çeker
+	 * Bilgibankasında kullanıcı adı admin olan bir yönetici vardır Kullanıcı
+	 * adı ve parola girildiğinde doğru kullanıcıyı Dao katmanından çeker
+	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void testUsername() throws Exception {
-		String username = "admin";
-		String password = "password";
-		AdministratorLoginResult result =
-				manager.login(username, password);
-		assertEquals(AdministratorLoginStatus.SUCCESS,
-				result.getStatus());
-		assertEquals(username, result.getAdministrator().getUsername());
+		final String username = "admin";
+		final String password = "password";
+		final Authentication authentication = new UsernamePasswordAuthenticationToken(
+		        username, password);
+		final Authentication result = manager.authenticate(authentication);
+		final GrantedAuthority authority = result.getAuthorities().iterator()
+		        .next();
+		assertTrue(authority.getAuthority().equals(
+		        AdministratorLoginManager.ROLE_ADMIN));
 	}
 }
