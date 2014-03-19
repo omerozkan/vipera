@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -19,6 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Named("administratorLoginDao")
 public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
+	/**
+	 * LOGGER
+	 */
+	private static final Logger LOGGER = LoggerFactory
+	        .getLogger(AdministratorLoginDaoImpl.class);
 	/**
 	 * Yöneticiyi bilgibankasından çekmek için JQL sorgusu
 	 */
@@ -47,6 +54,7 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 		final List<Administrator> list = query.getResultList();
 
 		if (checkUsername(list)) {
+			LOGGER.info("User \"{}\" has not exist", username);
 			result.setStatus(AdministratorLoginStatus.INVALID_USERNAME);
 			return result;
 		}
@@ -54,9 +62,11 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 		final Administrator admin = list.get(0);
 
 		if (checkPassword(password, admin)) {
+			LOGGER.info("The user \"{}\"'s password is wrong", username);
 			result.setStatus(AdministratorLoginStatus.INVALID_PASSWORD);
 			return result;
 		}
+		LOGGER.info("The user {} has found", username);
 		loginSuccessfull(result, admin);
 		return result;
 	}

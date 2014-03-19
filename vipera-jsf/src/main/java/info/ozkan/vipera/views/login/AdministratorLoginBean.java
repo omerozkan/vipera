@@ -123,7 +123,9 @@ public class AdministratorLoginBean implements Serializable {
 			        .authenticate(request);
 			SecurityContextHolder.getContext().setAuthentication(result);
 			isSuccess = true;
+			LOGGER.info("{} has login to admin panel", username);
 		} catch (final AuthenticationException e) {
+			LOGGER.info("The user has failed to login admin panel!");
 			context.addMessage(null, INVALID_LOGIN);
 		}
 	}

@@ -8,6 +8,8 @@ import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +27,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 @Named("administratorLoginManager")
 public class AdministratorLoginManager implements AuthenticationProvider {
+	/**
+	 * LOGGER
+	 */
+	private static final Logger LOGGER = LoggerFactory
+	        .getLogger(AdministratorLoginManager.class);
 	protected static final String ROLE_ADMIN = "ROLE_ADMIN";
 	/**
 	 * Persistence katmanı nesnesi
@@ -57,11 +64,18 @@ public class AdministratorLoginManager implements AuthenticationProvider {
 			final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 			        result.getAdministrator(), result.getAdministrator()
 			                .getPassword(), authorities);
+			LOGGER.info("{} has been authenticated for admin panel", result
+			        .getAdministrator().getUsername());
 			return token;
 		} else if (status.equals(AdministratorLoginStatus.INVALID_USERNAME)) {
+			LOGGER.error("\"{}\" username has not found",
+			        authentication.getPrincipal());
 			throw new UsernameNotFoundException("User not found: "
 			        + authentication.getPrincipal());
 		} else {
+			LOGGER.error(
+			        "\"{}\" has failed to login because of bad credentials",
+			        authentication.getPrincipal());
 			throw new BadCredentialsException("Invalid password");
 		}
 	}
