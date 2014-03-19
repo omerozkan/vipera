@@ -5,7 +5,9 @@ import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,12 +23,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @author Ömer Özkan
  * 
  */
+@Named("administratorLoginManager")
 public class AdministratorLoginManager implements AuthenticationProvider {
 	protected static final String ROLE_ADMIN = "ROLE_ADMIN";
 	/**
 	 * Persistence katmanı nesnesi
 	 */
-	@Autowired
+	@Inject
 	private AdministratorLoginDao loginDao;
 
 	/**

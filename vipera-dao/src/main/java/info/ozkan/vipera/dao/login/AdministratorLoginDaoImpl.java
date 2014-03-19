@@ -1,24 +1,23 @@
 package info.ozkan.vipera.dao.login;
 
+import info.ozkan.vipera.business.login.AdministratorLoginStatus;
+import info.ozkan.vipera.entities.Administrator;
+
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import info.ozkan.vipera.business.login.AdministratorLoginStatus;
-import info.ozkan.vipera.dao.login.AdministratorLoginDao;
-import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
-import info.ozkan.vipera.entities.Administrator;
 /**
- * Administrator login işlemleri için kullanılan dao
- * katmanı sınıfı
+ * Administrator login işlemleri için kullanılan dao katmanı sınıfı
+ * 
  * @author Ömer Özkan
  */
-@Repository
+@Named("administratorLoginDao")
 public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	/**
 	 * Yöneticiyi bilgibankasından çekmek için JQL sorgusu
@@ -30,32 +29,32 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	private EntityManager em;
 
 	/**
-	 * Kullanıcı adı ve parola ile bilgibankasından yöneticiyi
-	 * ve sonucu gönderir
-	 * @param username Kullanıcı adı
-	 * @param password Parola
+	 * Kullanıcı adı ve parola ile bilgibankasından yöneticiyi ve sonucu
+	 * gönderir
+	 * 
+	 * @param username
+	 *            Kullanıcı adı
+	 * @param password
+	 *            Parola
 	 * @return Result nesnesi
 	 */
 	@Transactional
-	public AdministratorLoginDaoResult findUser(String username,
-			String password) {
-		AdministratorLoginDaoResult result =
-				new AdministratorLoginDaoResult();
-		Query query = em.createQuery(GET_USER_JQL);
+	public AdministratorLoginDaoResult findUser(final String username,
+	        final String password) {
+		final AdministratorLoginDaoResult result = new AdministratorLoginDaoResult();
+		final Query query = em.createQuery(GET_USER_JQL);
 		query.setParameter("username", username);
-		List<Administrator> list = query.getResultList();
+		final List<Administrator> list = query.getResultList();
 
 		if (checkUsername(list)) {
-			result.setStatus(
-				AdministratorLoginStatus.INVALID_USERNAME);
+			result.setStatus(AdministratorLoginStatus.INVALID_USERNAME);
 			return result;
 		}
 
-		Administrator admin = list.get(0);
+		final Administrator admin = list.get(0);
 
 		if (checkPassword(password, admin)) {
-			result.setStatus(
-				AdministratorLoginStatus.INVALID_PASSWORD);
+			result.setStatus(AdministratorLoginStatus.INVALID_PASSWORD);
 			return result;
 		}
 		loginSuccessfull(result, admin);
@@ -63,43 +62,50 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	}
 
 	/**
-	 * Login işlemi başarılı ise
-	 * result nesnesine gereken değerleri tanımlar
-	 * @param result sonuç
-	 * @param admin yönetici
+	 * Login işlemi başarılı ise result nesnesine gereken değerleri tanımlar
+	 * 
+	 * @param result
+	 *            sonuç
+	 * @param admin
+	 *            yönetici
 	 */
-	private void loginSuccessfull(AdministratorLoginDaoResult result,
-			Administrator admin) {
+	private void loginSuccessfull(final AdministratorLoginDaoResult result,
+	        final Administrator admin) {
 		result.setStatus(AdministratorLoginStatus.SUCCESS);
 		result.setAdministrator(admin);
 	}
 
 	/**
 	 * Yönetici parolasının eşleşip eşleşmediğini kontrol eder
-	 * @param password Parola
-	 * @param admin Yönetici
+	 * 
+	 * @param password
+	 *            Parola
+	 * @param admin
+	 *            Yönetici
 	 * @return Parola hatalı ise true, değilse false döner
 	 */
-	private boolean checkPassword(String password, Administrator admin) {
+	private boolean checkPassword(final String password,
+	        final Administrator admin) {
 		return !password.equals(admin.getPassword());
 	}
 
 	/**
-	 * Bilgibankasında o kullanıcıya ait
-	 * kayıt olup olmadığını kontrol eder
+	 * Bilgibankasında o kullanıcıya ait kayıt olup olmadığını kontrol eder
+	 * 
 	 * @param list
 	 * @return
 	 */
-	private boolean checkUsername(List<Administrator> list) {
+	private boolean checkUsername(final List<Administrator> list) {
 		return list.size() == 0 || list == null;
 	}
 
 	/**
 	 * EntitiyManager
+	 * 
 	 * @param em
 	 */
 	@PersistenceContext
-	public void setEntityManager(EntityManager em) {
+	public void setEntityManager(final EntityManager em) {
 		this.em = em;
 	}
 
