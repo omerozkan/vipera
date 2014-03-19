@@ -3,8 +3,9 @@ package info.ozkan.vipera.business.login;
 import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.test.IntegrationTest;
 
+import javax.inject.Inject;
+
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +20,7 @@ public class AdministratorLoginManagerIntegrationTest extends IntegrationTest {
 	/**
 	 * Business katmanı nesnesi
 	 */
-	@Autowired
+	@Inject
 	private AdministratorLoginManager manager;
 
 	/**

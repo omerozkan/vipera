@@ -43,7 +43,14 @@
         <module>vipera-jsf</module>
         <module>vipera</module>
     </modules>
+    <!-- JSR-330 -->
     <dependencies>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+    <!-- TESTING -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -68,7 +75,6 @@
             <version>${powermock-version}</version>
             <scope>test</scope>
         </dependency>
-
         <!-- LOGGING -->
         <dependency>
             <groupId>org.slf4j</groupId>
