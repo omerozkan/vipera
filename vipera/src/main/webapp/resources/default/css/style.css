@@ -67,4 +67,19 @@ body
 	font-size: 12px;
 }
 
+#context {
+	width: 958px;
+	min-height: 300px;
+	background-color: #fff;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+}
 
+#footer {
+	width: 960px;
+	text-align: center;
+	margin-top: 5px;
+	color: #333;
+	font-weight: bold;
+	font-size: 12px;
+}
