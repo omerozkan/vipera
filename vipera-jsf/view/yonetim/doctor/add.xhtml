@@ -8,43 +8,55 @@
 	<ui:define name="title">Hekim Ekle | Vipera</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<p:panel header="Hekim Ekle">
+			<p:panel id="panel" header="Hekim Ekle">
 				<p:messages id="msgs" autoUpdate="true" />
-				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px; margin-top: 10px">
+				<h:panelGrid columns="3" cellpadding="20"
+					style="padding-left: 30px; margin-top: 10px">
 
 					<h:outputText value="T.C. Kimlik No:" />
-					<p:inputMask mask="99999999999" id="tckn" required="true" />
+					<p:inputMask mask="99999999999" id="tckn" required="true"
+						value="#{addDoctor.doctor.tckn}"
+						requiredMessage="TC Kimlik Numarasını 11 haneli ve sayısal olmalıdır!" />
 					<p:message for="tckn" display="icon" />
 
 					<h:outputText value="Adı:" />
-					<p:inputText id="name" required="true" />
+					<p:inputText id="name" required="true"
+						value="#{addDoctor.doctor.name}"
+						requiredMessage="Hekim adı boş bırakılamaz!" />
 					<p:message for="name" display="icon" />
 
 					<h:outputText value="Soyadı:" />
-					<p:inputText id="surname" required="true" />
+					<p:inputText id="surname" required="true"
+						value="#{addDoctor.doctor.surname}"
+						requiredMessage="Hekim soyadı boş bırakılamaz!" />
 					<p:message for="surname" display="icon" />
 				</h:panelGrid>
 				<p:spacer height="30" />
 				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px">
 					<h:outputText value="Eposta:" />
-					<p:inputText id="email" />
+					<p:inputText id="email" value="#{addDoctor.doctor.email}" />
 					<p:message for="email" display="icon" />
 
 					<h:outputText value="Parola:" />
 					<p:password id="password" feedback="true"
 						promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
 						goodLabel="Orta" strongLabel="Güçlü" required="true"
-						match="password2" />
+						match="password2" value="#{addDoctor.doctor.password}"
+						requiredMessage="Parola alanı boş bırakılamaz!" validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!">
+						</p:password>
 					<p:message for="password" display="icon" />
 
 					<h:outputText value="Parola Tekrar:" />
-					<p:password id="password2" required="true" />
+					<p:password id="password2" required="true"
+						value="#{addDoctor.passwordConfirm}"
+						requiredMessage="Parolanızı tekrar girmelisiniz!" />
 					<p:message for="password2" display="icon" />
 				</h:panelGrid>
 				<p:spacer height="30" />
-				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px; margin-bottom: 10px">
+				<h:panelGrid columns="3" cellpadding="20"
+					style="padding-left: 30px; margin-bottom: 10px">
 					<h:outputText value="Ünvanı:" />
-					<p:selectOneMenu id="title">
+					<p:selectOneMenu id="title" value="#{addDoctor.doctor.title}">
 						<f:selectItem itemValue="0" itemLabel="Seçiniz" />
 						<f:selectItem itemValue="1" itemLabel="Uzman Dr." />
 						<f:selectItem itemValue="2" itemLabel="Operator Dr." />
@@ -56,27 +68,34 @@
 					<p:message for="title" display="icon" />
 
 					<h:outputText value="Uzmanlık Alanı:" />
-					<p:inputText id="province" />
+					<p:inputText id="province" value="#{addDoctor.doctor.province}" />
 					<p:message for="province" />
 
+					<h:outputText value="Diploma No:" />
+					<p:inputText id="diploma" />
+					<p:message for="diploma" />
+				</h:panelGrid>
+				<p:spacer height="30" />
+				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px">
 					<h:outputText value="Websayfası:" />
-					<p:inputText id="webpage" />
+					<p:inputText id="webpage" value="#{addDoctor.doctor.webpage}" />
 					<p:message for="webpage" />
 
 					<h:outputText value="Telefon No:" />
-					<p:inputText id="phone" />
+					<p:inputText id="phone" value="#{addDoctor.doctor.phone}" />
 					<p:message for="phone" />
 
 					<h:outputText value="Cep Telefonu:" />
-					<p:inputText id="mobile" />
+					<p:inputText id="mobile" value="#{addDoctor.doctor.mobilePhone}" />
 					<p:message for="mobile" />
 
 					<h:outputText value="Hesap Aktif?:" />
 					<p:selectBooleanButton id="enable" onLabel="Aktif"
 						offLabel="Devre Dışı" offIcon="ui-icon-close"
-						onIcon="ui-icon-check" />
+						onIcon="ui-icon-check" required="true" value="#{addDoctor.enable}" />
 					<p:message for="enable" />
-					<p:button value="Kaydet" />
+					<p:commandButton value="Kaydet" actionListener="#{addDoctor.save}"
+						update="panel" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
