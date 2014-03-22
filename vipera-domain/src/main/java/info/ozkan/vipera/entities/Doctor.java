@@ -56,7 +56,7 @@ public class Doctor implements Serializable {
 	/**
 	 * Aktiflik
 	 */
-	private int enable;
+	private Integer enabled;
 
 	/**
 	 * @return the tckn
@@ -226,22 +226,22 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the enable
 	 */
-	public int getEnable() {
-		return enable;
+	public Integer getEnabled() {
+		return enabled;
 	}
 
 	/**
 	 * @param enable
 	 *            the enable to set
 	 */
-	public void setEnable(final int enable) {
-		this.enable = enable;
+	public void setEnabled(final Integer enable) {
+		this.enabled = enable;
 	}
 
 	/**
 	 * @return Üyeliği aktif ise true
 	 */
 	public boolean isEnable() {
-		return enable == 1;
+		return enabled == 1;
 	}
 }
