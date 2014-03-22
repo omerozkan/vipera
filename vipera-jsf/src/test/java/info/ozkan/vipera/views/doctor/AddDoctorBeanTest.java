@@ -27,7 +27,13 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FacesContext.class)
 public class AddDoctorBeanTest {
+	/**
+	 * TC Kimlik
+	 */
 	private static final long TCKN = 12345678901L;
+	/**
+	 * Parola
+	 */
 	private static final String PASSWORD = "password";
 	/**
 	 * JSF tarafından kontrol edilen use case ler
@@ -38,10 +44,20 @@ public class AddDoctorBeanTest {
 	 * 3. TCKN girilir fakat parola ve parola tekrar bilgisi eşleşmez. Parola
 	 * alanları hatalı olarak gösterilir.
 	 */
-
+	/**
+	 * Facescontext
+	 */
 	private FacesContext context;
+	/**
+	 * AddDoctor
+	 */
 	private AddDoctorBean addDoctorBean;
 
+	/**
+	 * Test verilerini hazırlama
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		context = Mockito.mock(FacesContext.class);
@@ -54,6 +70,11 @@ public class AddDoctorBeanTest {
 		addDoctorBean.setDoctor(doctor);
 	}
 
+	/**
+	 * Geçerli bir doktor nesnesi oluşturur
+	 * 
+	 * @return
+	 */
 	private Doctor createValidDoctorObject() {
 		final Doctor doctor = new Doctor();
 		doctor.setTckn(TCKN);
