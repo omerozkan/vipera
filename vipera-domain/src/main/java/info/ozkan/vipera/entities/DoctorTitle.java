@@ -1,4 +1,4 @@
-package info.ozkan.vipera.doctor;
+package info.ozkan.vipera.entities;
 
 /**
  * Hekimlerin Ünvanlarını belirleyen enum
