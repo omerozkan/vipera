@@ -9,5 +9,12 @@ import info.ozkan.vipera.entities.Doctor;
  * 
  */
 public interface DoctorManager {
-	public DoctorManagerResult save(Doctor doctor);
+	/**
+	 * Doctor nesnesini veritabanına kaydeder
+	 * 
+	 * @param doctor
+	 *            Doctor nesnesi
+	 * @return işlem sonucu
+	 */
+	public DoctorManagerResult add(Doctor doctor);
 }

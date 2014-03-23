@@ -4,8 +4,8 @@ import info.ozkan.vipera.business.doctor.DoctorManager;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.common.EmailValidator;
-import info.ozkan.vipera.doctor.DoctorTitle;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorTitle;
 
 import java.awt.event.ActionListener;
 
@@ -113,7 +113,7 @@ public class AddDoctorBean {
 		if (!checkFields(context)) {
 			return;
 		}
-		final DoctorManagerResult result = doctorManager.save(doctor);
+		final DoctorManagerResult result = doctorManager.add(doctor);
 		if (!result.isSuccess()) {
 			if (result.getErrors().contains(DoctorManagerError.TCKN_HAS_EXIST)) {
 				context.addMessage(null, TCKN_HAS_EXIST);
