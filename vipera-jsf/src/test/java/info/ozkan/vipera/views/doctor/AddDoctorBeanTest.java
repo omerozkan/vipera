@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import info.ozkan.vipera.business.doctor.DoctorManager;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
-import info.ozkan.vipera.doctor.DoctorTitle;
+import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
 
 import javax.faces.application.FacesMessage;
@@ -76,18 +76,7 @@ public class AddDoctorBeanTest {
 	 * @return
 	 */
 	private Doctor createValidDoctorObject() {
-		final Doctor doctor = new Doctor();
-		doctor.setTckn(TCKN);
-		doctor.setPassword(PASSWORD);
-		doctor.setEmail("doctor@doctor.com");
-		doctor.setName("Gregory");
-		doctor.setSurname("House");
-		doctor.setTitle(DoctorTitle.DOCTOR.getTitle());
-		doctor.setDiplomaNo("12345");
-		doctor.setProvince("Bulaşıcı Hastalıklar ve Nefroloji");
-		doctor.setWebpage("http://www.greghouse.com");
-		doctor.setPhone("+905555555");
-		doctor.setMobilePhone("+905553333333");
+		final Doctor doctor = DoctorTestData.getTestData();
 		addDoctorBean.setEnable(true);
 		return doctor;
 	}
@@ -148,8 +137,7 @@ public class AddDoctorBeanTest {
 		result.setSuccess(false);
 		result.addError(DoctorManagerError.TCKN_HAS_EXIST);
 		final DoctorManager manager = Mockito.mock(DoctorManager.class);
-		Mockito.when(manager.save(addDoctorBean.getDoctor()))
-		        .thenReturn(result);
+		Mockito.when(manager.add(addDoctorBean.getDoctor())).thenReturn(result);
 		addDoctorBean.setDoctorManager(manager);
 		addDoctorBean.save(null);
 		verifyFacesMessage(AddDoctorBean.TCKN_HAS_EXIST);
@@ -166,8 +154,7 @@ public class AddDoctorBeanTest {
 		final DoctorManagerResult result = new DoctorManagerResult();
 		result.setSuccess(true);
 		final DoctorManager manager = Mockito.mock(DoctorManager.class);
-		Mockito.when(manager.save(addDoctorBean.getDoctor()))
-		        .thenReturn(result);
+		Mockito.when(manager.add(addDoctorBean.getDoctor())).thenReturn(result);
 		addDoctorBean.setDoctorManager(manager);
 		addDoctorBean.save(null);
 		verifyFacesMessage(AddDoctorBean.SUCCESS);
