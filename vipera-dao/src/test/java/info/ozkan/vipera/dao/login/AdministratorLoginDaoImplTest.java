@@ -1,4 +1,4 @@
-package info.ozkan.vipera.dao;
+package info.ozkan.vipera.dao.login;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
