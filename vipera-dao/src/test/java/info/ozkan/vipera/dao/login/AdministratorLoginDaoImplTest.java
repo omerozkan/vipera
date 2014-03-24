@@ -1,11 +1,12 @@
 package info.ozkan.vipera.dao.login;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.contains;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
-import info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl;
-import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
 import info.ozkan.vipera.entities.Administrator;
 
 import java.util.ArrayList;
@@ -20,17 +21,18 @@ import org.junit.Test;
 
 /**
  * LoginDaoImpl sınıfının birim testleri
+ * 
  * @author Ömer Özkan
  */
 public class AdministratorLoginDaoImplTest {
 	/**
 	 * Kullanıcı adı
 	 */
-	private String username = "admin";
+	private final String username = "admin";
 	/**
 	 * Parola
 	 */
-	private String password = "password";
+	private final String password = "password";
 	/**
 	 * EntityManager nesnesi
 	 */
@@ -46,10 +48,11 @@ public class AdministratorLoginDaoImplTest {
 	/**
 	 * Yönetici sorgusu
 	 */
-	private String jql = "from Administrator a where a.username = :username";
+	private final String jql = "from Administrator a where a.username = :username";
 
 	/**
 	 * Test verilerini hazırlar
+	 * 
 	 * @throws Exception
 	 */
 	@Before
@@ -61,66 +64,68 @@ public class AdministratorLoginDaoImplTest {
 	}
 
 	/**
-	 * Yönetici kullanıcı adı ve parolasını
-	 * girip login butonuna tıklar
+	 * Yönetici kullanıcı adı ve parolasını girip login butonuna tıklar
 	 * kullanıcı adı geçersizdir.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void loginInvalidUsername() throws Exception {
 		configureMockObjects(Collections.emptyList());
-		AdministratorLoginDaoResult result =
-				dao.findUser(username, password);
+		final AdministratorLoginDaoResult result = dao.findUser(username,
+		        password);
 		assertEquals(AdministratorLoginStatus.INVALID_USERNAME,
-				result.getStatus());
+		        result.getStatus());
 		verifyMockObjects();
 	}
 
 	/**
-	 * Yönetici kullanıcı adı ve parolasını
-	 * girip login butonuna tıklar
-	 * parolası geçersizdir.
+	 * Yönetici kullanıcı adı ve parolasını girip login butonuna tıklar parolası
+	 * geçersizdir.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void loginInvalidPassword() throws Exception {
-		List<Administrator> list =
-				createAdminList(username, "different");
+		final List<Administrator> list = createAdminList(username, "different");
 		configureMockObjects(list);
-		AdministratorLoginDaoResult result =
-				dao.findUser(username, password);
+		final AdministratorLoginDaoResult result = dao.findUser(username,
+		        password);
 		assertEquals(AdministratorLoginStatus.INVALID_PASSWORD,
-				result.getStatus());
+		        result.getStatus());
 		verifyMockObjects();
 	}
 
 	/**
-	 * Yönetici kullanıcı adı ve parolasını
-	 * girip login butonuna tıklar
-	 * bilgiler geçerlidir ve login işlemi başarılıdır.
+	 * Yönetici kullanıcı adı ve parolasını girip login butonuna tıklar bilgiler
+	 * geçerlidir ve login işlemi başarılıdır.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void loginSuccessfull() throws Exception {
-		List<Administrator> list = createAdminList(username, password);
+		final List<Administrator> list = createAdminList(username, password);
 		configureMockObjects(list);
-		AdministratorLoginDaoResult result =
-				dao.findUser(username, password);
-		assertEquals(AdministratorLoginStatus.SUCCESS,
-				result.getStatus());
+		final AdministratorLoginDaoResult result = dao.findUser(username,
+		        password);
+		assertEquals(AdministratorLoginStatus.SUCCESS, result.getStatus());
 		assertNotNull(result.getAdministrator());
 		verifyMockObjects();
 	}
+
 	/**
 	 * Tek bir Administrator nesnesi içeren liste oluşturur
-	 * @param username Kullanıcı adı
-	 * @param password Parola
+	 * 
+	 * @param username
+	 *            Kullanıcı adı
+	 * @param password
+	 *            Parola
 	 * @return Liste
 	 */
-	private List<Administrator> createAdminList(String username,
-			String password) {
-		List<Administrator> list = new ArrayList<Administrator>();
-		Administrator admin = new Administrator();
+	private List<Administrator> createAdminList(final String username,
+	        final String password) {
+		final List<Administrator> list = new ArrayList<Administrator>();
+		final Administrator admin = new Administrator();
 		admin.setUsername(username);
 		admin.setPassword(password);
 		list.add(admin);
@@ -132,19 +137,19 @@ public class AdministratorLoginDaoImplTest {
 	 */
 	private void verifyMockObjects() {
 		verify(em).createQuery(jql);
-		verify(query).setParameter(
-				contains("username"), contains(username));
+		verify(query).setParameter(contains("username"), contains(username));
 		verify(query).getResultList();
 	}
 
 	/**
 	 * Mock nesnelerinin metodlarını tanımlar
+	 * 
 	 * @param list
 	 */
-	private void configureMockObjects(List list) {
+	private void configureMockObjects(final List list) {
 		when(em.createQuery(jql)).thenReturn(query);
-		when(query.setParameter(contains("username"),
-				contains(username))).thenReturn(query);
+		when(query.setParameter(contains("username"), contains(username)))
+		        .thenReturn(query);
 		when(query.getResultList()).thenReturn(list);
 	}
 }

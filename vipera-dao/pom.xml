@@ -14,6 +14,12 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>info.ozkan.vipera</groupId>
+			<artifactId>vipera-test-data</artifactId>
+			<version>${project.version}</version>
+            <scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>1.0.1.Final</version>
