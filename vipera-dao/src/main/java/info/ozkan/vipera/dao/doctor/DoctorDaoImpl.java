@@ -7,6 +7,8 @@ import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.entities.Doctor;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
 
 /**
@@ -16,6 +18,8 @@ import javax.validation.ConstraintViolationException;
  * 
  */
 public class DoctorDaoImpl implements DoctorDao {
+	protected static final String TCKN = "tckn";
+	protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
 	/**
 	 * Persistence nesne
 	 */
@@ -46,6 +50,28 @@ public class DoctorDaoImpl implements DoctorDao {
 	 */
 	public void setEntityManager(final EntityManager em) {
 		this.em = em;
+	}
+
+	/**
+	 * Veritabanından TCKN'ye ait hekimi sorgular
+	 * 
+	 * @param tckn
+	 *            TC Kimlik No
+	 * @return Doctor nesnesi
+	 */
+	public DoctorDaoResult get(final Long tckn) {
+		final Query query = em.createQuery(JQL_GET_BY_TCKN);
+		query.setParameter(TCKN, tckn);
+		final DoctorDaoResult result = new DoctorDaoResult();
+		try {
+			final Doctor doctor = (Doctor) query.getSingleResult();
+			result.setSuccess(true);
+			result.setDoctor(doctor);
+		} catch (final NoResultException e) {
+			result.setSuccess(false);
+			result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
+		}
+		return result;
 	}
 
 }

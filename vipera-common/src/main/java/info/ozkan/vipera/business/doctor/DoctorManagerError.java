@@ -8,7 +8,7 @@ package info.ozkan.vipera.business.doctor;
  */
 public enum DoctorManagerError {
 
-	TCKN_HAS_EXIST(1);
+	TCKN_HAS_EXIST(1), DOCTOR_NOT_EXIST(2);
 	/**
 	 * Hata kodu
 	 */

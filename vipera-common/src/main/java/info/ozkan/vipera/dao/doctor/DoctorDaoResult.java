@@ -1,6 +1,7 @@
 package info.ozkan.vipera.dao.doctor;
 
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
+import info.ozkan.vipera.entities.Doctor;
 
 public class DoctorDaoResult {
 
@@ -13,6 +14,8 @@ public class DoctorDaoResult {
 	 * İşlem başarılı mı?
 	 */
 	private boolean success;
+
+	private Doctor doctor;
 
 	/**
 	 * @return the status
@@ -42,6 +45,21 @@ public class DoctorDaoResult {
 	 */
 	public void setSuccess(final boolean success) {
 		this.success = success;
+	}
+
+	/**
+	 * @return the doctor
+	 */
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	/**
+	 * @param doctor
+	 *            the doctor to set
+	 */
+	public void setDoctor(final Doctor doctor) {
+		this.doctor = doctor;
 	}
 
 }

@@ -1,5 +1,6 @@
 package info.ozkan.vipera.dao.doctor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
@@ -7,6 +8,8 @@ import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
 
 import org.junit.Before;
@@ -72,9 +75,77 @@ public class DoctorDaoImplTest {
 	}
 
 	/**
+	 * Veritabanında kayıtlı bir doktoru TCKN ile sorgulayarak elde eder
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void getDoctorTest() throws Exception {
+		final Query query = createMockQuery();
+		configureQueryMethods(query);
+		Mockito.when(query.getSingleResult()).thenReturn(doctor);
+		final DoctorDaoResult result = doctorDao.get(doctor.getTckn());
+		assertTrue(result.isSuccess());
+		assertEquals(doctor.getTckn(), result.getDoctor().getTckn());
+		verifyGet(query);
+	}
+
+	/**
+	 * Veritabanında kayıtlı olmayan bir doktor sorgulanır sonuç başarısızdır
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void getDoctorNonExist() throws Exception {
+		final Query query = createMockQuery();
+		configureQueryMethods(query);
+		Mockito.when(query.getSingleResult())
+		        .thenThrow(new NoResultException());
+		final DoctorDaoResult result = doctorDao.get(doctor.getTckn());
+		assertFalse(result.isSuccess());
+		assertEquals(DoctorManagerError.DOCTOR_NOT_EXIST, result.getError());
+	}
+
+	/**
+	 * {@link DoctorDaoImpl#get(Long)} metodu için gerekli metodların
+	 * çağrıldığını doğrular
+	 * 
+	 * @param query
+	 */
+	private void verifyGet(final Query query) {
+		Mockito.verify(em).createQuery(DoctorDaoImpl.JQL_GET_BY_TCKN);
+		Mockito.verify(query)
+		        .setParameter(DoctorDaoImpl.TCKN, doctor.getTckn());
+		Mockito.verify(query).getSingleResult();
+	}
+
+	/**
 	 * em.persist metodunun çağrıldığını doğrular
 	 */
 	private void verifyPersist() {
 		Mockito.verify(em).persist(doctor);
 	}
+
+	/**
+	 * Mock nesnesi oluşturur
+	 * 
+	 * @return
+	 */
+	private Query createMockQuery() {
+		final Query query = Mockito.mock(Query.class);
+		return query;
+	}
+
+	/**
+	 * Query nesnesinin metodlarını mocklar
+	 * 
+	 * @param query
+	 */
+	private void configureQueryMethods(final Query query) {
+		Mockito.when(em.createQuery(DoctorDaoImpl.JQL_GET_BY_TCKN)).thenReturn(
+		        query);
+		Mockito.when(query.setParameter(DoctorDaoImpl.TCKN, doctor.getTckn()))
+		        .thenReturn(query);
+	}
+
 }

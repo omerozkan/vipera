@@ -18,4 +18,16 @@ public interface DoctorDao {
 	 */
 	DoctorDaoResult add(Doctor doctor);
 
+	/**
+	 * 
+	 * Veritabanından TCKN'ye ait hekimi sorgular
+	 * 
+	 * @param tckn
+	 *            TC Kimlik No
+	 * @return Doctor nesnesi
+	 * 
+	 * @param tckn
+	 * @return
+	 */
+	DoctorDaoResult get(Long tckn);
 }
