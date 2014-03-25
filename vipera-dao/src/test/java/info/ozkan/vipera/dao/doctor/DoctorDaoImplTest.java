@@ -20,10 +20,22 @@ import org.mockito.Mockito;
  * 
  */
 public class DoctorDaoImplTest {
+	/**
+	 * Persistence
+	 */
 	private EntityManager em;
+	/**
+	 * Doctor nesnesi
+	 */
 	private final Doctor doctor = DoctorTestData.getTestData();
+	/**
+	 * Test edilen sınıfın nesnesi
+	 */
 	private final DoctorDaoImpl doctorDao = new DoctorDaoImpl();
 
+	/**
+	 * Test verileri
+	 */
 	@Before
 	public void setUp() {
 		em = Mockito.mock(EntityManager.class);
@@ -46,10 +58,6 @@ public class DoctorDaoImplTest {
 		verifyPersist();
 	}
 
-	private void verifyPersist() {
-		Mockito.verify(em).persist(doctor);
-	}
-
 	/**
 	 * Yönetici, hekim bilgilerini hatasız ve eksiksiz girer. Hekim veritabanına
 	 * kaydedilir.
@@ -61,5 +69,12 @@ public class DoctorDaoImplTest {
 		final DoctorDaoResult result = doctorDao.add(doctor);
 		assertTrue(result.isSuccess());
 		verifyPersist();
+	}
+
+	/**
+	 * em.persist metodunun çağrıldığını doğrular
+	 */
+	private void verifyPersist() {
+		Mockito.verify(em).persist(doctor);
 	}
 }
