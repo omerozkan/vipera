@@ -18,7 +18,7 @@ public class DoctorTestData {
 		doctor.setEmail("doctor@doctor.com");
 		doctor.setName("Gregory");
 		doctor.setSurname("House");
-		doctor.setTitle(DoctorTitle.SPECIALIST.getTitle());
+		doctor.setTitle(DoctorTitle.SPECIALIST);
 		doctor.setDiplomaNo("12345");
 		doctor.setProvince("Bulaşıcı Hastalıklar ve Nefroloji");
 		doctor.setWebpage("http://www.greghouse.com");

@@ -86,7 +86,7 @@ public class DoctorDaoImplTest {
 		Mockito.when(query.getSingleResult()).thenReturn(doctor);
 		final DoctorDaoResult result = doctorDao.get(doctor.getTckn());
 		assertTrue(result.isSuccess());
-		assertEquals(doctor.getTckn(), result.getDoctor().getTckn());
+		assertEquals(doctor.getTckn(), result.getDoctor());
 		verifyGet(query);
 	}
 

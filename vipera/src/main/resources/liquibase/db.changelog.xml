@@ -5,6 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
+    <changeSet id="0" author="Ömer Özkan">
+        <createSequence sequenceName="hibernate_sequence" />
+    </changeSet>
     <changeSet id="1" author="Ömer Özkan">
         <createTable tableName="ADMINISTRATORS">
             <column name="id" type="bigint">
@@ -14,6 +17,27 @@
                 <constraints unique="true" />
             </column>
             <column name="password" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Ömer Özkan">
+        <createTable tableName="DOCTORS">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+            <column name="tckn" type="bigint(11)">
+                <constraints primaryKey="true" unique="true" />
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="surname" type="varchar(255)" />
+            <column name="email" type="varchar(255)" />
+            <column name="password" type="varchar(255)" />
+            <column name="title" type="int" />
+            <column name="diplomaNo" type="varchar(255)" />
+            <column name="province" type="varchar(255)" />
+            <column name="phone" type="varchar(255)" />
+            <column name="mobilePhone" type="varchar(255)" />
+            <column name="webpage" type="varchar(255)" />
+            <column name="enabled" type="int" />
         </createTable>
     </changeSet>
     <changeSet id="test-1" author="Ömer Özkan" context="test">

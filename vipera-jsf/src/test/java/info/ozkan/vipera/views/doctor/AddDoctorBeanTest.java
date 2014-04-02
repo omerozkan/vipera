@@ -91,7 +91,7 @@ public class AddDoctorBeanTest {
 	@Test
 	public void saveWithWrongTCKN() throws Exception {
 		addDoctorBean.getDoctor().setTckn(123L);
-		addDoctorBean.save(null);
+		addDoctorBean.save();
 		verifyFacesMessage(AddDoctorBean.INVALID_TCKN);
 	}
 
@@ -108,7 +108,7 @@ public class AddDoctorBeanTest {
 	@Test
 	public void saveWithDifferentPasswords() throws Exception {
 		addDoctorBean.setPasswordConfirm("differentPassword");
-		addDoctorBean.save(null);
+		addDoctorBean.save();
 		verifyFacesMessage(AddDoctorBean.PASSWORDS_DONT_MATCH);
 	}
 
@@ -121,7 +121,7 @@ public class AddDoctorBeanTest {
 	@Test
 	public void saveWithWrongEmail() throws Exception {
 		addDoctorBean.getDoctor().setEmail("invalidEmail");
-		addDoctorBean.save(null);
+		addDoctorBean.save();
 		verifyFacesMessage(AddDoctorBean.EMAIL_INVALID);
 	}
 
@@ -139,7 +139,7 @@ public class AddDoctorBeanTest {
 		final DoctorManager manager = Mockito.mock(DoctorManager.class);
 		Mockito.when(manager.add(addDoctorBean.getDoctor())).thenReturn(result);
 		addDoctorBean.setDoctorManager(manager);
-		addDoctorBean.save(null);
+		addDoctorBean.save();
 		verifyFacesMessage(AddDoctorBean.TCKN_HAS_EXIST);
 	}
 
@@ -156,7 +156,7 @@ public class AddDoctorBeanTest {
 		final DoctorManager manager = Mockito.mock(DoctorManager.class);
 		Mockito.when(manager.add(addDoctorBean.getDoctor())).thenReturn(result);
 		addDoctorBean.setDoctorManager(manager);
-		addDoctorBean.save(null);
+		addDoctorBean.save();
 		verifyFacesMessage(AddDoctorBean.SUCCESS);
 	}
 

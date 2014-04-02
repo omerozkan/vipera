@@ -2,60 +2,88 @@ package info.ozkan.vipera.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Hekim domain sınıfı
  * 
  * @author Ömer Özkan
  * 
  */
+@Entity
+@Table(name = "DOCTORS")
 public class Doctor implements Serializable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 	/**
 	 * TC Kimlik No
 	 */
+	@Column(name = "tckn", unique = true)
 	private Long tckn;
 	/**
 	 * Adı
 	 */
+	@Column(name = "name")
 	private String name;
 	/**
 	 * Soyadı
 	 */
+	@Column(name = "surname")
 	private String surname;
 	/**
 	 * Eposta
 	 */
+	@Column(name = "email")
 	private String email;
 	/**
 	 * Parola
 	 */
+	@Column(name = "password")
 	private String password;
 	/**
 	 * Ünvan
 	 */
-	private String title;
+	@Column(name = "title")
+	@Enumerated(EnumType.ORDINAL)
+	private DoctorTitle title;
 	/**
 	 * Diploma No
 	 */
+	@Column(name = "diplomaNo")
 	private String diplomaNo;
 	/**
 	 * Uzmanlık Alanı
 	 */
+	@Column(name = "province")
 	private String province;
 	/**
 	 * Telefon
 	 */
+	@Column(name = "phone")
 	private String phone;
 	/**
 	 * Cep Telefonu
 	 */
+	@Column(name = "mobilePhone")
 	private String mobilePhone;
 	/**
 	 * Web sayfası
 	 */
+	@Column(name = "webpage")
 	private String webpage;
 	/**
 	 * Aktiflik
 	 */
+	@Column(name = "enabled")
 	private Integer enabled;
 
 	/**
@@ -136,7 +164,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the title
 	 */
-	public String getTitle() {
+	public DoctorTitle getTitle() {
 		return title;
 	}
 
@@ -144,7 +172,7 @@ public class Doctor implements Serializable {
 	 * @param title
 	 *            the title to set
 	 */
-	public void setTitle(final String title) {
+	public void setTitle(final DoctorTitle title) {
 		this.title = title;
 	}
 
@@ -235,7 +263,7 @@ public class Doctor implements Serializable {
 	 *            the enable to set
 	 */
 	public void setEnabled(final Integer enable) {
-		this.enabled = enable;
+		enabled = enable;
 	}
 
 	/**
@@ -243,5 +271,19 @@ public class Doctor implements Serializable {
 	 */
 	public boolean isEnable() {
 		return enabled == 1;
+	}
+
+	/**
+	 * Hekim nesnelerinin eşit olup olmadığını kontrol eder
+	 */
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj instanceof Doctor) {
+			final Doctor doctor = (Doctor) obj;
+			if (tckn.equals(doctor.getTckn())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

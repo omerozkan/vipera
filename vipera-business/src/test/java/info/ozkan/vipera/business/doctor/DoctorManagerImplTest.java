@@ -1,5 +1,6 @@
 package info.ozkan.vipera.business.doctor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.dao.doctor.DoctorDao;
@@ -51,7 +52,7 @@ public class DoctorManagerImplTest {
 	public void addDoctorWithExistTCKN() throws Exception {
 		final DoctorDaoResult daoResult = createDaoResult(false,
 		        DoctorManagerError.TCKN_HAS_EXIST);
-		setDaoReturn(daoResult);
+		setDaoReturnForAdd(daoResult);
 		final DoctorManagerResult result = manager.add(doctor);
 		assertFalse(result.isSuccess());
 		assertTrue(result.getErrors().contains(
@@ -68,10 +69,36 @@ public class DoctorManagerImplTest {
 	@Test
 	public void addDoctorSuccessfull() throws Exception {
 		final DoctorDaoResult daoResult = createDaoResult(true, null);
-		setDaoReturn(daoResult);
+		setDaoReturnForAdd(daoResult);
 		final DoctorManagerResult result = manager.add(doctor);
 		assertTrue(result.isSuccess());
 		assertTrue(result.getErrors().size() == 0);
+	}
+
+	/**
+	 * Veritabanında belirli bir TCKN ile kayıtlı olan bir hekim, get metodu ile
+	 * elde edilir
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void getDoctor() throws Exception {
+		final DoctorDaoResult daoResult = createDaoResult(true, null);
+		daoResult.setDoctor(doctor);
+		setDaoReturnForGet(daoResult);
+		final DoctorManagerResult result = manager.get(doctor.getTckn());
+		assertTrue(result.isSuccess());
+		assertEquals(doctor, result.getDoctor());
+		Mockito.verify(dao).get(doctor.getTckn());
+	}
+
+	/**
+	 * Dao get metodunu mock'lar
+	 * 
+	 * @param daoResult
+	 */
+	private void setDaoReturnForGet(final DoctorDaoResult daoResult) {
+		Mockito.when(dao.get(doctor.getTckn())).thenReturn(daoResult);
 	}
 
 	/**
@@ -87,7 +114,7 @@ public class DoctorManagerImplTest {
 	 * 
 	 * @param daoResult
 	 */
-	private void setDaoReturn(final DoctorDaoResult daoResult) {
+	private void setDaoReturnForAdd(final DoctorDaoResult daoResult) {
 		Mockito.when(dao.add(doctor)).thenReturn(daoResult);
 	}
 

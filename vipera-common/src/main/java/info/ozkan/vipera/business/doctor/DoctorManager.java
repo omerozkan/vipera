@@ -17,4 +17,12 @@ public interface DoctorManager {
 	 * @return işlem sonucu
 	 */
 	public DoctorManagerResult add(Doctor doctor);
+
+	/**
+	 * Veritabanından TCKN'na ait hekim nesnesini dönderir
+	 * 
+	 * @param tckn
+	 * @return
+	 */
+	public DoctorManagerResult get(Long tckn);
 }

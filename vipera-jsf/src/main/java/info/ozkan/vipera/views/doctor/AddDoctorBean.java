@@ -7,10 +7,9 @@ import info.ozkan.vipera.common.EmailValidator;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 
-import java.awt.event.ActionListener;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.slf4j.Logger;
@@ -101,6 +100,7 @@ public class AddDoctorBean {
 	/**
 	 * İşletme katmanı nesnesi
 	 */
+	@Inject
 	private DoctorManager doctorManager;
 
 	/**
@@ -108,7 +108,7 @@ public class AddDoctorBean {
 	 * 
 	 * @param ae
 	 */
-	public void save(final ActionListener ae) {
+	public void save() {
 		final FacesContext context = FacesContext.getCurrentInstance();
 		if (!checkFields(context)) {
 			return;
@@ -123,6 +123,7 @@ public class AddDoctorBean {
 			        doctor.getTckn(), doctor.getName(), doctor.getSurname(),
 			        SAVED_MSG));
 			context.addMessage(null, SUCCESS);
+			doctor = new Doctor();
 		}
 	}
 

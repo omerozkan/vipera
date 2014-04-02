@@ -1,5 +1,7 @@
 package info.ozkan.vipera.business.doctor;
 
+import info.ozkan.vipera.entities.Doctor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class DoctorManagerResult {
 	 * Hata mesajları
 	 */
 	private final List<DoctorManagerError> errors = new ArrayList<DoctorManagerError>();
+
+	private Doctor doctor;
 
 	/**
 	 * Hata listesine yeni bir hata ekler
@@ -50,7 +54,23 @@ public class DoctorManagerResult {
 	/**
 	 * @return the errors
 	 */
-    public List<DoctorManagerError> getErrors() {
-	    return errors;
-    }
+	public List<DoctorManagerError> getErrors() {
+		return errors;
+	}
+
+	/**
+	 * @return the doctor
+	 */
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	/**
+	 * @param doctor
+	 *            the doctor to set
+	 */
+	public void setDoctor(final Doctor doctor) {
+		this.doctor = doctor;
+	}
+
 }

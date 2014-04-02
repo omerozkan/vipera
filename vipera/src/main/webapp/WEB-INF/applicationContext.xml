@@ -39,15 +39,17 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 	<context:component-scan base-package="info.ozkan.vipera.views" />
 
 	<context:spring-configured />
 	<context:annotation-config />
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+	<tx:annotation-driven />
 	<!-- PERSISTENCE LAYER BEANS -->
 	<bean id="administratorLoginDao" class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
-	<!-- BUSINESS LAYER BEANS -->
+	<bean id="doctorDao" class="info.ozkan.vipera.dao.doctor.DoctorDaoImpl"></bean>
+    <!-- BUSINESS LAYER BEANS -->
 	<bean id="administratorLoginManager"
 		class="info.ozkan.vipera.business.login.AdministratorLoginManagerImpl" />
+    <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl" />
 </beans>
