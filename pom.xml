@@ -37,6 +37,7 @@
     </licenses>
     <modules>
         <module>vipera-domain</module>
+        <module>vipera-test-data</module>
         <module>vipera-common</module>
         <module>vipera-dao</module>
         <module>vipera-business</module>

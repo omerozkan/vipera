@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "ADMINISTRATORS")
 public class Administrator implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "username", unique = true)

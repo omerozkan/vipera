@@ -6,9 +6,9 @@
         <artifactId>vipera-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>vipera-common</artifactId>
-    <name>vipera-common</name>
-    <description>Katmanlar arası arayüzleri içeren alt proje</description>
+    <artifactId>vipera-test-data</artifactId>
+    <name>vipera-test-data</name>
+    <description>Tüm katmanlarda ortak kullanılan test verilerini barındırır</description>
     <dependencies>
         <dependency>
             <groupId>info.ozkan.vipera</groupId>
