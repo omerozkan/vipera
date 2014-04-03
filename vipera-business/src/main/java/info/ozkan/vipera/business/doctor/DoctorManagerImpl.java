@@ -33,20 +33,12 @@ public class DoctorManagerImpl implements DoctorManager {
 	@Transactional
 	public DoctorManagerResult add(final Doctor doctor) {
 		final DoctorManagerResult result = new DoctorManagerResult();
-		try {
-			final DoctorDaoResult daoResult = doctorDao.add(doctor);
-			if (!daoResult.isSuccess()) {
-				result.addError(daoResult.getError());
-				result.setSuccess(false);
-			} else {
-				result.setSuccess(true);
-			}
-		} catch (final RuntimeException e) {
-			System.out.println("hatayı yakaladim haci");
-			result.addError(DoctorManagerError.TCKN_HAS_EXIST);
+		final DoctorDaoResult daoResult = doctorDao.add(doctor);
+		if (!daoResult.isSuccess()) {
+			result.addError(daoResult.getError());
 			result.setSuccess(false);
-		} catch (final Exception e) {
-			System.out.println("hatayı yakaladim haci e");
+		} else {
+			result.setSuccess(true);
 		}
 		return result;
 	}

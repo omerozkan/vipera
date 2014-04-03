@@ -1,6 +1,6 @@
 package info.ozkan.vipera.views.doctor;
 
-import info.ozkan.vipera.business.doctor.DoctorManager;
+import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.common.EmailValidator;
@@ -98,10 +98,10 @@ public class AddDoctorBean {
 	 */
 	private String passwordConfirm;
 	/**
-	 * İşletme katmanı nesnesi
+	 * İşletme katmanı
 	 */
 	@Inject
-	private DoctorManager doctorManager;
+	private DoctorFacade doctorFacade;
 
 	/**
 	 * Hekimi sisteme kaydeder
@@ -113,7 +113,7 @@ public class AddDoctorBean {
 		if (!checkFields(context)) {
 			return;
 		}
-		final DoctorManagerResult result = doctorManager.add(doctor);
+		final DoctorManagerResult result = doctorFacade.add(doctor);
 		if (!result.isSuccess()) {
 			if (result.getErrors().contains(DoctorManagerError.TCKN_HAS_EXIST)) {
 				context.addMessage(null, TCKN_HAS_EXIST);
@@ -224,11 +224,10 @@ public class AddDoctorBean {
 	}
 
 	/**
-	 * @param doctorManager
-	 *            the doctorManager to set
+	 * @param doctorFacade
+	 *            the doctorFacade to set
 	 */
-	public void setDoctorManager(final DoctorManager doctorManager) {
-		this.doctorManager = doctorManager;
+	public void setDoctorFacade(final DoctorFacade doctorFacade) {
+		this.doctorFacade = doctorFacade;
 	}
-
 }

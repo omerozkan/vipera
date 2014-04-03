@@ -52,4 +52,5 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="administratorLoginManager"
 		class="info.ozkan.vipera.business.login.AdministratorLoginManagerImpl" />
     <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl" />
+    <bean id="doctorFacade" class="info.ozkan.vipera.business.doctor.DoctorFacadeImpl" />
 </beans>

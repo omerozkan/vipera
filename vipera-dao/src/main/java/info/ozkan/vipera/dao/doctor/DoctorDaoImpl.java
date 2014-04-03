@@ -32,7 +32,6 @@ public class DoctorDaoImpl implements DoctorDao {
 	 */
 	public DoctorDaoResult add(final Doctor doctor) {
 		final DoctorDaoResult result = new DoctorDaoResult();
-		System.out.println("---------------KAYDEDIYORUM---------------");
 		em.persist(doctor);
 		result.setSuccess(true);
 		return result;
