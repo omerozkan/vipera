@@ -10,6 +10,10 @@ body
 	font-family: 'Cantarell', sans-serif;
 }
 
+.left {
+	flaot: left;
+}
+
 #container
 {
 	width: 960px;

@@ -286,4 +286,8 @@ public class Doctor implements Serializable {
 		}
 		return false;
 	}
+
+	public String getFullname() {
+		return String.format("%s %s %s", title.getTitle(), name, surname);
+	}
 }
