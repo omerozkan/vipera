@@ -53,10 +53,6 @@ public class AddDoctorBean {
 	 */
 	private static final String PASSWORDS_DONT_MATH_MSG = "Girdiğiniz parolalar birbiriyle uyuşmuyor!";
 	/**
-	 * HATA
-	 */
-	private static final String ERROR = "Hata";
-	/**
 	 * Geçersiz TC Kimlik no hata mesajı
 	 */
 	private static final String INVALID_TCKN_MSG = "TC Kimlik Numarasını 11 haneli ve sayılardan oluşmalıdır!";
@@ -64,27 +60,27 @@ public class AddDoctorBean {
 	 * Geçersiz TC Kimlik No hatası
 	 */
 	protected static final FacesMessage INVALID_TCKN = new FacesMessage(
-	        FacesMessage.SEVERITY_ERROR, ERROR, INVALID_TCKN_MSG);
+	        FacesMessage.SEVERITY_ERROR, INVALID_TCKN_MSG, "");
 	/**
 	 * Parola eşleşmeme hatası
 	 */
 	protected static final FacesMessage PASSWORDS_DONT_MATCH = new FacesMessage(
-	        FacesMessage.SEVERITY_ERROR, ERROR, PASSWORDS_DONT_MATH_MSG);
+	        FacesMessage.SEVERITY_ERROR, PASSWORDS_DONT_MATH_MSG, "");
 	/**
 	 * Eposta geçersiz hatası
 	 */
 	protected static final FacesMessage EMAIL_INVALID = new FacesMessage(
-	        FacesMessage.SEVERITY_ERROR, ERROR, INVALID_EMAIL_MSG);
+	        FacesMessage.SEVERITY_ERROR, INVALID_EMAIL_MSG, "");
 	/**
 	 * Sistem TCKN ile kayıtlı hekim hatası
 	 */
 	protected static final FacesMessage TCKN_HAS_EXIST = new FacesMessage(
-	        FacesMessage.SEVERITY_ERROR, ERROR, TCKN_HAS_EXIST_MSG);
+	        FacesMessage.SEVERITY_ERROR, TCKN_HAS_EXIST_MSG, "");
 	/**
 	 * Hekim kaydedildikten sonra gösterilecek mesaj
 	 */
 	protected static final FacesMessage SUCCESS = new FacesMessage(
-	        FacesMessage.SEVERITY_INFO, SUCCESS_TITLE, null);
+	        FacesMessage.SEVERITY_INFO, "", null);
 	/**
 	 * Doktor domain nesnesi
 	 */
@@ -119,7 +115,7 @@ public class AddDoctorBean {
 				context.addMessage(null, TCKN_HAS_EXIST);
 			}
 		} else {
-			SUCCESS.setDetail(String.format(SAVED_MSG_PATTERN,
+			SUCCESS.setSummary(String.format(SAVED_MSG_PATTERN,
 			        doctor.getTckn(), doctor.getName(), doctor.getSurname(),
 			        SAVED_MSG));
 			context.addMessage(null, SUCCESS);
