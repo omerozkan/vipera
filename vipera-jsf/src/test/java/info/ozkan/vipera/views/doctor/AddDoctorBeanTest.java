@@ -1,7 +1,7 @@
 package info.ozkan.vipera.views.doctor;
 
 import static org.junit.Assert.assertEquals;
-import info.ozkan.vipera.business.doctor.DoctorManager;
+import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.doctor.DoctorTestData;
@@ -136,11 +136,15 @@ public class AddDoctorBeanTest {
 		final DoctorManagerResult result = new DoctorManagerResult();
 		result.setSuccess(false);
 		result.addError(DoctorManagerError.TCKN_HAS_EXIST);
-		final DoctorManager manager = Mockito.mock(DoctorManager.class);
-		Mockito.when(manager.add(addDoctorBean.getDoctor())).thenReturn(result);
-		addDoctorBean.setDoctorManager(manager);
+		initializeDoctorFacadeMock(result);
 		addDoctorBean.save();
 		verifyFacesMessage(AddDoctorBean.TCKN_HAS_EXIST);
+	}
+
+	private void initializeDoctorFacadeMock(final DoctorManagerResult result) {
+		final DoctorFacade facade = Mockito.mock(DoctorFacade.class);
+		Mockito.when(facade.add(addDoctorBean.getDoctor())).thenReturn(result);
+		addDoctorBean.setDoctorFacade(facade);
 	}
 
 	/**
@@ -153,9 +157,7 @@ public class AddDoctorBeanTest {
 	public void saveDoctorSuccessfull() throws Exception {
 		final DoctorManagerResult result = new DoctorManagerResult();
 		result.setSuccess(true);
-		final DoctorManager manager = Mockito.mock(DoctorManager.class);
-		Mockito.when(manager.add(addDoctorBean.getDoctor())).thenReturn(result);
-		addDoctorBean.setDoctorManager(manager);
+		initializeDoctorFacadeMock(result);
 		addDoctorBean.save();
 		verifyFacesMessage(AddDoctorBean.SUCCESS);
 	}
