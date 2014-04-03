@@ -17,17 +17,35 @@ public class DoctorSearchResult {
 	private List<Doctor> doctors;
 
 	/**
-	 * @return the doctors
+	 * DoctorSearchResult nesnesi oluşturur default constructor
 	 */
-    public List<Doctor> getDoctors() {
-	    return doctors;
-    }
+	public DoctorSearchResult() {
+
+	}
 
 	/**
-	 * @param doctors the doctors to set
+	 * DoctorSearchResult nesnesi oluşturur
+	 * 
+	 * @param doctors
+	 *            Hekim Listesi
 	 */
-    public void setDoctors(List<Doctor> doctors) {
-	    this.doctors = doctors;
-    }
+	public DoctorSearchResult(final List<Doctor> doctors) {
+		this.doctors = doctors;
+	}
+
+	/**
+	 * @return the doctors
+	 */
+	public List<Doctor> getDoctors() {
+		return doctors;
+	}
+
+	/**
+	 * @param doctors
+	 *            the doctors to set
+	 */
+	public void setDoctors(final List<Doctor> doctors) {
+		this.doctors = doctors;
+	}
 
 }

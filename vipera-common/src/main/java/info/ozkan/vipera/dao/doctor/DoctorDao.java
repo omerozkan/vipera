@@ -2,6 +2,8 @@ package info.ozkan.vipera.dao.doctor;
 
 import info.ozkan.vipera.entities.Doctor;
 
+import java.util.List;
+
 /**
  * Hekimler üzerinde işlem yapan veri katmanı sınıfı
  * 
@@ -30,4 +32,12 @@ public interface DoctorDao {
 	 * @return
 	 */
 	DoctorDaoResult get(Long tckn);
+
+	/**
+	 * Veritabanından girilen kriterlere göre hekim arama işlemi yapar
+	 * 
+	 * @param model
+	 * @return
+	 */
+	List<Doctor> find(DoctorBrowseFilter model);
 }

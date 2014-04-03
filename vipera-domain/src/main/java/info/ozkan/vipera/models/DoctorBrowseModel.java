@@ -32,7 +32,7 @@ public class DoctorBrowseModel {
 	/**
 	 * Üyelik Aktifliği
 	 */
-	private Integer active;
+	private Integer enabled;
 	/**
 	 * @return the tckn
 	 */
@@ -97,12 +97,12 @@ public class DoctorBrowseModel {
 	 * @return the active
 	 */
     public Integer getActive() {
-	    return active;
+	    return enabled;
     }
 	/**
 	 * @param active the active to set
 	 */
     public void setActive(Integer active) {
-	    this.active = active;
+	    this.enabled = active;
     }
 }

@@ -3,6 +3,8 @@ package info.ozkan.vipera.dao.doctor;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.entities.Doctor;
 
+import java.util.List;
+
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -67,6 +69,11 @@ public class DoctorDaoImpl implements DoctorDao {
 			result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
 		}
 		return result;
+	}
+
+	public List<Doctor> find(final DoctorBrowseFilter model) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
