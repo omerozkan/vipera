@@ -20,14 +20,9 @@ import org.mockito.Mockito;
  * 
  */
 public class DoctorBrowseBeanTest {
-	/*
-	 * result = new ArrayList<Doctor>(); final Doctor doctor = new Doctor();
-	 * doctor.setName("Ömer"); doctor.setSurname("Özkan");
-	 * doctor.setTckn(18217084416l); doctor.setTitle(DoctorTitle.SPECIALIST);
-	 * doctor.setProvince("Testing"); doctor.setEmail("omer@ozkan.info");
-	 * doctor.setEnabled(1); result.add(doctor); System.out.println("çağrıldı");
+	/**
+	 * Test edilen sınıfın nesnesi
 	 */
-
 	DoctorBrowseBean doctorBrowse = new DoctorBrowseBean();
 
 	/**
