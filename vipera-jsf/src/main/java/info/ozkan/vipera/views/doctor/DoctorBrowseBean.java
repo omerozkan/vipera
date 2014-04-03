@@ -1,12 +1,14 @@
 package info.ozkan.vipera.views.doctor;
 
+import info.ozkan.vipera.business.doctor.DoctorFacade;
+import info.ozkan.vipera.business.doctor.DoctorSearchResult;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 import info.ozkan.vipera.models.DoctorBrowseModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -30,6 +32,19 @@ public class DoctorBrowseBean {
 	 * Arama sonucu
 	 */
 	private List<Doctor> result;
+	/**
+	 * İşletme katmanı
+	 */
+	@Inject
+	private DoctorFacade doctorFacade;
+
+	/**
+	 * Veritabanından hekim arama işlemi yapar ekranda gösterir
+	 */
+	public void search() {
+		final DoctorSearchResult searchResult = doctorFacade.search(model);
+		result = searchResult.getDoctors();
+	}
 
 	/**
 	 * @return the model
@@ -70,20 +85,6 @@ public class DoctorBrowseBean {
 		this.active = active;
 	}
 
-	public void search() {
-		result = new ArrayList<Doctor>();
-		final Doctor doctor = new Doctor();
-		doctor.setName("Ömer");
-		doctor.setSurname("Özkan");
-		doctor.setTckn(18217084416l);
-		doctor.setTitle(DoctorTitle.SPECIALIST);
-		doctor.setProvince("Testing");
-		doctor.setEmail("omer@ozkan.info");
-		doctor.setEnabled(1);
-		result.add(doctor);
-		System.out.println("çağrıldı");
-	}
-
 	/**
 	 * @return the result
 	 */
@@ -97,5 +98,13 @@ public class DoctorBrowseBean {
 	 */
 	public void setResult(final List<Doctor> result) {
 		this.result = result;
+	}
+
+	/**
+	 * @param doctorFacade
+	 *            the doctorFacade to set
+	 */
+	public void setDoctorFacade(final DoctorFacade doctorFacade) {
+		this.doctorFacade = doctorFacade;
 	}
 }
