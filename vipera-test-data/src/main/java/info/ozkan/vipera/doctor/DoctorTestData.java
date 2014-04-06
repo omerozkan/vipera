@@ -26,4 +26,19 @@ public class DoctorTestData {
 		doctor.setMobilePhone("+905553333333");
 		return doctor;
 	}
+
+	public static Doctor getTestData2() {
+		final Doctor doctor = new Doctor();
+		doctor.setTckn(12345678902L);
+		doctor.setPassword("password");
+		doctor.setEmail("ismail@drdemirci.com");
+		doctor.setName("Ismail");
+		doctor.setSurname("Demirci");
+		doctor.setTitle(DoctorTitle.SPECIALIST);
+		doctor.setDiplomaNo("12345");
+		doctor.setProvince("Dahiliye");
+		doctor.setPhone("+905555555");
+		doctor.setMobilePhone("+905553333333");
+		return doctor;
+	}
 }

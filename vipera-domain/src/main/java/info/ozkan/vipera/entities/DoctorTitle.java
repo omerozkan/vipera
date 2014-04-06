@@ -7,9 +7,9 @@ package info.ozkan.vipera.entities;
  * 
  */
 public enum DoctorTitle {
-	EMPTY(null, ""), DOCTOR(0, "Dr."), SPECIALIST(1, "Uz. Dr."), OPERATOR(2,
-	        "Op. Dr."), ASISTANT_PROF(3, "Yrd. Doç. Dr."), ASSOCICATE_PROF(4,
-	        "Doç. Dr."), PROFESSOR(5, "Prof. Dr.");
+	EMPTY(0, ""), DOCTOR(1, "Dr."), SPECIALIST(2, "Uz. Dr."), OPERATOR(3,
+	        "Op. Dr."), ASISTANT_PROF(4, "Yrd. Doç. Dr."), ASSOCICATE_PROF(5,
+	        "Doç. Dr."), PROFESSOR(6, "Prof. Dr.");
 
 	/**
 	 * anahtar
@@ -37,5 +37,10 @@ public enum DoctorTitle {
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	@Override
+	public String toString() {
+		return key.toString();
 	}
 }

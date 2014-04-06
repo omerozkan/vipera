@@ -3,13 +3,19 @@ package info.ozkan.vipera.dao.doctor;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.entities.Doctor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  * Hekim veritabanı üzerinde işlem yapan Dao sınıfı
@@ -70,9 +76,22 @@ public class DoctorDaoImpl implements DoctorDao {
 		return result;
 	}
 
-	public List<Doctor> find(final DoctorBrowseFilter model) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Doctor> find(final DoctorBrowseFilter filter) {
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<Doctor> cq = cb.createQuery(Doctor.class);
+		final Root<Doctor> root = cq.from(Doctor.class);
+		final Map<String, Object> filters = filter.getFilters();
+		final List<Predicate> predicates = new ArrayList<Predicate>();
+		for (final String attr : filters.keySet()) {
+			final Object obj = filters.get(attr);
+			if (obj != null && !obj.toString().isEmpty()) {
+				final String pattern = '%' + obj.toString() + '%';
+				predicates.add(cb.like(
+				        root.<String> get(attr).as(String.class), pattern));
+			}
+		}
+		cq.select(root).where(predicates.toArray(new Predicate[0]));
+		return em.createQuery(cq).getResultList();
 	}
 
 }

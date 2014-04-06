@@ -51,7 +51,7 @@ public class Doctor implements Serializable {
 	/**
 	 * DIPLOMA NO
 	 */
-	public static final String DIPLOMA_NO = "diplomaNo";
+	public static final String DIPLOMA_NO = "diploma_no";
 	/**
 	 * PROVINCE
 	 */
@@ -63,7 +63,7 @@ public class Doctor implements Serializable {
 	/**
 	 * MOBILE PHONE
 	 */
-	public static final String MOBILE_PHONE = "mobilePhone";
+	public static final String MOBILE_PHONE = "mobile_phone";
 	/**
 	 * WEB SAYFASI
 	 */

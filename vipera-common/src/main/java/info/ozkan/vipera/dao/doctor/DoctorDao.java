@@ -36,8 +36,8 @@ public interface DoctorDao {
 	/**
 	 * Veritabanından girilen kriterlere göre hekim arama işlemi yapar
 	 * 
-	 * @param model
+	 * @param filter
 	 * @return
 	 */
-	List<Doctor> find(DoctorBrowseFilter model);
+	List<Doctor> find(DoctorBrowseFilter filter);
 }

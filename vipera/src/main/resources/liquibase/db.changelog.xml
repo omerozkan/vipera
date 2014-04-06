@@ -32,10 +32,10 @@
             <column name="email" type="varchar(255)" />
             <column name="password" type="varchar(255)" />
             <column name="title" type="int" />
-            <column name="diplomaNo" type="varchar(255)" />
+            <column name="diploma_no" type="varchar(255)" />
             <column name="province" type="varchar(255)" />
             <column name="phone" type="varchar(255)" />
-            <column name="mobilePhone" type="varchar(255)" />
+            <column name="mobile_phone" type="varchar(255)" />
             <column name="webpage" type="varchar(255)" />
             <column name="enabled" type="int" />
         </createTable>
@@ -45,6 +45,38 @@
             <column name="id">1</column>
             <column name="username">admin</column>
             <column name="password">password</column>
+        </insert>
+    </changeSet>
+    <changeSet id="test-2" author="Ömer Özkan" context="test">
+        <insert tableName="DOCTORS">
+            <column name="id">2</column>
+            <column name="tckn">12345678901</column>
+            <column name="name">Gregory</column>
+            <column name="surname">House</column>
+            <column name="email">gregory@housemd.com</column>
+            <column name="password">123456</column>
+            <column name="title">2</column>
+            <column name="diploma_no">12345</column>
+            <column name="province">Bulaşıcı Hastalıklar ve Nefroloji</column>
+            <column name="phone">+905555555555</column>
+            <column name="mobile_phone">+905555555555</column>
+            <column name="webpage">http://www.greghouse.com</column>
+            <column name="enabled">1</column>
+        </insert>
+        <insert tableName="DOCTORS">
+            <column name="id">3</column>
+            <column name="tckn">12345678902</column>
+            <column name="name">Ismail</column>
+            <column name="surname">Demirci</column>
+            <column name="email">ismail@drdemirci.com</column>
+            <column name="password">123456</column>
+            <column name="title">2</column>
+            <column name="diploma_no">12345</column>
+            <column name="province">Dahiliye</column>
+            <column name="phone">+905555555555</column>
+            <column name="mobile_phone">+905555555555</column>
+            <column name="webpage"></column>
+            <column name="enabled">1</column>
         </insert>
     </changeSet>
 </databaseChangeLog>
