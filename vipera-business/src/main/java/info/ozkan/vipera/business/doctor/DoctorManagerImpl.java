@@ -79,12 +79,12 @@ public class DoctorManagerImpl implements DoctorManager {
 		final DoctorBrowseFilter filter = new DoctorBrowseFilter();
 		if (model.getTckn() != null
 		        && model.getTckn().toString().length() == 11) {
-			filter.addFilter("tckn", model.getTckn());
+			filter.addFilter(Doctor.TCKN, model.getTckn());
 		} else {
-			filter.addFilter("name", model.getName());
-			filter.addFilter("surname", model.getSurname());
-			filter.addFilter("title", model.getTitle());
-			filter.addFilter("enabled", model.getActive());
+			filter.addFilter(Doctor.NAME, model.getName());
+			filter.addFilter(Doctor.SURNAME, model.getSurname());
+			filter.addFilter(Doctor.TITLE, model.getTitle());
+			filter.addFilter(Doctor.ENABLED, model.getActive());
 		}
 		final List<Doctor> doctors = doctorDao.find(filter);
 		return new DoctorSearchResult(doctors);

@@ -19,7 +19,6 @@ import javax.persistence.Query;
  */
 @Named("doctorDao")
 public class DoctorDaoImpl implements DoctorDao {
-	protected static final String TCKN = "tckn";
 	protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
 	/**
 	 * Persistence nesne
@@ -58,7 +57,7 @@ public class DoctorDaoImpl implements DoctorDao {
 	 */
 	public DoctorDaoResult get(final Long tckn) {
 		final Query query = em.createQuery(JQL_GET_BY_TCKN);
-		query.setParameter(TCKN, tckn);
+		query.setParameter(Doctor.TCKN, tckn);
 		final DoctorDaoResult result = new DoctorDaoResult();
 		try {
 			final Doctor doctor = (Doctor) query.getSingleResult();
