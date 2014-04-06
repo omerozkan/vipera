@@ -33,12 +33,18 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
 	 */
 	@Test
 	public void addDoctor() throws Exception {
-		final Doctor doctor = DoctorTestData.getTestData();
-		doctor.setTckn(11111111111l);
-		final DoctorDaoResult result = doctorDao.add(doctor);
-		assertTrue(result.isSuccess());
-		final Doctor resultDoctor = doctorDao.get(doctor.getTckn()).getDoctor();
-		assertEquals(doctor, resultDoctor);
+		try {
+			final Doctor doctor = DoctorTestData.getTestData2();
+			doctor.setTckn(1111111111l);
+			final DoctorDaoResult result = doctorDao.add(doctor);
+			assertTrue(result.isSuccess());
+			final Doctor resultDoctor = doctorDao.get(doctor.getTckn())
+			        .getDoctor();
+			assertEquals(doctor, resultDoctor);
+		} catch (final RuntimeException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause());
+		}
 	}
 
 	/**

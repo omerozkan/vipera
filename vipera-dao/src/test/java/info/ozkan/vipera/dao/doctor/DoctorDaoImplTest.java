@@ -7,6 +7,8 @@ import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
 
+import java.util.Arrays;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -91,7 +93,7 @@ public class DoctorDaoImplTest {
 	public void getDoctorTest() throws Exception {
 		final Query query = createMockQuery();
 		configureQueryMethods(query);
-		Mockito.when(query.getSingleResult()).thenReturn(doctor);
+		Mockito.when(query.getResultList()).thenReturn(Arrays.asList(doctor));
 		final DoctorDaoResult result = doctorDao.get(doctor.getTckn());
 		assertTrue(result.isSuccess());
 		assertEquals(doctor, result.getDoctor());
@@ -123,7 +125,7 @@ public class DoctorDaoImplTest {
 	private void verifyGet(final Query query) {
 		Mockito.verify(em).createQuery(DoctorDaoImpl.JQL_GET_BY_TCKN);
 		Mockito.verify(query).setParameter(Doctor.TCKN, doctor.getTckn());
-		Mockito.verify(query).getSingleResult();
+		Mockito.verify(query).getResultList();
 	}
 
 	/**
