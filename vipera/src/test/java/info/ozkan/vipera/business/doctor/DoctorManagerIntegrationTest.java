@@ -11,7 +11,6 @@ import info.ozkan.vipera.test.IntegrationTest;
 import javax.inject.Inject;
 
 import org.junit.Test;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * DoctorManager entegrasyon testi
@@ -30,7 +29,6 @@ public class DoctorManagerIntegrationTest extends IntegrationTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Transactional
 	public void addDoctor() throws Exception {
 		final Doctor doctor = DoctorTestData.getTestData();
 		doctor.setTckn(1111111111l);
@@ -48,7 +46,6 @@ public class DoctorManagerIntegrationTest extends IntegrationTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Transactional
 	public void getDoctorsByTitle() throws Exception {
 		final Doctor house = DoctorTestData.getTestData();
 		final Doctor demirci = DoctorTestData.getTestData2();

@@ -12,7 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.junit.Test;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * DoctorDao entegrasyon testi
@@ -32,7 +31,6 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Transactional
 	@Test
 	public void addDoctor() throws Exception {
 		final Doctor doctor = DoctorTestData.getTestData();
@@ -49,7 +47,6 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Transactional
 	@Test
 	public void findDoctorByTCKN() throws Exception {
 		final Doctor doctor = DoctorTestData.getTestData();
@@ -66,7 +63,6 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Transactional
 	@Test
 	public void findDoctorByName() throws Exception {
 		final Doctor doctor = DoctorTestData.getTestData();
@@ -83,7 +79,6 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Transactional
 	@Test
 	public void findDoctorsByTitle() throws Exception {
 		final Doctor house = DoctorTestData.getTestData();
@@ -103,7 +98,6 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
 	 * @throws Exception
 	 */
 	@Test
-	@Transactional
 	public void findDoctorByTitleAndSurname() throws Exception {
 		final Doctor doctor = DoctorTestData.getTestData2();
 		final DoctorBrowseFilter filter = new DoctorBrowseFilter();
