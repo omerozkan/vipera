@@ -60,6 +60,7 @@ public class DoctorManagerImpl implements DoctorManager {
 	 * 
 	 * @see info.ozkan.vipera.business.doctor.DoctorManager#get(Long)
 	 */
+	@Transactional
 	public DoctorManagerResult get(final Long tckn) {
 		final DoctorDaoResult daoResult = doctorDao.get(tckn);
 		final DoctorManagerResult result = new DoctorManagerResult();
@@ -75,6 +76,7 @@ public class DoctorManagerImpl implements DoctorManager {
 	 * @see
 	 * info.ozkan.vipera.business.doctor.DoctorManager#search(DoctorBrowseModel)
 	 */
+	@Transactional
 	public DoctorSearchResult search(final DoctorBrowseModel model) {
 		final DoctorBrowseFilter filter = new DoctorBrowseFilter();
 		if (model.getTckn() != null
