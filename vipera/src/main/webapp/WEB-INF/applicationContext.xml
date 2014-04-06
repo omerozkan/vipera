@@ -17,7 +17,9 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- DATABASE CONFIGURATION -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		p:driverClassName="org.hsqldb.jdbcDriver" p:url="jdbc:hsqldb:hsql://localhost:9001/vipera"
-		p:username="sa" p:password="" />
+		p:username="sa" p:password="" >
+            <property name="defaultAutoCommit" value="false" />
+        </bean>
     <!-- LIQUIBASE CONFIGURATION -->
     <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
         <property name="dataSource" ref="dataSource" />

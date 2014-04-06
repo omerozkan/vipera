@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -65,13 +64,13 @@ public class DoctorDaoImpl implements DoctorDao {
 		final Query query = em.createQuery(JQL_GET_BY_TCKN);
 		query.setParameter(Doctor.TCKN, tckn);
 		final DoctorDaoResult result = new DoctorDaoResult();
-		try {
-			final Doctor doctor = (Doctor) query.getSingleResult();
-			result.setSuccess(true);
-			result.setDoctor(doctor);
-		} catch (final NoResultException e) {
+		final List resultList = query.getResultList();
+		if (resultList.size() == 0) {
 			result.setSuccess(false);
 			result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
+		} else {
+			result.setSuccess(true);
+			result.setDoctor((Doctor) resultList.get(0));
 		}
 		return result;
 	}
