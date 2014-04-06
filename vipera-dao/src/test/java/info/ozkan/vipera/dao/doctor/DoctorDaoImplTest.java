@@ -15,7 +15,9 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 /**
  * DoctorDaoImpl birim testleri
@@ -27,6 +29,7 @@ public class DoctorDaoImplTest {
 	/**
 	 * Persistence
 	 */
+	@Mock
 	private EntityManager em;
 	/**
 	 * Doctor nesnesi
@@ -42,7 +45,7 @@ public class DoctorDaoImplTest {
 	 */
 	@Before
 	public void setUp() {
-		em = Mockito.mock(EntityManager.class);
+		MockitoAnnotations.initMocks(this);
 		doctorDao.setEntityManager(em);
 	}
 
@@ -119,8 +122,7 @@ public class DoctorDaoImplTest {
 	 */
 	private void verifyGet(final Query query) {
 		Mockito.verify(em).createQuery(DoctorDaoImpl.JQL_GET_BY_TCKN);
-		Mockito.verify(query)
-		        .setParameter(DoctorDaoImpl.TCKN, doctor.getTckn());
+		Mockito.verify(query).setParameter(Doctor.TCKN, doctor.getTckn());
 		Mockito.verify(query).getSingleResult();
 	}
 
@@ -149,7 +151,7 @@ public class DoctorDaoImplTest {
 	private void configureQueryMethods(final Query query) {
 		Mockito.when(em.createQuery(DoctorDaoImpl.JQL_GET_BY_TCKN)).thenReturn(
 		        query);
-		Mockito.when(query.setParameter(DoctorDaoImpl.TCKN, doctor.getTckn()))
+		Mockito.when(query.setParameter(Doctor.TCKN, doctor.getTckn()))
 		        .thenReturn(query);
 	}
 

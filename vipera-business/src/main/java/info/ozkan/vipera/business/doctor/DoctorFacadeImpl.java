@@ -4,6 +4,7 @@
 package info.ozkan.vipera.business.doctor;
 
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.models.DoctorBrowseModel;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,6 +45,10 @@ public class DoctorFacadeImpl implements DoctorFacade {
 	 */
 	public void setDoctorManager(final DoctorManager doctorManager) {
 		this.doctorManager = doctorManager;
+	}
+
+	public DoctorSearchResult search(final DoctorBrowseModel model) {
+		return doctorManager.search(model);
 	}
 
 }

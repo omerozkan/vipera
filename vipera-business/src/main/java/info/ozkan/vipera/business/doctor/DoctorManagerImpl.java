@@ -1,8 +1,12 @@
 package info.ozkan.vipera.business.doctor;
 
+import info.ozkan.vipera.dao.doctor.DoctorBrowseFilter;
 import info.ozkan.vipera.dao.doctor.DoctorDao;
 import info.ozkan.vipera.dao.doctor.DoctorDaoResult;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.models.DoctorBrowseModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -56,6 +60,7 @@ public class DoctorManagerImpl implements DoctorManager {
 	 * 
 	 * @see info.ozkan.vipera.business.doctor.DoctorManager#get(Long)
 	 */
+	@Transactional
 	public DoctorManagerResult get(final Long tckn) {
 		final DoctorDaoResult daoResult = doctorDao.get(tckn);
 		final DoctorManagerResult result = new DoctorManagerResult();
@@ -63,6 +68,28 @@ public class DoctorManagerImpl implements DoctorManager {
 		result.setSuccess(daoResult.isSuccess());
 		result.addError(daoResult.getError());
 		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * info.ozkan.vipera.business.doctor.DoctorManager#search(DoctorBrowseModel)
+	 */
+	@Transactional
+	public DoctorSearchResult search(final DoctorBrowseModel model) {
+		final DoctorBrowseFilter filter = new DoctorBrowseFilter();
+		if (model.getTckn() != null
+		        && model.getTckn().toString().length() == 11) {
+			filter.addFilter(Doctor.TCKN, model.getTckn());
+		} else {
+			filter.addFilter(Doctor.NAME, model.getName());
+			filter.addFilter(Doctor.SURNAME, model.getSurname());
+			filter.addFilter(Doctor.TITLE, model.getTitle());
+			filter.addFilter(Doctor.ENABLED, model.getActive());
+		}
+		final List<Doctor> doctors = doctorDao.find(filter);
+		return new DoctorSearchResult(doctors);
 	}
 
 }

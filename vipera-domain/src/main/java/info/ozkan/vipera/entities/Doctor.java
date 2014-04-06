@@ -20,70 +20,125 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "DOCTORS")
 public class Doctor implements Serializable {
-
+	/**
+	 * ID
+	 */
+	public static final String ID = "id";
+	/**
+	 * TCKN
+	 */
+	public static final String TCKN = "tckn";
+	/**
+	 * NAME
+	 */
+	public static final String NAME = "name";
+	/**
+	 * SURNAME
+	 */
+	public static final String SURNAME = "surname";
+	/**
+	 * EMAIL
+	 */
+	public static final String EMAIL = "email";
+	/**
+	 * PASSWORD
+	 */
+	public static final String PASSWORD = "password";
+	/**
+	 * TITLE
+	 */
+	public static final String TITLE = "title";
+	/**
+	 * DIPLOMA NO
+	 */
+	public static final String DIPLOMA_NO = "diploma_no";
+	/**
+	 * PROVINCE
+	 */
+	public static final String PROVINCE = "province";
+	/**
+	 * PHONE
+	 */
+	public static final String PHONE = "phone";
+	/**
+	 * MOBILE PHONE
+	 */
+	public static final String MOBILE_PHONE = "mobile_phone";
+	/**
+	 * WEB SAYFASI
+	 */
+	public static final String WEBPAGE = "webpage";
+	/**
+	 * ÜYELİK AKTİFLİĞİ
+	 */
+	public static final String ENABLED = "enabled";
+	/**
+	 * Identifier
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = ID)
 	private Long id;
 	/**
 	 * TC Kimlik No
 	 */
-	@Column(name = "tckn", unique = true)
+	@Column(name = TCKN, unique = true)
 	private Long tckn;
 	/**
 	 * Adı
 	 */
-	@Column(name = "name")
+	@Column(name = NAME)
 	private String name;
 	/**
 	 * Soyadı
 	 */
-	@Column(name = "surname")
+	@Column(name = SURNAME)
 	private String surname;
 	/**
 	 * Eposta
 	 */
-	@Column(name = "email")
+	@Column(name = EMAIL)
 	private String email;
 	/**
 	 * Parola
 	 */
-	@Column(name = "password")
+	@Column(name = PASSWORD)
 	private String password;
 	/**
 	 * Ünvan
 	 */
-	@Column(name = "title")
+	@Column(name = TITLE)
 	@Enumerated(EnumType.ORDINAL)
 	private DoctorTitle title;
 	/**
 	 * Diploma No
 	 */
-	@Column(name = "diplomaNo")
+	@Column(name = DIPLOMA_NO)
 	private String diplomaNo;
 	/**
 	 * Uzmanlık Alanı
 	 */
-	@Column(name = "province")
+	@Column(name = PROVINCE)
 	private String province;
 	/**
 	 * Telefon
 	 */
-	@Column(name = "phone")
+	@Column(name = PHONE)
 	private String phone;
 	/**
 	 * Cep Telefonu
 	 */
-	@Column(name = "mobilePhone")
+	@Column(name = MOBILE_PHONE)
 	private String mobilePhone;
 	/**
 	 * Web sayfası
 	 */
-	@Column(name = "webpage")
+	@Column(name = WEBPAGE)
 	private String webpage;
 	/**
 	 * Aktiflik
 	 */
-	@Column(name = "enabled")
+	@Column(name = ENABLED)
 	private Integer enabled;
 
 	/**
@@ -285,5 +340,14 @@ public class Doctor implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Hekimin adını Ünvan Ad Soyad şeklinde alır
+	 * 
+	 * @return
+	 */
+	public String getFullname() {
+		return String.format("%s %s %s", title.getTitle(), name, surname);
 	}
 }
