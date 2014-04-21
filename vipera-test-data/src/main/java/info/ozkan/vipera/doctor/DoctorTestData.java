@@ -9,7 +9,7 @@ import info.ozkan.vipera.entities.DoctorTitle;
  * @author Ömer Özkan
  * 
  */
-public class DoctorTestData {
+public final class DoctorTestData {
     /**
      * Gregory House test id
      */
