@@ -13,11 +13,11 @@ public class DoctorTestData {
     /**
      * Gregory House test id
      */
-    public static int HOUSE = 0;
+    public static final int HOUSE = 0;
     /**
      * Ismail Demirci test id
      */
-    public static int DEMIRCI = 1;
+    public static final int DEMIRCI = 1;
 
     /**
      * private constructor

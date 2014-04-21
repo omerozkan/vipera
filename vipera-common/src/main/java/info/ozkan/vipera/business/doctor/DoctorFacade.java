@@ -13,19 +13,19 @@ import info.ozkan.vipera.models.DoctorBrowseModel;
  * 
  */
 public interface DoctorFacade {
-	/**
-	 * Veritabanına yeni bir hekim ekler
-	 * 
-	 * @param doctor
-	 * @return
-	 */
-	DoctorManagerResult add(Doctor doctor);
+    /**
+     * Veritabanına yeni bir hekim ekler
+     * 
+     * @param doctor
+     * @return
+     */
+    DoctorManagerResult add(Doctor doctor);
 
-	/**
-	 * Veritabanı üzerinden hekim arar
-	 * 
-	 * @param model
-	 * @return
-	 */
-	DoctorManagerResult search(DoctorBrowseModel model);
+    /**
+     * Veritabanı üzerinden hekim arar
+     * 
+     * @param model
+     * @return
+     */
+    DoctorManagerResult search(DoctorBrowseModel model);
 }

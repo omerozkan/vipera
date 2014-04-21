@@ -345,7 +345,8 @@ public class Doctor implements Serializable {
     @Override
     public int hashCode() {
         final int result = tckn.intValue();
-        return result * 41;
+        final int prime = 41;
+        return result * prime;
     }
 
     /**
