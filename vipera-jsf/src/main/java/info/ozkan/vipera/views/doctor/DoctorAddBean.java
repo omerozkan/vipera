@@ -110,6 +110,8 @@ public class DoctorAddBean {
         final DoctorManagerResult result = doctorFacade.add(doctor);
         if (!result.isSuccess()) {
             if (result.getErrors().contains(DoctorManagerError.TCKN_HAS_EXIST)) {
+                LOGGER.info("Duplicate doctor with TCKN {}", getDoctor()
+                        .getTckn());
                 context.addMessage(null, TCKN_HAS_EXIST);
             }
         } else {
@@ -138,11 +140,13 @@ public class DoctorAddBean {
             fieldHasValid = false;
         }
         if (!doctor.getPassword().equals(passwordConfirm)) {
+            LOGGER.info("The passwords don't match.");
             context.addMessage(null, PASSWORDS_DONT_MATCH);
             fieldHasValid = false;
         }
         if (doctor.getEmail() != null && !doctor.getEmail().isEmpty()
                 && !isValidEmail(doctor.getEmail())) {
+            LOGGER.info("The email is invalid.");
             context.addMessage(null, EMAIL_INVALID);
             fieldHasValid = false;
         }

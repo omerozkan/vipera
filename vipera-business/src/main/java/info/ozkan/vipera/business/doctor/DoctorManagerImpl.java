@@ -11,6 +11,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -21,6 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Named("doctorManager")
 public class DoctorManagerImpl implements DoctorManager {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DoctorManagerImpl.class);
+    /**
+     * TCKN uzunluk
+     */
     private static final int TCKN_LENGTH = 11;
     /**
      * Veritabanı işlemleri
@@ -40,9 +47,11 @@ public class DoctorManagerImpl implements DoctorManager {
         final DoctorManagerResult result = new DoctorManagerResult();
         final DoctorDaoResult daoResult = doctorDao.add(doctor);
         if (!daoResult.isSuccess()) {
+            LOGGER.info("The new doctor cannot be added");
             result.addError(daoResult.getError());
             result.setSuccess(false);
         } else {
+            LOGGER.info("The new doctor {} is added", doctor.getFullname());
             result.setSuccess(true);
         }
         return result;

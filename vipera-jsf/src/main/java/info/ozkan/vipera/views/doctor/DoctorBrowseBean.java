@@ -11,6 +11,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Hekimler üzerinde arama işlemi yapan Bean sınıfı
  * 
@@ -19,6 +22,8 @@ import javax.inject.Named;
  */
 @Named("doctorBrowse")
 public class DoctorBrowseBean {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DoctorBrowseBean.class);
     /**
      * Arama model sınıfı nesnesi
      */
@@ -44,6 +49,7 @@ public class DoctorBrowseBean {
     public void search() {
         final DoctorManagerResult searchResult = doctorFacade.search(model);
         result = searchResult.getDoctors();
+        LOGGER.info("{} doctors are found", result.size());
     }
 
     /**
