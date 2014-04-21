@@ -19,6 +19,10 @@ import javax.persistence.Table;
 @Table(name = "ADMINISTRATORS")
 public class Administrator implements Serializable {
     /**
+     * 
+     */
+    private static final long serialVersionUID = 5726328017305109395L;
+    /**
      * Id
      */
     @Id
