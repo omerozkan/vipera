@@ -31,7 +31,7 @@ public class AdministratorLoginManager implements AuthenticationProvider {
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AdministratorLoginManager.class);
-    protected static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
     /**
      * Persistence katmanı nesnesi
      */

@@ -1,5 +1,6 @@
 package info.ozkan.vipera.business.doctor;
 
+import info.ozkan.vipera.business.login.AdministratorLoginManager;
 import info.ozkan.vipera.dao.doctor.DoctorBrowseFilter;
 import info.ozkan.vipera.dao.doctor.DoctorDao;
 import info.ozkan.vipera.dao.doctor.DoctorDaoResult;
@@ -8,6 +9,7 @@ import info.ozkan.vipera.models.DoctorBrowseModel;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -43,6 +45,7 @@ public class DoctorManagerImpl implements DoctorManager {
      * .entities.Doctor)
      */
     @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
     public DoctorManagerResult add(final Doctor doctor) {
         final DoctorManagerResult result = new DoctorManagerResult();
         final DoctorDaoResult daoResult = doctorDao.add(doctor);
@@ -87,6 +90,7 @@ public class DoctorManagerImpl implements DoctorManager {
      * info.ozkan.vipera.business.doctor.DoctorManager#search(DoctorBrowseModel)
      */
     @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
     public DoctorManagerResult search(final DoctorBrowseModel model) {
         final DoctorBrowseFilter filter = new DoctorBrowseFilter();
         if (model.getTckn() != null
