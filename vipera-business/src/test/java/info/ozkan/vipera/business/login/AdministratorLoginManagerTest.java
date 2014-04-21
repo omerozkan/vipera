@@ -2,8 +2,8 @@ package info.ozkan.vipera.business.login;
 
 import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.dao.login.AdministratorLoginDao;
-import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
 import info.ozkan.vipera.entities.Administrator;
+import info.ozkan.vipera.login.AdministratorLoginResult;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @author Ömer Özkan
  * 
  */
-public class AdministratorLoginManagerImplTest {
+public class AdministratorLoginManagerTest {
 	/**
 	 * Kullanıcı adı
 	 */
@@ -59,16 +59,16 @@ public class AdministratorLoginManagerImplTest {
 	 */
 	@Test(expected = UsernameNotFoundException.class)
 	public void loginInvalidUsername() throws Exception {
-		final AdministratorLoginDaoResult daoResult = createDaoResult(AdministratorLoginStatus.INVALID_USERNAME);
+		final AdministratorLoginResult daoResult = createDaoResult(AdministratorLoginStatus.INVALID_USERNAME);
 		setMockReturn(daoResult);
 		mockAuthentication();
 		manager.authenticate(authentication);
 		verify();
 	}
 
-	private AdministratorLoginDaoResult createDaoResult(
+	private AdministratorLoginResult createDaoResult(
 	        final AdministratorLoginStatus status) {
-		final AdministratorLoginDaoResult daoResult = new AdministratorLoginDaoResult();
+		final AdministratorLoginResult daoResult = new AdministratorLoginResult();
 		daoResult.setStatus(status);
 		return daoResult;
 	}
@@ -81,7 +81,7 @@ public class AdministratorLoginManagerImplTest {
 	 */
 	@Test(expected = BadCredentialsException.class)
 	public void loginInvalidPassword() throws Exception {
-		final AdministratorLoginDaoResult daoResult = createDaoResult(AdministratorLoginStatus.INVALID_PASSWORD);
+		final AdministratorLoginResult daoResult = createDaoResult(AdministratorLoginStatus.INVALID_PASSWORD);
 		setMockReturn(daoResult);
 		mockAuthentication();
 		manager.authenticate(authentication);
@@ -96,7 +96,7 @@ public class AdministratorLoginManagerImplTest {
 	 */
 	@Test
 	public void loginSuccessfull() throws Exception {
-		final AdministratorLoginDaoResult daoResult = createDaoResult(AdministratorLoginStatus.SUCCESS);
+		final AdministratorLoginResult daoResult = createDaoResult(AdministratorLoginStatus.SUCCESS);
 		final Administrator admin = createAdministrator();
 		daoResult.setAdministrator(admin);
 		setMockReturn(daoResult);
@@ -129,7 +129,7 @@ public class AdministratorLoginManagerImplTest {
 	 * 
 	 * @param daoResult
 	 */
-	private void setMockReturn(final AdministratorLoginDaoResult daoResult) {
+	private void setMockReturn(final AdministratorLoginResult daoResult) {
 		Mockito.when(mockDao.findUser(username, password))
 		        .thenReturn(daoResult);
 	}

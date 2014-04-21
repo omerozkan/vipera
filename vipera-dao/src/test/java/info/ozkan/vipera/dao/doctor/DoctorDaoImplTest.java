@@ -12,10 +12,8 @@ import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -49,26 +47,6 @@ public class DoctorDaoImplTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		doctorDao.setEntityManager(em);
-	}
-
-	/**
-	 * TCKN ile kayıtlı sistemde bir hekim bulunmaktadır. Aynı TCKN ile iki ayrı
-	 * hekim sisteme kaydedilemez. İlgili hata gösterilir.
-	 * 
-	 * Spring Trasanctional anotasyonu kullanıldığı için istisnayı Spring
-	 * fırlatır bu istisnayı ise DoctorFacade sınıfı yakalar.
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	@Ignore
-	public void addWithNonUniqueTCKN() throws Exception {
-		Mockito.doThrow(new ConstraintViolationException(null)).when(em)
-		        .persist(doctor);
-		final DoctorDaoResult result = doctorDao.add(doctor);
-		assertFalse(result.isSuccess());
-		assertTrue(result.getError().equals(DoctorManagerError.TCKN_HAS_EXIST));
-		verifyPersist();
 	}
 
 	/**

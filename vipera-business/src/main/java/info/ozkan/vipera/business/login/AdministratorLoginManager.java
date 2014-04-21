@@ -1,7 +1,7 @@
 package info.ozkan.vipera.business.login;
 
 import info.ozkan.vipera.dao.login.AdministratorLoginDao;
-import info.ozkan.vipera.dao.login.AdministratorLoginDaoResult;
+import info.ozkan.vipera.login.AdministratorLoginResult;
 
 import java.util.Collection;
 
@@ -53,7 +53,7 @@ public class AdministratorLoginManager implements AuthenticationProvider {
 	 */
 	public Authentication authenticate(final Authentication authentication)
 	        throws AuthenticationException {
-		final AdministratorLoginDaoResult result = loginDao.findUser(
+		final AdministratorLoginResult result = loginDao.findUser(
 		        authentication.getPrincipal().toString(), authentication
 		                .getCredentials().toString());
 		final AdministratorLoginStatus status = result.getStatus();

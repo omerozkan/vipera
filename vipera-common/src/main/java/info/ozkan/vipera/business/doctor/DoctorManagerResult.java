@@ -24,7 +24,7 @@ public class DoctorManagerResult {
 	 */
 	private final List<DoctorManagerError> errors = new ArrayList<DoctorManagerError>();
 
-	private Doctor doctor;
+	private List<Doctor> doctors = new ArrayList<Doctor>();
 
 	/**
 	 * Hata listesine yeni bir hata ekler
@@ -59,18 +59,25 @@ public class DoctorManagerResult {
 	}
 
 	/**
-	 * @return the doctor
+	 * @return the doctors
 	 */
-	public Doctor getDoctor() {
-		return doctor;
+	public List<Doctor> getDoctors() {
+		return doctors;
 	}
 
 	/**
-	 * @param doctor
-	 *            the doctor to set
+	 * @param doctors
+	 *            the doctors to set
 	 */
-	public void setDoctor(final Doctor doctor) {
-		this.doctor = doctor;
+	public void setDoctors(final List<Doctor> doctors) {
+		this.doctors = doctors;
 	}
 
+	public void addDoctor(final Doctor doctor) {
+		doctors.add(doctor);
+	}
+
+	public Doctor getDoctor() {
+		return doctors.size() == 0 ? null : doctors.get(0);
+	}
 }

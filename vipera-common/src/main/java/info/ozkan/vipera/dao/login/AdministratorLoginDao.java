@@ -1,7 +1,9 @@
 package info.ozkan.vipera.dao.login;
 
+import info.ozkan.vipera.login.AdministratorLoginResult;
+
 public interface AdministratorLoginDao {
 
-	AdministratorLoginDaoResult findUser(String username, String password);
+	AdministratorLoginResult findUser(String username, String password);
 
 }

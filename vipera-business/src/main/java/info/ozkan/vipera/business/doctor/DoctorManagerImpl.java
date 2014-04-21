@@ -64,7 +64,7 @@ public class DoctorManagerImpl implements DoctorManager {
 	public DoctorManagerResult get(final Long tckn) {
 		final DoctorDaoResult daoResult = doctorDao.get(tckn);
 		final DoctorManagerResult result = new DoctorManagerResult();
-		result.setDoctor(daoResult.getDoctor());
+		result.addDoctor(daoResult.getDoctor());
 		result.setSuccess(daoResult.isSuccess());
 		result.addError(daoResult.getError());
 		return result;
@@ -77,7 +77,7 @@ public class DoctorManagerImpl implements DoctorManager {
 	 * info.ozkan.vipera.business.doctor.DoctorManager#search(DoctorBrowseModel)
 	 */
 	@Transactional
-	public DoctorSearchResult search(final DoctorBrowseModel model) {
+	public DoctorManagerResult search(final DoctorBrowseModel model) {
 		final DoctorBrowseFilter filter = new DoctorBrowseFilter();
 		if (model.getTckn() != null
 		        && model.getTckn().toString().length() == 11) {
@@ -89,7 +89,9 @@ public class DoctorManagerImpl implements DoctorManager {
 			filter.addFilter(Doctor.ENABLED, model.getActive());
 		}
 		final List<Doctor> doctors = doctorDao.find(filter);
-		return new DoctorSearchResult(doctors);
+		final DoctorManagerResult result = new DoctorManagerResult();
+		result.setDoctors(doctors);
+		return result;
 	}
 
 }

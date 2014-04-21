@@ -1,7 +1,7 @@
 package info.ozkan.vipera.views.doctor;
 
 import info.ozkan.vipera.business.doctor.DoctorFacade;
-import info.ozkan.vipera.business.doctor.DoctorSearchResult;
+import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 import info.ozkan.vipera.models.DoctorBrowseModel;
@@ -42,7 +42,7 @@ public class DoctorBrowseBean {
 	 * Veritabanından hekim arama işlemi yapar ekranda gösterir
 	 */
 	public void search() {
-		final DoctorSearchResult searchResult = doctorFacade.search(model);
+		final DoctorManagerResult searchResult = doctorFacade.search(model);
 		result = searchResult.getDoctors();
 	}
 

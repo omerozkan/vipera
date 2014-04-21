@@ -47,7 +47,7 @@ public class DoctorFacadeImpl implements DoctorFacade {
 		this.doctorManager = doctorManager;
 	}
 
-	public DoctorSearchResult search(final DoctorBrowseModel model) {
+	public DoctorManagerResult search(final DoctorBrowseModel model) {
 		return doctorManager.search(model);
 	}
 

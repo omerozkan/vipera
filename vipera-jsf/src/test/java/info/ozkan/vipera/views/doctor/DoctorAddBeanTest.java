@@ -26,7 +26,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FacesContext.class)
-public class AddDoctorBeanTest {
+public class DoctorAddBeanTest {
 	/**
 	 * TC Kimlik
 	 */
@@ -51,7 +51,7 @@ public class AddDoctorBeanTest {
 	/**
 	 * AddDoctor
 	 */
-	private AddDoctorBean addDoctorBean;
+	private DoctorAddBean addDoctorBean;
 
 	/**
 	 * Test verilerini hazırlama
@@ -64,7 +64,7 @@ public class AddDoctorBeanTest {
 		PowerMockito.mockStatic(FacesContext.class);
 		PowerMockito.doReturn(context).when(FacesContext.class,
 		        "getCurrentInstance");
-		addDoctorBean = new AddDoctorBean();
+		addDoctorBean = new DoctorAddBean();
 		final Doctor doctor = createValidDoctorObject();
 		addDoctorBean.setPasswordConfirm(PASSWORD);
 		addDoctorBean.setDoctor(doctor);
@@ -92,7 +92,7 @@ public class AddDoctorBeanTest {
 	public void saveWithWrongTCKN() throws Exception {
 		addDoctorBean.getDoctor().setTckn(123L);
 		addDoctorBean.save();
-		verifyFacesMessage(AddDoctorBean.INVALID_TCKN);
+		verifyFacesMessage(DoctorAddBean.INVALID_TCKN);
 	}
 
 	private void verifyFacesMessage(final FacesMessage message) {
@@ -109,7 +109,7 @@ public class AddDoctorBeanTest {
 	public void saveWithDifferentPasswords() throws Exception {
 		addDoctorBean.setPasswordConfirm("differentPassword");
 		addDoctorBean.save();
-		verifyFacesMessage(AddDoctorBean.PASSWORDS_DONT_MATCH);
+		verifyFacesMessage(DoctorAddBean.PASSWORDS_DONT_MATCH);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class AddDoctorBeanTest {
 	public void saveWithWrongEmail() throws Exception {
 		addDoctorBean.getDoctor().setEmail("invalidEmail");
 		addDoctorBean.save();
-		verifyFacesMessage(AddDoctorBean.EMAIL_INVALID);
+		verifyFacesMessage(DoctorAddBean.EMAIL_INVALID);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class AddDoctorBeanTest {
 		result.addError(DoctorManagerError.TCKN_HAS_EXIST);
 		initializeDoctorFacadeMock(result);
 		addDoctorBean.save();
-		verifyFacesMessage(AddDoctorBean.TCKN_HAS_EXIST);
+		verifyFacesMessage(DoctorAddBean.TCKN_HAS_EXIST);
 	}
 
 	private void initializeDoctorFacadeMock(final DoctorManagerResult result) {
@@ -159,7 +159,7 @@ public class AddDoctorBeanTest {
 		result.setSuccess(true);
 		initializeDoctorFacadeMock(result);
 		addDoctorBean.save();
-		verifyFacesMessage(AddDoctorBean.SUCCESS);
+		verifyFacesMessage(DoctorAddBean.SUCCESS);
 	}
 
 	/**

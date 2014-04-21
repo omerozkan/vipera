@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
+import info.ozkan.vipera.login.AdministratorLoginResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,7 +73,7 @@ public class AdministratorLoginDaoImplTest {
 	@Test
 	public void loginInvalidUsername() throws Exception {
 		configureMockObjects(Collections.emptyList());
-		final AdministratorLoginDaoResult result = dao.findUser(username,
+		final AdministratorLoginResult result = dao.findUser(username,
 		        password);
 		assertEquals(AdministratorLoginStatus.INVALID_USERNAME,
 		        result.getStatus());
@@ -89,7 +90,7 @@ public class AdministratorLoginDaoImplTest {
 	public void loginInvalidPassword() throws Exception {
 		final List<Administrator> list = createAdminList(username, "different");
 		configureMockObjects(list);
-		final AdministratorLoginDaoResult result = dao.findUser(username,
+		final AdministratorLoginResult result = dao.findUser(username,
 		        password);
 		assertEquals(AdministratorLoginStatus.INVALID_PASSWORD,
 		        result.getStatus());
@@ -106,7 +107,7 @@ public class AdministratorLoginDaoImplTest {
 	public void loginSuccessfull() throws Exception {
 		final List<Administrator> list = createAdminList(username, password);
 		configureMockObjects(list);
-		final AdministratorLoginDaoResult result = dao.findUser(username,
+		final AdministratorLoginResult result = dao.findUser(username,
 		        password);
 		assertEquals(AdministratorLoginStatus.SUCCESS, result.getStatus());
 		assertNotNull(result.getAdministrator());

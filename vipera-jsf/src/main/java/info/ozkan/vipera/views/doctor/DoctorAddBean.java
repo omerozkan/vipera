@@ -22,12 +22,12 @@ import org.slf4j.LoggerFactory;
  * 
  */
 @Named("addDoctor")
-public class AddDoctorBean {
+public class DoctorAddBean {
 	/**
 	 * LOGGER
 	 */
 	private static final Logger LOGGER = LoggerFactory
-	        .getLogger(AddDoctorBean.class);
+	        .getLogger(DoctorAddBean.class);
 	/**
 	 * Kaydedildi mesaj deseni
 	 */

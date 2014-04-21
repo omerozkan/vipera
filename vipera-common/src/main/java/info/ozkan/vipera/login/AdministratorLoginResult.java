@@ -1,9 +1,9 @@
-package info.ozkan.vipera.dao.login;
+package info.ozkan.vipera.login;
 
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
 
-public class AdministratorLoginDaoResult {
+public class AdministratorLoginResult {
 	private AdministratorLoginStatus status;
 	private Administrator administrator;
 	

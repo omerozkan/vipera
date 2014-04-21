@@ -27,5 +27,5 @@ public interface DoctorFacade {
 	 * @param model
 	 * @return
 	 */
-	DoctorSearchResult search(DoctorBrowseModel model);
+	DoctorManagerResult search(DoctorBrowseModel model);
 }

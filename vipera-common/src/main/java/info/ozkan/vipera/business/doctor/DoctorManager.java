@@ -33,5 +33,5 @@ public interface DoctorManager {
 	 * @param model
 	 * @return
 	 */
-	public DoctorSearchResult search(DoctorBrowseModel model);
+	public DoctorManagerResult search(DoctorBrowseModel model);
 }

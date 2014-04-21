@@ -51,7 +51,7 @@ public class DoctorManagerIntegrationTest extends IntegrationTest {
 		final Doctor demirci = DoctorTestData.getTestData2();
 		final DoctorBrowseModel model = new DoctorBrowseModel();
 		model.setTitle(DoctorTitle.SPECIALIST);
-		final DoctorSearchResult result = doctorManager.search(model);
+		final DoctorManagerResult result = doctorManager.search(model);
 		assertEquals(2, result.getDoctors().size());
 		assertTrue(result.getDoctors().contains(house));
 		assertTrue(result.getDoctors().contains(demirci));

@@ -1,7 +1,7 @@
 package info.ozkan.vipera.views.doctor;
 
 import info.ozkan.vipera.business.doctor.DoctorFacade;
-import info.ozkan.vipera.business.doctor.DoctorSearchResult;
+import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.models.DoctorBrowseModel;
@@ -37,7 +37,7 @@ public class DoctorBrowseBeanTest {
 		final Doctor doctor = DoctorTestData.getTestData();
 		final DoctorBrowseModel model = new DoctorBrowseModel();
 
-		final DoctorSearchResult result = new DoctorSearchResult();
+		final DoctorManagerResult result = new DoctorManagerResult();
 		final List<Doctor> doctors = new ArrayList<Doctor>();
 		doctors.add(doctor);
 		result.setDoctors(doctors);

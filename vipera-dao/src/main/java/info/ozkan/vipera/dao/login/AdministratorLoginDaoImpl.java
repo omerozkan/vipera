@@ -2,6 +2,7 @@ package info.ozkan.vipera.dao.login;
 
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
+import info.ozkan.vipera.login.AdministratorLoginResult;
 
 import java.util.List;
 
@@ -46,9 +47,9 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	 * @return Result nesnesi
 	 */
 	@Transactional
-	public AdministratorLoginDaoResult findUser(final String username,
+	public AdministratorLoginResult findUser(final String username,
 	        final String password) {
-		final AdministratorLoginDaoResult result = new AdministratorLoginDaoResult();
+		final AdministratorLoginResult result = new AdministratorLoginResult();
 		final Query query = em.createQuery(GET_USER_JQL);
 		query.setParameter("username", username);
 		final List<Administrator> list = query.getResultList();
@@ -79,7 +80,7 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
 	 * @param admin
 	 *            yönetici
 	 */
-	private void loginSuccessfull(final AdministratorLoginDaoResult result,
+	private void loginSuccessfull(final AdministratorLoginResult result,
 	        final Administrator admin) {
 		result.setStatus(AdministratorLoginStatus.SUCCESS);
 		result.setAdministrator(admin);
