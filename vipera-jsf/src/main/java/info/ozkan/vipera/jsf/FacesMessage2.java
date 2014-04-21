@@ -10,17 +10,17 @@ import javax.faces.application.FacesMessage;
  * 
  */
 public class FacesMessage2 extends FacesMessage {
-	public FacesMessage2(final Severity severityError, final String summary,
-	        final String detail) {
-		super(severityError, summary, detail);
-	}
+    public FacesMessage2(final Severity severityError, final String summary,
+            final String detail) {
+        super(severityError, summary, detail);
+    }
 
-	/**
+    /**
 	 * 
 	 */
-	@Override
-	public String toString() {
-		return String.format("%s %s %s", super.getSeverity(),
-		        super.getSummary(), getDetail().toString());
-	}
+    @Override
+    public String toString() {
+        return String.format("%s %s %s", super.getSeverity(),
+                super.getSummary(), getDetail().toString());
+    }
 }
