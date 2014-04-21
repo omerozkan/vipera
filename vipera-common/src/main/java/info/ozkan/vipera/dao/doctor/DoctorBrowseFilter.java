@@ -11,29 +11,42 @@ import java.util.Map;
  */
 public class DoctorBrowseFilter {
 
-	/**
-	 * Filtreler
-	 */
-	private final Map<String, Object> filters = new HashMap<String, Object>();
+    /**
+     * Filtreler
+     */
+    private final Map<String, Object> filters = new HashMap<String, Object>();
 
-	public void addFilter(final String key, final Object value) {
-		filters.put(key, value);
-	}
+    /**
+     * Yeni bir filtre ekler
+     * 
+     * @param key
+     *            Column id
+     * @param value
+     *            Değer
+     */
+    public void addFilter(final String key, final Object value) {
+        filters.put(key, value);
+    }
 
-	/**
-	 * @return the filters
-	 */
-	public Map<String, Object> getFilters() {
-		return filters;
-	}
+    /**
+     * @return the filters
+     */
+    public Map<String, Object> getFilters() {
+        return filters;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (obj instanceof DoctorBrowseFilter) {
-			final DoctorBrowseFilter filter = (DoctorBrowseFilter) obj;
-			return filter.filters.equals(filters);
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof DoctorBrowseFilter) {
+            final DoctorBrowseFilter filter = (DoctorBrowseFilter) obj;
+            return filter.filters.equals(filters);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return filters.hashCode();
+    }
 
 }

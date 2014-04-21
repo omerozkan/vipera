@@ -9,31 +9,75 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Yönetici Entity sınıfı
+ * 
+ * @author Ömer Özkan
+ * 
+ */
 @Entity
 @Table(name = "ADMINISTRATORS")
 public class Administrator implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "id")
-	private Long id;
-	@Column(name = "username", unique = true)
-	private String username;
-	@Column(name = "password")
-	private String password;
+    /**
+     * Id
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    private Long id;
+    /**
+     * Kullanıcı adı
+     */
+    @Column(name = "username", unique = true)
+    private String username;
+    /**
+     * Parola
+     */
+    @Column(name = "password")
+    private String password;
 
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	public void setUsername(final String username) {
-		this.username = username;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPassword(final String password) {
-		this.password = password;
-	}
+    /**
+     * @param username
+     *            the username to set
+     */
+    public void setUsername(final String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(final String password) {
+        this.password = password;
+    }
 }

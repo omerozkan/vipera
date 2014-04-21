@@ -34,7 +34,8 @@ public class DoctorDaoImplTest {
 	/**
 	 * Doctor nesnesi
 	 */
-	private final Doctor doctor = DoctorTestData.getTestData();
+	private final Doctor doctor = DoctorTestData
+	        .getTestData(DoctorTestData.HOUSE);
 	/**
 	 * Test edilen sınıfın nesnesi
 	 */

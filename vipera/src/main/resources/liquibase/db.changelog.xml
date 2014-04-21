@@ -3,10 +3,11 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="0" author="Ömer Özkan">
-        <createSequence sequenceName="hibernate_sequence" />
+        <createSequence sequenceName="hibernate_sequence"/>
+        <alterSequence sequenceName="hibernate_sequence" minValue="1000"/>
     </changeSet>
     <changeSet id="1" author="Ömer Özkan">
         <createTable tableName="ADMINISTRATORS">

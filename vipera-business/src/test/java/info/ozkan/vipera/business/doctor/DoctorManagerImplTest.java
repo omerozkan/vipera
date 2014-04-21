@@ -51,7 +51,7 @@ public class DoctorManagerImplTest {
 	@Before
 	public void setUp() {
 		dao = Mockito.mock(DoctorDao.class);
-		doctor = DoctorTestData.getTestData();
+		doctor = DoctorTestData.getTestData(DoctorTestData.HOUSE);
 		manager.setDoctorDao(dao);
 	}
 

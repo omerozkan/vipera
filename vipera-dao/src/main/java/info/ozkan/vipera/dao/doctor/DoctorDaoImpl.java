@@ -24,73 +24,73 @@ import javax.persistence.criteria.Root;
  */
 @Named("doctorDao")
 public class DoctorDaoImpl implements DoctorDao {
-	protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
-	/**
-	 * Persistence nesne
-	 */
-	private EntityManager em;
+    protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
+    /**
+     * Persistence nesne
+     */
+    private EntityManager em;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see info.ozkan.vipera.dao.doctor.DoctorDao#add(info.ozkan.vipera
-	 * .entities.Doctor)
-	 */
-	public DoctorDaoResult add(final Doctor doctor) {
-		final DoctorDaoResult result = new DoctorDaoResult();
-		em.persist(doctor);
-		result.setSuccess(true);
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see info.ozkan.vipera.dao.doctor.DoctorDao#add(info.ozkan.vipera
+     * .entities.Doctor)
+     */
+    public DoctorDaoResult add(final Doctor doctor) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        em.persist(doctor);
+        result.setSuccess(true);
+        return result;
+    }
 
-	/**
-	 * Persistence nesne
-	 * 
-	 * @param em
-	 */
-	@PersistenceContext
-	public void setEntityManager(final EntityManager em) {
-		this.em = em;
-	}
+    /**
+     * Persistence nesne
+     * 
+     * @param em
+     */
+    @PersistenceContext
+    public void setEntityManager(final EntityManager em) {
+        this.em = em;
+    }
 
-	/**
-	 * Veritabanından TCKN'ye ait hekimi sorgular
-	 * 
-	 * @param tckn
-	 *            TC Kimlik No
-	 * @return Doctor nesnesi
-	 */
-	public DoctorDaoResult get(final Long tckn) {
-		final Query query = em.createQuery(JQL_GET_BY_TCKN);
-		query.setParameter(Doctor.TCKN, tckn);
-		final DoctorDaoResult result = new DoctorDaoResult();
-		final List resultList = query.getResultList();
-		if (resultList.size() == 0) {
-			result.setSuccess(false);
-			result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
-		} else {
-			result.setSuccess(true);
-			result.setDoctor((Doctor) resultList.get(0));
-		}
-		return result;
-	}
+    /**
+     * Veritabanından TCKN'ye ait hekimi sorgular
+     * 
+     * @param tckn
+     *            TC Kimlik No
+     * @return Doctor nesnesi
+     */
+    public DoctorDaoResult get(final Long tckn) {
+        final Query query = em.createQuery(JQL_GET_BY_TCKN);
+        query.setParameter(Doctor.TCKN, tckn);
+        final DoctorDaoResult result = new DoctorDaoResult();
+        final List resultList = query.getResultList();
+        if (resultList.size() == 0) {
+            result.setSuccess(false);
+            result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
+        } else {
+            result.setSuccess(true);
+            result.setDoctor((Doctor) resultList.get(0));
+        }
+        return result;
+    }
 
-	public List<Doctor> find(final DoctorBrowseFilter filter) {
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<Doctor> cq = cb.createQuery(Doctor.class);
-		final Root<Doctor> root = cq.from(Doctor.class);
-		final Map<String, Object> filters = filter.getFilters();
-		final List<Predicate> predicates = new ArrayList<Predicate>();
-		for (final String attr : filters.keySet()) {
-			final Object obj = filters.get(attr);
-			if (obj != null && !obj.toString().isEmpty()) {
-				final String pattern = '%' + obj.toString() + '%';
-				predicates.add(cb.like(
-				        root.<String> get(attr).as(String.class), pattern));
-			}
-		}
-		cq.select(root).where(predicates.toArray(new Predicate[0]));
-		return em.createQuery(cq).getResultList();
-	}
+    public List<Doctor> find(final DoctorBrowseFilter filter) {
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<Doctor> cq = cb.createQuery(Doctor.class);
+        final Root<Doctor> root = cq.from(Doctor.class);
+        final Map<String, Object> filters = filter.getFilters();
+        final List<Predicate> predicates = new ArrayList<Predicate>();
+        for (final String attr : filters.keySet()) {
+            final Object obj = filters.get(attr);
+            if (obj != null && !obj.toString().isEmpty()) {
+                final String pattern = '%' + obj.toString() + '%';
+                predicates.add(cb.like(
+                        root.<String> get(attr).as(String.class), pattern));
+            }
+        }
+        cq.select(root).where(predicates.toArray(new Predicate[0]));
+        return em.createQuery(cq).getResultList();
+    }
 
 }
