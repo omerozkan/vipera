@@ -40,7 +40,27 @@
             <id>deployment</id>
             <url>http://repository.ozkan.info/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>deployment</id>
+            <url>http://repository.ozkan.info/content/repositories/releases</url>
+        </repository>
     </distributionManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>deployment</serverId>
+                    <nexusUrl>http://repository.ozkan.info</nexusUrl>
+                    <!-- update this to the correct id! -->
+                    <stagingProfileId>1296f79efe04a4d0</stagingProfileId>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <modules>
         <module>vipera-domain</module>
         <module>vipera-test-data</module>
