@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId} ${project.version}</name>
-    <description>Vipera özgür bir hasta takip sistemidir.</description>
+    <description>Vipera özgür bir hasta takip ve analiz sistemidir.</description>
     <url>http://ozkan.info</url>
     <properties>
         <powermock-version>1.5.1</powermock-version>
@@ -35,6 +35,12 @@
             <url>http://www.gnu.org/copyleft/gpl.html</url>
         </license>
     </licenses>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>deployment</id>
+            <url>http://repository.ozkan.info/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <modules>
         <module>vipera-domain</module>
         <module>vipera-test-data</module>
@@ -51,7 +57,7 @@
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
-    <!-- TESTING -->
+        <!-- TESTING -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
