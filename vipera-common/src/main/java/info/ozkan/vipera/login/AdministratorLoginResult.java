@@ -3,23 +3,50 @@ package info.ozkan.vipera.login;
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
 
+/**
+ * Yönetici login işlemi yaptıktan sonra oluşan sonuç sınıfı
+ * 
+ * @author Ömer Özkan
+ * 
+ */
 public class AdministratorLoginResult {
-	private AdministratorLoginStatus status;
-	private Administrator administrator;
-	
-	public Administrator getAdministrator() {
-		return administrator;
-	}
-	
-	public void setAdministrator(Administrator administrator) {
-		this.administrator = administrator;
-	}
+    /**
+     * Sonuç
+     */
+    private AdministratorLoginStatus status;
+    /**
+     * Yönetici nesnesi
+     */
+    private Administrator administrator;
 
-	public AdministratorLoginStatus getStatus() {
-		return status;
-	}
+    /**
+     * @return the status
+     */
+    public AdministratorLoginStatus getStatus() {
+        return status;
+    }
 
-	public void setStatus(AdministratorLoginStatus statusCode) {
-		this.status = statusCode;
-	}
+    /**
+     * @param status
+     *            the status to set
+     */
+    public void setStatus(final AdministratorLoginStatus status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the administrator
+     */
+    public Administrator getAdministrator() {
+        return administrator;
+    }
+
+    /**
+     * @param administrator
+     *            the administrator to set
+     */
+    public void setAdministrator(final Administrator administrator) {
+        this.administrator = administrator;
+    }
+
 }

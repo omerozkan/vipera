@@ -34,7 +34,7 @@ public class DoctorBrowseBeanTest {
 	@Test
 	public void searchDoctorByTCKN() throws Exception {
 		final DoctorFacade facade = Mockito.mock(DoctorFacade.class);
-		final Doctor doctor = DoctorTestData.getTestData();
+		final Doctor doctor = DoctorTestData.getTestData(DoctorTestData.HOUSE);
 		final DoctorBrowseModel model = new DoctorBrowseModel();
 
 		final DoctorManagerResult result = new DoctorManagerResult();
