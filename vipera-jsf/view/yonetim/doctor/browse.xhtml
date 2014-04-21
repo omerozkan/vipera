@@ -30,11 +30,9 @@
 
 						<h:outputText value="Ünvan:" />
 						<p:selectOneMenu id="title" value="#{doctorBrowse.model.title}">
+						    <f:selectItem itemLabel="Seçiniz" itemValue=""/>
 							<f:selectItems value="#{doctorBrowse.doctorTitles}" var="t" itemLabel="#{t.title}" itemValue="#{t}"/>
 						</p:selectOneMenu>
-
-						<h:outputText value="Hesap Aktif:" />
-						<p:selectBooleanCheckbox value="#{doctorBrowse.active}" />
 					</h:panelGrid>
 					<p:commandButton value="Ara" update="results" actionListener="#{doctorBrowse.search}"/>
 				</h:panelGrid>

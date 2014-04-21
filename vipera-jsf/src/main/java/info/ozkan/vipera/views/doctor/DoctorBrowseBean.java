@@ -22,6 +22,9 @@ import org.slf4j.LoggerFactory;
  */
 @Named("doctorBrowse")
 public class DoctorBrowseBean {
+    /**
+     * LOGGER
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DoctorBrowseBean.class);
     /**
