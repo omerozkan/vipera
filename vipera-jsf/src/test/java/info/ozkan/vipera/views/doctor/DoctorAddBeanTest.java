@@ -28,10 +28,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest(FacesContext.class)
 public class DoctorAddBeanTest {
 	/**
-	 * TC Kimlik
-	 */
-	private static final long TCKN = 12345678901L;
-	/**
 	 * Parola
 	 */
 	private static final String PASSWORD = "password";
@@ -76,7 +72,7 @@ public class DoctorAddBeanTest {
 	 * @return
 	 */
 	private Doctor createValidDoctorObject() {
-		final Doctor doctor = DoctorTestData.getTestData();
+		final Doctor doctor = DoctorTestData.getTestData(DoctorTestData.HOUSE);
 		addDoctorBean.setEnable(true);
 		return doctor;
 	}

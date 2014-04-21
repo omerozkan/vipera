@@ -6,6 +6,7 @@ import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.common.EmailValidator;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
+import info.ozkan.vipera.jsf.FacesMessage2;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 @Named("addDoctor")
 public class DoctorAddBean {
+	private static final int TCKN_LENGTH = 11;
 	/**
 	 * LOGGER
 	 */
@@ -36,10 +38,6 @@ public class DoctorAddBean {
 	 * Kaydedildi mesajın içeriği
 	 */
 	private static final String SAVED_MSG = "kaydedildi!";
-	/**
-	 * Kaydedildi mesaj başlığı
-	 */
-	private static final String SUCCESS_TITLE = "KAYDEDİLDİ";
 	/**
 	 * TCKN'e ait kayıltı hekim var hata mesajı
 	 */
@@ -59,27 +57,27 @@ public class DoctorAddBean {
 	/**
 	 * Geçersiz TC Kimlik No hatası
 	 */
-	protected static final FacesMessage INVALID_TCKN = new FacesMessage(
+	protected static final FacesMessage2 INVALID_TCKN = new FacesMessage2(
 	        FacesMessage.SEVERITY_ERROR, INVALID_TCKN_MSG, "");
 	/**
 	 * Parola eşleşmeme hatası
 	 */
-	protected static final FacesMessage PASSWORDS_DONT_MATCH = new FacesMessage(
+	protected static final FacesMessage2 PASSWORDS_DONT_MATCH = new FacesMessage2(
 	        FacesMessage.SEVERITY_ERROR, PASSWORDS_DONT_MATH_MSG, "");
 	/**
 	 * Eposta geçersiz hatası
 	 */
-	protected static final FacesMessage EMAIL_INVALID = new FacesMessage(
+	protected static final FacesMessage2 EMAIL_INVALID = new FacesMessage2(
 	        FacesMessage.SEVERITY_ERROR, INVALID_EMAIL_MSG, "");
 	/**
 	 * Sistem TCKN ile kayıtlı hekim hatası
 	 */
-	protected static final FacesMessage TCKN_HAS_EXIST = new FacesMessage(
+	protected static final FacesMessage2 TCKN_HAS_EXIST = new FacesMessage2(
 	        FacesMessage.SEVERITY_ERROR, TCKN_HAS_EXIST_MSG, "");
 	/**
 	 * Hekim kaydedildikten sonra gösterilecek mesaj
 	 */
-	protected static final FacesMessage SUCCESS = new FacesMessage(
+	protected static final FacesMessage2 SUCCESS = new FacesMessage2(
 	        FacesMessage.SEVERITY_INFO, "", null);
 	/**
 	 * Doktor domain nesnesi
@@ -132,7 +130,10 @@ public class DoctorAddBean {
 	 */
 	private boolean checkFields(final FacesContext context) {
 		boolean fieldHasValid = true;
-		if (doctor.getTckn().toString().length() != 11) {
+		if (doctor.getTckn().toString().length() != TCKN_LENGTH) {
+			LOGGER.info(
+			        "Doctors have to have 11 length TKCN but it's length: {}",
+			        doctor.getTckn().toString().length());
 			context.addMessage(null, INVALID_TCKN);
 			fieldHasValid = false;
 		}
