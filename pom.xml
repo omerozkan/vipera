@@ -70,13 +70,20 @@
         <module>vipera-jsf</module>
         <module>vipera</module>
     </modules>
-    <!-- JSR-330 -->
     <dependencies>
+        <!-- JSR-330 -->
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
+        <!-- JSR-250 -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!-- TESTING -->
         <dependency>
             <groupId>junit</groupId>
