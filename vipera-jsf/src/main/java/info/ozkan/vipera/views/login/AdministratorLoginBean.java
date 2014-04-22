@@ -40,11 +40,11 @@ public class AdministratorLoginBean implements Serializable {
     /**
      * Alanların boş olduğu durumda gösterilecek olan hata mesajı
      */
-    private static final String EMPTY_FIELD_MESSAGE = "Lütfen kullanıcı adınızı ve parolanızı giriniz!";
+    public static final String EMPTY_FIELD_MESSAGE = "Lütfen kullanıcı adınızı ve parolanızı giriniz!";
     /**
      * Girilen bilgilerin geçersiz olduğu durumda gösterilecek olan hata mesajı
      */
-    private static final String INVALID_LOGIN_MESSAGE = "Geçersiz kullanıcı adı ve parola girdiniz."
+    public static final String INVALID_LOGIN_MESSAGE = "Geçersiz kullanıcı adı ve parola girdiniz."
             + "Lütfen bilgilerinizi kontrol ederek tekrar deneyin!";
     /**
      * {@link AdministratorLoginBean#INVALID_LOGIN_MESSAGE} mesajını içeren
