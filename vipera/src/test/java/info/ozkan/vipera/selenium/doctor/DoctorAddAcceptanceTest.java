@@ -1,16 +1,13 @@
 package info.ozkan.vipera.selenium.doctor;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.selenium.AbstractAcceptanceTest;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.Selenium;
 
 /**
  * "refs #36 Yönetici sisteme hekim ekler". Onay-kabul testleri
@@ -18,24 +15,39 @@ import com.thoughtworks.selenium.Selenium;
  * @author Ömer Özkan
  * 
  */
-public class DoctorAddAcceptanceTest {
-
+public class DoctorAddAcceptanceTest extends AbstractAcceptanceTest {
     /**
-     * Selenium nesnesi
+     * Parola alanı boş hata mesajı
      */
-    private Selenium selenium;
+    private static final String ERROR_EMPTY_PASSWORD = "Parola alanı boş bırakılamaz!";
     /**
-     * Uygulamanın temel adresi
+     * Soyadı alanı boş hata mesajı
      */
-    private final String baseURL = "http://localhost:8080/vipera/yonetim";
+    private static final String ERROR_EMTPY_SURNAME = "Hekim soyadı boş bırakılamaz!";
     /**
-     * Host adı
+     * Ad alanı boş hata mesajı
      */
-    private final String hostname = "localhost";
+    private static final String ERROR_EMPTY_NAME = "Hekim adı boş bırakılamaz!";
     /**
-     * Selenium RC sunucu portu
+     * TCKN alanı boş hata mesajı
      */
-    private final int serverPort = 4444;
+    private static final String ERROR_EMTPY_TCKN = "TC Kimlik Numarası boş bırakılamaz!";
+    /**
+     * TCKN tekrarlı veri hata mesajı
+     */
+    private static final String ERROR_DUPLICATE_ENTRY = "Girdiğiniz TC kimlik numarası ile kayıtlı bir başka hekim bulunmaktadır!";
+    /**
+     * Geçersiz eposta hata mesajı
+     */
+    private static final String ERROR_INVALID_EMAIL = "Girdiğiniz eposta adresi geçerli değil!";
+    /**
+     * Parola alanları uyuşmama hata mesajı
+     */
+    private static final String ERROR_PASSWORDS_DONT_MATCH = "Girdiğiniz parolalar birbiri ile uyuşmuyor!";
+    /**
+     * Geçersiz TCKN hata mesajı
+     */
+    private static final String ERROR_INVALID_TCKN = "TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!";
 
     /**
      * Selenium nesnesini ilkendirir ve login sayfasını açar
@@ -44,11 +56,12 @@ public class DoctorAddAcceptanceTest {
      */
     @Before
     public void setUp() throws Exception {
-        selenium = new DefaultSelenium(hostname, serverPort, "*chrome", baseURL);
-        selenium.start();
-        login();
+        super.doAdministratorLogin();
         selenium.open("/vipera/yonetim/doctor/add.html");
-        selenium.waitForPageToLoad("20000");
+        selenium.waitForPageToLoad(TIMEOUT_LIMIT);
+        synchronized (selenium) {
+            selenium.wait(2000l);
+        }
     }
 
     /**
@@ -61,13 +74,10 @@ public class DoctorAddAcceptanceTest {
     public void saveWithEmptyFields() throws Exception {
         selenium.click("id=doctor-add:save");
         waitForErrorMessage();
-        final String bodyText = selenium.getBodyText();
-        assertThat(bodyText,
-                containsString("TC Kimlik Numarası boş bırakılamaz!"));
-        assertThat(bodyText, containsString("Hekim adı boş bırakılamaz!"));
-        assertThat(bodyText, containsString("Hekim adı boş bırakılamaz!"));
-        assertThat(bodyText, containsString("Hekim soyadı boş bırakılamaz!"));
-        assertThat(bodyText, containsString("Parola alanı boş bırakılamaz!"));
+        assertContainsBodyText(ERROR_EMTPY_TCKN);
+        assertContainsBodyText(ERROR_EMPTY_NAME);
+        assertContainsBodyText(ERROR_EMTPY_SURNAME);
+        assertContainsBodyText(ERROR_EMPTY_PASSWORD);
     }
 
     /**
@@ -85,9 +95,7 @@ public class DoctorAddAcceptanceTest {
         selenium.click("css=body");
         selenium.click("id=doctor-add:save");
         waitForErrorMessage();
-        assertThat(
-                selenium.getBodyText(),
-                containsString("TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!"));
+        assertContainsBodyText(ERROR_INVALID_TCKN);
     }
 
     /**
@@ -104,12 +112,10 @@ public class DoctorAddAcceptanceTest {
         selenium.click("id=doctor-add:password");
         selenium.type("id=doctor-add:password", "blabla");
         selenium.type("id=doctor-add:password2", "blablabla");
-        selenium.click("id=doctor-add:tckn");
-        selenium.typeKeys("id=doctor-add:tckn", "23456789111");
+        typeInputMask("id=doctor-add:tckn", "23456789111");
         selenium.click("id=doctor-add:save");
         waitForErrorMessage();
-        assertThat(selenium.getBodyText(),
-                containsString("Girdiğiniz parolalar birbiri ile uyuşmuyor!"));
+        assertContainsBodyText(ERROR_PASSWORDS_DONT_MATCH);
     }
 
     /**
@@ -126,12 +132,10 @@ public class DoctorAddAcceptanceTest {
         selenium.click("id=doctor-add:password");
         selenium.type("id=doctor-add:password", "password");
         selenium.type("id=doctor-add:password2", "password");
-        selenium.click("id=doctor-add:tckn");
-        selenium.typeKeys("id=doctor-add:tckn", "23456789111");
+        typeInputMask("id=doctor-add:tckn", "23456789111");
         selenium.click("id=doctor-add:save");
         waitForErrorMessage();
-        assertThat(selenium.getBodyText(),
-                containsString("Girdiğiniz eposta adresi geçerli değil!"));
+        assertContainsBodyText(ERROR_INVALID_EMAIL);
     }
 
     /**
@@ -148,13 +152,10 @@ public class DoctorAddAcceptanceTest {
         selenium.type("id=doctor-add:email", "new@doctor.com");
         selenium.type("id=doctor-add:password", "password");
         selenium.type("id=doctor-add:password2", "password");
-        selenium.click("id=doctor-add:tckn");
-        selenium.typeKeys("id=doctor-add:tckn", doctor.getTckn().toString());
+        typeInputMask("id=doctor-add:tckn", doctor.getTckn().toString());
         selenium.click("id=doctor-add:save");
         waitForErrorMessage();
-        assertThat(
-                selenium.getBodyText(),
-                containsString("Girdiğiniz TC kimlik numarası ile kayıtlı bir başka hekim bulunmaktadır!"));
+        containsString(ERROR_DUPLICATE_ENTRY);
     }
 
     /**
@@ -165,11 +166,15 @@ public class DoctorAddAcceptanceTest {
      */
     @Test
     public void saveDoctorSuccessfull() throws Exception {
-        selenium.type("id=doctor-add:name", "New");
-        selenium.type("id=doctor-add:surname", "Doctor");
+        final long tckn = DoctorTestData.getNextTCKN();
+        final String name = "New";
+        final String surname = "Doctor";
+        final String password = "password";
+        selenium.type("id=doctor-add:name", name);
+        selenium.type("id=doctor-add:surname", surname);
         selenium.type("id=doctor-add:email", "new@doctor.com");
-        selenium.type("id=doctor-add:password", "password");
-        selenium.type("id=doctor-add:password2", "password");
+        selenium.type("id=doctor-add:password", password);
+        selenium.type("id=doctor-add:password2", password);
         selenium.click("//div[@id='doctor-add:title']/div[3]");
         selenium.click("//div[@id='doctor-add:title_panel']/div/ul/li[2]");
         selenium.type("id=doctor-add:province", "Testing");
@@ -178,12 +183,12 @@ public class DoctorAddAcceptanceTest {
         selenium.type("id=doctor-add:phone", "+905555555");
         selenium.type("id=doctor-add:mobile", "+905557777777");
         selenium.type("id=doctor-add:phone", "+905555555555");
-        selenium.click("id=doctor-add:tckn");
-        selenium.typeKeys("id=doctor-add:tckn", "12345678903");
+        typeInputMask("id=doctor-add:tckn", tckn + "");
         selenium.click("id=doctor-add:save");
         waitForInfoMessage();
-        assertThat(selenium.getBodyText(),
-                containsString("12345678903 - New Doctor kaydedildi!"));
+        final String expected = String.format("%d - %s %s kaydedildi!", tckn,
+                name, surname);
+        assertContainsBodyText(expected);
     }
 
     /**
@@ -193,32 +198,14 @@ public class DoctorAddAcceptanceTest {
      */
     @After
     public void tearDown() throws Exception {
-        selenium.stop();
-    }
-
-    private void login() {
-        selenium.open("/vipera/yonetim/login.html");
-        selenium.type("id=loginForm:username", "admin");
-        selenium.type("id=loginForm:password", "password");
-        selenium.click("id=loginForm:loginButton");
+        stopSelenium();
     }
 
     private void waitForErrorMessage() {
-        selenium.waitForCondition(
-                "selenium.browserbot.getCurrentWindow().jQuery('.ui-messages-error') !== undefined;",
-                "30000");
-        selenium.waitForCondition(
-                "selenium.browserbot.getCurrentWindow().jQuery('.ui-messages-error').text() !== '';",
-                "30000");
+        waitForElement(".ui-messages-error");
     }
 
     private void waitForInfoMessage() {
-        selenium.waitForCondition(
-                "selenium.browserbot.getCurrentWindow().jQuery('.ui-messages-info-summary') !== undefined;",
-                "30000");
-        selenium.waitForCondition(
-                "selenium.browserbot.getCurrentWindow().jQuery('.ui-messages-info-summary').text() !== '';",
-                "30000");
-
+        waitForElement(".ui-messages-info-summary");
     }
 }
