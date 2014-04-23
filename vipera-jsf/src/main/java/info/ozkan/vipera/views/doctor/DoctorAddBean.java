@@ -15,6 +15,7 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Doktor ekleme bean sınıfı
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
  * 
  */
 @Named("addDoctor")
+@Scope("session")
 public class DoctorAddBean {
     private static final int TCKN_LENGTH = 11;
     /**
@@ -41,19 +43,19 @@ public class DoctorAddBean {
     /**
      * TCKN'e ait kayıltı hekim var hata mesajı
      */
-    private static final String TCKN_HAS_EXIST_MSG = "Girdiğiniz TC Kimlik no ile kayıtlı bir başka hekim bulunmaktadır!";
+    public static final String TCKN_HAS_EXIST_MSG = "Girdiğiniz TC kimlik numarası ile kayıtlı bir başka hekim bulunmaktadır!";
     /**
      * Geçersiz eposta hata mesajı
      */
-    private static final String INVALID_EMAIL_MSG = "Girdiğiniz eposta adresi geçerli değil!";
+    public static final String INVALID_EMAIL_MSG = "Girdiğiniz eposta adresi geçerli değil!";
     /**
      * Parola eşleşmeme hata mesajı
      */
-    private static final String PASSWORDS_DONT_MATH_MSG = "Girdiğiniz parolalar birbiriyle uyuşmuyor!";
+    public static final String PASSWORDS_DONT_MATH_MSG = "Girdiğiniz parolalar birbiriyle uyuşmuyor!";
     /**
      * Geçersiz TC Kimlik no hata mesajı
      */
-    private static final String INVALID_TCKN_MSG = "TC Kimlik Numarasını 11 haneli ve sayılardan oluşmalıdır!";
+    public static final String INVALID_TCKN_MSG = "TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!";
     /**
      * Geçersiz TC Kimlik No hatası
      */
@@ -113,11 +115,14 @@ public class DoctorAddBean {
                 LOGGER.info("Duplicate doctor with TCKN {}", getDoctor()
                         .getTckn());
                 context.addMessage(null, TCKN_HAS_EXIST);
+                doctor = new Doctor();
             }
         } else {
             SUCCESS.setSummary(String.format(SAVED_MSG_PATTERN,
                     doctor.getTckn(), doctor.getName(), doctor.getSurname(),
                     SAVED_MSG));
+            LOGGER.info("The new doctor {} has been saved",
+                    doctor.getFullname());
             context.addMessage(null, SUCCESS);
             doctor = new Doctor();
         }
