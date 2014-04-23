@@ -7,7 +7,7 @@
 	template="/yonetim/layout/template.xhtml">
 	<ui:define name="title">Hekim Arama | Vipera</ui:define>
 	<ui:define name="content">
-		<h:form>
+		<h:form id="doctor-browse">
 			<p:growl id="msg" showDetail="true" sticky="true" />
 			<p:panel header="Hekim Arama">
 				<h:panelGrid columns="2" rowClasses="left, left" cellpadding="20"
@@ -34,11 +34,11 @@
 							<f:selectItems value="#{doctorBrowse.doctorTitles}" var="t" itemLabel="#{t.title}" itemValue="#{t}"/>
 						</p:selectOneMenu>
 					</h:panelGrid>
-					<p:commandButton value="Ara" update="results" actionListener="#{doctorBrowse.search}"/>
+					<p:commandButton value="Ara" id="search" update="results" actionListener="#{doctorBrowse.search}"/>
 				</h:panelGrid>
 			</p:panel>
 		
-		  <p:dataTable id="results" value="#{doctorBrowse.result}" var="doctor" paginator="true" rows="10" emptyMessage="Aradığınız kriterlerde sonuç bulunamadı.">
+		  <p:dataTable id="results" value="#{doctorBrowse.result}" var="doctor" paginator="true" rows="10" emptyMessage="Aradığınız kriterlere uygun sonuç bulunamadı.">
 		      <f:facet name="header">
 		          Arama Sonuçları
 		      </f:facet>

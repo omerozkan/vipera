@@ -20,6 +20,11 @@ public final class DoctorTestData {
     public static final int DEMIRCI = 1;
 
     /**
+     * Test verilerin çakışmaması için edinilen sonraki TCKN
+     */
+    private static long NEXT_TCKN = 12345678903L;
+
+    /**
      * private constructor
      */
     private DoctorTestData() {
@@ -64,6 +69,15 @@ public final class DoctorTestData {
         house.setPhone("+905555555");
         house.setMobilePhone("+905553333333");
         return house;
+    }
+
+    /**
+     * Test verilerin çakışmaması için unique bir TC kimlik numarası üretir
+     * 
+     * @return
+     */
+    public static long getNextTCKN() {
+        return NEXT_TCKN++;
     }
 
     /**
