@@ -6,6 +6,7 @@ import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 import info.ozkan.vipera.models.DoctorBrowseModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Hekimler üzerinde arama işlemi yapan Bean sınıfı
@@ -21,7 +23,12 @@ import org.slf4j.LoggerFactory;
  * 
  */
 @Named("doctorBrowse")
-public class DoctorBrowseBean {
+@Scope("session")
+public class DoctorBrowseBean implements Serializable {
+    /**
+     * serial
+     */
+    private static final long serialVersionUID = 4019437522915983064L;
     /**
      * LOGGER
      */

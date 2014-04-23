@@ -15,6 +15,7 @@ import com.thoughtworks.selenium.Selenium;
  * @author Ömer Özkan
  */
 public abstract class AbstractAcceptanceTest {
+    private static final int AJAX_TIMEOUT = 500;
     private static final String ADMIN_DEFAULT_PASSWORD = "password";
     private static final String ADMIN_DEFAULT_USER = "admin";
     private static final String ADMIN_LOGIN_PAGE = "login.html";
@@ -137,5 +138,11 @@ public abstract class AbstractAcceptanceTest {
         selenium.type("id=loginForm:username", ADMIN_DEFAULT_USER);
         selenium.type("id=loginForm:password", ADMIN_DEFAULT_PASSWORD);
         selenium.click("id=loginForm:loginButton");
+    }
+
+    protected void waitForElements() throws InterruptedException {
+        synchronized (selenium) {
+            selenium.wait(AJAX_TIMEOUT);
+        }
     }
 }

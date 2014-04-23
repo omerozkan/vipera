@@ -8,6 +8,8 @@ import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 import info.ozkan.vipera.jsf.FacesMessage2;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -25,7 +27,14 @@ import org.springframework.context.annotation.Scope;
  */
 @Named("addDoctor")
 @Scope("session")
-public class DoctorAddBean {
+public class DoctorAddBean implements Serializable {
+    /**
+     * SerialVersionUID
+     */
+    private static final long serialVersionUID = 1086340535892901530L;
+    /**
+     * TCKN uzunluğu
+     */
     private static final int TCKN_LENGTH = 11;
     /**
      * LOGGER
