@@ -74,8 +74,8 @@ public class DoctorManagerImpl implements DoctorManager {
      * @see info.ozkan.vipera.business.doctor.DoctorManager#get(Long)
      */
     @Transactional
-    public DoctorManagerResult get(final Long tckn) {
-        final DoctorDaoResult daoResult = doctorDao.get(tckn);
+    public DoctorManagerResult getByTckn(final Long tckn) {
+        final DoctorDaoResult daoResult = doctorDao.getByTckn(tckn);
         final DoctorManagerResult result = new DoctorManagerResult();
         result.addDoctor(daoResult.getDoctor());
         result.setSuccess(daoResult.isSuccess());

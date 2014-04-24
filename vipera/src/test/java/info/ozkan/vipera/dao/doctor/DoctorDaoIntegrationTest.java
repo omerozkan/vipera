@@ -38,7 +38,8 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
         doctor.setTckn(1111111111l);
         final DoctorDaoResult result = doctorDao.add(doctor);
         assertTrue(result.isSuccess());
-        final Doctor resultDoctor = doctorDao.get(doctor.getTckn()).getDoctor();
+        final Doctor resultDoctor = doctorDao.getByTckn(doctor.getTckn())
+                .getDoctor();
         assertEquals(doctor, resultDoctor);
     }
 

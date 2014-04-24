@@ -28,4 +28,13 @@ public interface DoctorFacade {
      * @return
      */
     DoctorManagerResult search(DoctorBrowseModel model);
+
+    /**
+     * ID'ye göre hekim'i elde eder
+     * 
+     * @param id
+     * @return
+     */
+    DoctorManagerResult get(Long id);
+
 }

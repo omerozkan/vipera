@@ -25,7 +25,7 @@ public interface DoctorManager {
      * @param tckn
      * @return
      */
-    DoctorManagerResult get(Long tckn);
+    DoctorManagerResult getByTckn(Long tckn);
 
     /**
      * Veritabanı üzerinde hekim arama işlemi yapar

@@ -73,6 +73,10 @@ public class Doctor implements Serializable {
      */
     public static final String ENABLED = "enabled";
     /**
+     * Üyelik aktif olduğunda alınan değer
+     */
+    public static final Integer ENABLE = 1;
+    /**
      * Identifier
      */
     @Id

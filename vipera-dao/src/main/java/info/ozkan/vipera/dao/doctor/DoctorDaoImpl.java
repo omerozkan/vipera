@@ -60,7 +60,7 @@ public class DoctorDaoImpl implements DoctorDao {
      *            TC Kimlik No
      * @return Doctor nesnesi
      */
-    public DoctorDaoResult get(final Long tckn) {
+    public DoctorDaoResult getByTckn(final Long tckn) {
         final Query query = em.createQuery(JQL_GET_BY_TCKN);
         query.setParameter(Doctor.TCKN, tckn);
         final DoctorDaoResult result = new DoctorDaoResult();
@@ -75,6 +75,9 @@ public class DoctorDaoImpl implements DoctorDao {
         return result;
     }
 
+    /**
+     * Filtrelere göre veritabanında arama işlemi yapar
+     */
     public List<Doctor> find(final DoctorBrowseFilter filter) {
         final CriteriaBuilder cb = em.getCriteriaBuilder();
         final CriteriaQuery<Doctor> cq = cb.createQuery(Doctor.class);

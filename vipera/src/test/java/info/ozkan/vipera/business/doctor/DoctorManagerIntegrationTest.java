@@ -34,7 +34,7 @@ public class DoctorManagerIntegrationTest extends IntegrationTest {
         doctor.setTckn(1111111111l);
         final DoctorManagerResult result = doctorManager.add(doctor);
         assertTrue(result.isSuccess());
-        final DoctorManagerResult getResult = doctorManager.get(doctor
+        final DoctorManagerResult getResult = doctorManager.getByTckn(doctor
                 .getTckn());
         assertEquals(doctor, getResult.getDoctor());
     }

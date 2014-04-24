@@ -31,7 +31,7 @@ public interface DoctorDao {
      * @param tckn
      * @return
      */
-    DoctorDaoResult get(Long tckn);
+    DoctorDaoResult getByTckn(Long tckn);
 
     /**
      * Veritabanından girilen kriterlere göre hekim arama işlemi yapar
