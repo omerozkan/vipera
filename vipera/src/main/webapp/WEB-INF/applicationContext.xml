@@ -11,7 +11,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<context:component-scan base-package="info.ozkan.vipera.views" />
 	<context:spring-configured />
@@ -50,13 +50,17 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	<context:spring-configured />
 	<context:annotation-config />
 	<tx:annotation-driven />
-    <!--  <aop:scoped-proxy proxy-target-class="true"/>-->
+   
 	<!-- PERSISTENCE LAYER BEANS -->
 	<bean id="administratorLoginDao" class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
-	<bean id="doctorDao" class="info.ozkan.vipera.dao.doctor.DoctorDaoImpl"></bean>
+	<bean id="doctorDao" class="info.ozkan.vipera.dao.doctor.DoctorDaoImpl" />
     <!-- BUSINESS LAYER BEANS -->
 	<bean id="administratorLoginManager"
 		class="info.ozkan.vipera.business.login.AdministratorLoginManagerImpl" />
-    <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl" />
-    <bean id="doctorFacade" class="info.ozkan.vipera.business.doctor.DoctorFacadeImpl" />
+    <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl" >
+         <aop:scoped-proxy proxy-target-class="true"/>
+    </bean>
+    <bean id="doctorFacade" class="info.ozkan.vipera.business.doctor.DoctorFacadeImpl" >
+         <aop:scoped-proxy proxy-target-class="true"/>
+    </bean>
 </beans>

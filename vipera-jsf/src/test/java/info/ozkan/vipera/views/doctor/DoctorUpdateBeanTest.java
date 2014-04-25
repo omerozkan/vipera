@@ -1,5 +1,6 @@
 package info.ozkan.vipera.views.doctor;
 
+import static org.junit.Assert.assertEquals;
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.doctor.DoctorTestData;
@@ -76,15 +77,18 @@ public class DoctorUpdateBeanTest {
      */
     @Test
     public void updateWithInvalidEmail() throws Exception {
-        result.addDoctor(doctor);
-        result.setSuccess(true);
-        doctorUpdate.setId(doctor.getId());
-        doctorUpdate.loadDoctor();
+        setDoctor();
+        setDoctorIdAndLoad();
         doctor.setEmail("invalidEmail");
         doctorUpdate.save();
         Mockito.verify(facade).getById(doctor.getId());
         Mockito.verify(context)
                 .addMessage(null, DoctorUpdateBean.EMAIL_INVALID);
+    }
+
+    private void setDoctor() {
+        result.addDoctor(doctor);
+        result.setSuccess(true);
     }
 
     /**
@@ -96,8 +100,7 @@ public class DoctorUpdateBeanTest {
     @Test(expected = FacesFileNotFoundException.class)
     public void updateWithInvalidId() throws Exception {
         result.setSuccess(false);
-        doctorUpdate.setId(doctor.getId());
-        doctorUpdate.loadDoctor();
+        setDoctorIdAndLoad();
         Mockito.verify(facade).getById(doctor.getId());
     }
 
@@ -121,19 +124,78 @@ public class DoctorUpdateBeanTest {
      * @throws Exception
      */
     @Test
-    public void updateSuccessfull() throws Exception {
-        result.setSuccess(true);
-        result.addDoctor(doctor);
-        doctor.setName("Editted");
-        doctor.setSurname("Doctor");
-        doctorUpdate.setId(doctor.getId());
-        doctorUpdate.loadDoctor();
-        final DoctorManagerResult updateResult = new DoctorManagerResult();
-        updateResult.setSuccess(true);
+    public void updateSuccessfullWithoutPassword() throws Exception {
+        final DoctorManagerResult updateResult = createSuccessUpdateOperation();
         Mockito.when(facade.update(doctor)).thenReturn(updateResult);
         doctorUpdate.save();
         Mockito.verify(facade).getById(doctor.getId());
         Mockito.verify(facade).update(doctor);
         Mockito.verify(context).addMessage(null, DoctorUpdateBean.SUCCESS);
     }
+
+    /**
+     * Yönetici, hekim bilgilerini değiştirir. Parola alanını da değiştirir.
+     * Kayet butonuna tıklar. Güncelleme işlemi başarı ile gerçekleşir.
+     * Yöneticiye "<Hekim Tam Adı>" Güncellendi" mesajı gösterilir.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void updateSuccessfullWithPassword() throws Exception {
+        final DoctorManagerResult updateResult = createSuccessUpdateOperation();
+        Mockito.when(facade.update(doctor)).thenReturn(updateResult);
+        final String newPassword = "newPassword";
+        doctorUpdate.setPassword(newPassword);
+        doctorUpdate.setPassword2(newPassword);
+        doctorUpdate.save();
+        assertEquals(newPassword, doctor.getPassword());
+        Mockito.verify(facade).getById(doctor.getId());
+        Mockito.verify(facade).update(doctor);
+        Mockito.verify(context).addMessage(null, DoctorUpdateBean.SUCCESS);
+    }
+
+    /**
+     * Başarılı update işlemi için gereken işlemleri gerçekleştirir.
+     * 
+     * @return
+     * @throws FacesFileNotFoundException
+     */
+    private DoctorManagerResult createSuccessUpdateOperation()
+            throws FacesFileNotFoundException {
+        setDoctor();
+        setDoctorNameAndSurname();
+        setDoctorIdAndLoad();
+        final DoctorManagerResult updateResult = createSuccessManagerResult();
+        return updateResult;
+    }
+
+    /**
+     * İşlemin başarılı olmasını tanımlayan değerleri atar
+     * 
+     * @return
+     */
+    private DoctorManagerResult createSuccessManagerResult() {
+        final DoctorManagerResult updateResult = new DoctorManagerResult();
+        updateResult.setSuccess(true);
+        return updateResult;
+    }
+
+    /**
+     * DoctorID'si atar ve hekim yükleme işlemini gerçekleştirir.
+     * 
+     * @throws FacesFileNotFoundException
+     */
+    private void setDoctorIdAndLoad() throws FacesFileNotFoundException {
+        doctorUpdate.setId(doctor.getId());
+        doctorUpdate.loadDoctor();
+    }
+
+    /**
+     * Hekimin adı ve soyadını tanımlar
+     */
+    private void setDoctorNameAndSurname() {
+        doctor.setName("Editted");
+        doctor.setSurname("Doctor");
+    }
+
 }

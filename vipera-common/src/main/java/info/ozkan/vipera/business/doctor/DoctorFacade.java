@@ -37,6 +37,12 @@ public interface DoctorFacade {
      */
     DoctorManagerResult getById(Long id);
 
+    /**
+     * Hekim güncelleme işlemi yapar
+     * 
+     * @param doctor
+     * @return
+     */
     DoctorManagerResult update(Doctor doctor);
 
 }

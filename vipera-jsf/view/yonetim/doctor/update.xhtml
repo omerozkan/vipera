@@ -45,15 +45,15 @@
 					<h:outputText value="Parola:" />
 					<p:password id="password" feedback="true"
 						promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
-						goodLabel="Orta" strongLabel="Güçlü" required="true"
-						match="password2" value="#{doctorUpdate.doctor.password}"
+						goodLabel="Orta" strongLabel="Güçlü" required="false"
+						match="password2" value="#{doctorUpdate.password}"
 						requiredMessage="Parola alanı boş bırakılamaz!"
 						validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!">
 					</p:password>
 					<p:message for="password" display="icon" />
 
 					<h:outputText value="Parola Tekrar:" />
-					<p:password id="password2" required="true" value=""
+					<p:password id="password2" required="false" value="#{doctorUpdate.password2}"
 						requiredMessage="Parolanızı tekrar girmelisiniz!" />
 					<p:message for="password2" display="icon" />
 				</h:panelGrid>
@@ -72,7 +72,7 @@
 					<p:message for="province" />
 
 					<h:outputText value="Diploma No:" />
-					<p:inputText id="diploma" />
+					<p:inputText id="diploma" value="#{doctorUpdate.doctor.diplomaNo}"/>
 					<p:message for="diploma" />
 				</h:panelGrid>
 				<p:spacer height="30" />

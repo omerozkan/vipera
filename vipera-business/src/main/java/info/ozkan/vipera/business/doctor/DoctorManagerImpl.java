@@ -108,11 +108,14 @@ public class DoctorManagerImpl implements DoctorManager {
         return result;
     }
 
+    @Transactional
     public DoctorManagerResult getById(final Long id) {
         final DoctorDaoResult daoResult = doctorDao.getById(id);
         return daoResultToManagerResult(daoResult);
     }
 
+    @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
     public DoctorManagerResult update(final Doctor doctor) {
         final DoctorDaoResult daoResult = doctorDao.update(doctor);
         return daoResultToManagerResult(daoResult);

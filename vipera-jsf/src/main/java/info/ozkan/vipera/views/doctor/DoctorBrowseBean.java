@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Scope;
  * 
  */
 @Named("doctorBrowse")
-@Scope("session")
+@Scope("request")
 public class DoctorBrowseBean implements Serializable {
     /**
      * serial
