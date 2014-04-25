@@ -24,6 +24,7 @@ import javax.persistence.criteria.Root;
  */
 @Named("doctorDao")
 public class DoctorDaoImpl implements DoctorDao {
+    private static final String JQL_GET_BY_ID = "from Doctor d where d.id = :id";
     protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
     /**
      * Persistence nesne
@@ -98,8 +99,8 @@ public class DoctorDaoImpl implements DoctorDao {
 
     public DoctorDaoResult getById(final Long id) {
         final DoctorDaoResult result = new DoctorDaoResult();
-        final Query query = em.createQuery("from Doctor where id = :id");
-        query.setParameter(":id", id);
+        final Query query = em.createQuery(JQL_GET_BY_ID);
+        query.setParameter(Doctor.ID, id);
         final List<Doctor> doctors = query.getResultList();
         if (doctors.size() == 0) {
             result.setSuccess(false);

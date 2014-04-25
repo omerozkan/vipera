@@ -21,6 +21,10 @@ import javax.persistence.Table;
 @Table(name = "DOCTORS")
 public class Doctor implements Serializable {
     /**
+     * Serial
+     */
+    private static final long serialVersionUID = 7281884028602017476L;
+    /**
      * ID
      */
     public static final String ID = "id";
