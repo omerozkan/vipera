@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -35,10 +36,12 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
     public void addDoctor() throws Exception {
         final Doctor doctor = DoctorTestData
                 .getTestData(DoctorTestData.DEMIRCI);
-        doctor.setTckn(1111111111l);
+        doctor.setId(null);
+        doctor.setTckn(DoctorTestData.getNextTCKN());
         final DoctorDaoResult result = doctorDao.add(doctor);
         assertTrue(result.isSuccess());
-        final Doctor resultDoctor = doctorDao.get(doctor.getTckn()).getDoctor();
+        final Doctor resultDoctor = doctorDao.getByTckn(doctor.getTckn())
+                .getDoctor();
         assertEquals(doctor, resultDoctor);
     }
 
@@ -109,6 +112,30 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
         final List<Doctor> result = doctorDao.find(filter);
         assertEquals(1, result.size());
         assertEquals(doctor, result.get(0));
+    }
+
+    /**
+     * Veritabanından bir hekim alınır güncellenir ve tekrar sorgulanır. Hekimin
+     * adı ve soyadı güncel haldedir.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void getByIdAndUpdateDoctor() throws Exception {
+        final Doctor house = DoctorTestData.getTestData(DoctorTestData.HOUSE);
+        final Doctor doctor = doctorDao.getById(house.getId()).getDoctor();
+        Assert.assertNotNull(doctor);
+        final String name = "Updated";
+        doctor.setName(name);
+        final String surname = "Doctor";
+        doctor.setSurname(surname);
+        final DoctorDaoResult result = doctorDao.update(doctor);
+        assertTrue(result.isSuccess());
+        final Doctor updatedDoctor = doctorDao.getById(house.getId())
+                .getDoctor();
+        Assert.assertNotNull(updatedDoctor);
+        assertEquals(name, updatedDoctor.getName());
+        assertEquals(surname, updatedDoctor.getSurname());
     }
 
     /**

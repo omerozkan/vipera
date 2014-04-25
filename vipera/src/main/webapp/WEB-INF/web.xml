@@ -40,6 +40,10 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
+    <error-page>
+        <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
+        <location>/404.html</location>
+    </error-page>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>

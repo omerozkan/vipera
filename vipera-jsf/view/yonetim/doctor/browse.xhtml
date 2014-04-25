@@ -62,7 +62,9 @@
 		          <p:button value="Hastalar" />
 		      </p:column>
 		      <p:column>
-		          <p:button value="Düzenle" />
+		          <p:button value="Düzenle" outcome="update.html">
+		              <f:param name="id" value="#{doctor.id}" />
+		          </p:button>
 		      </p:column>
 		  </p:dataTable>
 		  </h:form>

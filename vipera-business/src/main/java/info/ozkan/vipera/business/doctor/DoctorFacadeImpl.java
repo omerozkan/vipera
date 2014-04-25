@@ -6,6 +6,8 @@ package info.ozkan.vipera.business.doctor;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.models.DoctorBrowseModel;
 
+import java.io.Serializable;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,7 +18,11 @@ import javax.inject.Named;
  * 
  */
 @Named("doctorFacade")
-public class DoctorFacadeImpl implements DoctorFacade {
+public class DoctorFacadeImpl implements DoctorFacade, Serializable {
+    /**
+     * Serial
+     */
+    private static final long serialVersionUID = 8697253621847617425L;
     @Inject
     private DoctorManager doctorManager;
 
@@ -48,6 +54,14 @@ public class DoctorFacadeImpl implements DoctorFacade {
 
     public DoctorManagerResult search(final DoctorBrowseModel model) {
         return doctorManager.search(model);
+    }
+
+    public DoctorManagerResult getById(final Long id) {
+        return doctorManager.getById(id);
+    }
+
+    public DoctorManagerResult update(final Doctor doctor) {
+        return doctorManager.update(doctor);
     }
 
 }

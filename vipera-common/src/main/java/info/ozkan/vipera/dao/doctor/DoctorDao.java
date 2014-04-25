@@ -31,7 +31,7 @@ public interface DoctorDao {
      * @param tckn
      * @return
      */
-    DoctorDaoResult get(Long tckn);
+    DoctorDaoResult getByTckn(Long tckn);
 
     /**
      * Veritabanından girilen kriterlere göre hekim arama işlemi yapar
@@ -40,4 +40,20 @@ public interface DoctorDao {
      * @return
      */
     List<Doctor> find(DoctorBrowseFilter filter);
+
+    /**
+     * Veritabanından ID'e ait hekimi dönderir
+     * 
+     * @param id
+     * @return
+     */
+    DoctorDaoResult getById(Long id);
+
+    /**
+     * Hekimi günceller
+     * 
+     * @param doctor
+     * @return
+     */
+    DoctorDaoResult update(Doctor doctor);
 }

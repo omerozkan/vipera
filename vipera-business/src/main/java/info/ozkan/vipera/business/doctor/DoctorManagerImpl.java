@@ -74,8 +74,8 @@ public class DoctorManagerImpl implements DoctorManager {
      * @see info.ozkan.vipera.business.doctor.DoctorManager#get(Long)
      */
     @Transactional
-    public DoctorManagerResult get(final Long tckn) {
-        final DoctorDaoResult daoResult = doctorDao.get(tckn);
+    public DoctorManagerResult getByTckn(final Long tckn) {
+        final DoctorDaoResult daoResult = doctorDao.getByTckn(tckn);
         final DoctorManagerResult result = new DoctorManagerResult();
         result.addDoctor(daoResult.getDoctor());
         result.setSuccess(daoResult.isSuccess());
@@ -108,4 +108,30 @@ public class DoctorManagerImpl implements DoctorManager {
         return result;
     }
 
+    @Transactional
+    public DoctorManagerResult getById(final Long id) {
+        final DoctorDaoResult daoResult = doctorDao.getById(id);
+        return daoResultToManagerResult(daoResult);
+    }
+
+    @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    public DoctorManagerResult update(final Doctor doctor) {
+        final DoctorDaoResult daoResult = doctorDao.update(doctor);
+        return daoResultToManagerResult(daoResult);
+    }
+
+    /**
+     * Dao sonuç nesnesini Manager sonuç nesnesine çevirir
+     * 
+     * @param daoResult
+     * @return
+     */
+    private DoctorManagerResult daoResultToManagerResult(
+            final DoctorDaoResult daoResult) {
+        final DoctorManagerResult result = new DoctorManagerResult();
+        result.setSuccess(daoResult.isSuccess());
+        result.addDoctor(daoResult.getDoctor());
+        return result;
+    }
 }

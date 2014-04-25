@@ -24,6 +24,7 @@ import javax.persistence.criteria.Root;
  */
 @Named("doctorDao")
 public class DoctorDaoImpl implements DoctorDao {
+    private static final String JQL_GET_BY_ID = "from Doctor d where d.id = :id";
     protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
     /**
      * Persistence nesne
@@ -60,7 +61,7 @@ public class DoctorDaoImpl implements DoctorDao {
      *            TC Kimlik No
      * @return Doctor nesnesi
      */
-    public DoctorDaoResult get(final Long tckn) {
+    public DoctorDaoResult getByTckn(final Long tckn) {
         final Query query = em.createQuery(JQL_GET_BY_TCKN);
         query.setParameter(Doctor.TCKN, tckn);
         final DoctorDaoResult result = new DoctorDaoResult();
@@ -75,6 +76,9 @@ public class DoctorDaoImpl implements DoctorDao {
         return result;
     }
 
+    /**
+     * Filtrelere göre veritabanında arama işlemi yapar
+     */
     public List<Doctor> find(final DoctorBrowseFilter filter) {
         final CriteriaBuilder cb = em.getCriteriaBuilder();
         final CriteriaQuery<Doctor> cq = cb.createQuery(Doctor.class);
@@ -91,6 +95,28 @@ public class DoctorDaoImpl implements DoctorDao {
         }
         cq.select(root).where(predicates.toArray(new Predicate[0]));
         return em.createQuery(cq).getResultList();
+    }
+
+    public DoctorDaoResult getById(final Long id) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        final Query query = em.createQuery(JQL_GET_BY_ID);
+        query.setParameter(Doctor.ID, id);
+        final List<Doctor> doctors = query.getResultList();
+        if (doctors.size() == 0) {
+            result.setSuccess(false);
+        } else {
+            result.setSuccess(true);
+            result.setDoctor(doctors.get(0));
+        }
+        return result;
+    }
+
+    public DoctorDaoResult update(final Doctor doctor) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        em.merge(doctor);
+        result.setSuccess(true);
+        result.setDoctor(doctor);
+        return result;
     }
 
 }
