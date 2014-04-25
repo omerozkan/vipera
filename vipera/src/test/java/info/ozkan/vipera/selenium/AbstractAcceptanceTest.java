@@ -133,6 +133,9 @@ public abstract class AbstractAcceptanceTest {
         selenium.typeKeys(element, value);
     }
 
+    /**
+     * Yönetici login işlem gerçekleştirir
+     */
     protected void doAdministratorLogin() {
         selenium.open(getFullAdminPanelUrl(ADMIN_LOGIN_PAGE));
         selenium.type("id=loginForm:username", ADMIN_DEFAULT_USER);
@@ -140,6 +143,11 @@ public abstract class AbstractAcceptanceTest {
         selenium.click("id=loginForm:loginButton");
     }
 
+    /**
+     * HTML elemanlarının yüklenmesini bekler
+     * 
+     * @throws InterruptedException
+     */
     protected void waitForElements() throws InterruptedException {
         synchronized (selenium) {
             selenium.wait(AJAX_TIMEOUT);
