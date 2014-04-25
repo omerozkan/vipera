@@ -37,6 +37,7 @@ public final class DoctorTestData {
      */
     private static Doctor createDemirci() {
         final Doctor demirci = new Doctor();
+        demirci.setId(3l);
         demirci.setTckn(12345678902L);
         demirci.setPassword("password");
         demirci.setEmail("ismail@drdemirci.com");
@@ -57,6 +58,7 @@ public final class DoctorTestData {
      */
     private static Doctor createHouse() {
         final Doctor house = new Doctor();
+        house.setId(2l);
         house.setTckn(12345678901L);
         house.setPassword("password");
         house.setEmail("doctor@doctor.com");

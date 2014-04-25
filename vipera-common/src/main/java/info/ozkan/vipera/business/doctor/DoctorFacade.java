@@ -35,6 +35,8 @@ public interface DoctorFacade {
      * @param id
      * @return
      */
-    DoctorManagerResult get(Long id);
+    DoctorManagerResult getById(Long id);
+
+    DoctorManagerResult update(Doctor doctor);
 
 }
