@@ -56,8 +56,12 @@ public class DoctorFacadeImpl implements DoctorFacade, Serializable {
         return doctorManager.search(model);
     }
 
-    public DoctorManagerResult get(final Long id) {
-        return null;
+    public DoctorManagerResult getById(final Long id) {
+        return doctorManager.getById(id);
+    }
+
+    public DoctorManagerResult update(final Doctor doctor) {
+        return doctorManager.update(doctor);
     }
 
 }

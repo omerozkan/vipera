@@ -34,4 +34,20 @@ public interface DoctorManager {
      * @return
      */
     DoctorManagerResult search(DoctorBrowseModel model);
+
+    /**
+     * Veritabanından ID'e ait hekim nesnesini dönderir
+     * 
+     * @param id
+     * @return
+     */
+    DoctorManagerResult getById(Long id);
+
+    /**
+     * Hekimi günceller
+     * 
+     * @param doctor
+     * @return
+     */
+    DoctorManagerResult update(Doctor doctor);
 }

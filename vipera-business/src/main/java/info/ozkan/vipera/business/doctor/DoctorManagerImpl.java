@@ -108,4 +108,27 @@ public class DoctorManagerImpl implements DoctorManager {
         return result;
     }
 
+    public DoctorManagerResult getById(final Long id) {
+        final DoctorDaoResult daoResult = doctorDao.getById(id);
+        return daoResultToManagerResult(daoResult);
+    }
+
+    public DoctorManagerResult update(final Doctor doctor) {
+        final DoctorDaoResult daoResult = doctorDao.update(doctor);
+        return daoResultToManagerResult(daoResult);
+    }
+
+    /**
+     * Dao sonuç nesnesini Manager sonuç nesnesine çevirir
+     * 
+     * @param daoResult
+     * @return
+     */
+    private DoctorManagerResult daoResultToManagerResult(
+            final DoctorDaoResult daoResult) {
+        final DoctorManagerResult result = new DoctorManagerResult();
+        result.setSuccess(daoResult.isSuccess());
+        result.addDoctor(daoResult.getDoctor());
+        return result;
+    }
 }

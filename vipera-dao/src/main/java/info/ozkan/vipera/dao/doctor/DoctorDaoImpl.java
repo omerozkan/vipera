@@ -96,4 +96,26 @@ public class DoctorDaoImpl implements DoctorDao {
         return em.createQuery(cq).getResultList();
     }
 
+    public DoctorDaoResult getById(final Long id) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        final Query query = em.createQuery("from Doctor where id = :id");
+        query.setParameter(":id", id);
+        final List<Doctor> doctors = query.getResultList();
+        if (doctors.size() == 0) {
+            result.setSuccess(false);
+        } else {
+            result.setSuccess(true);
+            result.setDoctor(doctors.get(0));
+        }
+        return result;
+    }
+
+    public DoctorDaoResult update(final Doctor doctor) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        em.merge(doctor);
+        result.setSuccess(true);
+        result.setDoctor(doctor);
+        return result;
+    }
+
 }

@@ -40,4 +40,20 @@ public interface DoctorDao {
      * @return
      */
     List<Doctor> find(DoctorBrowseFilter filter);
+
+    /**
+     * Veritabanından ID'e ait hekimi dönderir
+     * 
+     * @param id
+     * @return
+     */
+    DoctorDaoResult getById(Long id);
+
+    /**
+     * Hekimi günceller
+     * 
+     * @param doctor
+     * @return
+     */
+    DoctorDaoResult update(Doctor doctor);
 }
