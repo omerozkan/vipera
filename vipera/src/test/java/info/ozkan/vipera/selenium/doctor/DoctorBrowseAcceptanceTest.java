@@ -15,7 +15,13 @@ import org.junit.Test;
  * 
  */
 public class DoctorBrowseAcceptanceTest extends AbstractAcceptanceTest {
+    /**
+     * Sonuç olmadığında gösterilecek mesaj
+     */
     private static final String NO_RESULT = "Aradığınız kriterlere uygun sonuç bulunamadı.";
+    /**
+     * Test edilecek olan sayfa
+     */
     private static final String URL = "/doctor/browse.html";
     /**
      * Veritabanında kayıtlı test hekimi
@@ -143,6 +149,9 @@ public class DoctorBrowseAcceptanceTest extends AbstractAcceptanceTest {
         assertContainsBodyText(NO_RESULT);
     }
 
+    /**
+     * Selenium durdumaca
+     */
     @After
     public void tearDown() {
         stopSelenium();
