@@ -56,4 +56,12 @@ public interface DoctorDao {
      * @return
      */
     DoctorDaoResult update(Doctor doctor);
+
+    /**
+     * Hekimi siler
+     * 
+     * @param doctor
+     * @return
+     */
+    DoctorDaoResult delete(Doctor doctor);
 }

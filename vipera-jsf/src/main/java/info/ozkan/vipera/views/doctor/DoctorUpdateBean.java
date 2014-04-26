@@ -88,16 +88,7 @@ public class DoctorUpdateBean implements Serializable {
      *             Hekim bulunamadı hatası
      */
     public void loadDoctor() throws FacesFileNotFoundException {
-        if (id == null) {
-            LOGGER.error("Parameter ID is empty!");
-            throw new FacesFileNotFoundException();
-        }
-        final DoctorManagerResult result = doctorFacade.getById(id);
-        if (!result.isSuccess()) {
-            LOGGER.error("Doctor has not found ID: {}!", id);
-            throw new FacesFileNotFoundException();
-        }
-        doctor = result.getDoctor();
+        doctor = DoctorLoader.loadDoctor(id, doctorFacade);
     }
 
     /**

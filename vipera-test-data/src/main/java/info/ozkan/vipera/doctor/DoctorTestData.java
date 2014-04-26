@@ -3,6 +3,9 @@ package info.ozkan.vipera.doctor;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Hekimlerle ilgili test verileri
  * 
@@ -18,11 +21,20 @@ public final class DoctorTestData {
      * Ismail Demirci test id
      */
     public static final int DEMIRCI = 1;
+    /**
+     * Ömer Özkan test id
+     */
+    public static final int OZKAN = 2;
 
     /**
      * Test verilerin çakışmaması için edinilen sonraki TCKN
      */
-    private static long NEXT_TCKN = 12345678903L;
+    private static long NEXT_TCKN = 12345678904L;
+
+    /**
+     * Hekim listesi
+     */
+    private static Map<Integer, Doctor> doctors;
 
     /**
      * private constructor
@@ -74,6 +86,29 @@ public final class DoctorTestData {
     }
 
     /**
+     * Ömer Özkan adında bir hekim nesnesi oluşturur
+     * 
+     * @return
+     */
+    private static Doctor createOzkan() {
+        final Doctor ozkan = new Doctor();
+        ozkan.setId(4l);
+        ozkan.setTckn(12345678903L);
+        ozkan.setPassword("password");
+        ozkan.setEmail("omer@ozkan.info");
+        ozkan.setName("Ömer");
+        ozkan.setSurname("Özkan");
+        ozkan.setTitle(DoctorTitle.DOCTOR);
+        ozkan.setDiplomaNo("12345");
+        ozkan.setProvince("Deletable data");
+        ozkan.setWebpage("http://ozkan.info");
+        ozkan.setPhone("+905555555");
+        ozkan.setMobilePhone("+905553333333");
+        return ozkan;
+
+    }
+
+    /**
      * Test verilerin çakışmaması için unique bir TC kimlik numarası üretir
      * 
      * @return
@@ -90,11 +125,21 @@ public final class DoctorTestData {
      * @return
      */
     public static Doctor getTestData(final int id) {
-        if (HOUSE == id) {
-            return createHouse();
-        } else {
-            return createDemirci();
+        if (doctors == null) {
+            initializeDoctors();
         }
+        final Doctor doctor = doctors.get(id);
+        return (Doctor) doctor.clone();
+    }
+
+    /**
+     * Hekimleri ilklendirir
+     */
+    private static void initializeDoctors() {
+        doctors = new HashMap<Integer, Doctor>();
+        doctors.put(HOUSE, createHouse());
+        doctors.put(DEMIRCI, createDemirci());
+        doctors.put(OZKAN, createOzkan());
     }
 
 }

@@ -1,6 +1,8 @@
 package info.ozkan.vipera.dao.doctor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
@@ -26,6 +28,16 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
      */
     @Inject
     private DoctorDao doctorDao;
+    /**
+     * House test hekim
+     */
+    private final Doctor house = DoctorTestData
+            .getTestData(DoctorTestData.HOUSE);
+    /**
+     * Demirci test hekim
+     */
+    private final Doctor demirci = DoctorTestData
+            .getTestData(DoctorTestData.DEMIRCI);
 
     /**
      * Yönetici veritabanına hekim ekler
@@ -34,15 +46,13 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
      */
     @Test
     public void addDoctor() throws Exception {
-        final Doctor doctor = DoctorTestData
-                .getTestData(DoctorTestData.DEMIRCI);
-        doctor.setId(null);
-        doctor.setTckn(DoctorTestData.getNextTCKN());
-        final DoctorDaoResult result = doctorDao.add(doctor);
+        demirci.setId(null);
+        demirci.setTckn(DoctorTestData.getNextTCKN());
+        final DoctorDaoResult result = doctorDao.add(demirci);
         assertTrue(result.isSuccess());
-        final Doctor resultDoctor = doctorDao.getByTckn(doctor.getTckn())
+        final Doctor resultDoctor = doctorDao.getByTckn(demirci.getTckn())
                 .getDoctor();
-        assertEquals(doctor, resultDoctor);
+        assertEquals(demirci, resultDoctor);
     }
 
     /**
@@ -53,12 +63,11 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
      */
     @Test
     public void findDoctorByTCKN() throws Exception {
-        final Doctor doctor = DoctorTestData.getTestData(DoctorTestData.HOUSE);
         final DoctorBrowseFilter model = new DoctorBrowseFilter();
-        model.addFilter(Doctor.TCKN, doctor.getTckn());
+        model.addFilter(Doctor.TCKN, house.getTckn());
         final List<Doctor> result = doctorDao.find(model);
         assertEquals(1, result.size());
-        assertEquals(doctor, result.get(0));
+        assertEquals(house, result.get(0));
     }
 
     /**
@@ -85,9 +94,6 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
      */
     @Test
     public void findDoctorsByTitle() throws Exception {
-        final Doctor house = DoctorTestData.getTestData(DoctorTestData.HOUSE);
-        final Doctor demirci = DoctorTestData
-                .getTestData(DoctorTestData.DEMIRCI);
         final DoctorBrowseFilter model = new DoctorBrowseFilter();
         model.addFilter(Doctor.TITLE, DoctorTitle.SPECIALIST);
         final List<Doctor> result = doctorDao.find(model);
@@ -104,14 +110,12 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
      */
     @Test
     public void findDoctorByTitleAndSurname() throws Exception {
-        final Doctor doctor = DoctorTestData
-                .getTestData(DoctorTestData.DEMIRCI);
         final DoctorBrowseFilter filter = new DoctorBrowseFilter();
         filter.addFilter(Doctor.TITLE, DoctorTitle.SPECIALIST);
-        filter.addFilter(Doctor.SURNAME, doctor.getSurname().substring(1, 4));
+        filter.addFilter(Doctor.SURNAME, demirci.getSurname().substring(1, 4));
         final List<Doctor> result = doctorDao.find(filter);
         assertEquals(1, result.size());
-        assertEquals(doctor, result.get(0));
+        assertEquals(demirci, result.get(0));
     }
 
     /**
@@ -122,7 +126,6 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
      */
     @Test
     public void getByIdAndUpdateDoctor() throws Exception {
-        final Doctor house = DoctorTestData.getTestData(DoctorTestData.HOUSE);
         final Doctor doctor = doctorDao.getById(house.getId()).getDoctor();
         Assert.assertNotNull(doctor);
         final String name = "Updated";
@@ -136,6 +139,23 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
         Assert.assertNotNull(updatedDoctor);
         assertEquals(name, updatedDoctor.getName());
         assertEquals(surname, updatedDoctor.getSurname());
+    }
+
+    /**
+     * Veritabanından bir hekim sorgular ve o hekimi siler. Aynı hekim tekrar
+     * sorgulandığında tekrar bulunamaz
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void getByIdAndDeleteDoctor() throws Exception {
+        final Doctor ozkan = DoctorTestData.getTestData(DoctorTestData.OZKAN);
+        final Doctor doctor = doctorDao.getById(ozkan.getId()).getDoctor();
+        final DoctorDaoResult deleteResult = doctorDao.delete(doctor);
+        assertTrue(deleteResult.isSuccess());
+        final DoctorDaoResult result = doctorDao.getById(ozkan.getId());
+        assertFalse(result.isSuccess());
+        assertNull(result.getDoctor());
     }
 
     /**

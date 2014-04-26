@@ -50,4 +50,12 @@ public interface DoctorManager {
      * @return
      */
     DoctorManagerResult update(Doctor doctor);
+
+    /**
+     * Hekim i veritabanından siler
+     * 
+     * @param doctor
+     * @return
+     */
+    DoctorManagerResult delete(Doctor doctor);
 }

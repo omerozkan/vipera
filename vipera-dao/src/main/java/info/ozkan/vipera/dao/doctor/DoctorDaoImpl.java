@@ -104,6 +104,7 @@ public class DoctorDaoImpl implements DoctorDao {
         final List<Doctor> doctors = query.getResultList();
         if (doctors.size() == 0) {
             result.setSuccess(false);
+            result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
         } else {
             result.setSuccess(true);
             result.setDoctor(doctors.get(0));
@@ -114,6 +115,14 @@ public class DoctorDaoImpl implements DoctorDao {
     public DoctorDaoResult update(final Doctor doctor) {
         final DoctorDaoResult result = new DoctorDaoResult();
         em.merge(doctor);
+        result.setSuccess(true);
+        result.setDoctor(doctor);
+        return result;
+    }
+
+    public DoctorDaoResult delete(final Doctor doctor) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        em.remove(doctor);
         result.setSuccess(true);
         result.setDoctor(doctor);
         return result;
