@@ -121,6 +121,8 @@ public class DoctorManagerImpl implements DoctorManager {
         return daoResultToManagerResult(daoResult);
     }
 
+    @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
     public DoctorManagerResult delete(final Doctor doctor) {
         final DoctorDaoResult daoResult = doctorDao.delete(doctor);
         return daoResultToManagerResult(daoResult);

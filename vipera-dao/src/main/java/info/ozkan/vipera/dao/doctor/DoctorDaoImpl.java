@@ -122,7 +122,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
     public DoctorDaoResult delete(final Doctor doctor) {
         final DoctorDaoResult result = new DoctorDaoResult();
-        em.remove(doctor);
+        em.remove(em.merge(doctor));
         result.setSuccess(true);
         result.setDoctor(doctor);
         return result;
