@@ -175,8 +175,7 @@ public class DoctorAddBean implements Serializable {
      * @return başarılı ise true
      */
     private boolean isValidEmail(final String email) {
-        final EmailValidator validator = new EmailValidator();
-        return validator.validate(email);
+        return EmailValidator.isValid(email);
     }
 
     /**

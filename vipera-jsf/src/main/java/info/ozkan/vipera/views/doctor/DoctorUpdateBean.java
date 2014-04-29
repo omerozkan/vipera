@@ -184,7 +184,7 @@ public class DoctorUpdateBean implements Serializable {
      * @return
      */
     public boolean isEmailValid() {
-        return new EmailValidator().validate(doctor.getEmail());
+        return EmailValidator.isValid(doctor.getEmail());
     }
 
     /**
