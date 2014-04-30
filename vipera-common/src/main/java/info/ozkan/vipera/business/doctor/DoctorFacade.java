@@ -45,4 +45,12 @@ public interface DoctorFacade {
      */
     DoctorManagerResult update(Doctor doctor);
 
+    /**
+     * Hekim silme işlemi yapar
+     * 
+     * @param doctor
+     * @return
+     */
+    DoctorManagerResult delete(Doctor doctor);
+
 }

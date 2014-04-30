@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "DOCTORS")
-public class Doctor implements Serializable {
+public class Doctor implements Serializable, Cloneable {
     /**
      * Serial
      */
@@ -379,5 +379,14 @@ public class Doctor implements Serializable {
      */
     public void setId(final Long id) {
         this.id = id;
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (final CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

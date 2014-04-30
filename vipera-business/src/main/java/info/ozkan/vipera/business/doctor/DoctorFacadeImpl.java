@@ -64,4 +64,8 @@ public class DoctorFacadeImpl implements DoctorFacade, Serializable {
         return doctorManager.update(doctor);
     }
 
+    public DoctorManagerResult delete(final Doctor doctor) {
+        return doctorManager.delete(doctor);
+    }
+
 }

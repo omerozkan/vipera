@@ -79,5 +79,20 @@
             <column name="webpage"></column>
             <column name="enabled">1</column>
         </insert>
+        <insert tableName="DOCTORS">
+            <column name="id">4</column>
+            <column name="tckn">12345678903</column>
+            <column name="name">Ömer</column>
+            <column name="surname">Özkan</column>
+            <column name="email">omer@ozkan.info</column>
+            <column name="password">123456</column>
+            <column name="title">1</column>
+            <column name="diploma_no">12345</column>
+            <column name="province">Deletable data</column>
+            <column name="phone">+905555555555</column>
+            <column name="mobile_phone">+905555555555</column>
+            <column name="webpage">http://ozkan.info</column>
+            <column name="enabled">1</column>
+        </insert>
     </changeSet>
 </databaseChangeLog>

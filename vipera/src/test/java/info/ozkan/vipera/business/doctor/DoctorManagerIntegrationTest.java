@@ -1,6 +1,7 @@
 package info.ozkan.vipera.business.doctor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.doctor.DoctorTestData;
@@ -88,5 +89,21 @@ public class DoctorManagerIntegrationTest extends IntegrationTest {
         final Doctor result = doctorManager.getById(id).getDoctor();
         assertEquals(name, result.getName());
         assertEquals(surname, result.getSurname());
+    }
+
+    /**
+     * Veritabanından bir hekim sorgular ve o hekimi siler. Aynı hekim tekrar
+     * sorgulandığında tekrar bulunamaz.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void getByIdAndDelete() throws Exception {
+        final Doctor ozkan = DoctorTestData.getTestData(DoctorTestData.OZKAN);
+        final Doctor doctor = doctorManager.getById(ozkan.getId()).getDoctor();
+        final DoctorManagerResult deleteResult = doctorManager.delete(doctor);
+        assertTrue(deleteResult.isSuccess());
+        final DoctorManagerResult result = doctorManager.getById(ozkan.getId());
+        assertFalse(result.isSuccess());
     }
 }

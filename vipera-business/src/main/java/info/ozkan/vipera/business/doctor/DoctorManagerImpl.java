@@ -121,6 +121,13 @@ public class DoctorManagerImpl implements DoctorManager {
         return daoResultToManagerResult(daoResult);
     }
 
+    @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    public DoctorManagerResult delete(final Doctor doctor) {
+        final DoctorDaoResult daoResult = doctorDao.delete(doctor);
+        return daoResultToManagerResult(daoResult);
+    }
+
     /**
      * Dao sonuç nesnesini Manager sonuç nesnesine çevirir
      * 
@@ -134,4 +141,5 @@ public class DoctorManagerImpl implements DoctorManager {
         result.addDoctor(daoResult.getDoctor());
         return result;
     }
+
 }
