@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/tx
@@ -13,16 +12,16 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<context:component-scan base-package="info.ozkan.vipera.views" />
-	<context:spring-configured />
-	<context:annotation-config />
+    <context:component-scan base-package="info.ozkan.vipera.views" />
+    <context:spring-configured />
+    <context:annotation-config />
 
-	<!-- DATABASE CONFIGURATION -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		p:driverClassName="org.hsqldb.jdbcDriver" p:url="jdbc:hsqldb:res:/hsqldb/test"
-		p:username="sa" p:password="" >
-            <property name="defaultAutoCommit" value="false"  />
-        </bean>
+    <!-- DATABASE CONFIGURATION -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        p:driverClassName="org.hsqldb.jdbcDriver" p:url="jdbc:hsqldb:res:/hsqldb/test"
+        p:username="sa" p:password="">
+        <property name="defaultAutoCommit" value="false" />
+    </bean>
     <!-- LIQUIBASE CONFIGURATION -->
     <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
         <property name="dataSource" ref="dataSource" />
@@ -30,37 +29,53 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         <property name="dropFirst" value="true" />
     </bean>
     <!-- JPA CONFIGURATION -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="liquibase">
-		<property name="dataSource" ref="dataSource" />
-		<property name="persistenceUnitPostProcessors">
-			<list>
-				<bean class="org.springframework.data.jpa.support.ClasspathScanningPersistenceUnitPostProcessor">
-					<constructor-arg value="info.ozkan.vipera.entities" />
-				 </bean>
-			</list>
-		</property>
-	</bean>
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-	<context:component-scan base-package="info.ozkan.vipera.views" />
-
-	<context:spring-configured />
-	<context:annotation-config />
-	<tx:annotation-driven />
-   
-	<!-- PERSISTENCE LAYER BEANS -->
-	<bean id="administratorLoginDao" class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
-	<bean id="doctorDao" class="info.ozkan.vipera.dao.doctor.DoctorDaoImpl" />
-    <!-- BUSINESS LAYER BEANS -->
-	<bean id="administratorLoginManager"
-		class="info.ozkan.vipera.business.login.AdministratorLoginManagerImpl" />
-    <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl" >
-         <aop:scoped-proxy proxy-target-class="true"/>
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        depends-on="liquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitPostProcessors">
+            <list>
+                <bean
+                    class="org.springframework.data.jpa.support.ClasspathScanningPersistenceUnitPostProcessor">
+                    <constructor-arg value="info.ozkan.vipera.entities" />
+                </bean>
+            </list>
+        </property>
     </bean>
-    <bean id="doctorFacade" class="info.ozkan.vipera.business.doctor.DoctorFacadeImpl" >
-         <aop:scoped-proxy proxy-target-class="true"/>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <bean
+        class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    <context:component-scan base-package="info.ozkan.vipera.views" />
+
+    <context:spring-configured />
+    <context:annotation-config />
+    <tx:annotation-driven />
+
+    <!-- PERSISTENCE LAYER BEANS -->
+    <bean id="administratorLoginDao"
+        class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
+    <bean id="doctorDao" class="info.ozkan.vipera.dao.doctor.DoctorDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="patientDao" class="info.ozkan.vipera.dao.patient.PatientDaoImpl ">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <!-- BUSINESS LAYER BEANS -->
+    <bean id="administratorLoginManager"
+        class="info.ozkan.vipera.business.login.AdministratorLoginManagerImpl" />
+    <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="doctorFacade" class="info.ozkan.vipera.business.doctor.DoctorFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="patientManager"
+        class="info.ozkan.vipera.business.patient.PatientManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="patientFacade" class="info.ozkan.vipera.business.patient.PatientFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
     </bean>
 </beans>
