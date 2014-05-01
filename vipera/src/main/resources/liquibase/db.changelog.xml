@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="0" author="Ömer Özkan">
-        <createSequence sequenceName="hibernate_sequence"/>
-        <alterSequence sequenceName="hibernate_sequence" minValue="1000"/>
+    <changeSet id="0" author="Omer Ozkan">
+        <createSequence sequenceName="hibernate_sequence" />
+        <alterSequence sequenceName="hibernate_sequence"
+            minValue="1000" />
     </changeSet>
-    <changeSet id="1" author="Ömer Özkan">
+    <changeSet id="1" author="Omer Ozkan">
         <createTable tableName="ADMINISTRATORS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" />
@@ -20,10 +20,10 @@
             <column name="password" type="varchar(255)" />
         </createTable>
     </changeSet>
-    <changeSet id="2" author="Ömer Özkan">
+    <changeSet id="2" author="Omer Ozkan">
         <createTable tableName="DOCTORS">
             <column name="id" type="bigint">
-                <constraints primaryKey="true" unique="true"/>
+                <constraints primaryKey="true" unique="true" />
             </column>
             <column name="tckn" type="bigint(11)">
                 <constraints primaryKey="true" unique="true" />
@@ -41,6 +41,28 @@
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
+    <changeSet id="3" author="Omer Ozkan">
+        <createTable tableName="PATIENTS">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" unique="true" />
+            </column>
+            <column name="tckn" type="bigint(11)">
+                <constraints primaryKey="true" unique="true" />
+            </column>
+            <column name="password" type="varchar(255)" />
+            <column name="name" type="varchar(255)" />
+            <column name="surname" type="varchar(255)" />
+            <column name="email" type="varchar(255)" />
+            <column name="sex" type="int" />
+            <column name="birth_date" type="date" />
+            <column name="birth_place" type="varchar(255)" />
+            <column name="father_name" type="varchar(255)" />
+            <column name="mother_name" type="varchar(255)" />
+            <column name="phone" type="varchar(255)" />
+            <column name="mobile_phone" type="varchar(255)" />
+            <column name="enable" type="int" />
+        </createTable>
+    </changeSet>
     <changeSet id="test-1" author="Ömer Özkan" context="test">
         <insert tableName="ADMINISTRATORS">
             <column name="id">1</column>
@@ -48,7 +70,7 @@
             <column name="password">password</column>
         </insert>
     </changeSet>
-    <changeSet id="test-2" author="Ömer Özkan" context="test">
+    <changeSet id="test-2" author="Omer Ozkan" context="test">
         <insert tableName="DOCTORS">
             <column name="id">2</column>
             <column name="tckn">12345678901</column>
@@ -58,7 +80,8 @@
             <column name="password">123456</column>
             <column name="title">2</column>
             <column name="diploma_no">12345</column>
-            <column name="province">Bulaşıcı Hastalıklar ve Nefroloji</column>
+            <column name="province">Bulaşıcı Hastalıklar ve Nefroloji
+            </column>
             <column name="phone">+905555555555</column>
             <column name="mobile_phone">+905555555555</column>
             <column name="webpage">http://www.greghouse.com</column>
