@@ -17,4 +17,12 @@ public interface PatientFacade {
      */
     PatientManagerResult add(Patient patient);
 
+    /**
+     * Sistemde hasta arama işlemi yapar
+     * 
+     * @param filter
+     * @return
+     */
+    PatientManagerResult search(PatientSearchFilter filter);
+
 }

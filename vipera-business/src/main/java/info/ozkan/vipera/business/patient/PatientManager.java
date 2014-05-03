@@ -17,4 +17,12 @@ public interface PatientManager {
      * @return ekleme sonucu
      */
     PatientManagerResult add(Patient patient);
+
+    /**
+     * Filtreye göre bilgi bankasından hasta arama işlemi yapar
+     * 
+     * @param filter
+     * @return
+     */
+    PatientManagerResult search(PatientSearchFilter filter);
 }

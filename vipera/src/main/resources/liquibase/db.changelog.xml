@@ -118,4 +118,38 @@
             <column name="enabled">1</column>
         </insert>
     </changeSet>
+    <changeSet id="test-3" author="Omer Ozkan" context="test">
+        <insert tableName="PATIENTS">
+            <column name="id">5</column>
+            <column name="tckn">12345678901</column>
+            <column name="password">password</column>
+            <column name="name">Marvin</column>
+            <column name="surname">Ericson</column>
+            <column name="email">demo@vipera.ozkan.info</column>
+            <column name="sex">1</column>
+            <column name="birth_date">2012-1-1</column>
+            <column name="birth_place">New York</column>
+            <column name="father_name">Marshall</column>
+            <column name="mother_name">Lily</column>
+            <column name="phone">+1123123123</column>
+            <column name="mobile_phone">+1123123123</column>
+            <column name="enable">1</column>
+        </insert>
+        <insert tableName="PATIENTS">
+            <column name="id">6</column>
+            <column name="tckn">12345678902</column>
+            <column name="password">password</column>
+            <column name="name">Sam</column>
+            <column name="surname">Goodson</column>
+            <column name="email">demo@vipera.ozkan.info</column>
+            <column name="sex">0</column>
+            <column name="birth_date">2012-1-1</column>
+            <column name="birth_place">New York</column>
+            <column name="father_name">Charlie</column>
+            <column name="mother_name">Jennifer</column>
+            <column name="phone">+1123123123</column>
+            <column name="mobile_phone">+1123123123</column>
+            <column name="enable">1</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
