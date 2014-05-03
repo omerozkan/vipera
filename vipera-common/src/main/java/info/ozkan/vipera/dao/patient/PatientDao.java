@@ -28,4 +28,22 @@ public interface PatientDao {
      */
     PatientManagerResult find(PatientSearchFilter filter);
 
+    /**
+     * Id'e ait hastaı veritabanından sorgular
+     * 
+     * @param id
+     *            Hasta id
+     * @return
+     */
+    PatientManagerResult getById(Long id);
+
+    /**
+     * Hastaya ait yeni bilgileri veritabanında günceller
+     * 
+     * @param patient
+     *            Hasta
+     * @return
+     */
+    PatientManagerResult update(Patient patient);
+
 }

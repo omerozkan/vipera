@@ -33,6 +33,24 @@ public class PatientManagerImpl implements PatientManager {
         return patientDao.add(patient);
     }
 
+    @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    public PatientManagerResult search(final PatientSearchFilter filter) {
+        return patientDao.find(filter);
+    }
+
+    @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    public PatientManagerResult getById(final Long id) {
+        return patientDao.getById(id);
+    }
+
+    @Transactional
+    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    public PatientManagerResult update(final Patient patient) {
+        return patientDao.update(patient);
+    }
+
     /**
      * @return the patientDao
      */
@@ -46,10 +64,6 @@ public class PatientManagerImpl implements PatientManager {
      */
     public void setPatientDao(final PatientDao patientDao) {
         this.patientDao = patientDao;
-    }
-
-    public PatientManagerResult search(final PatientSearchFilter filter) {
-        return patientDao.find(filter);
     }
 
 }

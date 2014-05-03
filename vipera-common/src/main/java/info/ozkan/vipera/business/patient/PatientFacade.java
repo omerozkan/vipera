@@ -25,4 +25,21 @@ public interface PatientFacade {
      */
     PatientManagerResult search(PatientSearchFilter filter);
 
+    /**
+     * Sistemde kayıtlı bir hastayı dönderir
+     * 
+     * @param id
+     *            Hasta id
+     * @return
+     */
+    PatientManagerResult getById(Long id);
+
+    /**
+     * Sistemde kayıtlı olan bir hastayı günceller
+     * 
+     * @param patient
+     * @return
+     */
+    PatientManagerResult update(Patient patient);
+
 }

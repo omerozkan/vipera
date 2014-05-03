@@ -25,6 +25,10 @@ public class PatientDaoIntegrationTest extends IntegrationTest {
      */
     @Inject
     private PatientDao patientDao;
+    private final Patient marvin = PatientTestData
+            .getTestData(PatientTestData.MARVIN);
+    private final Patient sam = PatientTestData
+            .getTestData(PatientTestData.SAM);
 
     /**
      * Sistemde aynı doğum tarihine sahip iki hasta vardır. Sorgulama sonucunda
@@ -33,16 +37,30 @@ public class PatientDaoIntegrationTest extends IntegrationTest {
      * @throws Exception
      */
     @Test
-    public void findPatients() throws Exception {
-        final Patient marvin = PatientTestData
-                .getTestData(PatientTestData.MARVIN);
-        final Patient sam = PatientTestData.getTestData(PatientTestData.SAM);
+    public void canFindPatients() throws Exception {
         final String birthYear = getBirthYearFromPatient(marvin);
         final PatientSearchFilter filter = new PatientSearchFilter();
         filter.addFilter(Patient.BIRTH_DATE, birthYear);
         final PatientManagerResult result = patientDao.find(filter);
         Assert.assertTrue(result.getPatients().contains(marvin));
         Assert.assertTrue(result.getPatients().contains(sam));
+    }
+
+    /**
+     * Veritabanından kayıtlı bir hastayı alır ve adını günceller hasta tekrar
+     * sorgulandığında adı güncellenmiş olmalıdır
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void canGetAndUpdate() throws Exception {
+        final Patient patient = patientDao.getById(marvin.getId()).getPatient();
+        final String newName = "New Name";
+        patient.setName(newName);
+        patientDao.update(patient);
+        final Patient updatedPatient = patientDao.getById(marvin.getId())
+                .getPatient();
+        Assert.assertEquals(newName, updatedPatient.getName());
     }
 
     /**

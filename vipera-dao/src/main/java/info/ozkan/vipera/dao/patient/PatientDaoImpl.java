@@ -25,15 +25,17 @@ import javax.persistence.criteria.Root;
  */
 public class PatientDaoImpl implements PatientDao {
     /**
+     * ID ye göre hasta sorgulayan JQL sorgusu
+     */
+    private static final String JQL_GET_BY_ID = "from Patient p WHERE p.id = :id";
+    /**
      * Persistence context
      */
     private EntityManager em;
 
     public PatientManagerResult add(final Patient patient) {
-        final PatientManagerResult result = new PatientManagerResult();
         em.persist(patient);
-        result.setStatus(PatientManagerStatus.SUCCESS);
-        return result;
+        return createSuccesResult(patient);
     }
 
     /**
@@ -56,6 +58,61 @@ public class PatientDaoImpl implements PatientDao {
         final CriteriaQuery<Patient> cq = createCriteriaFromFilter(filter);
         final PatientManagerResult result = createManagerResultFromCriteria(cq);
         return result;
+    }
+
+    public PatientManagerResult getById(final Long id) {
+        final Query query = em.createQuery(JQL_GET_BY_ID);
+        query.setParameter("id", id);
+        final List<Patient> resultList = query.getResultList();
+        return createResult(resultList);
+    }
+
+    public PatientManagerResult update(final Patient patient) {
+        em.merge(patient);
+        return createSuccesResult(patient);
+    }
+
+    /**
+     * Başarılı bir sonuç içeren {@link PatientManagerResult} nesnesi üretir
+     * 
+     * @param patient
+     *            Hasta
+     * @return
+     */
+    private PatientManagerResult createSuccesResult(final Patient patient) {
+        final PatientManagerResult result = new PatientManagerResult();
+        result.setStatus(PatientManagerStatus.SUCCESS);
+        result.setPatient(patient);
+        return result;
+    }
+
+    /**
+     * Veritabanından dönen listeye göre bir {@link PatientManagerResult}
+     * nesnesi üretir
+     * 
+     * @param resultList
+     * @return
+     */
+    private PatientManagerResult createResult(final List<Patient> resultList) {
+        final PatientManagerResult result = new PatientManagerResult();
+        if (patientExist(resultList)) {
+            result.setStatus(PatientManagerStatus.NOT_FOUND);
+        } else {
+            final Patient patient = resultList.get(0);
+            result.setPatient(patient);
+            result.setStatus(PatientManagerStatus.SUCCESS);
+        }
+        return result;
+    }
+
+    /**
+     * Kayıtlı herhani bir hasta var olup olmadığını kontrol eder
+     * 
+     * @param resultList
+     * @return
+     */
+    private boolean patientExist(final List<Patient> resultList) {
+        return resultList.size() == 0;
     }
 
     /**

@@ -25,4 +25,22 @@ public interface PatientManager {
      * @return
      */
     PatientManagerResult search(PatientSearchFilter filter);
+
+    /**
+     * Sistemde kayıtlı Id'e ait hastayı dönderir
+     * 
+     * @param id
+     *            Hasta id
+     * @return
+     */
+    PatientManagerResult getById(Long id);
+
+    /**
+     * Hasta ile ilgili değişiklikleri sisteme kaydeder
+     * 
+     * @param patient
+     *            hasta
+     * @return
+     */
+    PatientManagerResult update(Patient patient);
 }
