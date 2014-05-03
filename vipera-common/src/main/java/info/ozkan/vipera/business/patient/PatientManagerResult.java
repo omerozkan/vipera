@@ -2,6 +2,7 @@ package info.ozkan.vipera.business.patient;
 
 import info.ozkan.vipera.entities.Patient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class PatientManagerResult {
     /**
      * Hasta listesi
      */
-    private List<Patient> patients;
+    private List<Patient> patients = new ArrayList<Patient>();
 
     /**
      * @return the status
@@ -50,8 +51,31 @@ public class PatientManagerResult {
      * 
      * @param patientList
      */
-    public void setPatientList(final List patientList) {
+    public void setPatientList(final List<Patient> patientList) {
         patients = patientList;
+    }
+
+    /**
+     * İşlem sonucu yüklenen hasta nesnesi dönderir. Genellikle tek sonuç dönen
+     * işlemler için kullanılır
+     * 
+     * @return
+     */
+    public Patient getPatient() {
+        if (patients.size() > 0) {
+            return patients.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * Sonuca hasta ekler Genellikle tek sonuç dönen durumlar için kullanılır
+     * 
+     * @param patient
+     */
+    public void setPatient(final Patient patient) {
+        patients.clear();
+        patients.add(patient);
     }
 
 }

@@ -34,13 +34,29 @@ public class PatientFacadeImpl implements PatientFacade {
         } catch (final Exception e) {
             result = new PatientManagerResult();
             result.setStatus(PatientManagerStatus.TCKN_HAS_EXIST);
-            LOGGER.debug("The patien cannot be added!", e);
+            LOGGER.debug("The patient cannot be added!", e);
         }
         return result;
     }
 
     public PatientManagerResult search(final PatientSearchFilter filter) {
         return patientManager.search(filter);
+    }
+
+    public PatientManagerResult getById(final Long id) {
+        return patientManager.getById(id);
+    }
+
+    public PatientManagerResult update(final Patient patient) {
+        PatientManagerResult result;
+        try {
+            result = patientManager.update(patient);
+        } catch (final Exception e) {
+            result = new PatientManagerResult();
+            result.setStatus(PatientManagerStatus.UNEXPECTED_ERROR);
+            LOGGER.error("The patient cannot be updated!", e);
+        }
+        return result;
     }
 
 }

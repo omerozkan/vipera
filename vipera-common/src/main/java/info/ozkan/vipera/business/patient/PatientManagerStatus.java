@@ -7,7 +7,7 @@ package info.ozkan.vipera.business.patient;
  * 
  */
 public enum PatientManagerStatus {
-    SUCCESS(0), TCKN_HAS_EXIST(1);
+    UNEXPECTED_ERROR(-1), SUCCESS(0), TCKN_HAS_EXIST(1), NOT_FOUND(2);
 
     private int code;
 

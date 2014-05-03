@@ -10,7 +10,6 @@ import info.ozkan.vipera.jsf.FacesMessage2;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.faces.application.FacesMessage;
@@ -110,8 +109,7 @@ public class PatientAddBean implements Serializable {
         final FacesContext context = FacesContext.getCurrentInstance();
         boolean success = true;
         setPassword();
-        final Date current = new Date();
-        if (patient.getBirthDate().compareTo(current) > 0) {
+        if (checkBirthDateInPast()) {
             addMessage(context, BIRTDAY_ERROR_MSG);
             success = false;
             LOGGER.error("The new patient {}'s birthday is in future!",
@@ -127,6 +125,10 @@ public class PatientAddBean implements Serializable {
             savePatient(context);
         }
 
+    }
+
+    private boolean checkBirthDateInPast() {
+        return BirthDateChecker.checkBirthDateInPast(patient.getBirthDate());
     }
 
     /**
