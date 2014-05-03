@@ -1,4 +1,4 @@
-package info.ozkan.vipera.views.doctor;
+package info.ozkan.vipera.views.patient;
 
 import info.ozkan.vipera.entities.Sex;
 

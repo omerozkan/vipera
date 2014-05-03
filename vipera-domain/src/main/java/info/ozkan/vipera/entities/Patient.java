@@ -22,11 +22,63 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "PATIENTS")
-public class Patient implements Serializable {
+public class Patient implements Serializable, Cloneable {
     /**
      * Serial
      */
     private static final long serialVersionUID = 7501937124111247012L;
+    /**
+     * TCKN attribute
+     */
+    public static final String TCKN = "tckn";
+    /**
+     * NAME
+     */
+    public static final String NAME = "name";
+    /**
+     * ENABLE
+     */
+    public static final String ENABLE = "enable";
+    /**
+     * MOBILE PHONE
+     */
+    public static final String MOBILE_PHONE = "mobilePhone";
+    /**
+     * PHONE
+     */
+    public static final String PHONE = "phone";
+    /**
+     * MOTHER NAME
+     */
+    public static final String MOTHER_NAME = "motherName";
+    /**
+     * FATHER NAME
+     */
+    public static final String FATHER_NAME = "fatherName";
+    /**
+     * BIRTH PLACE
+     */
+    public static final String BIRTH_PLACE = "birthPlace";
+    /**
+     * BIRTH DATE
+     */
+    public static final String BIRTH_DATE = "birthDate";
+    /**
+     * SEX
+     */
+    public static final String SEX = "sex";
+    /**
+     * EMAIL
+     */
+    public static final String EMAIL = "email";
+    /**
+     * SURNAME
+     */
+    public static final String SURNAME = "surname";
+    /**
+     * PASSWORD
+     */
+    public static final String PASSWORD = "password";
     /**
      * ID
      */
@@ -320,6 +372,31 @@ public class Patient implements Serializable {
      */
     public String getFullname() {
         return name + " " + surname;
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (final CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof Patient) {
+            final Patient patient = (Patient) obj;
+            final Long tckn = patient.tckn;
+            return tckn.equals(this.tckn);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 71;
+        return tckn.intValue() * prime;
     }
 
 }

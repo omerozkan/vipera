@@ -48,4 +48,8 @@ public class PatientManagerImpl implements PatientManager {
         this.patientDao = patientDao;
     }
 
+    public PatientManagerResult search(final PatientSearchFilter filter) {
+        return patientDao.find(filter);
+    }
+
 }

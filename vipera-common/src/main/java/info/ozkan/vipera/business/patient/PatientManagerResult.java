@@ -1,5 +1,9 @@
 package info.ozkan.vipera.business.patient;
 
+import info.ozkan.vipera.entities.Patient;
+
+import java.util.List;
+
 /**
  * Hastalar üzerinde yapılan CRUD işlemleri sonucunda istemci için üretilen
  * sonuç sınıfı
@@ -12,6 +16,10 @@ public class PatientManagerResult {
      * Status
      */
     private PatientManagerStatus status;
+    /**
+     * Hasta listesi
+     */
+    private List<Patient> patients;
 
     /**
      * @return the status
@@ -26,6 +34,24 @@ public class PatientManagerResult {
      */
     public void setStatus(final PatientManagerStatus status) {
         this.status = status;
+    }
+
+    /**
+     * Arama işlemi sonucu hastaların listesini dönderir
+     * 
+     * @return
+     */
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    /**
+     * Hasta listesi
+     * 
+     * @param patientList
+     */
+    public void setPatientList(final List patientList) {
+        patients = patientList;
     }
 
 }

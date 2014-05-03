@@ -39,4 +39,8 @@ public class PatientFacadeImpl implements PatientFacade {
         return result;
     }
 
+    public PatientManagerResult search(final PatientSearchFilter filter) {
+        return patientManager.search(filter);
+    }
+
 }
