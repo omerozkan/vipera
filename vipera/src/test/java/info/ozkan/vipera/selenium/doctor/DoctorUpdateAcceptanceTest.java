@@ -20,7 +20,7 @@ public class DoctorUpdateAcceptanceTest extends AbstractAcceptanceTest {
     private static final String PASSWORD_DONT_MATCH = "Girdiğiniz parolalar birbiri ile uyuşmuyor!";
     private static final String EMPTY_SURNAME = "Hekim soyadı boş bırakılamaz!";
     private static final String EMTPY_NAME = "Hekim adı boş bırakılamaz!";
-    private static final String URL = "/doctor/update.html?id=";
+    private static final String URL = "/doctor/doctorUpdate.html?id=";
     Doctor doctor = DoctorTestData.getTestData(DoctorTestData.DEMIRCI);
 
     @Before

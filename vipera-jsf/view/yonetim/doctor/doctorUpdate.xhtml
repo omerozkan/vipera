@@ -92,8 +92,13 @@
 					<h:outputText value="Hesap Aktif?:" />
 					<p:selectBooleanCheckbox id="enable" value="#{doctorUpdate.enable}" />
 					<p:message for="enable" />
-					<p:commandButton value="Kaydet"
-						actionListener="#{doctorUpdate.save}" update="panel" id="save" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+				    <p:commandButton value="Kaydet"
+                        actionListener="#{doctorUpdate.save}" update="panel" id="save" />
+                    <p:button value="Sil" outcome="doctorDelete.html" icon="ui-icon-trash">
+                        <f:param name="id" value="#{doctorUpdate.doctor.id}" />
+                    </p:button>
 				</h:panelGrid>
 			</p:panel>
 		</h:form>

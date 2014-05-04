@@ -57,7 +57,8 @@ public class DoctorAddAcceptanceTest extends AbstractAcceptanceTest {
     @Before
     public void setUp() throws Exception {
         super.doAdministratorLogin();
-        selenium.open("/vipera/yonetim/doctor/add.html");
+        final String url = getFullAdminPanelUrl("doctor/doctorAdd.html");
+        selenium.open(url);
         selenium.waitForPageToLoad(TIMEOUT_LIMIT);
         synchronized (selenium) {
             selenium.wait(2000l);

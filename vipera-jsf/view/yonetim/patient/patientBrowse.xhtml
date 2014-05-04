@@ -47,7 +47,7 @@
 
 					</h:panelGrid>
 					<p:commandButton value="Ara" id="search" update="results"
-						actionListener="#{patientBrowse.search}" />
+						actionListener="#{patientBrowse.search}" icon="ui-icon-search"/>
 				</h:panelGrid>
 			</p:panel>
 
@@ -80,7 +80,7 @@
 					<h:outputText value="#{p.enable.title}" />
 				</p:column>
 				<p:column>
-					<p:button value="Düzenle" outcome="update.html" icon="ui-icon-extlink" iconPos="left">
+					<p:button value="Düzenle" outcome="patientUpdate.html" icon="ui-icon-pencil" iconPos="left">
 						<f:param name="id" value="#{p.id}" />
 					</p:button>
 					<p:button value="Sil" icon="ui-icon-trash" iconPos="left">

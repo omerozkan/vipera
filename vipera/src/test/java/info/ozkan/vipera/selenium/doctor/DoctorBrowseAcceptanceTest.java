@@ -22,7 +22,7 @@ public class DoctorBrowseAcceptanceTest extends AbstractAcceptanceTest {
     /**
      * Test edilecek olan sayfa
      */
-    private static final String URL = "/doctor/browse.html";
+    private static final String URL = "/doctor/doctorBrowse.html";
     /**
      * Veritabanında kayıtlı test hekimi
      */
