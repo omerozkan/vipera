@@ -10,7 +10,7 @@
 		<f:event listener="#{doctorDelete.loadDoctor}" type="preRenderView"></f:event>
 	</f:metadata>
 	<ui:define name="title">
-		<h:outputText value="#{doctorDelete.doctor.fullname}" /> | Hekim Güncelle | Vipera</ui:define>
+		<h:outputText value="#{doctorDelete.doctor.fullname}" /> | Hekim Silme | Vipera</ui:define>
 	<ui:define name="content">
 		<h:form id="doctor-delete">
 			<p:growl id="msg" showDetail="true" sticky="true" />
@@ -28,7 +28,7 @@
 				</h:panelGrid>
 				<p:spacer height="20" />
 				<h:panelGrid columns="2">
-					<p:commandButton value="Evet"
+					<p:commandButton value="#{doctorDelete.buttonValue}"
 						actionListener="#{doctorDelete.delete}"
 						disabled="#{doctorDelete.disabled}" update="@form" />
 					<p:button outcome="doctorBrowse.html" value="Geri Dön" icon="ui-icon-arrowreturnthick-1-s" iconPos="left"/>
