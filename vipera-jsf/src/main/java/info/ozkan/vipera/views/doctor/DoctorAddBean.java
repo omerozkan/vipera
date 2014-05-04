@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Scope;
  * @author Ömer Özkan
  * 
  */
-@Named("addDoctor")
+@Named("doctorAdd")
 @Scope("session")
 public class DoctorAddBean implements Serializable {
     /**
