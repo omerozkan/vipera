@@ -8,7 +8,6 @@ import info.ozkan.vipera.dao.doctor.DoctorDao;
 import info.ozkan.vipera.dao.doctor.DoctorDaoResult;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
-import info.ozkan.vipera.models.DoctorBrowseModel;
 
 import java.util.Arrays;
 import java.util.List;

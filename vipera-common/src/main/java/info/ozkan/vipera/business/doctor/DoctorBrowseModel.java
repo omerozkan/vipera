@@ -1,4 +1,4 @@
-package info.ozkan.vipera.models;
+package info.ozkan.vipera.business.doctor;
 
 import info.ozkan.vipera.entities.DoctorTitle;
 

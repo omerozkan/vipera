@@ -1,7 +1,6 @@
 package info.ozkan.vipera.business.doctor;
 
 import info.ozkan.vipera.entities.Doctor;
-import info.ozkan.vipera.models.DoctorBrowseModel;
 
 /**
  * Hekimler üzerinde çeşitli işlemler yapar

@@ -1,10 +1,10 @@
 package info.ozkan.vipera.views.doctor;
 
+import info.ozkan.vipera.business.doctor.DoctorBrowseModel;
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
-import info.ozkan.vipera.models.DoctorBrowseModel;
 
 import java.util.ArrayList;
 import java.util.List;

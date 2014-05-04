@@ -5,7 +5,6 @@ import info.ozkan.vipera.dao.doctor.DoctorBrowseFilter;
 import info.ozkan.vipera.dao.doctor.DoctorDao;
 import info.ozkan.vipera.dao.doctor.DoctorDaoResult;
 import info.ozkan.vipera.entities.Doctor;
-import info.ozkan.vipera.models.DoctorBrowseModel;
 
 import java.util.List;
 

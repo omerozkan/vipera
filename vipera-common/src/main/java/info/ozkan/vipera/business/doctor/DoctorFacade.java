@@ -4,7 +4,6 @@
 package info.ozkan.vipera.business.doctor;
 
 import info.ozkan.vipera.entities.Doctor;
-import info.ozkan.vipera.models.DoctorBrowseModel;
 
 /**
  * Doctor Facade sınıfı

@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
-import info.ozkan.vipera.models.DoctorBrowseModel;
 import info.ozkan.vipera.test.IntegrationTest;
 
 import javax.inject.Inject;
