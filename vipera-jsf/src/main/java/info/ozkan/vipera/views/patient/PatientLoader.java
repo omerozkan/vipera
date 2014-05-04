@@ -24,6 +24,13 @@ class PatientLoader {
             .getLogger(PatientLoader.class);
 
     /**
+     * private constructor
+     */
+    private PatientLoader() {
+
+    }
+
+    /**
      * Id'ye ait hastayı dönderir
      * 
      * @param patientFacade

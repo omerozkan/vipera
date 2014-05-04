@@ -16,7 +16,10 @@ import com.sun.faces.context.FacesFileNotFoundException;
  * @author Ömer Özkan
  * 
  */
-public class DoctorLoader {
+class DoctorLoader {
+    /**
+     * LOGGER
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DoctorLoader.class);
 
@@ -27,6 +30,14 @@ public class DoctorLoader {
 
     }
 
+    /**
+     * ID'e ait hekimi dönderir
+     * 
+     * @param id
+     * @param facade
+     * @return
+     * @throws FacesFileNotFoundException
+     */
     public static Doctor loadDoctor(final Long id, final DoctorFacade facade)
             throws FacesFileNotFoundException {
         if (id == null) {
