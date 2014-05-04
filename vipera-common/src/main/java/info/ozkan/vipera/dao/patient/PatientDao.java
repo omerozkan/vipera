@@ -46,4 +46,12 @@ public interface PatientDao {
      */
     PatientManagerResult update(Patient patient);
 
+    /**
+     * Hastayı veritabanından siler
+     * 
+     * @param patient
+     * @return
+     */
+    PatientManagerResult delete(Patient patient);
+
 }

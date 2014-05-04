@@ -66,4 +66,10 @@ public class PatientManagerImpl implements PatientManager {
         this.patientDao = patientDao;
     }
 
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public PatientManagerResult delete(final Patient patient) {
+        return patientDao.delete(patient);
+    }
+
 }
