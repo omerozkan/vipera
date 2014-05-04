@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/yonetim/layout/template.xhtml">
 	<f:metadata>
-       <f:viewParam name="id" value="#{patientUpdate.id}" />
+       <f:viewParam name="id" value="#{patientUpdate.id}" required="true" />
        <f:event listener="#{patientUpdate.loadPatient}" type="preRenderView" />
     </f:metadata>
 	<ui:define name="title">Hasta Düzenle | Vipera</ui:define>
@@ -110,6 +110,9 @@
 					<p:message for="enable" display="icon" />
 					<p:commandButton value="Kaydet" actionListener="#{patientUpdate.save}"
 						update="panel" id="save" />
+				    <p:button value="Sil" outcome="patientDelete.html" icon="ui-icon-trash">
+				        <f:param name="id" value="#{patient.id}" />
+				    </p:button>
 				</h:panelGrid>
 			</p:panel>
 		</h:form>

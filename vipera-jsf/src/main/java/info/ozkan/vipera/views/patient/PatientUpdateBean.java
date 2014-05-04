@@ -77,17 +77,17 @@ public class PatientUpdateBean {
      * @throws FacesFileNotFoundException
      */
     public void loadPatient() throws FacesFileNotFoundException {
-        if (id == null) {
-            LOGGER.error("Parameter Id is empty!");
-            throw new FacesFileNotFoundException();
-        }
-        final PatientManagerResult result = patientFacade.getById(id);
-        if (!isSuccess(result)) {
-            LOGGER.error("Patient has not found ID: {}!", id);
-            throw new FacesFileNotFoundException();
-        }
-        patient = result.getPatient();
+        patient = PatientLoader.loadPatient(patientFacade, id);
         setEnabledByPatient();
+        resetFormForNext();
+    }
+
+    /**
+     * formun bir sonraki yüklenmesinde id değerinin tekrar girilmesini zorunlu
+     * kılar
+     */
+    private void resetFormForNext() {
+        id = null;
     }
 
     /**

@@ -89,6 +89,15 @@ public class DoctorUpdateBean implements Serializable {
      */
     public void loadDoctor() throws FacesFileNotFoundException {
         doctor = DoctorLoader.loadDoctor(id, doctorFacade);
+        resetIdForNext();
+    }
+
+    /**
+     * id değişkenini sıfırlayarak bir sonraki istek için id değerini zorunlu
+     * kılar
+     */
+    private void resetIdForNext() {
+        id = null;
     }
 
     /**

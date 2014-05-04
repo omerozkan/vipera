@@ -8,7 +8,7 @@ import java.util.Date;
  * @author Ömer Özkan
  * 
  */
-public class BirthDateChecker {
+class BirthDateChecker {
     /**
      * Utility Class
      */

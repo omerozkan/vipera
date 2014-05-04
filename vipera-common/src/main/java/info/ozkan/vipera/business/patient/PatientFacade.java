@@ -42,4 +42,13 @@ public interface PatientFacade {
      */
     PatientManagerResult update(Patient patient);
 
+    /**
+     * Sistemden hasta siler
+     * 
+     * @param patient
+     *            Hasta
+     * @return
+     */
+    PatientManagerResult delete(Patient patient);
+
 }

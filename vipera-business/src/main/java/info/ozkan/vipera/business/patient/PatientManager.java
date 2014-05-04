@@ -43,4 +43,13 @@ public interface PatientManager {
      * @return
      */
     PatientManagerResult update(Patient patient);
+
+    /**
+     * Hastayı sistemden siler
+     * 
+     * @param patient
+     *            hasta
+     * @return
+     */
+    PatientManagerResult delete(Patient patient);
 }

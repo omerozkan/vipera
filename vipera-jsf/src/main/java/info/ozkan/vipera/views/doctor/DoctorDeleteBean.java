@@ -66,10 +66,19 @@ public class DoctorDeleteBean {
      * @throws FacesFileNotFoundException
      */
     public void loadDoctor() throws FacesFileNotFoundException {
-        if (doctor == null || doctor.getId() != id) {
+        if (doctorHasChanged()) {
             setDoctor(DoctorLoader.loadDoctor(id, doctorFacade));
             disabled = false;
         }
+    }
+
+    /**
+     * Bir önceki yüklenen hekimden farklı mı?
+     * 
+     * @return
+     */
+    private boolean doctorHasChanged() {
+        return doctor == null || doctor.getId() != id;
     }
 
     /**
@@ -154,5 +163,15 @@ public class DoctorDeleteBean {
      */
     public void setDisabled(final boolean disabled) {
         this.disabled = disabled;
+    }
+
+    /**
+     * Silme butonu için eğer hasta silindi ise Silindi değil ise Evet değerini
+     * dönderir
+     * 
+     * @return
+     */
+    public String getButtonValue() {
+        return disabled ? "Silindi" : "Evet";
     }
 }

@@ -39,12 +39,36 @@ public class PatientFacadeImpl implements PatientFacade {
         return result;
     }
 
-    public PatientManagerResult search(final PatientSearchFilter filter) {
-        return patientManager.search(filter);
+    /**
+     * {@link PatientManagerStatus#UNEXPECTED_ERROR} mesajı içeren bir
+     * {@link PatientManagerResult} nesnesi oluşturur
+     * 
+     * @return
+     */
+    private PatientManagerResult createUnexpectedResult() {
+        PatientManagerResult result;
+        result = new PatientManagerResult();
+        result.setStatus(PatientManagerStatus.UNEXPECTED_ERROR);
+        return result;
+    }
+
+    public PatientManagerResult delete(final Patient patient) {
+        PatientManagerResult result;
+        try {
+            result = patientManager.delete(patient);
+        } catch (final Exception e) {
+            result = createUnexpectedResult();
+            LOGGER.error("The patient cannot be deleted!", e);
+        }
+        return result;
     }
 
     public PatientManagerResult getById(final Long id) {
         return patientManager.getById(id);
+    }
+
+    public PatientManagerResult search(final PatientSearchFilter filter) {
+        return patientManager.search(filter);
     }
 
     public PatientManagerResult update(final Patient patient) {
@@ -52,8 +76,7 @@ public class PatientFacadeImpl implements PatientFacade {
         try {
             result = patientManager.update(patient);
         } catch (final Exception e) {
-            result = new PatientManagerResult();
-            result.setStatus(PatientManagerStatus.UNEXPECTED_ERROR);
+            result = createUnexpectedResult();
             LOGGER.error("The patient cannot be updated!", e);
         }
         return result;
