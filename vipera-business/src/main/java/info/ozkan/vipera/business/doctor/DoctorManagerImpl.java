@@ -1,6 +1,6 @@
 package info.ozkan.vipera.business.doctor;
 
-import info.ozkan.vipera.business.login.AdministratorLoginManager;
+import info.ozkan.vipera.business.role.Role;
 import info.ozkan.vipera.dao.doctor.DoctorBrowseFilter;
 import info.ozkan.vipera.dao.doctor.DoctorDao;
 import info.ozkan.vipera.dao.doctor.DoctorDaoResult;
@@ -24,6 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Named("doctorManager")
 public class DoctorManagerImpl implements DoctorManager {
+    /**
+     * LOGGER
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DoctorManagerImpl.class);
     /**
@@ -44,7 +47,7 @@ public class DoctorManagerImpl implements DoctorManager {
      * .entities.Doctor)
      */
     @Transactional
-    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    @RolesAllowed(Role.ROLE_ADMIN)
     public DoctorManagerResult add(final Doctor doctor) {
         final DoctorManagerResult result = new DoctorManagerResult();
         final DoctorDaoResult daoResult = doctorDao.add(doctor);
@@ -89,7 +92,7 @@ public class DoctorManagerImpl implements DoctorManager {
      * info.ozkan.vipera.business.doctor.DoctorManager#search(DoctorBrowseModel)
      */
     @Transactional
-    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    @RolesAllowed(Role.ROLE_ADMIN)
     public DoctorManagerResult search(final DoctorBrowseModel model) {
         final DoctorBrowseFilter filter = new DoctorBrowseFilter();
         if (model.getTckn() != null
@@ -114,14 +117,14 @@ public class DoctorManagerImpl implements DoctorManager {
     }
 
     @Transactional
-    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    @RolesAllowed(Role.ROLE_ADMIN)
     public DoctorManagerResult update(final Doctor doctor) {
         final DoctorDaoResult daoResult = doctorDao.update(doctor);
         return daoResultToManagerResult(daoResult);
     }
 
     @Transactional
-    @RolesAllowed(AdministratorLoginManager.ROLE_ADMIN)
+    @RolesAllowed(Role.ROLE_ADMIN)
     public DoctorManagerResult delete(final Doctor doctor) {
         final DoctorDaoResult daoResult = doctorDao.delete(doctor);
         return daoResultToManagerResult(daoResult);

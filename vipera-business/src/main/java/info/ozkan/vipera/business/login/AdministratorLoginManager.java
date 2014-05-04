@@ -1,6 +1,8 @@
 package info.ozkan.vipera.business.login;
 
+import info.ozkan.vipera.business.role.Role;
 import info.ozkan.vipera.dao.login.AdministratorLoginDao;
+import info.ozkan.vipera.entities.Administrator;
 import info.ozkan.vipera.login.AdministratorLoginResult;
 
 import java.util.Collection;
@@ -31,7 +33,6 @@ public class AdministratorLoginManager implements AuthenticationProvider {
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AdministratorLoginManager.class);
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
     /**
      * Persistence katmanı nesnesi
      */
@@ -51,21 +52,15 @@ public class AdministratorLoginManager implements AuthenticationProvider {
      * Login işlemini gerçekleştirir
      */
     public Authentication authenticate(final Authentication authentication) {
-        final AdministratorLoginResult result = loginDao.findUser(
-                authentication.getPrincipal().toString(), authentication
-                        .getCredentials().toString());
+        final AdministratorLoginResult result = findUserAndGetResult(authentication);
         final AdministratorLoginStatus status = result.getStatus();
-        if (status.equals(AdministratorLoginStatus.SUCCESS)) {
-            final Collection<? extends GrantedAuthority> authorities = AuthorityUtils
-                    .createAuthorityList(ROLE_ADMIN);
 
-            final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    result.getAdministrator(), result.getAdministrator()
-                            .getPassword(), authorities);
-            LOGGER.info("{} has been authenticated for admin panel", result
-                    .getAdministrator().getUsername());
-            return token;
-        } else if (status.equals(AdministratorLoginStatus.INVALID_USERNAME)) {
+        if (validCredential(status)) {
+            final Administrator administrator = result.getAdministrator();
+            final String username = administrator.getUsername();
+            LOGGER.info("{} has been authenticated for admin panel", username);
+            return createToken(result);
+        } else if (userNotFound(status)) {
             LOGGER.error("\"{}\" username has not found",
                     authentication.getPrincipal());
             throw new UsernameNotFoundException("User not found: "
@@ -76,6 +71,60 @@ public class AdministratorLoginManager implements AuthenticationProvider {
                     authentication.getPrincipal());
             throw new BadCredentialsException("Invalid password");
         }
+    }
+
+    /**
+     * AdministratorLoginResult nesnesinden UsernamePasswordAuthenticationToken
+     * nesnesi üretir
+     * 
+     * @param result
+     * @return
+     */
+    private Authentication createToken(final AdministratorLoginResult result) {
+        final Collection<? extends GrantedAuthority> authorities = AuthorityUtils
+                .createAuthorityList(Role.ROLE_ADMIN);
+        final Administrator administrator = result.getAdministrator();
+        final String password = administrator.getPassword();
+        final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                administrator, password, authorities);
+
+        return token;
+    }
+
+    /**
+     * Kullanıcı bulunmadı mı?
+     * 
+     * @param status
+     * @return
+     */
+    private boolean userNotFound(final AdministratorLoginStatus status) {
+        return status.equals(AdministratorLoginStatus.INVALID_USERNAME);
+    }
+
+    /**
+     * Girilen bilgiler geçerli mi?
+     * 
+     * @param status
+     * @return
+     */
+    private boolean validCredential(final AdministratorLoginStatus status) {
+        return status.equals(AdministratorLoginStatus.SUCCESS);
+    }
+
+    /**
+     * Authentication nesnesinden gereken kullanıcı adı ve parola bilgilerini
+     * alarak veri katmanından gereken sonucu elde eder
+     * 
+     * @param authentication
+     * @return
+     */
+    private AdministratorLoginResult findUserAndGetResult(
+            final Authentication authentication) {
+        final String username = authentication.getPrincipal().toString();
+        final String password = authentication.getCredentials().toString();
+        final AdministratorLoginResult result = loginDao.findUser(username,
+                password);
+        return result;
     }
 
     /**
