@@ -20,7 +20,7 @@
             <column name="password" type="varchar(255)" />
         </createTable>
     </changeSet>
-    <changeSet id="2" author="Omer Ozkan">
+    <changeSet id="2-doctor" author="Omer Ozkan">
         <createTable tableName="DOCTORS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" unique="true" />
@@ -41,7 +41,7 @@
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="3" author="Omer Ozkan">
+    <changeSet id="3-patients" author="Omer Ozkan">
         <createTable tableName="PATIENTS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" unique="true" />
@@ -61,6 +61,16 @@
             <column name="phone" type="varchar(255)" />
             <column name="mobile_phone" type="varchar(255)" />
             <column name="enable" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet id="4-doctor-patient" author="Omer Ozkan">
+        <createTable tableName="DOCTOR_PATIENT">
+            <column name="doctor_id" type="bigint"  >
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet id="test-1" author="Ömer Özkan" context="test">

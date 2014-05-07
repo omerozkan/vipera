@@ -68,8 +68,8 @@ public final class PatientTestData {
      */
     private static Patient createSam() {
         final Patient patient = new Patient();
-        patient.setId(5l);
-        patient.setTckn(12345678901l);
+        patient.setId(6l);
+        patient.setTckn(12345678902l);
         patient.setPassword("password");
         patient.setName("Sam");
         patient.setSurname("Goodson");

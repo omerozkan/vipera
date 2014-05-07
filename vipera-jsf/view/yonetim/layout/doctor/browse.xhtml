@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="doctor-browse">
+		<p:panel header="Hekim Arama">
+			<h:panelGrid columns="2" rowClasses="left, left" cellpadding="20"
+				cellspacing="20">
+				<h:panelGrid columns="2"
+					style="padding-left: 30px; padding-right: 10px">
+					<h:outputText value="T.C. Kimlik No:" />
+					<p:inputMask mask="99999999999" id="tckn"
+						value="#{doctorBrowse.model.tckn}" />
+
+					<h:outputText value="Ad:" />
+					<p:inputText id="name" value="#{doctorBrowse.model.name}" />
+
+					<h:outputText value="Soyad:" />
+					<p:inputText id="surname" value="#{doctorBrowse.model.surname}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2"
+					style="padding-left: 30px; padding-right: 10px">
+					<h:outputText value="Eposta:" />
+					<p:inputText id="email" />
+
+					<h:outputText value="Ünvan:" />
+					<p:selectOneMenu id="title" value="#{doctorBrowse.model.title}">
+						<f:selectItem itemLabel="Seçiniz" itemValue="" />
+						<f:selectItems value="#{doctorBrowse.doctorTitles}" var="t"
+							itemLabel="#{t.title}" itemValue="#{t}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:commandButton value="Ara" id="search" update="results"
+					actionListener="#{doctorBrowse.search}" icon="ui-icon-search" />
+			</h:panelGrid>
+		</p:panel>
+
+		<p:dataTable id="results" value="#{doctorBrowse.result}" var="doctor"
+			paginator="true" rows="10"
+			emptyMessage="Aradığınız kriterlere uygun sonuç bulunamadı.">
+			<f:facet name="header">
+		          Arama Sonuçları
+		      </f:facet>
+			<p:column headerText="T.C. Kimlik No">
+				<h:outputText value="#{doctor.tckn}" />
+			</p:column>
+			<p:column headerText="Adı Soyadı">
+				<h:outputText value="#{doctor.fullname}" />
+			</p:column>
+			<p:column headerText="Uzmanlık Alanı">
+				<h:outputText value="#{doctor.province}" />
+			</p:column>
+			<p:column headerText="Eposta">
+				<h:outputText value="#{doctor.email}" />
+			</p:column>
+			<p:column headerText="Aktif">
+				<h:outputText value="Aktif" rendered="#{doctor.enable}" />
+				<h:outputText value="Devre dışı" rendered="#{not doctor.enable}" />
+			</p:column>
+			<ui:insert name="doctor-result-buttons">
+				<p:column headerText="Hastalar">
+					<p:button value="Hastalar" />
+				</p:column>
+				<p:column>
+					<p:button value="Düzenle" outcome="doctorUpdate.html"
+						icon="ui-icon-pencil">
+						<f:param name="id" value="#{doctor.id}" />
+					</p:button>
+				</p:column>
+				<p:column>
+					<p:button value="Sil" outcome="doctorDelete.html"
+						icon="ui-icon-trash">
+						<f:param name="id" value="#{doctor.id}" />
+					</p:button>
+				</p:column>
+			</ui:insert>
+		</p:dataTable>
+	</h:form>
+</ui:composition>
