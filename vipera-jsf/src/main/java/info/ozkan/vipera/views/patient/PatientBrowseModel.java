@@ -8,7 +8,7 @@ import info.ozkan.vipera.entities.Sex;
  * @author Ömer Özkan
  * 
  */
-class PatientBrowseModel {
+public class PatientBrowseModel {
     /**
      * Cinsiyet
      */

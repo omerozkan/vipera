@@ -62,6 +62,9 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
     <bean id="patientDao" class="info.ozkan.vipera.dao.patient.PatientDaoImpl ">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
+    <bean id="doctorPatientDao" class="info.ozkan.vipera.dao.doctorpatient.DoctorPatientDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
     <!-- BUSINESS LAYER BEANS -->
     <bean id="administratorLoginManager"
         class="info.ozkan.vipera.business.login.AdministratorLoginManagerImpl" />
@@ -76,6 +79,12 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
     <bean id="patientFacade" class="info.ozkan.vipera.business.patient.PatientFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="doctorPatientFacade"  class="info.ozkan.vipera.business.doctorpatient.DoctorPatientFacadeImpl" >
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="doctorPatientManager" class="info.ozkan.vipera.business.doctorpatient.DoctorPatientManagerImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
 </beans>

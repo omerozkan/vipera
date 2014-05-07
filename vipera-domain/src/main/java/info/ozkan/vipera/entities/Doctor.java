@@ -1,14 +1,20 @@
 package info.ozkan.vipera.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -55,7 +61,7 @@ public class Doctor implements Serializable, Cloneable {
     /**
      * DIPLOMA NO
      */
-    public static final String DIPLOMA_NO = "diploma_no";
+    public static final String DIPLOMA_NO = "diplomaNo";
     /**
      * PROVINCE
      */
@@ -67,7 +73,7 @@ public class Doctor implements Serializable, Cloneable {
     /**
      * MOBILE PHONE
      */
-    public static final String MOBILE_PHONE = "mobile_phone";
+    public static final String MOBILE_PHONE = "mobilePhone";
     /**
      * WEB SAYFASI
      */
@@ -85,255 +91,86 @@ public class Doctor implements Serializable, Cloneable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = ID)
+    @Column(name = "id")
     private Long id;
     /**
      * TC Kimlik No
      */
-    @Column(name = TCKN, unique = true)
+    @Column(name = "tckn", unique = true)
     private Long tckn;
     /**
      * Adı
      */
-    @Column(name = NAME)
+    @Column(name = "name")
     private String name;
     /**
      * Soyadı
      */
-    @Column(name = SURNAME)
+    @Column(name = "surname")
     private String surname;
     /**
      * Eposta
      */
-    @Column(name = EMAIL)
+    @Column(name = "email")
     private String email;
     /**
      * Parola
      */
-    @Column(name = PASSWORD)
+    @Column(name = "password")
     private String password;
     /**
      * Ünvan
      */
-    @Column(name = TITLE)
+    @Column(name = "title")
     @Enumerated(EnumType.ORDINAL)
     private DoctorTitle title;
     /**
      * Diploma No
      */
-    @Column(name = DIPLOMA_NO)
+    @Column(name = "diploma_no")
     private String diplomaNo;
     /**
      * Uzmanlık Alanı
      */
-    @Column(name = PROVINCE)
+    @Column(name = "province")
     private String province;
     /**
      * Telefon
      */
-    @Column(name = PHONE)
+    @Column(name = "phone")
     private String phone;
     /**
      * Cep Telefonu
      */
-    @Column(name = MOBILE_PHONE)
+    @Column(name = "mobile_phone")
     private String mobilePhone;
     /**
      * Web sayfası
      */
-    @Column(name = WEBPAGE)
+    @Column(name = "webpage")
     private String webpage;
     /**
      * Aktiflik
      */
-    @Column(name = ENABLED)
+    @Column(name = "enabled")
     private Integer enabled;
-
     /**
-     * @return the tckn
+     * Hastalar
      */
-    public Long getTckn() {
-        return tckn;
-    }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "DOCTOR_PATIENT", joinColumns = { @JoinColumn(
+            referencedColumnName = "id", name = "doctor_id") },
+            inverseJoinColumns = { @JoinColumn(referencedColumnName = "id",
+                    name = "patient_id") })
+    private List<Patient> patients;
 
-    /**
-     * @param tckn
-     *            the tckn to set
-     */
-    public void setTckn(final Long tckn) {
-        this.tckn = tckn;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name
-     *            the name to set
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the surname
-     */
-    public String getSurname() {
-        return surname;
-    }
-
-    /**
-     * @param surname
-     *            the surname to set
-     */
-    public void setSurname(final String surname) {
-        this.surname = surname;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email
-     *            the email to set
-     */
-    public void setEmail(final String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password
-     *            the password to set
-     */
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-
-    /**
-     * @return the title
-     */
-    public DoctorTitle getTitle() {
-        return title;
-    }
-
-    /**
-     * @param title
-     *            the title to set
-     */
-    public void setTitle(final DoctorTitle title) {
-        this.title = title;
-    }
-
-    /**
-     * @return the diplomaNo
-     */
-    public String getDiplomaNo() {
-        return diplomaNo;
-    }
-
-    /**
-     * @param diplomaNo
-     *            the diplomaNo to set
-     */
-    public void setDiplomaNo(final String diplomaNo) {
-        this.diplomaNo = diplomaNo;
-    }
-
-    /**
-     * @return the province
-     */
-    public String getProvince() {
-        return province;
-    }
-
-    /**
-     * @param province
-     *            the province to set
-     */
-    public void setProvince(final String province) {
-        this.province = province;
-    }
-
-    /**
-     * @return the phone
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * @param phone
-     *            the phone to set
-     */
-    public void setPhone(final String phone) {
-        this.phone = phone;
-    }
-
-    /**
-     * @return the mobilePhone
-     */
-    public String getMobilePhone() {
-        return mobilePhone;
-    }
-
-    /**
-     * @param mobilePhone
-     *            the mobilePhone to set
-     */
-    public void setMobilePhone(final String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-    }
-
-    /**
-     * @return the webpage
-     */
-    public String getWebpage() {
-        return webpage;
-    }
-
-    /**
-     * @param webpage
-     *            the webpage to set
-     */
-    public void setWebpage(final String webpage) {
-        this.webpage = webpage;
-    }
-
-    /**
-     * @return the enable
-     */
-    public Integer getEnabled() {
-        return enabled;
-    }
-
-    /**
-     * @param enable
-     *            the enable to set
-     */
-    public void setEnabled(final Integer enable) {
-        enabled = enable;
-    }
-
-    /**
-     * @return Üyeliği aktif ise true
-     */
-    public boolean isEnable() {
-        return enabled == 1;
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (final CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
     /**
@@ -350,11 +187,25 @@ public class Doctor implements Serializable, Cloneable {
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        final int result = tckn.intValue();
-        final int prime = 41;
-        return result * prime;
+    /**
+     * @return the diplomaNo
+     */
+    public String getDiplomaNo() {
+        return diplomaNo;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @return the enable
+     */
+    public Integer getEnabled() {
+        return enabled;
     }
 
     /**
@@ -374,6 +225,119 @@ public class Doctor implements Serializable, Cloneable {
     }
 
     /**
+     * @return the mobilePhone
+     */
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @return the patients
+     */
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @return the province
+     */
+    public String getProvince() {
+        return province;
+    }
+
+    /**
+     * @return the surname
+     */
+    public String getSurname() {
+        return surname;
+    }
+
+    /**
+     * @return the tckn
+     */
+    public Long getTckn() {
+        return tckn;
+    }
+
+    /**
+     * @return the title
+     */
+    public DoctorTitle getTitle() {
+        return title;
+    }
+
+    /**
+     * @return the webpage
+     */
+    public String getWebpage() {
+        return webpage;
+    }
+
+    @Override
+    public int hashCode() {
+        final int result = tckn.intValue();
+        final int prime = 41;
+        return result * prime;
+    }
+
+    /**
+     * @return Üyeliği aktif ise true
+     */
+    public boolean isEnable() {
+        return enabled == 1;
+    }
+
+    @Override
+    public String toString() {
+        return tckn + "-" + getFullname();
+    }
+
+    /**
+     * @param diplomaNo
+     *            the diplomaNo to set
+     */
+    public void setDiplomaNo(final String diplomaNo) {
+        this.diplomaNo = diplomaNo;
+    }
+
+    /**
+     * @param email
+     *            the email to set
+     */
+    public void setEmail(final String email) {
+        this.email = email;
+    }
+
+    /**
+     * @param enable
+     *            the enable to set
+     */
+    public void setEnabled(final Integer enable) {
+        enabled = enable;
+    }
+
+    /**
      * @param id
      *            the id to set
      */
@@ -381,12 +345,83 @@ public class Doctor implements Serializable, Cloneable {
         this.id = id;
     }
 
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (final CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
+    /**
+     * @param mobilePhone
+     *            the mobilePhone to set
+     */
+    public void setMobilePhone(final String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
+    /**
+     * @param patients
+     *            the patients to set
+     */
+    public void setPatients(final List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    /**
+     * @param phone
+     *            the phone to set
+     */
+    public void setPhone(final String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * @param province
+     *            the province to set
+     */
+    public void setProvince(final String province) {
+        this.province = province;
+    }
+
+    /**
+     * @param surname
+     *            the surname to set
+     */
+    public void setSurname(final String surname) {
+        this.surname = surname;
+    }
+
+    /**
+     * @param tckn
+     *            the tckn to set
+     */
+    public void setTckn(final Long tckn) {
+        this.tckn = tckn;
+    }
+
+    /**
+     * @param title
+     *            the title to set
+     */
+    public void setTitle(final DoctorTitle title) {
+        this.title = title;
+    }
+
+    /**
+     * @param webpage
+     *            the webpage to set
+     */
+    public void setWebpage(final String webpage) {
+        this.webpage = webpage;
     }
 }
