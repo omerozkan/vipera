@@ -36,7 +36,7 @@ public class DoctorPatientFacadeImpl implements DoctorPatientFacade {
         } catch (final Exception e) {
             result = new DoctorPatientManagerResult();
             result.setStatus(DoctorPatientManagerStatus.EXIST);
-            LOGGER.debug("Patient already assigned to doctor!", e);
+            LOGGER.info("Patient already assigned to doctor!", e);
         }
         return result;
     }
@@ -48,6 +48,22 @@ public class DoctorPatientFacadeImpl implements DoctorPatientFacade {
     public void setDoctorPatientManager(
             final DoctorPatientManager doctorPatientManager) {
         this.doctorPatientManager = doctorPatientManager;
+    }
+
+    public void loadPatients(final Doctor doctor) {
+        doctorPatientManager.loadPatients(doctor);
+    }
+
+    public DoctorPatientManagerResult removeAssignment(final Doctor doctor,
+            final Patient patient) {
+        DoctorPatientManagerResult result;
+        try {
+            result = doctorPatientManager.removeAssignment(doctor, patient);
+        } catch (final Exception e) {
+            result = new DoctorPatientManagerResult();
+            result.setStatus(DoctorPatientManagerStatus.ASSIGNMENT_NOT_EXIST);
+        }
+        return result;
     }
 
 }

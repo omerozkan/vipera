@@ -1,5 +1,6 @@
 package info.ozkan.vipera.views.doctor;
 
+import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctorpatient.DoctorPatientFacade;
 import info.ozkan.vipera.business.doctorpatient.DoctorPatientManagerResult;
 import info.ozkan.vipera.business.doctorpatient.DoctorPatientManagerStatus;
@@ -15,6 +16,8 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+
+import com.sun.faces.context.FacesFileNotFoundException;
 
 /**
  * Hasta - Hekim atama işlemini yapan bean sınıfı
@@ -55,6 +58,44 @@ public class DoctorPatientAssignBean {
      */
     @Inject
     private DoctorPatientFacade doctorPatientFacade;
+    /**
+     * Hekim Id
+     */
+    private Long doctorId;
+    /**
+     * Hekim yükleme işlemi için business object
+     */
+    @Inject
+    private DoctorFacade doctorFacade;
+
+    /**
+     * Eğer hekim önceden tanımlıysa hekim nesnesini oluşturur
+     */
+    public void loadDoctor() {
+        try {
+            if (doctorId != null) {
+                doctor = DoctorLoader.loadDoctor(doctorId, doctorFacade);
+                resetIdForNextRequests();
+                cleanPatientFromPage();
+            }
+        } catch (final FacesFileNotFoundException e) {
+            // DO NOTHING, ADMINISTRATOR CAN SELECT NEW DOCTOR
+        }
+    }
+
+    /**
+     * Hastayı sayfadan kaldırır sıfırlama işlemi yapar
+     */
+    private void cleanPatientFromPage() {
+        patient = null;
+    }
+
+    /**
+     * Hekim id değerini sıfırlar
+     */
+    private void resetIdForNextRequests() {
+        doctorId = null;
+    }
 
     /**
      * Hekim seçer
@@ -216,5 +257,20 @@ public class DoctorPatientAssignBean {
      */
     public void setPatient(final Patient patient) {
         this.patient = patient;
+    }
+
+    /**
+     * @return the doctorId
+     */
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    /**
+     * @param doctorId
+     *            the doctorId to set
+     */
+    public void setDoctorId(final Long doctorId) {
+        this.doctorId = doctorId;
     }
 }

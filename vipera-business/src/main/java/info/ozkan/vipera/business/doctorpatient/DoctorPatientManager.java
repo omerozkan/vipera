@@ -19,4 +19,22 @@ public interface DoctorPatientManager {
      */
     DoctorPatientManagerResult assign(Doctor doctor, Patient patient);
 
+    /**
+     * Hekim e ait hastaları yükler
+     * 
+     * @param doctor
+     */
+    void loadPatients(Doctor doctor);
+
+    /**
+     * Hekim listesinde bulunan bir hastanın atanmasını kaldırır
+     * 
+     * @param doctor
+     *            hekim
+     * @param patient
+     *            hasta
+     * @return
+     */
+    DoctorPatientManagerResult removeAssignment(Doctor doctor, Patient patient);
+
 }

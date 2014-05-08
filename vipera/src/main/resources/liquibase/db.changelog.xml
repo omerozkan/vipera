@@ -131,7 +131,7 @@
     <changeSet id="test-3" author="Omer Ozkan" context="test">
         <insert tableName="PATIENTS">
             <column name="id">5</column>
-            <column name="tckn">12345678901</column>
+            <column name="tckn">22345678901</column>
             <column name="password">password</column>
             <column name="name">Marvin</column>
             <column name="surname">Ericson</column>
@@ -147,7 +147,7 @@
         </insert>
         <insert tableName="PATIENTS">
             <column name="id">6</column>
-            <column name="tckn">12345678902</column>
+            <column name="tckn">22345678902</column>
             <column name="password">password</column>
             <column name="name">Sam</column>
             <column name="surname">Goodson</column>
@@ -160,6 +160,40 @@
             <column name="phone">+1123123123</column>
             <column name="mobile_phone">+1123123123</column>
             <column name="enable">1</column>
+        </insert>
+        <insert tableName="PATIENTS">
+            <column name="id">7</column>
+            <column name="tckn">22345678903</column>
+            <column name="password">password</column>
+            <column name="name">Ömer</column>
+            <column name="surname">Özkan</column>
+            <column name="email">vipera@ozkan.info</column>
+            <column name="sex">1</column>
+            <column name="birth_date">1990-10-20</column>
+            <column name="birth_place">Ceyhan</column>
+            <column name="father_name">Reşit</column>
+            <column name="mother_name">Nesibe</column>
+            <column name="phone">+1123123123</column>
+            <column name="mobile_phone">+1123123123</column>
+            <column name="enable">1</column>
+        </insert>
+    </changeSet>
+    <changeSet id="test-4" author="Omer Ozkan">
+        <insert tableName="DOCTOR_PATIENT">
+            <column name="doctor_id">2</column>
+            <column name="patient_id" type="bigint">5</column>
+        </insert>
+        <insert tableName="DOCTOR_PATIENT">
+            <column name="doctor_id">2</column>
+            <column name="patient_id" type="bigint">6</column>
+        </insert>
+        <insert tableName="DOCTOR_PATIENT">
+            <column name="doctor_id">2</column>
+            <column name="patient_id" type="bigint">7</column>
+        </insert>
+        <insert tableName="DOCTOR_PATIENT">
+            <column name="doctor_id">3</column>
+            <column name="patient_id" type="bigint">7</column>
         </insert>
     </changeSet>
 </databaseChangeLog>

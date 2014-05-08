@@ -61,7 +61,9 @@
 			</p:column>
 			<ui:insert name="doctor-result-buttons">
 				<p:column headerText="Hastalar">
-					<p:button value="Hastalar" />
+					<p:button value="Hastalar" outcome="doctorPatientList.html">
+					   <f:param name="id" value="#{doctor.id}" />
+					</p:button>
 				</p:column>
 				<p:column>
 					<p:button value="Düzenle" outcome="doctorUpdate.html"
