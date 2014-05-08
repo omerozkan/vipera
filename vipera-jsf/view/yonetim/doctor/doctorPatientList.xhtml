@@ -32,7 +32,9 @@
 				</p:panel>
 
 				<div class="operations">
-					<p:button value="Yeni Hasta Ata" icon="ui-icon-document" />
+					<p:button value="Yeni Hasta Ata" icon="ui-icon-document" outcome="/yonetim/doctor-patient/doctorPatientAssign.html" >
+					   <f:param name="doctorId" value="#{selectedDoctor.id}" />
+					</p:button>
 				</div>
 				<div class="clear" />
 				<p:dataTable id="results" value="#{selectedDoctor.patients}"

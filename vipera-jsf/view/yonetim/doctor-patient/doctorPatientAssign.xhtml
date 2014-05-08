@@ -5,6 +5,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	template="/yonetim/layout/template.xhtml">
+	<f:metadata>
+        <f:viewParam name="doctorId" value="#{doctorPatientAssign.doctorId}" />
+        <f:event listener="#{doctorPatientAssign.loadDoctor}"
+            type="preRenderView" />
+    </f:metadata>
 	<ui:param name="selectedDoctor" value="#{doctorPatientAssign.doctor}" />
 	<ui:param name="selectedPatient" value="#{doctorPatientAssign.patient}" />
 	<ui:define name="title">Hekim'e Hasta Atama | Vipera</ui:define>
