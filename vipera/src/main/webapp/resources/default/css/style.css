@@ -91,3 +91,9 @@ body
 .bold {
 	font-weight: 700;
 }
+
+.operations {
+	float:right;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

@@ -7,7 +7,7 @@ package info.ozkan.vipera.business.doctorpatient;
  * 
  */
 public enum DoctorPatientManagerStatus {
-    SUCCESS(0), EXIST(1);
+    SUCCESS(0), EXIST(1), ASSIGNMENT_NOT_EXIST(2), DOCTOR_NOT_EXIST(3);
     /**
      * code
      */

@@ -26,6 +26,10 @@ public final class PatientTestData {
      */
     public static final int SAM = 1;
     /**
+     * Ozkan id
+     */
+    private static final int OZKAN = 2;
+    /**
      * test nesneler
      */
     private static final Map<Integer, Patient> testPatients = new HashMap<Integer, Patient>();
@@ -45,7 +49,7 @@ public final class PatientTestData {
     private static Patient createMarvin() {
         final Patient patient = new Patient();
         patient.setId(5l);
-        patient.setTckn(12345678901l);
+        patient.setTckn(22345678901l);
         patient.setPassword("password");
         patient.setName("Marvin");
         patient.setSurname("Ericson");
@@ -69,7 +73,7 @@ public final class PatientTestData {
     private static Patient createSam() {
         final Patient patient = new Patient();
         patient.setId(6l);
-        patient.setTckn(12345678902l);
+        patient.setTckn(22345678902l);
         patient.setPassword("password");
         patient.setName("Sam");
         patient.setSurname("Goodson");
@@ -79,6 +83,30 @@ public final class PatientTestData {
         patient.setBirthPlace("Chicago");
         patient.setFatherName("Charlie");
         patient.setMotherName("Jennifer");
+        patient.setPhone("1123123123");
+        patient.setMobilePhone("1123123123");
+        patient.setEnable(Authorize.ENABLE);
+        return patient;
+    }
+
+    /**
+     * Özkan
+     * 
+     * @return
+     */
+    private static Patient createOzkan() {
+        final Patient patient = new Patient();
+        patient.setId(7l);
+        patient.setTckn(22345678903l);
+        patient.setPassword("password");
+        patient.setName("Ömer");
+        patient.setSurname("Özkan");
+        patient.setEmail("vipera@ozkan.info");
+        patient.setSex(Sex.MALE);
+        patient.setBirthDate(createDate(1990, Calendar.OCTOBER, 20));
+        patient.setBirthPlace("Ceyhan");
+        patient.setFatherName("Reşit");
+        patient.setMotherName("Nesibe");
         patient.setPhone("1123123123");
         patient.setMobilePhone("1123123123");
         patient.setEnable(Authorize.ENABLE);
@@ -114,8 +142,9 @@ public final class PatientTestData {
      */
     public static Patient getTestData(final int id) {
         if (testPatients.isEmpty()) {
-            testPatients.put(0, createMarvin());
-            testPatients.put(1, createSam());
+            testPatients.put(MARVIN, createMarvin());
+            testPatients.put(SAM, createSam());
+            testPatients.put(OZKAN, createOzkan());
         }
         final Patient patient = testPatients.get(id);
         return (Patient) patient.clone();

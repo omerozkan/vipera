@@ -77,6 +77,7 @@ public class DoctorPatientDaoIntegrationTest extends IntegrationTest {
     private void assertDoctorPatient(final Patient patient,
             final DoctorPatientManagerResult result) {
         final DoctorPatientManagerStatus status = result.getStatus();
+        doctorPatientDao.loadPatientsByDoctor(result.getDoctor());
         final List<Patient> patients = result.getDoctor().getPatients();
         Assert.assertTrue(status.equals(DoctorPatientManagerStatus.SUCCESS));
         Assert.assertTrue(patients.contains(patient));

@@ -52,18 +52,6 @@ public class DoctorPatientDaoImpl implements DoctorPatientDao {
     }
 
     /**
-     * Hekime atanan hasta listesini dönderir
-     * 
-     * @param doctorId
-     * @return
-     */
-    private List<Patient> getPatientsByDoctorId(final Long doctorId) {
-        final Query query = em.createQuery(JQL_GET_PATIENTS_BY_DOCTOR);
-        query.setParameter("id", doctorId);
-        return query.getResultList();
-    }
-
-    /**
      * Başarılı atama sonuç nesnesi oluşturur
      * 
      * @param doctor
@@ -79,6 +67,23 @@ public class DoctorPatientDaoImpl implements DoctorPatientDao {
         result.setDoctor(doctor);
         result.setPatient(patient);
         return result;
+    }
+
+    /**
+     * Hekime atanan hasta listesini dönderir
+     * 
+     * @param doctorId
+     * @return
+     */
+    private List<Patient> getPatientsByDoctorId(final Long doctorId) {
+        final Query query = em.createQuery(JQL_GET_PATIENTS_BY_DOCTOR);
+        query.setParameter("id", doctorId);
+        return query.getResultList();
+    }
+
+    public void loadPatientsByDoctor(final Doctor doctor) {
+        final List<Patient> patientList = getPatientsByDoctorId(doctor.getId());
+        doctor.setPatients(patientList);
     }
 
     /**
