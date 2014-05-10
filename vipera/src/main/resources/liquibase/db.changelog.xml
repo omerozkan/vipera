@@ -65,12 +65,26 @@
     </changeSet>
     <changeSet id="4-doctor-patient" author="Omer Ozkan">
         <createTable tableName="DOCTOR_PATIENT">
-            <column name="doctor_id" type="bigint"  >
-                <constraints nullable="false"/>
+            <column name="doctor_id" type="bigint">
+                <constraints nullable="false" />
             </column>
             <column name="patient_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5-health_data_fields" author="Omer Ozkan">
+        <createTable tableName="HEALTH_DATA_FIELDS">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"
+                    unique="true" />
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" primaryKey="true"
+                    unique="true" />
+            </column>
+            <column name="title" type="varchar(255)" />
+            <column name="unit" type="varchar(10)" />
         </createTable>
     </changeSet>
     <changeSet id="test-1" author="Ömer Özkan" context="test">
@@ -194,6 +208,32 @@
         <insert tableName="DOCTOR_PATIENT">
             <column name="doctor_id">3</column>
             <column name="patient_id" type="bigint">7</column>
+        </insert>
+    </changeSet>
+    <changeSet id="test-5" author="Omer Ozkan">
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">8</column>
+            <column name="name">testField8</column>
+            <column name="title">Test Field 8</column>
+            <column name="unit">tph</column>
+        </insert>
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">9</column>
+            <column name="name">testField9</column>
+            <column name="title">Test Field 9</column>
+            <column name="unit">tph</column>
+        </insert>
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">10</column>
+            <column name="name">testField10</column>
+            <column name="title">Test Field 10</column>
+            <column name="unit">tph</column>
+        </insert>
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">11</column>
+            <column name="name">testField11</column>
+            <column name="title">Test Field 11</column>
+            <column name="unit">tph</column>
         </insert>
     </changeSet>
 </databaseChangeLog>
