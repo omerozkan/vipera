@@ -87,6 +87,23 @@
             <column name="unit" type="varchar(10)" />
         </createTable>
     </changeSet>
+    <changeSet id="6-devices" author="Omer Ozkan">
+        <createTable tableName="DEVICES">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"
+                    unique="true" />
+            </column>
+            <column name="api_key" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true"
+                    unique="true" />
+            </column>
+            <column name="api_password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient_id" type="bigint" />
+            <column name="enabled" type="int" />
+        </createTable>
+    </changeSet>
     <changeSet id="test-1" author="Ömer Özkan" context="test">
         <insert tableName="ADMINISTRATORS">
             <column name="id">1</column>
@@ -234,6 +251,29 @@
             <column name="name">testField11</column>
             <column name="title">Test Field 11</column>
             <column name="unit">tph</column>
+        </insert>
+    </changeSet>
+    <changeSet id="6-devices" author="Omer Ozkan">
+        <insert tableName="DEVICES">
+            <column name="id">12</column>
+            <column name="api_key">u8UAvzOTL1zJp87o</column>
+            <column name="api_password">lFQ0BbsmGpfpAAI5</column>
+            <column name="patient_id" >5</column>
+            <column name="enabled">1</column>
+        </insert>
+        <insert tableName="DEVICES">
+            <column name="id">13</column>
+            <column name="api_key">UuIpbdV3W9a1IZny</column>
+            <column name="api_password">34e3TnPyRC3WLhOt</column>
+            <column name="patient_id" >6</column>
+            <column name="enabled">1</column>
+        </insert>
+        <insert tableName="DEVICES">
+            <column name="id">14</column>
+            <column name="api_key">A9tydtP08vMQEwpx</column>
+            <column name="api_password">vtnP22YGNci3m3po</column>
+            <column name="patient_id" >7</column>
+            <column name="enabled">1</column>
         </insert>
     </changeSet>
 </databaseChangeLog>
