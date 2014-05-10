@@ -1,6 +1,7 @@
 package info.ozkan.vipera.dao.device;
 
 import info.ozkan.vipera.business.device.DeviceManagerResult;
+import info.ozkan.vipera.business.device.DeviceManagerSearchFilter;
 import info.ozkan.vipera.entities.Device;
 
 /**
@@ -18,4 +19,12 @@ public interface DeviceDao {
      * @return
      */
     DeviceManagerResult add(Device device);
+
+    /**
+     * Veritabanında cihaz arar
+     * 
+     * @param filter
+     * @return
+     */
+    DeviceManagerResult find(DeviceManagerSearchFilter filter);
 }

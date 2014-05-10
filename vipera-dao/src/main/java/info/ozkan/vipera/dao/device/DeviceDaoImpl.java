@@ -1,13 +1,22 @@
 package info.ozkan.vipera.dao.device;
 
 import info.ozkan.vipera.business.device.DeviceManagerResult;
+import info.ozkan.vipera.business.device.DeviceManagerSearchFilter;
 import info.ozkan.vipera.business.device.DeviceManagerStatus;
 import info.ozkan.vipera.entities.Device;
 import info.ozkan.vipera.entities.Patient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  * {@link DeviceDao} arayüzünün implementasyonu
@@ -35,6 +44,41 @@ public class DeviceDaoImpl implements DeviceDao {
     private Patient getPatient(final Device device) {
         final Patient patient = device.getPatient();
         return em.find(Patient.class, patient.getId());
+    }
+
+    public DeviceManagerResult find(final DeviceManagerSearchFilter filter) {
+        final Query query = filterToCriteriaQuery(filter);
+        final List<Device> devices = query.getResultList();
+        final DeviceManagerResult result = createSuccessResult();
+        result.setDevices(devices);
+        return result;
+    }
+
+    /**
+     * Filtreden CriteriaQuery nesnesi üretir
+     * 
+     * @param filter
+     * @return
+     */
+    private Query filterToCriteriaQuery(final DeviceManagerSearchFilter filter) {
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<Device> criteriaQuery = cb
+                .createQuery(Device.class);
+        final Root<Device> root = criteriaQuery.from(Device.class);
+        final List<Predicate> predicates = new ArrayList<Predicate>();
+        final String apiKey = filter.getApiKey();
+        final Patient patient = filter.getPatient();
+        if (patient != null) {
+            predicates.add(cb.equal(root.get("patient"), patient));
+        }
+        if (apiKey != null && !apiKey.isEmpty()) {
+            final String pattern = '%' + apiKey + '%';
+            predicates.add(cb.like(root.<String> get("apiKey"), pattern));
+        }
+        final Predicate[] array = predicates.toArray(new Predicate[0]);
+        criteriaQuery.select(root).where(array);
+        final Query query = em.createQuery(criteriaQuery);
+        return query;
     }
 
     /**

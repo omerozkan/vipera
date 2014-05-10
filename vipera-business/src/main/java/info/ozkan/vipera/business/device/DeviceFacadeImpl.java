@@ -38,4 +38,8 @@ public class DeviceFacadeImpl implements DeviceFacade {
         }
         return result;
     }
+
+    public DeviceManagerResult search(final DeviceManagerSearchFilter filter) {
+        return deviceManager.search(filter);
+    }
 }

@@ -2,6 +2,8 @@ package info.ozkan.vipera.business.device;
 
 import info.ozkan.vipera.entities.Device;
 
+import java.util.List;
+
 /**
  * Cihazlar üzerinde yapılan CRUD işlemleri sonucu üretilen sonuç sınıfı
  * 
@@ -15,9 +17,9 @@ public class DeviceManagerResult {
      */
     private DeviceManagerStatus status;
     /**
-     * Cihaz
+     * Cihazlar
      */
-    private Device device;
+    private List<Device> devices;
 
     /**
      * @return the status
@@ -38,7 +40,10 @@ public class DeviceManagerResult {
      * @return the device
      */
     public Device getDevice() {
-        return device;
+        if (devices.size() != 0) {
+            return devices.get(0);
+        }
+        return null;
     }
 
     /**
@@ -46,11 +51,27 @@ public class DeviceManagerResult {
      *            the device to set
      */
     public void setDevice(final Device device) {
-        this.device = device;
+        devices.clear();
+        devices.add(device);
     }
 
     public boolean isSuccess() {
         return status.equals(DeviceManagerStatus.SUCCESS);
+    }
+
+    /**
+     * @return the devices
+     */
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    /**
+     * @param devices
+     *            the devices to set
+     */
+    public void setDevices(final List<Device> devices) {
+        this.devices = devices;
     }
 
 }

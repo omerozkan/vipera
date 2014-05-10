@@ -69,4 +69,8 @@ public class DeviceManagerImpl implements DeviceManager {
         return result;
     }
 
+    public DeviceManagerResult search(final DeviceManagerSearchFilter filter) {
+        return deviceDao.find(filter);
+    }
+
 }

@@ -16,4 +16,13 @@ public interface DeviceFacade {
      * @return
      */
     DeviceManagerResult add(Device device);
+
+    /**
+     * Sistemde cihazlar üzerinde arama yapar
+     * 
+     * @param model
+     *            filtre
+     * @return
+     */
+    DeviceManagerResult search(DeviceManagerSearchFilter filter);
 }

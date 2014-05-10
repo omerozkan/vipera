@@ -17,4 +17,12 @@ public interface DeviceManager {
      */
     DeviceManagerResult add(Device device);
 
+    /**
+     * Cihazlar üzerinde arama yapar
+     * 
+     * @param filter
+     * @return
+     */
+    DeviceManagerResult search(DeviceManagerSearchFilter filter);
+
 }
