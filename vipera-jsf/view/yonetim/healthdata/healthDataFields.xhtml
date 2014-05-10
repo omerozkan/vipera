@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<f:metadata>
+		<f:event listener="#{healthDataFields.loadData}" type="preRenderView" />
+	</f:metadata>
+	<ui:define name="title">Sağlık Verisi Alanları | Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="form">
+			<p:panel header="Sağlık Verisi Alanları">
+				<div style="padding-left: 10px; padding-right: 10px">
+					<div class="operations">
+						<p:commandButton value="Yeni Ekle"
+							onclick="PF('newFieldDialog').show()" icon="ui-icon-document" />
+					</div>
+					<div class="clear" />
+					<p:growl id="growl" showDetail="true" />
+					<p:dataTable id="datas" var="data"
+						value="#{healthDataFields.model}" paginator="true" rows="25"
+						selection="#{healthDataFields.selectedField}"
+						selectionMode="single">
+
+						<p:ajax event="rowSelect" update=":form:test :form:growl"
+							oncomplete="PF('dataDialog').show()" />
+						<p:ajax event="rowUnselect" update=":form:growl" />
+
+						<f:facet name="header">
+                            Sağlık verisi alanları aşağıda listelenmiştir. Düzenlemek istediğiniz alanın üzerine tıklayınız!
+						</f:facet>
+						<p:column headerText="Alan Adı:">
+							<h:outputText value="#{data.name}" />
+						</p:column>
+
+						<p:column headerText="Başlık:">
+							<h:outputText value="#{data.title}" />
+						</p:column>
+
+						<p:column headerText="Birimi:">
+							<h:outputText value="#{data.unit}" />
+						</p:column>
+					</p:dataTable>
+					<p:dialog id="dialog" header="Alan Bilgisi" widgetVar="dataDialog"
+						resizable="false" showEffect="fade" hideEffect="explode">
+
+						<h:panelGrid id="test" columns="2" cellpadding="4">
+
+							<h:outputLabel value="Alan Adı:" />
+							<p:inputText value="#{healthDataFields.selectedField.name}" />
+
+							<h:outputLabel value="Başlık:" />
+							<p:inputText value="#{healthDataFields.selectedField.title}" />
+
+							<h:outputLabel value="Birimi:" />
+							<p:inputText value="#{healthDataFields.selectedField.unit}" />
+
+							<p:commandButton value="Kaydet"
+								actionListener="#{healthDataFields.update}" update="@form"
+								oncomplete="PF('dataDialog').hide()" />
+							<p:commandButton value="Sil"
+								actionListener="#{healthDataFields.delete}" update="@form"
+								oncomplete="PF('dataDialog').hide()" icon="ui-icon-trash"/>
+						     
+						</h:panelGrid>
+					</p:dialog>
+				</div>
+			</p:panel>
+		</h:form>
+		<h:form id="add-update">
+			<p:dialog id="newField" header="Yeni Alan" widgetVar="newFieldDialog"
+				resizable="false" showEffect="fade" hideEffect="explode">
+
+				<h:panelGrid id="newOne" columns="2" cellpadding="4">
+
+					<h:outputLabel value="Alan Adı:" />
+					<p:inputText value="#{healthDataFields.newField.name}" />
+
+					<h:outputLabel value="Başlık:" />
+					<p:inputText value="#{healthDataFields.newField.title}" />
+
+					<h:outputLabel value="Birimi:" />
+					<p:inputText value="#{healthDataFields.newField.unit}" />
+
+					<p:commandButton value="Kaydet"
+						actionListener="#{healthDataFields.addNew}" update=":form"
+						oncomplete="PF('newFieldDialog').hide()" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
