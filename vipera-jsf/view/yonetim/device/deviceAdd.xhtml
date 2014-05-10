@@ -5,11 +5,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	template="/yonetim/layout/template.xhtml">
+	<ui:param name="selectedPatient" value="#{deviceAddBean.patient}" />
+	<ui:param name="device" value="#{deviceAddBean.device}" />
+
 	<ui:define name="title">Cihaz Ekle | Vipera</ui:define>
 	<ui:define name="content">
 		<h:form id="device-add">
 			<p:panel id="panel" header="Yeni Cihaz">
-				<p:messages id="msgs" autoUpdate="true" showDetail="false" />
+				<p:growl id="msgs" autoUpdate="true" showDetail="true" />
 				<h:panelGrid columns="1" cellpadding="20"
 					style="padding-left: 30px; margin-top: 10px">
 					<p:panel id="patient-panel" header="Hasta Seç">
@@ -18,9 +21,7 @@
 							columnClasses="bold, normal, normal">
 							<h:outputText value="Hasta T.C. Kimlik No:" />
 							<p:inputMask mask="99999999999" id="patient-tckn" required="true"
-								requiredMessage="TC Kimlik Numarası boş bırakılamaz!"
-								converterMessage="TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!"
-								disabled="true" />
+								disabled="true" value="#{selectedPatient.tckn}" />
 							<p:commandButton id="patient-search" icon="ui-icon-search"
 								onclick="PF('ps').show()" type="button" />
 						</h:panelGrid>
@@ -29,33 +30,48 @@
 							style="padding-left: 30px; margin-top: 10px"
 							columnClasses="bold, normal">
 							<h:outputText value="Hasta Adı ve Soyadı:" />
-							<h:outputText value="Johnny Leash" />
+							<h:outputText value="#{selectedPatient.fullname}" />
 							<h:outputText value="Cinsiyet:" />
-							<h:outputText value="Erkek" />
+							<h:outputText value="#{selectedPatient.sex.title}" />
 							<h:outputText value="Doğum Tarihi:" />
-							<h:outputText value="12.10.1968">
+							<h:outputText value="#{selectedPatient.birthDate}">
 								<f:convertDateTime pattern="dd.MM.yyyy" />
 							</h:outputText>
 							<h:outputText value="Baba Adı:" />
-							<h:outputText value="Michael" />
+							<h:outputText value="#{selectedPatient.fatherName}" />
 							<h:outputText value="Anne Adı:" />
-							<h:outputText value="Robin" />
+							<h:outputText value="#{selectedPatient.motherName}" />
 						</h:panelGrid>
 					</p:panel>
 					<p:spacer height="30" />
 					<h:panelGrid columns="3" cellpadding="20"
 						style="padding-left: 30px">
-						<h:outputLabel value="Cihaz API Anahtarı: " for="apiKey" />
-						<p:inputText id="apiKey" disabled="false" />
-						<p:commandButton id="generateKey" value="Anahtar Üret" />
+						<h:outputLabel value="Cihaz API Anahtarı:" for="apiKey" />
+						<p:inputText id="apiKey" disabled="false" value="#{device.apiKey}" />
+						<p:commandButton id="generateKey" value="Anahtar Üret"
+							actionListener="#{deviceAddBean.generateKey}" update="apiKey" icon="ui-icon-key"/>
 
 						<h:outputLabel value="Cihaz API Parolası:" for="apiPassword" />
-						<p:inputText id="apiPassword" disabled="true" />
-						<p:commandButton id="generateKey" value="Parola Üret" />
+						<p:inputText id="apiPassword" disabled="true"
+							value="#{device.apiPassword}"/>
+						<p:commandButton id="generatePassword" value="Parola Üret"
+							actionListener="#{deviceAddBean.generatePassword}"
+							update="apiPassword" icon="ui-icon-locked" />
 					</h:panelGrid>
-					<p:commandButton value="Kaydet" id="save" />
+					<p:commandButton value="Kaydet" id="save"
+						actionListener="#{deviceAddBean.save}" update="@form"/>
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
+		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="explode">
+			<ui:include src="/yonetim/layout/patient/browse.xhtml" />
+		</p:dialog>
+	</ui:define>
+	<ui:define name="patient-result-buttons">
+		<p:column>
+			<p:commandButton value="Seç"
+				actionListener="#{deviceAddBean.selectPatient(patient)}"
+				oncomplete="ps.hide()" update=":device-add:patient-panel" />
+		</p:column>
 	</ui:define>
 </ui:composition>

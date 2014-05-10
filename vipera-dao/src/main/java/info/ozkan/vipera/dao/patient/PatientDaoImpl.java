@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,6 +24,7 @@ import javax.persistence.criteria.Root;
  * @author Ömer Özkan
  * 
  */
+@Named("patientDao")
 public class PatientDaoImpl implements PatientDao {
     /**
      * ID ye göre hasta sorgulayan JQL sorgusu
