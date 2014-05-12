@@ -7,7 +7,7 @@ package info.ozkan.vipera.business.device;
  * 
  */
 public enum DeviceManagerStatus {
-    SUCCESS(0), NON_UNIQUE_API_KEY(1), PATIENT_NOT_EXIST(2);
+    SUCCESS(0), NON_UNIQUE_API_KEY(1), PATIENT_NOT_EXIST(2), NOT_FOUND(3);
 
     /**
      * Kod

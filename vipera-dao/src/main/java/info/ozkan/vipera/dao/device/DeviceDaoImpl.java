@@ -119,4 +119,16 @@ public class DeviceDaoImpl implements DeviceDao {
         em.remove(device);
         return createSuccessResult();
     }
+
+    public Device getById(final Long id) {
+        final Device device = em.find(Device.class, id);
+        return device;
+    }
+
+    public DeviceManagerResult update(final Device device) {
+        em.merge(device);
+        final DeviceManagerResult result = createSuccessResult();
+        result.setDevice(device);
+        return result;
+    }
 }

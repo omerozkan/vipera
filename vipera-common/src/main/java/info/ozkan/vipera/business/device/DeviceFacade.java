@@ -33,4 +33,20 @@ public interface DeviceFacade {
      * @return
      */
     DeviceManagerResult delete(Long deviceId);
+
+    /**
+     * Sistemde kayıtlı olan bir cihazı ID'sine görer arar
+     * 
+     * @param id
+     * @return
+     */
+    DeviceManagerResult getById(Long id);
+
+    /**
+     * Cihazı günceller
+     * 
+     * @param device
+     * @return
+     */
+    DeviceManagerResult update(Device device);
 }

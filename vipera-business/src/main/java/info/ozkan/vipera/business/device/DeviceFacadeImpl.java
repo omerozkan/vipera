@@ -46,4 +46,12 @@ public class DeviceFacadeImpl implements DeviceFacade {
     public DeviceManagerResult delete(final Long deviceId) {
         return deviceManager.delete(deviceId);
     }
+
+    public DeviceManagerResult getById(final Long id) {
+        return deviceManager.getById(id);
+    }
+
+    public DeviceManagerResult update(final Device device) {
+        return deviceManager.update(device);
+    }
 }

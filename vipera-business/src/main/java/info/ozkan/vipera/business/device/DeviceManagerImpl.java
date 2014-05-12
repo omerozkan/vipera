@@ -81,4 +81,24 @@ public class DeviceManagerImpl implements DeviceManager {
         return deviceDao.delete(deviceId);
     }
 
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public DeviceManagerResult getById(final Long id) {
+        final Device device = deviceDao.getById(id);
+        final DeviceManagerResult result = new DeviceManagerResult();
+        if (device == null) {
+            result.setStatus(DeviceManagerStatus.NOT_FOUND);
+        } else {
+            result.setStatus(DeviceManagerStatus.SUCCESS);
+            result.setDevice(device);
+        }
+        return result;
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public DeviceManagerResult update(final Device device) {
+        return deviceDao.update(device);
+    }
+
 }

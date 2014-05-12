@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+    <f:metadata>
+       <f:viewParam name="id" value="#{deviceUpdate.id}" />
+       <f:event listener="#{deviceUpdate.loadDevice}" type="preRenderView" />
+    </f:metadata>
+    <ui:param name="device" value="#{deviceUpdate.device}" />
+    <ui:param name="selectedPatient" value="#{deviceUpdate.selectedPatient}" />
+	<ui:define name="title">Cihaz Güncelle | Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="device-update">
+			<p:panel id="panel" header="Cihaz Düzenle">
+				<p:growl id="msgs" autoUpdate="true" showDetail="true" />
+				<h:panelGrid columns="1" cellpadding="20"
+					style="padding-left: 30px; margin-top: 10px">
+					<p:panel id="patient-panel" header="Hasta Seç">
+						<h:panelGrid columns="3" cellpadding="20"
+							style="padding-left: 30px; margin-top: 10px"
+							columnClasses="bold, normal, normal">
+							<h:outputText value="Hasta T.C. Kimlik No:" />
+							<p:inputMask mask="99999999999" id="patient-tckn" required="true"
+								disabled="true" value="#{selectedPatient.tckn}" />
+							<p:commandButton id="patient-search" icon="ui-icon-search"
+								onclick="PF('ps').show()" type="button" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="2" cellpadding="20"
+							style="padding-left: 30px; margin-top: 10px"
+							columnClasses="bold, normal">
+							<h:outputText value="Hasta Adı ve Soyadı:" />
+							<h:outputText value="#{selectedPatient.fullname}" />
+							<h:outputText value="Cinsiyet:" />
+							<h:outputText value="#{selectedPatient.sex.title}" />
+							<h:outputText value="Doğum Tarihi:" />
+							<h:outputText value="#{selectedPatient.birthDate}">
+								<f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputText>
+							<h:outputText value="Baba Adı:" />
+							<h:outputText value="#{selectedPatient.fatherName}" />
+							<h:outputText value="Anne Adı:" />
+							<h:outputText value="#{selectedPatient.motherName}" />
+						</h:panelGrid>
+					</p:panel>
+					<p:spacer height="30" />
+					<h:panelGrid columns="3" cellpadding="20"
+						style="padding-left: 30px">
+						<h:outputLabel value="Cihaz API Anahtarı:" for="apiKey" />
+						<p:inputText id="apiKey" disabled="true" value="#{device.apiKey}"/>
+						<p:button id="generateKey" value="Anahtar Üret"
+							update="apiKey" icon="ui-icon-key" disabled="true"/>
+
+						<h:outputLabel value="Cihaz API Parolası:" for="apiPassword" />
+						<p:inputText id="apiPassword" disabled="true"
+							value="#{device.apiPassword}"/>
+						<p:commandButton id="generatePassword" value="Parola Üret"
+							actionListener="#{deviceUpdate.generate}"
+							update=":device-update:apiPassword" icon="ui-icon-locked" />
+					</h:panelGrid>
+					<p:commandButton value="Kaydet" id="save"
+						actionListener="#{deviceUpdate.update}" update="@form"/>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade" hideEffect="explode">
+			<ui:include src="/yonetim/layout/patient/browse.xhtml" />
+		</p:dialog>
+	</ui:define>
+	<ui:define name="patient-result-buttons">
+		<p:column>
+			<p:commandButton value="Seç"
+				actionListener="#{deviceUpdate.selectPatient(patient)}"
+				oncomplete="ps.hide()" update=":device-update:patient-panel" />
+		</p:column>
+	</ui:define>
+</ui:composition>
