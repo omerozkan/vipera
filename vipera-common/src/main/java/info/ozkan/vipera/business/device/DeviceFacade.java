@@ -25,4 +25,12 @@ public interface DeviceFacade {
      * @return
      */
     DeviceManagerResult search(DeviceManagerSearchFilter filter);
+
+    /**
+     * Sistemden cihaz siler
+     * 
+     * @param deviceId
+     * @return
+     */
+    DeviceManagerResult delete(Long deviceId);
 }

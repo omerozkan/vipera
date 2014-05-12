@@ -25,4 +25,12 @@ public interface DeviceManager {
      */
     DeviceManagerResult search(DeviceManagerSearchFilter filter);
 
+    /**
+     * Sistemde kayıtlı olan bir cihazı siler
+     * 
+     * @param deviceId
+     * @return
+     */
+    DeviceManagerResult delete(Long deviceId);
+
 }

@@ -5,9 +5,12 @@ import info.ozkan.vipera.business.device.DeviceManagerResult;
 import info.ozkan.vipera.business.device.DeviceManagerSearchFilter;
 import info.ozkan.vipera.entities.Device;
 import info.ozkan.vipera.entities.Patient;
+import info.ozkan.vipera.jsf.FacesMessage2;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,6 +27,22 @@ import org.springframework.context.annotation.Scope;
 @Named("deviceBrowse")
 @Scope("session")
 public class DeviceBrowseBean {
+    /**
+     * cihaz silinemedi mesaj detayı deseni
+     */
+    private static final String MSG_DEVICE_CANNOT_BE_DELETED_DETAIL = "Cihaz silinemedi. Silmek istediğiniz cihaz daha önce silinmiş olabilir.";
+    /**
+     * Cihaz silinemedi mesajı
+     */
+    private static final String MSG_DEVICE_CANNOT_BE_DELETED = "Cihaz silinemedi!";
+    /**
+     * Cihaz silindi mesajı detayı
+     */
+    private static final String MSG_DEVICE_DELETED_DETAIL_PATTERN = "%s hastaya ait cihaz silindi!";
+    /**
+     * Cihaz silindi mesajı
+     */
+    private static final String MSG_DEVICE_DELETED = "Cihaz silindi!";
     /**
      * LOGGER
      */
@@ -90,6 +109,49 @@ public class DeviceBrowseBean {
         final DeviceManagerResult result = deviceFacade.search(filter);
         devices = result.getDevices();
         LOGGER.info("Found {} devices.", devices.size());
+    }
+
+    /**
+     * Seçilen bir cihazı sistemden kaldırır
+     * 
+     * @param device
+     */
+    public void delete(final Long deviceId) {
+        final FacesContext context = FacesContext.getCurrentInstance();
+        final DeviceManagerResult result = deviceFacade.delete(deviceId);
+        if (result.isSuccess()) {
+            createInfoMessage(context, MSG_DEVICE_DELETED, "");
+            search();
+        } else {
+            createErrorMessage(context, MSG_DEVICE_CANNOT_BE_DELETED,
+                    MSG_DEVICE_CANNOT_BE_DELETED_DETAIL);
+        }
+    }
+
+    /**
+     * Hata mesajı oluşturur
+     * 
+     * @param context
+     * @param summary
+     * @param detail
+     */
+    private void createErrorMessage(final FacesContext context,
+            final String summary, final String detail) {
+        context.addMessage(null, new FacesMessage2(FacesMessage.SEVERITY_ERROR,
+                summary, detail));
+    }
+
+    /**
+     * Bilgi mesajı oluşturur
+     * 
+     * @param context
+     * @param summary
+     * @param detail
+     */
+    private void createInfoMessage(final FacesContext context,
+            final String summary, final String detail) {
+        context.addMessage(null, new FacesMessage2(FacesMessage.SEVERITY_INFO,
+                summary, detail));
     }
 
     /**

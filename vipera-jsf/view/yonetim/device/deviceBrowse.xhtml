@@ -9,6 +9,7 @@
 	<ui:define name="title">Cihaz Arama | Vipera</ui:define>
 	<ui:define name="content">
 		<h:form id="device-browse">
+		    <p:growl  id="msgs" showDetail="true"/>
 			<p:panel header="Cihaz Arama">
 				<div style="padding-left: 10px; padding-right: 10px">
 					<h:panelGrid columns="2">
@@ -37,13 +38,14 @@
 				</p:column>
 				<p:column headerText="Cihaz API Anahtarı">
 				    <h:outputText value="#{device.apiKey}" />
+				    <h:outputText value="#{device.apiKey}" />
 				</p:column>
 				<p:column headerText="Aktif">
 				    <h:outputText value="#{device.enabled.title}" />
 				</p:column>
 				<p:column>
 					<p:button value="Düzenle" />
-					<p:button value="Sil" />
+					<p:commandButton value="Sil" actionListener="#{deviceBrowse.delete(device.id)}" update=":device-browse" icon="ui-icon-trash"/>
 				</p:column>
 			</p:dataTable>
 			<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade"

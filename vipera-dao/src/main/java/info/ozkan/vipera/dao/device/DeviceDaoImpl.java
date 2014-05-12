@@ -18,6 +18,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * {@link DeviceDao} arayüzünün implementasyonu
  * 
@@ -26,6 +29,11 @@ import javax.persistence.criteria.Root;
  */
 @Named("deviceDao")
 public class DeviceDaoImpl implements DeviceDao {
+    /**
+     * LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DeviceDaoImpl.class);
     /**
      * EntityManager
      */
@@ -68,16 +76,20 @@ public class DeviceDaoImpl implements DeviceDao {
         final List<Predicate> predicates = new ArrayList<Predicate>();
         final String apiKey = filter.getApiKey();
         final Patient patient = filter.getPatient();
+
         if (patient != null) {
             predicates.add(cb.equal(root.get("patient"), patient));
         }
+
         if (apiKey != null && !apiKey.isEmpty()) {
             final String pattern = '%' + apiKey + '%';
             predicates.add(cb.like(root.<String> get("apiKey"), pattern));
         }
+
         final Predicate[] array = predicates.toArray(new Predicate[0]);
         criteriaQuery.select(root).where(array);
         final Query query = em.createQuery(criteriaQuery);
+
         return query;
     }
 
@@ -101,4 +113,10 @@ public class DeviceDaoImpl implements DeviceDao {
         em = entityManager;
     }
 
+    public DeviceManagerResult delete(final Long deviceId) {
+        final Device device = em.find(Device.class, deviceId);
+        LOGGER.info("The device {} has been deleted", device.getApiKey());
+        em.remove(device);
+        return createSuccessResult();
+    }
 }

@@ -27,4 +27,12 @@ public interface DeviceDao {
      * @return
      */
     DeviceManagerResult find(DeviceManagerSearchFilter filter);
+
+    /**
+     * Veritabanından cihaz siler
+     * 
+     * @param deviceId
+     * @return
+     */
+    DeviceManagerResult delete(Long deviceId);
 }
