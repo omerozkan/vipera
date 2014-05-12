@@ -44,7 +44,9 @@
 				    <h:outputText value="#{device.enabled.title}" />
 				</p:column>
 				<p:column>
-					<p:button value="Düzenle" />
+					<p:button value="Düzenle" outcome="deviceUpdate.html">
+					   <f:param name="id" value="#{device.id}" />
+					</p:button>
 					<p:commandButton value="Sil" actionListener="#{deviceBrowse.delete(device.id)}" update=":device-browse" icon="ui-icon-trash"/>
 				</p:column>
 			</p:dataTable>

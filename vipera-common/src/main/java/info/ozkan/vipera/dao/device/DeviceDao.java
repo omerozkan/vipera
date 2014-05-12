@@ -35,4 +35,20 @@ public interface DeviceDao {
      * @return
      */
     DeviceManagerResult delete(Long deviceId);
+
+    /**
+     * Veritabanında kayıtlı bir cihazı dönderir
+     * 
+     * @param id
+     * @return
+     */
+    Device getById(Long id);
+
+    /**
+     * Veritabanında kayıtlı olan bir cihazı günceller
+     * 
+     * @param device
+     * @return
+     */
+    DeviceManagerResult update(Device device);
 }

@@ -2,6 +2,7 @@ package info.ozkan.vipera.business.device;
 
 import info.ozkan.vipera.entities.Device;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class DeviceManagerResult {
     /**
      * Cihazlar
      */
-    private List<Device> devices;
+    private List<Device> devices = new ArrayList<Device>();
 
     /**
      * @return the status

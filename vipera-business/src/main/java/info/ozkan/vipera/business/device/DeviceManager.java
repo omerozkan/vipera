@@ -33,4 +33,21 @@ public interface DeviceManager {
      */
     DeviceManagerResult delete(Long deviceId);
 
+    /**
+     * Sistemde kayıtlı olan bir cihazı dönderir
+     * 
+     * @param id
+     *            Cihaz ID
+     * @return
+     */
+    DeviceManagerResult getById(Long id);
+
+    /**
+     * Sistemde kayıtlı olan bir cihazı günceller
+     * 
+     * @param device
+     * @return
+     */
+    DeviceManagerResult update(Device device);
+
 }
