@@ -36,10 +36,6 @@ public class DeviceBrowseBean {
      */
     private static final String MSG_DEVICE_CANNOT_BE_DELETED = "Cihaz silinemedi!";
     /**
-     * Cihaz silindi mesajı detayı
-     */
-    private static final String MSG_DEVICE_DELETED_DETAIL_PATTERN = "%s hastaya ait cihaz silindi!";
-    /**
      * Cihaz silindi mesajı
      */
     private static final String MSG_DEVICE_DELETED = "Cihaz silindi!";
