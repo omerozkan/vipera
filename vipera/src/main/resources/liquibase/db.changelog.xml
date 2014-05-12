@@ -209,7 +209,7 @@
             <column name="enable">1</column>
         </insert>
     </changeSet>
-    <changeSet id="test-4" author="Omer Ozkan">
+    <changeSet id="test-4" author="Omer Ozkan" context="test">
         <insert tableName="DOCTOR_PATIENT">
             <column name="doctor_id">2</column>
             <column name="patient_id" type="bigint">5</column>
@@ -227,7 +227,7 @@
             <column name="patient_id" type="bigint">7</column>
         </insert>
     </changeSet>
-    <changeSet id="test-5" author="Omer Ozkan">
+    <changeSet id="test-5" author="Omer Ozkan" context="test">
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">8</column>
             <column name="name">testField8</column>
@@ -253,7 +253,7 @@
             <column name="unit">tph</column>
         </insert>
     </changeSet>
-    <changeSet id="6-devices" author="Omer Ozkan">
+    <changeSet id="test-6" author="Omer Ozkan" context="test">
         <insert tableName="DEVICES">
             <column name="id">12</column>
             <column name="api_key">u8UAvzOTL1zJp87o</column>

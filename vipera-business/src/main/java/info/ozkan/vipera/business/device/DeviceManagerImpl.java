@@ -69,4 +69,16 @@ public class DeviceManagerImpl implements DeviceManager {
         return result;
     }
 
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public DeviceManagerResult search(final DeviceManagerSearchFilter filter) {
+        return deviceDao.find(filter);
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public DeviceManagerResult delete(final Long deviceId) {
+        return deviceDao.delete(deviceId);
+    }
+
 }

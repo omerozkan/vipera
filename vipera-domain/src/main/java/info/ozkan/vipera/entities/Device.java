@@ -48,7 +48,7 @@ public class Device implements Serializable {
     /**
      * Sahibi
      */
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "patient_id")
     private Patient patient;
     /**

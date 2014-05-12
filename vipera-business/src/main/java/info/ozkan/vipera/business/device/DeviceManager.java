@@ -17,4 +17,20 @@ public interface DeviceManager {
      */
     DeviceManagerResult add(Device device);
 
+    /**
+     * Cihazlar üzerinde arama yapar
+     * 
+     * @param filter
+     * @return
+     */
+    DeviceManagerResult search(DeviceManagerSearchFilter filter);
+
+    /**
+     * Sistemde kayıtlı olan bir cihazı siler
+     * 
+     * @param deviceId
+     * @return
+     */
+    DeviceManagerResult delete(Long deviceId);
+
 }

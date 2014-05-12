@@ -38,4 +38,12 @@ public class DeviceFacadeImpl implements DeviceFacade {
         }
         return result;
     }
+
+    public DeviceManagerResult search(final DeviceManagerSearchFilter filter) {
+        return deviceManager.search(filter);
+    }
+
+    public DeviceManagerResult delete(final Long deviceId) {
+        return deviceManager.delete(deviceId);
+    }
 }
