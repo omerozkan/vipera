@@ -11,6 +11,10 @@ public class Role {
      * Yönetici rolü
      */
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    /**
+     * Hekim rolü
+     */
+    public static final String ROLE_DOCTOR = "ROLE_DOCTOR";
 
     /**
      * private

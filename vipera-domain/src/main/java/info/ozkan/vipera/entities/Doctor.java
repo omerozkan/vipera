@@ -153,7 +153,8 @@ public class Doctor implements Serializable, Cloneable {
      * Aktiflik
      */
     @Column(name = "enabled")
-    private Integer enabled;
+    @Enumerated(EnumType.ORDINAL)
+    private Authorize enabled;
     /**
      * Hastalar
      */
@@ -199,13 +200,6 @@ public class Doctor implements Serializable, Cloneable {
      */
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * @return the enable
-     */
-    public Integer getEnabled() {
-        return enabled;
     }
 
     /**
@@ -305,7 +299,7 @@ public class Doctor implements Serializable, Cloneable {
      * @return Üyeliği aktif ise true
      */
     public boolean isEnable() {
-        return enabled == 1;
+        return getEnabled().equals(Authorize.ENABLE);
     }
 
     @Override
@@ -327,14 +321,6 @@ public class Doctor implements Serializable, Cloneable {
      */
     public void setEmail(final String email) {
         this.email = email;
-    }
-
-    /**
-     * @param enable
-     *            the enable to set
-     */
-    public void setEnabled(final Integer enable) {
-        enabled = enable;
     }
 
     /**
@@ -423,5 +409,19 @@ public class Doctor implements Serializable, Cloneable {
      */
     public void setWebpage(final String webpage) {
         this.webpage = webpage;
+    }
+
+    /**
+     * @return the enabled
+     */
+    public Authorize getEnabled() {
+        return enabled;
+    }
+
+    /**
+     * @param enabled the enabled to set
+     */
+    public void setEnabled(Authorize enabled) {
+        this.enabled = enabled;
     }
 }
