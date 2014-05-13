@@ -4,6 +4,7 @@ import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.common.EmailValidator;
+import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 import info.ozkan.vipera.jsf.FacesMessage2;
@@ -207,9 +208,9 @@ public class DoctorAddBean implements Serializable {
     public void setEnable(final boolean enable) {
         this.enable = enable;
         if (enable) {
-            doctor.setEnabled(1);
+            doctor.setEnabled(Authorize.ENABLE);
         } else {
-            doctor.setEnabled(0);
+            doctor.setEnabled(Authorize.DISABLE);
         }
     }
 

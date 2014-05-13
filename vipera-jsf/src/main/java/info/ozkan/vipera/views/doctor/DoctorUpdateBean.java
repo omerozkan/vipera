@@ -3,6 +3,7 @@ package info.ozkan.vipera.views.doctor;
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.common.EmailValidator;
+import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.jsf.FacesMessage2;
 
@@ -114,7 +115,7 @@ public class DoctorUpdateBean implements Serializable {
             doctor.setPassword(password);
         }
         if (enable == true) {
-            doctor.setEnabled(Doctor.ENABLE);
+            doctor.setEnabled(Authorize.ENABLE);
         }
         final DoctorManagerResult result = doctorFacade.update(doctor);
         if (result.isSuccess()) {

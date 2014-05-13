@@ -57,6 +57,8 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- PERSISTENCE LAYER BEANS -->
     <bean id="administratorLoginDao"
         class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
+    <bean id="doctorLoginDao"
+        class="info.ozkan.vipera.dao.login.DoctorLoginDaoImpl" />
     <bean id="doctorDao" class="info.ozkan.vipera.dao.doctor.DoctorDaoImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>

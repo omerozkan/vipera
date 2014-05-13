@@ -21,6 +21,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Scope("request")
 public class AdministratorLoginBean implements Serializable {
     /**
+     * Serial
+     */
+    private static final long serialVersionUID = -7727352294738992023L;
+    /**
      * Logging
      */
     private static final Logger LOGGER = LoggerFactory
