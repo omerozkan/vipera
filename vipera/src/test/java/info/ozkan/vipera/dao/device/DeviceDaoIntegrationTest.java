@@ -3,10 +3,10 @@ package info.ozkan.vipera.dao.device;
 import info.ozkan.vipera.business.device.DeviceManagerResult;
 import info.ozkan.vipera.business.device.DeviceManagerSearchFilter;
 import info.ozkan.vipera.business.device.DeviceManagerStatus;
-import info.ozkan.vipera.doctor.PatientTestData;
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Device;
 import info.ozkan.vipera.entities.Patient;
+import info.ozkan.vipera.patient.PatientTestData;
 import info.ozkan.vipera.test.IntegrationTest;
 
 import javax.inject.Inject;

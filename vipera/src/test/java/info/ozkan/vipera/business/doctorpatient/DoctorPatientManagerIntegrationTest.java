@@ -3,9 +3,9 @@ package info.ozkan.vipera.business.doctorpatient;
 import info.ozkan.vipera.business.doctor.DoctorManager;
 import info.ozkan.vipera.business.patient.PatientManager;
 import info.ozkan.vipera.doctor.DoctorTestData;
-import info.ozkan.vipera.doctor.PatientTestData;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
+import info.ozkan.vipera.patient.PatientTestData;
 import info.ozkan.vipera.test.IntegrationTest;
 
 import java.util.List;

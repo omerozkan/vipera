@@ -51,4 +51,14 @@ public interface DeviceDao {
      * @return
      */
     DeviceManagerResult update(Device device);
+
+    /**
+     * Veritabanında kayıtlı olan bir cihazı api anahtarı ve parolası ile
+     * sorgular
+     * 
+     * @param apiKey
+     * @param apiPassword
+     * @return
+     */
+    DeviceManagerResult findDevice(String apiKey, String apiPassword);
 }

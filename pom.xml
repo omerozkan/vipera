@@ -69,6 +69,7 @@
         <module>vipera-business</module>
         <module>vipera-jsf</module>
         <module>vipera</module>
+        <module>vipera-api</module>
     </modules>
     <dependencies>
         <!-- JSR-330 -->

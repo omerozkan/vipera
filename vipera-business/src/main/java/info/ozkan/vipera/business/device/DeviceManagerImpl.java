@@ -101,4 +101,19 @@ public class DeviceManagerImpl implements DeviceManager {
         return deviceDao.update(device);
     }
 
+    @Transactional
+    public DeviceManagerResult checkCredential(final String apiKey,
+            final String apiPassword) {
+        final DeviceManagerResult result;
+        final DeviceManagerResult daoResult = deviceDao.findDevice(apiKey,
+                apiPassword);
+        if (daoResult.isSuccess()) {
+            result = daoResult;
+        } else {
+            result = new DeviceManagerResult();
+            result.setStatus(DeviceManagerStatus.INVALID_CREDENTIAL);
+        }
+        return result;
+    }
+
 }

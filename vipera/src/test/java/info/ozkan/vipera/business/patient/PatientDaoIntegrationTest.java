@@ -1,8 +1,8 @@
 package info.ozkan.vipera.business.patient;
 
 import info.ozkan.vipera.dao.patient.PatientDao;
-import info.ozkan.vipera.doctor.PatientTestData;
 import info.ozkan.vipera.entities.Patient;
+import info.ozkan.vipera.patient.PatientTestData;
 import info.ozkan.vipera.test.IntegrationTest;
 
 import java.text.SimpleDateFormat;

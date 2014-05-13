@@ -60,4 +60,8 @@ public class HealthDataFieldFacadeImpl implements HealthDataFieldFacade {
         return result;
     }
 
+    public HealthDataField getField(final String key) {
+        return healthDataFieldManager.getField(key);
+    }
+
 }

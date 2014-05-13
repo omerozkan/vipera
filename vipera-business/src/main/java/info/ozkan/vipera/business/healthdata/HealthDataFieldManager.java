@@ -40,4 +40,9 @@ public interface HealthDataFieldManager {
      */
     HealthDataFieldResult remove(HealthDataField field);
 
+    /**
+     * Sistemde kayıtlı olan bir alanı dönderir
+     */
+    HealthDataField getField(String key);
+
 }
