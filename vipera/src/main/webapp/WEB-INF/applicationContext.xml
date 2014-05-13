@@ -13,6 +13,7 @@ http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:component-scan base-package="info.ozkan.vipera.views" />
+    <context:component-scan base-package="info.ozkan.vipera.api" />
     <context:spring-configured />
     <context:annotation-config />
 
@@ -70,6 +71,10 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         class="info.ozkan.vipera.dao.healthdata.HealthDataFieldDaoImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
+    <bean id="healthDataDao"
+        class="info.ozkan.vipera.dao.healthdata.HealthDataDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
     <bean id="deviceDao" class="info.ozkan.vipera.dao.device.DeviceDaoImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
@@ -101,6 +106,14 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
     </bean>
     <bean id="healthDataFieldManager"
         class="info.ozkan.vipera.business.healthdata.HealthDataFieldManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataFacade"
+        class="info.ozkan.vipera.business.healthdata.HealthDataFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataService"
+        class="info.ozkan.vipera.business.healthdata.HealthDataServiceImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
     <bean id="deviceFacade" class="info.ozkan.vipera.business.device.DeviceFacadeImpl">

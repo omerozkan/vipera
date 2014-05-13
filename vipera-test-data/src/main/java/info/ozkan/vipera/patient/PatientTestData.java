@@ -1,4 +1,4 @@
-package info.ozkan.vipera.doctor;
+package info.ozkan.vipera.patient;
 
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Patient;

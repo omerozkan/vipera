@@ -54,4 +54,9 @@ public class DeviceFacadeImpl implements DeviceFacade {
     public DeviceManagerResult update(final Device device) {
         return deviceManager.update(device);
     }
+
+    public DeviceManagerResult checkCredential(final String apiKey,
+            final String apiPassword) {
+        return deviceManager.checkCredential(apiKey, apiPassword);
+    }
 }

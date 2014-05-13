@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -162,6 +163,9 @@ public class Patient implements Serializable, Cloneable {
      */
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "patients")
     private List<Doctor> doctors;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    private List<Device> devices;
 
     @Override
     public Object clone() {

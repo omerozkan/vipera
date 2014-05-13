@@ -50,4 +50,15 @@ public interface DeviceManager {
      */
     DeviceManagerResult update(Device device);
 
+    /**
+     * Sistemde kayıtlı olan bir cihazı anahtar ve parola ile sorgular
+     * 
+     * @param apiKey
+     *            api anahtarı
+     * @param apiPassword
+     *            api parolası
+     * @return
+     */
+    DeviceManagerResult checkCredential(String apiKey, String apiPassword);
+
 }

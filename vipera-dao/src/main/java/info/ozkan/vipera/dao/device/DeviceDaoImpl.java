@@ -30,6 +30,10 @@ import org.slf4j.LoggerFactory;
 @Named("deviceDao")
 public class DeviceDaoImpl implements DeviceDao {
     /**
+     * 
+     */
+    private static final String JQL_FIND_DEVICE = "from Device d where d.apiKey = :apiKey AND d.apiPassword = :apiPassword";
+    /**
      * LOGGER
      */
     private static final Logger LOGGER = LoggerFactory
@@ -129,6 +133,23 @@ public class DeviceDaoImpl implements DeviceDao {
         em.merge(device);
         final DeviceManagerResult result = createSuccessResult();
         result.setDevice(device);
+        return result;
+    }
+
+    public DeviceManagerResult findDevice(final String apiKey,
+            final String apiPassword) {
+        DeviceManagerResult result;
+        final Query query = em.createQuery(JQL_FIND_DEVICE);
+        query.setParameter("apiKey", apiKey);
+        query.setParameter("apiPassword", apiPassword);
+        final List<Device> resultList = query.getResultList();
+        if (resultList.size() == 0) {
+            result = new DeviceManagerResult();
+            result.setStatus(DeviceManagerStatus.NOT_FOUND);
+        } else {
+            result = createSuccessResult();
+            result.setDevice(resultList.get(0));
+        }
         return result;
     }
 }

@@ -49,4 +49,13 @@ public interface DeviceFacade {
      * @return
      */
     DeviceManagerResult update(Device device);
+
+    /**
+     * Cihazın anahtarı ve parolasını kontrol eder
+     * 
+     * @param apiKey
+     * @param apiPassword
+     * @return
+     */
+    DeviceManagerResult checkCredential(String apiKey, String apiPassword);
 }

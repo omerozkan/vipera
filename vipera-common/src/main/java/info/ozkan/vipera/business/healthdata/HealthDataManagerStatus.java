@@ -1,26 +1,25 @@
-package info.ozkan.vipera.business.device;
+package info.ozkan.vipera.business.healthdata;
 
 /**
- * Cihazlar üzerinde yapılan işlemlerin sonucunu temsil eder
+ * Sağlık alanları üzerinde yapılan işlemler sonucu kullanılan enum
  * 
  * @author Ömer Özkan
  * 
  */
-public enum DeviceManagerStatus {
-    SUCCESS(0), NON_UNIQUE_API_KEY(1), PATIENT_NOT_EXIST(2), NOT_FOUND(3), INVALID_CREDENTIAL(
-            4);
+public enum HealthDataManagerStatus {
+    SUCCESS(0);
 
     /**
-     * Kod
+     * Code
      */
     private int code;
 
     /**
-     * Constructor
+     * private constructor
      * 
      * @param code
      */
-    private DeviceManagerStatus(final int code) {
+    private HealthDataManagerStatus(final int code) {
         setCode(code);
     }
 
@@ -38,5 +37,4 @@ public enum DeviceManagerStatus {
     public void setCode(final int code) {
         this.code = code;
     }
-
 }

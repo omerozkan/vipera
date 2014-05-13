@@ -6,9 +6,9 @@ import info.ozkan.vipera.dao.doctor.DoctorDao;
 import info.ozkan.vipera.dao.doctorpatient.DoctorPatientDao;
 import info.ozkan.vipera.dao.patient.PatientDao;
 import info.ozkan.vipera.doctor.DoctorTestData;
-import info.ozkan.vipera.doctor.PatientTestData;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
+import info.ozkan.vipera.patient.PatientTestData;
 import info.ozkan.vipera.test.IntegrationTest;
 
 import java.util.List;

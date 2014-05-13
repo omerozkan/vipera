@@ -34,10 +34,15 @@ public interface HealthDataFieldFacade {
     HealthDataFieldResult update(HealthDataField field);
 
     /**
-     * Sistemde kayıltı sağlık alanını sistemden kaldırır
+     * Sistemde kayıtlı sağlık alanını sistemden kaldırır
      * 
      * @param field
      * @return
      */
     HealthDataFieldResult remove(HealthDataField field);
+
+    /**
+     * Sistemde kayıtlı sağlık alanı dönderir
+     */
+    HealthDataField getField(String key);
 }
