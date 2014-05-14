@@ -13,6 +13,7 @@ http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:component-scan base-package="info.ozkan.vipera.views" />
+    <context:component-scan base-package="info.ozkan.vipera.doctorviews" />
     <context:component-scan base-package="info.ozkan.vipera.api" />
     <context:spring-configured />
     <context:annotation-config />

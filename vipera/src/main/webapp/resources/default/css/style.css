@@ -101,3 +101,22 @@ body
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+/** DOCTOR PANEL **/
+
+#left-menu {
+	float: left;
+	margin-right: 10px;
+	width: 185px;
+}
+
+#right-context {
+	width: 763px;
+    min-height: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    float: right;
+}
+#context-wrapper {
+	margin-top: 5px;
+}

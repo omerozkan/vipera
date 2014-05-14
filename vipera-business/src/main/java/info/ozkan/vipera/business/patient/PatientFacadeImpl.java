@@ -1,5 +1,6 @@
 package info.ozkan.vipera.business.patient;
 
+import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
 
 import javax.inject.Inject;
@@ -80,6 +81,11 @@ public class PatientFacadeImpl implements PatientFacade {
             LOGGER.error("The patient cannot be updated!", e);
         }
         return result;
+    }
+
+    public PatientManagerResult search(final PatientSearchFilter filter,
+            final Doctor doctor) {
+        return patientManager.search(filter, doctor);
     }
 
 }

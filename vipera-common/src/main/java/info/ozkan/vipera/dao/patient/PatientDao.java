@@ -2,6 +2,7 @@ package info.ozkan.vipera.dao.patient;
 
 import info.ozkan.vipera.business.patient.PatientManagerResult;
 import info.ozkan.vipera.business.patient.PatientSearchFilter;
+import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
 
 /**
@@ -53,5 +54,14 @@ public interface PatientDao {
      * @return
      */
     PatientManagerResult delete(Patient patient);
+
+    /**
+     * Hekime ait hastaların arama işlemini gerçekleştirir
+     * 
+     * @param filter
+     * @param doctor
+     * @return
+     */
+    PatientManagerResult find(PatientSearchFilter filter, Doctor doctor);
 
 }

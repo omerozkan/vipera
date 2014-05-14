@@ -3,6 +3,7 @@ package info.ozkan.vipera.dao.patient;
 import info.ozkan.vipera.business.patient.PatientManagerResult;
 import info.ozkan.vipera.business.patient.PatientManagerStatus;
 import info.ozkan.vipera.business.patient.PatientSearchFilter;
+import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -52,6 +54,44 @@ public class PatientDaoImpl implements PatientDao {
         final CriteriaBuilder cb = em.getCriteriaBuilder();
         final CriteriaQuery<Patient> cq = cb.createQuery(Patient.class);
         final Root<Patient> root = cq.from(Patient.class);
+        final List<Predicate> predicates = createPredicationsFromFilter(
+                filters, cb, root);
+        cq.select(root).where(predicates.toArray(new Predicate[0]));
+        return cq;
+    }
+
+    /**
+     * Filtreleri CriteriaQuery nesnesine dönüştürür
+     * 
+     * @param filter
+     * @param doctor
+     * @return
+     */
+    private CriteriaQuery<Patient> createCriteriaFromFilter(
+            final PatientSearchFilter filter, final Doctor doctor) {
+        final Map<String, Object> filters = filter.getFilters();
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<Patient> cq = cb.createQuery(Patient.class);
+        final Root<Patient> root = cq.from(Patient.class);
+        final Path<Doctor> path = root.join("doctors");
+        final List<Predicate> predicates = createPredicationsFromFilter(
+                filters, cb, root);
+        predicates.add(cb.equal(path, doctor));
+        cq.select(root).where(predicates.toArray(new Predicate[0]));
+        return cq;
+    }
+
+    /**
+     * arama filtresinden predicate listesi dönderir
+     * 
+     * @param filters
+     * @param cb
+     * @param root
+     * @return
+     */
+    private List<Predicate> createPredicationsFromFilter(
+            final Map<String, Object> filters, final CriteriaBuilder cb,
+            final Root<Patient> root) {
         final List<Predicate> predicates = new ArrayList<Predicate>();
         for (final String attr : filters.keySet()) {
             final Object obj = filters.get(attr);
@@ -59,8 +99,7 @@ public class PatientDaoImpl implements PatientDao {
             predicates.add(cb.like(root.<String> get(attr).as(String.class),
                     pattern));
         }
-        cq.select(root).where(predicates.toArray(new Predicate[0]));
-        return cq;
+        return predicates;
     }
 
     /**
@@ -141,6 +180,14 @@ public class PatientDaoImpl implements PatientDao {
         return result;
     }
 
+    public PatientManagerResult find(final PatientSearchFilter filter,
+            final Doctor doctor) {
+        final CriteriaQuery<Patient> cq = createCriteriaFromFilter(filter,
+                doctor);
+        final PatientManagerResult result = createManagerResultFromCriteria(cq);
+        return result;
+    }
+
     public PatientManagerResult getById(final Long id) {
         final Query query = em.createQuery(JQL_GET_BY_ID);
         query.setParameter("id", id);
@@ -171,4 +218,5 @@ public class PatientDaoImpl implements PatientDao {
         em.merge(patient);
         return createSuccesResult(patient);
     }
+
 }

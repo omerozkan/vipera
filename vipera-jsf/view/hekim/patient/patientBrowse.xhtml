@@ -4,10 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="/yonetim/layout/template.xhtml">
-	<ui:define name="title">Hasta Arama | Vipera</ui:define>
+	template="/hekim/layout/template.xhtml">
+	<ui:define name="title">Hasta Arama | Vipera Hekim</ui:define>
+
 	<ui:define name="content">
-		<ui:param name="model" value="#{patientBrowse.model}" />
+		<ui:param name="model" value="#{doctorPatientBrowse.model}" />
 		<h:form id="patient-browse">
 			<p:panel header="Hasta Arama">
 				<h:panelGrid columns="2" rowClasses="left, left" cellpadding="20"
@@ -46,11 +47,11 @@
 
 					</h:panelGrid>
 					<p:commandButton value="Ara" id="search" update="results"
-						actionListener="#{patientBrowse.search}" icon="ui-icon-search" />
+						actionListener="#{doctorPatientBrowse.search}" icon="ui-icon-search" />
 				</h:panelGrid>
 			</p:panel>
 
-			<p:dataTable id="results" value="#{patientBrowse.result}"
+			<p:dataTable id="results" value="#{doctorPatientBrowse.result}"
 				var="patient" paginator="true" rows="10"
 				emptyMessage="Aradığınız kriterlere uygun sonuç bulunamadı.">
 				<f:facet name="header">
@@ -80,12 +81,12 @@
 				</p:column>
 				<ui:insert name="patient-result-buttons">
 					<p:column>
-						<p:button value="Düzenle" outcome="patientUpdate.html"
-							icon="ui-icon-pencil" iconPos="left">
+						<p:button value="Sağlık Verileri"
+							icon="ui-icon-print" iconPos="left">
 							<f:param name="id" value="#{patient.id}" />
 						</p:button>
-						<p:button value="Sil" outcome="patientDelete.html"
-							icon="ui-icon-trash" iconPos="left">
+						<p:button value="Düzenle" outcome="patientUpdate.html"
+							icon="ui-icon-pencil" iconPos="left">
 							<f:param name="id" value="#{patient.id}" />
 						</p:button>
 					</p:column>
