@@ -7,7 +7,7 @@ package info.ozkan.vipera.business.healthdata;
  * 
  */
 public enum HealthDataManagerStatus {
-    SUCCESS(0);
+    SUCCESS(0), NOT_FOUND(1);
 
     /**
      * Code

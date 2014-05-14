@@ -62,7 +62,7 @@ public class HealthData implements Serializable {
     /**
      * Değerler
      */
-    @OneToMany(mappedBy = "data")
+    @OneToMany(mappedBy = "data", fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     private List<HealthDataValue> values;
 

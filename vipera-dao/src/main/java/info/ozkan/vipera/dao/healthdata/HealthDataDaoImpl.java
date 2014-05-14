@@ -25,7 +25,11 @@ import javax.persistence.criteria.Root;
  * 
  */
 public class HealthDataDaoImpl implements HealthDataDao {
-
+    /**
+     * Id ye göre sağlık verisi sorgusu
+     */
+    private static final String JQL_GET_BY_ID =
+            "from HealthData d join fetch d.patient WHERE d.id = :id";
     /**
      * Persisence context
      */
@@ -92,5 +96,21 @@ public class HealthDataDaoImpl implements HealthDataDao {
         cq.select(root).where(array);
         final Query query = em.createQuery(cq);
         return query;
+    }
+
+    public HealthDataResult getById(final Long id) {
+        HealthDataResult result;
+        final Query query = em.createQuery(JQL_GET_BY_ID);
+        query.setParameter("id", id);
+        final List<HealthData> resultList = query.getResultList();
+        if (resultList.size() != 0) {
+            final HealthData data = resultList.get(0);
+            result = createSuccessResult();
+            result.setHealthData(data);
+        } else {
+            result = new HealthDataResult();
+            result.setStatus(HealthDataManagerStatus.NOT_FOUND);
+        }
+        return result;
     }
 }

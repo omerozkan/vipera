@@ -1,5 +1,6 @@
 package info.ozkan.vipera.business.healthdata;
 
+import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.HealthData;
 
 import javax.inject.Inject;
@@ -25,6 +26,10 @@ public class HealthDataFacadeImpl implements HealthDataFacade {
 
     public HealthDataResult find(final HealthDataBrowseFilter filter) {
         return healthDataService.find(filter);
+    }
+
+    public HealthDataResult getById(final Long id, final Doctor doctor) {
+        return healthDataService.getById(id, doctor);
     }
 
 }

@@ -26,4 +26,12 @@ public interface HealthDataDao {
      * @return
      */
     HealthDataResult find(HealthDataBrowseFilter filter);
+
+    /**
+     * Sağlık alanı sorgular
+     * 
+     * @param id
+     * @return
+     */
+    HealthDataResult getById(Long id);
 }

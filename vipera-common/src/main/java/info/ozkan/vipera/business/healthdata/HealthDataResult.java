@@ -2,6 +2,7 @@ package info.ozkan.vipera.business.healthdata;
 
 import info.ozkan.vipera.entities.HealthData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class HealthDataResult {
     /**
      * Sağlık verileri
      */
-    private List<HealthData> healthDatas;
+    private List<HealthData> healthDatas = new ArrayList<HealthData>();
 
     /**
      * @return the status
@@ -57,6 +58,26 @@ public class HealthDataResult {
      */
     public void setHealthDatas(final List<HealthData> healthDatas) {
         this.healthDatas = healthDatas;
+    }
+
+    /**
+     * @return the healthData
+     */
+    public HealthData getHealthData() {
+        if (healthDatas.size() != 0) {
+            return healthDatas.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * @param healthData
+     *            the healthData to set
+     */
+    public void setHealthData(final HealthData healthData) {
+        healthDatas.clear();
+        healthDatas.add(healthData);
+        System.out.println(healthData);
     }
 
 }
