@@ -70,6 +70,10 @@ public class PatientUpdateBean {
      * Üye aktifliği
      */
     private boolean enabled;
+    /**
+     * hasta yeniden yüklensin mi
+     */
+    private boolean loadAgain = true;
 
     /**
      * Hastanın sistemden getirilmesini sağlar
@@ -77,17 +81,12 @@ public class PatientUpdateBean {
      * @throws FacesFileNotFoundException
      */
     public void loadPatient() throws FacesFileNotFoundException {
-        patient = PatientLoader.loadPatient(patientFacade, id);
-        setEnabledByPatient();
-        resetFormForNext();
-    }
-
-    /**
-     * formun bir sonraki yüklenmesinde id değerinin tekrar girilmesini zorunlu
-     * kılar
-     */
-    private void resetFormForNext() {
-        id = null;
+        if (loadAgain) {
+            patient = PatientLoader.loadPatient(patientFacade, id);
+            setEnabledByPatient();
+        } else {
+            loadAgain = true;
+        }
     }
 
     /**
@@ -103,6 +102,7 @@ public class PatientUpdateBean {
      * Hasta bilgilerinin güncellenmesini sağlar
      */
     public void save() {
+        loadAgain = false;
         context = FacesContext.getCurrentInstance();
         final boolean success = checkFields();
         setPatientActivation();
