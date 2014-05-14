@@ -88,4 +88,8 @@ public class PatientFacadeImpl implements PatientFacade {
         return patientManager.search(filter, doctor);
     }
 
+    public PatientManagerResult getById(final Long id, final Doctor doctor) {
+        return patientManager.getById(id, doctor);
+    }
+
 }

@@ -80,4 +80,10 @@ public class PatientManagerImpl implements PatientManager {
         return patientDao.find(filter, doctor);
     }
 
+    @Transactional
+    @RolesAllowed(Role.ROLE_DOCTOR)
+    public PatientManagerResult getById(final Long id, final Doctor doctor) {
+        return patientDao.getById(id, doctor);
+    }
+
 }

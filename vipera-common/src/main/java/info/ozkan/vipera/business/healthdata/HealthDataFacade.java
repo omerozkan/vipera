@@ -17,4 +17,11 @@ public interface HealthDataFacade {
      */
     HealthDataResult add(HealthData healthData);
 
+    /**
+     * Sistem üzerinde sağlık alanı arar
+     * 
+     * @param filter
+     * @return
+     */
+    HealthDataResult find(HealthDataBrowseFilter filter);
 }

@@ -16,4 +16,12 @@ public interface HealthDataService {
      * @return
      */
     HealthDataResult add(HealthData healthData);
+
+    /**
+     * Sisteme kayıtlı veriler üzerinde arama yapar
+     * 
+     * @param filter
+     * @return
+     */
+    HealthDataResult find(HealthDataBrowseFilter filter);
 }

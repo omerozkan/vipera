@@ -1,8 +1,10 @@
 package info.ozkan.vipera.business.healthdata;
 
+import info.ozkan.vipera.business.role.Role;
 import info.ozkan.vipera.dao.healthdata.HealthDataDao;
 import info.ozkan.vipera.entities.HealthData;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,6 +27,12 @@ public class HealthDataServiceImpl implements HealthDataService {
     @Transactional
     public HealthDataResult add(final HealthData healthData) {
         return healthDataDao.add(healthData);
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_DOCTOR)
+    public HealthDataResult find(final HealthDataBrowseFilter filter) {
+        return healthDataDao.find(filter);
     }
 
 }

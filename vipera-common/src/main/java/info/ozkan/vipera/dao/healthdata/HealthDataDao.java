@@ -1,5 +1,6 @@
 package info.ozkan.vipera.dao.healthdata;
 
+import info.ozkan.vipera.business.healthdata.HealthDataBrowseFilter;
 import info.ozkan.vipera.business.healthdata.HealthDataResult;
 import info.ozkan.vipera.entities.HealthData;
 
@@ -17,4 +18,12 @@ public interface HealthDataDao {
      * @return
      */
     HealthDataResult add(HealthData healthData);
+
+    /**
+     * Veritabanında kayıtlı sağlık verileri üzerinde arama yapar
+     * 
+     * @param filter
+     * @return
+     */
+    HealthDataResult find(HealthDataBrowseFilter filter);
 }

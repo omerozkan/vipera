@@ -61,4 +61,13 @@ public interface PatientFacade {
      */
     PatientManagerResult search(PatientSearchFilter filter, Doctor doctor);
 
+    /**
+     * Hekim ve id ye göre hasta sorgular
+     * 
+     * @param id
+     * @param doctor
+     * @return
+     */
+    PatientManagerResult getById(Long id, Doctor doctor);
+
 }

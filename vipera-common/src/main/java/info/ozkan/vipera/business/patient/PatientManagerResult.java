@@ -78,4 +78,13 @@ public class PatientManagerResult {
         patients.add(patient);
     }
 
+    /**
+     * işlem başarılı ise true dönderir
+     * 
+     * @return
+     */
+    public boolean isSuccess() {
+        return status.equals(PatientManagerStatus.SUCCESS);
+    }
+
 }

@@ -16,7 +16,7 @@ import com.sun.faces.context.FacesFileNotFoundException;
  * @author Ömer Özkan
  * 
  */
-class PatientLoader {
+public class PatientLoader {
     /**
      * LOGGER
      */
