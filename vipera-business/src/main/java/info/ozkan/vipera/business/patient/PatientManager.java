@@ -1,5 +1,6 @@
 package info.ozkan.vipera.business.patient;
 
+import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
 
 /**
@@ -52,4 +53,13 @@ public interface PatientManager {
      * @return
      */
     PatientManagerResult delete(Patient patient);
+
+    /**
+     * Hekime ait hastaları arar
+     * 
+     * @param filter
+     * @param doctor
+     * @return
+     */
+    PatientManagerResult search(PatientSearchFilter filter, Doctor doctor);
 }

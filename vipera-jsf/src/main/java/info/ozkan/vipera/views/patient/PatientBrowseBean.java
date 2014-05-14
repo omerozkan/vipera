@@ -38,7 +38,7 @@ public class PatientBrowseBean {
      * Business
      */
     @Inject
-    private PatientFacade patientFacade;
+    protected PatientFacade patientFacade;
 
     /**
      * Arama işlemini gerçekleştirir
@@ -56,7 +56,7 @@ public class PatientBrowseBean {
      * 
      * @return
      */
-    private PatientSearchFilter createFilterFromModel() {
+    protected PatientSearchFilter createFilterFromModel() {
         final PatientSearchFilter filter = new PatientSearchFilter();
         if (model.getTckn().toString().length() == 11) {
             filter.addFilter(Patient.TCKN, model.getTckn());

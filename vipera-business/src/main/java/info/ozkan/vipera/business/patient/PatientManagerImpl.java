@@ -2,6 +2,7 @@ package info.ozkan.vipera.business.patient;
 
 import info.ozkan.vipera.business.role.Role;
 import info.ozkan.vipera.dao.patient.PatientDao;
+import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
 
 import javax.annotation.security.RolesAllowed;
@@ -46,7 +47,7 @@ public class PatientManagerImpl implements PatientManager {
     }
 
     @Transactional
-    @RolesAllowed(Role.ROLE_ADMIN)
+    @RolesAllowed({ Role.ROLE_ADMIN, Role.ROLE_DOCTOR })
     public PatientManagerResult update(final Patient patient) {
         return patientDao.update(patient);
     }
@@ -70,6 +71,13 @@ public class PatientManagerImpl implements PatientManager {
     @RolesAllowed(Role.ROLE_ADMIN)
     public PatientManagerResult delete(final Patient patient) {
         return patientDao.delete(patient);
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_DOCTOR)
+    public PatientManagerResult search(final PatientSearchFilter filter,
+            final Doctor doctor) {
+        return patientDao.find(filter, doctor);
     }
 
 }
