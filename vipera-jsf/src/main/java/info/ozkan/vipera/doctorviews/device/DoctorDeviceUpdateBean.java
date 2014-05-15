@@ -1,13 +1,10 @@
 package info.ozkan.vipera.doctorviews.device;
 
 import info.ozkan.vipera.business.doctorpatient.DoctorPatientFacade;
-import info.ozkan.vipera.doctorviews.DoctorSession;
+import info.ozkan.vipera.doctorviews.PatientAssignmentChecker;
 import info.ozkan.vipera.entities.Device;
-import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
 import info.ozkan.vipera.views.device.DeviceUpdateBean;
-
-import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -50,11 +47,10 @@ public class DoctorDeviceUpdateBean extends DeviceUpdateBean {
      */
     private void checkPatientForDoctor() {
         final Device device = getDevice();
-        final Doctor doctor = DoctorSession.getDoctor();
-        doctorPatientFacade.loadPatients(doctor);
         final Patient patient = device.getPatient();
-        final List<Patient> list = doctor.getPatients();
-        if (!list.contains(patient)) {
+        final boolean patientAssigned =
+                PatientAssignmentChecker.check(doctorPatientFacade, patient);
+        if (!patientAssigned) {
             final FacesContext context = FacesContext.getCurrentInstance();
             final String message = MSG_READONLY;
             context.addMessage(null, new FacesMessage(
