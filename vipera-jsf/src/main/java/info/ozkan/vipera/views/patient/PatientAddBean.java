@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -42,25 +43,30 @@ public class PatientAddBean implements Serializable {
     /**
      * TCKN kayıtlı hata mesaj başlığı
      */
-    private static final String DUPLICATE_PATIENT_ERROR = "Girdiğiniz TC kimlik numarası ile kayıtlı başka bir hasta bulunmaktadır!";
+    private static final String DUPLICATE_PATIENT_ERROR =
+            "Girdiğiniz TC kimlik numarası ile kayıtlı başka bir hasta bulunmaktadır!";
     /**
      * TCKN kayıtlı hata mesajı
      */
-    private static final FacesMessage2 DUPLICATE_PATIENT_MSG = new FacesMessage2(
-            FacesMessage.SEVERITY_ERROR, DUPLICATE_PATIENT_ERROR, "");
+    private static final FacesMessage2 DUPLICATE_PATIENT_MSG =
+            new FacesMessage2(FacesMessage.SEVERITY_ERROR,
+                    DUPLICATE_PATIENT_ERROR, "");
     /**
      * Geçersiz eposta mesaj başlığı
      */
-    private static final String EMAIL_VALIDATION_ERROR = "Girdiğiniz eposta adresi geçersiz!";
+    private static final String EMAIL_VALIDATION_ERROR =
+            "Girdiğiniz eposta adresi geçersiz!";
     /**
      * Geçersiz eposta mesajı
      */
-    private static final FacesMessage2 EMAIL_VALIDATION_ERROR_MSG = new FacesMessage2(
-            FacesMessage.SEVERITY_ERROR, EMAIL_VALIDATION_ERROR, "");
+    private static final FacesMessage2 EMAIL_VALIDATION_ERROR_MSG =
+            new FacesMessage2(FacesMessage.SEVERITY_ERROR,
+                    EMAIL_VALIDATION_ERROR, "");
     /**
      * Doğum tarihi hata mesaj başlığı
      */
-    private static final String BIRTHDAY_ERROR = "Girdiğiniz doğum tarihi bugünden önce olmalıdır!";
+    private static final String BIRTHDAY_ERROR =
+            "Girdiğiniz doğum tarihi bugünden önce olmalıdır!";
     /**
      * Doğum tarihi hata mesajı
      */
@@ -78,7 +84,7 @@ public class PatientAddBean implements Serializable {
     /**
      * Yeni hasta
      */
-    private Patient patient = new Patient();
+    protected Patient patient = new Patient();
     /**
      * Parola
      */
@@ -91,11 +97,27 @@ public class PatientAddBean implements Serializable {
      * Hesabın aktifliği
      */
     private boolean enabled = true;
+    /**
+     * Hasta sisteme kaydedildi mi
+     */
+    protected boolean patientSaved = false;
 
-    public PatientAddBean() {
+    /**
+     * son eklenen hasta
+     */
+    protected Patient addedPatient;
+
+    /**
+     * consructor
+     */
+    @PostConstruct
+    public void setUp() {
         createDefaultDate();
     }
 
+    /**
+     * varsayılan tarihi üretir
+     */
     private void createDefaultDate() {
         final Calendar calendar = new GregorianCalendar();
         calendar.set(1990, Calendar.JANUARY, 1);
@@ -106,10 +128,11 @@ public class PatientAddBean implements Serializable {
      * Hastayı sisteme kaydeder
      */
     public void save() {
+        patientSaved = false;
         final FacesContext context = FacesContext.getCurrentInstance();
         boolean success = true;
         setPassword();
-        if (checkBirthDateInPast()) {
+        if (!birthDateInPast()) {
             addMessage(context, BIRTDAY_ERROR_MSG);
             success = false;
             LOGGER.error("The new patient {}'s birthday is in future!",
@@ -127,7 +150,12 @@ public class PatientAddBean implements Serializable {
 
     }
 
-    private boolean checkBirthDateInPast() {
+    /**
+     * doğum tarihi kontrol eder
+     * 
+     * @return
+     */
+    private boolean birthDateInPast() {
         return BirthDateChecker.checkBirthDateInPast(patient.getBirthDate());
     }
 
@@ -139,12 +167,15 @@ public class PatientAddBean implements Serializable {
         final PatientManagerResult result = patientFacade.add(patient);
 
         if (result.getStatus().equals(PatientManagerStatus.SUCCESS)) {
-            final String summary = String.format(SUCCESS_MSG_FORMAT,
-                    patient.getTckn(), patient.getFullname());
-            final FacesMessage2 successMessage = new FacesMessage2(
-                    FacesMessage.SEVERITY_INFO, summary, "");
+            patientSaved = true;
+            final String summary =
+                    String.format(SUCCESS_MSG_FORMAT, patient.getTckn(),
+                            patient.getFullname());
+            final FacesMessage2 successMessage =
+                    new FacesMessage2(FacesMessage.SEVERITY_INFO, summary, "");
             addMessage(context, successMessage);
             LOGGER.info("The new patient has added! {}", patient.getFullname());
+            addedPatient = patient;
             patient = new Patient();
         } else if (result.getStatus().equals(
                 PatientManagerStatus.TCKN_HAS_EXIST)) {

@@ -1,5 +1,6 @@
 package info.ozkan.vipera.business.healthdata;
 
+import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.HealthData;
 
 /**
@@ -17,4 +18,20 @@ public interface HealthDataFacade {
      */
     HealthDataResult add(HealthData healthData);
 
+    /**
+     * Sistem üzerinde sağlık alanı arar
+     * 
+     * @param filter
+     * @return
+     */
+    HealthDataResult find(HealthDataSearchFilter filter);
+
+    /**
+     * ID ve ve hekim e göre sağlık verisi sorgular
+     * 
+     * @param id
+     * @param doctor
+     * @return
+     */
+    HealthDataResult getById(Long id, Doctor doctor);
 }

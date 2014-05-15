@@ -2,7 +2,7 @@ package info.ozkan.vipera.doctorviews.patient;
 
 import info.ozkan.vipera.business.patient.PatientManagerResult;
 import info.ozkan.vipera.business.patient.PatientSearchFilter;
-import info.ozkan.vipera.doctorviews.DoctorSession;
+import info.ozkan.vipera.doctorviews.DoctorSessionBean;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.Patient;
 import info.ozkan.vipera.views.patient.PatientBrowseBean;
@@ -30,7 +30,7 @@ public class DoctorPatientBrowseBean extends PatientBrowseBean {
     @Override
     public void search() {
         final PatientSearchFilter filter = createFilterFromModel();
-        final Doctor doctor = DoctorSession.getDoctor();
+        final Doctor doctor = DoctorSessionBean.getDoctor();
         final PatientManagerResult result = patientFacade
                 .search(filter, doctor);
         final List<Patient> list = result.getPatients();

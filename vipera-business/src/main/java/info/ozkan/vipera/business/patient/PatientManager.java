@@ -62,4 +62,13 @@ public interface PatientManager {
      * @return
      */
     PatientManagerResult search(PatientSearchFilter filter, Doctor doctor);
+
+    /**
+     * hekim ve id ye göre hasta sorgular
+     * 
+     * @param id
+     * @param doctor
+     * @return
+     */
+    PatientManagerResult getById(Long id, Doctor doctor);
 }

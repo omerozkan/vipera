@@ -2,7 +2,9 @@ package info.ozkan.vipera.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -62,9 +65,14 @@ public class HealthData implements Serializable {
     /**
      * Değerler
      */
-    @OneToMany(mappedBy = "data")
+    @OneToMany(mappedBy = "data", fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     private List<HealthDataValue> values;
+    /**
+     * arama işleminin hızlı gerçekleşmesi için oluşturulan map
+     */
+    @Transient
+    private Map<String, HealthDataValue> fieldValueMap;
 
     /**
      * @return the id
@@ -139,6 +147,51 @@ public class HealthData implements Serializable {
      */
     public void setValues(final List<HealthDataValue> values) {
         this.values = values;
+    }
+
+    /**
+     * Bir alanın değerler içerisinde yer alıp almadığını kontrol eder
+     * 
+     * @param field
+     * @return
+     */
+    public boolean exist(final HealthDataField field) {
+        checkFieldValueMap();
+        return fieldValueMap.containsKey(field.getName());
+    }
+
+    /**
+     * Alana karşılık gelen değeri dönderir
+     * 
+     * @param field
+     * @return
+     */
+    public HealthDataValue getValue(final HealthDataField field) {
+        checkFieldValueMap();
+        final String fieldName = field.getName();
+        if (fieldValueMap.containsKey(fieldName)) {
+            return fieldValueMap.get(fieldName);
+        }
+        return null;
+    }
+
+    /**
+     * Eğer fieldValueMap null ise yeni bir fieldValueMap üretir
+     */
+    private void checkFieldValueMap() {
+        if (fieldValueMap == null) {
+            initializeFieldValueMap();
+        }
+    }
+
+    /**
+     * Lazy loading için fieldValueMap alanını ilklendirir
+     */
+    private void initializeFieldValueMap() {
+        fieldValueMap = new HashMap<String, HealthDataValue>();
+        for (final HealthDataValue value : values) {
+            fieldValueMap.put(value.getField().getName(), value);
+        }
     }
 
 }

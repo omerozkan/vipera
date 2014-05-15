@@ -11,11 +11,15 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
             access="permitAll" />
         <intercept-url pattern="/yonetim/**" access="hasRole('ROLE_ADMIN')" />
         <form-login login-page="/yonetim/login.html" />
+        <logout logout-url="/yonetim/logout" invalidate-session="true"
+            delete-cookies="true" logout-success-url="/yonetim/login.html" />
     </http>
     <http auto-config="true" use-expressions="true" pattern="/hekim/**">
         <intercept-url pattern="/hekim/login.html" access="permitAll" />
         <intercept-url pattern="/hekim/**" access="hasRole('ROLE_DOCTOR')" />
         <form-login login-page="/hekim/login.html" />
+        <logout logout-url="/hekim/logout" invalidate-session="true"
+            delete-cookies="true" logout-success-url="/hekim/login.html" />
     </http>
     <beans:bean id="administratorLoginManager"
         class="info.ozkan.vipera.business.login.AdministratorLoginManager" />
@@ -43,6 +47,5 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
     </beans:bean>
     <authentication-manager alias="adminAuthManager">
         <authentication-provider ref="administratorLoginManager" />
-        <authentication-provider ref="doctorLoginManager" />
     </authentication-manager>
 </beans:beans>

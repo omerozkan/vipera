@@ -29,9 +29,15 @@ import javax.persistence.criteria.Root;
 @Named("patientDao")
 public class PatientDaoImpl implements PatientDao {
     /**
+     * ID ve hekime göre hasta sorgulayan JQL sorgusu
+     */
+    private static final String JQL_GET_PATIENT_BY_ID_AND_DOCTOR =
+            "from Patient p join fetch p.doctors d WHERE p.id = :id AND d = :doctor";
+    /**
      * ID ye göre hasta sorgulayan JQL sorgusu
      */
-    private static final String JQL_GET_BY_ID = "from Patient p WHERE p.id = :id";
+    private static final String JQL_GET_BY_ID =
+            "from Patient p WHERE p.id = :id";
     /**
      * Persistence context
      */
@@ -54,8 +60,8 @@ public class PatientDaoImpl implements PatientDao {
         final CriteriaBuilder cb = em.getCriteriaBuilder();
         final CriteriaQuery<Patient> cq = cb.createQuery(Patient.class);
         final Root<Patient> root = cq.from(Patient.class);
-        final List<Predicate> predicates = createPredicationsFromFilter(
-                filters, cb, root);
+        final List<Predicate> predicates =
+                createPredicationsFromFilter(filters, cb, root);
         cq.select(root).where(predicates.toArray(new Predicate[0]));
         return cq;
     }
@@ -74,8 +80,8 @@ public class PatientDaoImpl implements PatientDao {
         final CriteriaQuery<Patient> cq = cb.createQuery(Patient.class);
         final Root<Patient> root = cq.from(Patient.class);
         final Path<Doctor> path = root.join("doctors");
-        final List<Predicate> predicates = createPredicationsFromFilter(
-                filters, cb, root);
+        final List<Predicate> predicates =
+                createPredicationsFromFilter(filters, cb, root);
         predicates.add(cb.equal(path, doctor));
         cq.select(root).where(predicates.toArray(new Predicate[0]));
         return cq;
@@ -182,8 +188,8 @@ public class PatientDaoImpl implements PatientDao {
 
     public PatientManagerResult find(final PatientSearchFilter filter,
             final Doctor doctor) {
-        final CriteriaQuery<Patient> cq = createCriteriaFromFilter(filter,
-                doctor);
+        final CriteriaQuery<Patient> cq =
+                createCriteriaFromFilter(filter, doctor);
         final PatientManagerResult result = createManagerResultFromCriteria(cq);
         return result;
     }
@@ -217,6 +223,22 @@ public class PatientDaoImpl implements PatientDao {
     public PatientManagerResult update(final Patient patient) {
         em.merge(patient);
         return createSuccesResult(patient);
+    }
+
+    public PatientManagerResult getById(final Long id, final Doctor doctor) {
+        final PatientManagerResult result;
+        final Query query = em.createQuery(JQL_GET_PATIENT_BY_ID_AND_DOCTOR);
+        query.setParameter("id", id);
+        query.setParameter("doctor", doctor);
+        final List<Patient> list = query.getResultList();
+        if (list.size() != 0) {
+            final Patient patient = list.get(0);
+            result = createSuccesResult(patient);
+        } else {
+            result = new PatientManagerResult();
+            result.setStatus(PatientManagerStatus.NOT_FOUND);
+        }
+        return result;
     }
 
 }
