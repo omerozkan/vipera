@@ -45,7 +45,8 @@ public class DoctorUpdateBean implements Serializable {
     /**
      * Eposta geçersiz mesaj özeti
      */
-    private static final String EMAIL_INVALID_MSG = "Girdiğiniz eposta adresi geçersiz!";
+    private static final String EMAIL_INVALID_MSG =
+            "Girdiğiniz eposta adresi geçersiz!";
     /**
      * Eposta geçersiz Faces mesajı
      */
@@ -63,7 +64,7 @@ public class DoctorUpdateBean implements Serializable {
     /**
      * Doctor nesnesi
      */
-    private Doctor doctor;
+    protected Doctor doctor;
     /**
      * İşletme katmanı
      */
