@@ -78,9 +78,9 @@ body
 #context {
 	width: 958px;
 	min-height: 300px;
-	background-color: #fff;
 	margin-top: 10px;
-	border: 1px solid #ccc;
+	/*background-color: #fff;*
+	border: 1px solid #ccc;*/
 }
 
 #footer {
@@ -127,4 +127,8 @@ body
 	left: 50%;
 	margin-left: 315px;
 	text-align: right;
+}
+
+.index {
+	min-height: 450px;
 }
