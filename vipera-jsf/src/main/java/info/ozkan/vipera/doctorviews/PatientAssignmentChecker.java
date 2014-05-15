@@ -22,7 +22,7 @@ public class PatientAssignmentChecker {
      */
     public static boolean check(final DoctorPatientFacade doctorPatientFacade,
             final Patient patient) {
-        final Doctor doctor = DoctorSession.getDoctor();
+        final Doctor doctor = DoctorSessionBean.getDoctor();
         doctorPatientFacade.loadPatients(doctor);
         final List<Patient> list = doctor.getPatients();
         return list.contains(patient);

@@ -2,7 +2,7 @@ package info.ozkan.vipera.doctorviews.healthdata;
 
 import info.ozkan.vipera.business.healthdata.HealthDataFacade;
 import info.ozkan.vipera.business.healthdata.HealthDataResult;
-import info.ozkan.vipera.doctorviews.DoctorSession;
+import info.ozkan.vipera.doctorviews.DoctorSessionBean;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.HealthData;
 
@@ -51,7 +51,7 @@ public class HealthDataViewBean implements Serializable {
      */
     public void loadData() throws FacesFileNotFoundException {
         if (id != null) {
-            final Doctor doctor = DoctorSession.getDoctor();
+            final Doctor doctor = DoctorSessionBean.getDoctor();
             final HealthDataResult result =
                     healthDataFacade.getById(id, doctor);
             if (result.isSuccess()) {

@@ -5,8 +5,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 		<p:menu>
+		    <p:menuitem value="Anasayfa" url="/hekim/index.html"/>
 		    <p:submenu label="Hesabınız">
+		       <p:menuitem value="#{doctorSession.fullname}" url="#"/>
 		       <p:menuitem value="Bilgileri Güncelle" url="/hekim/doctor/doctorProfile.html"/>
+		       <p:menuitem value="Çıkış Yap" url="/hekim/logout"/>
 		    </p:submenu>
 			<p:submenu label="Hastalar">
 				<p:menuitem value="Hastalarınız" url="/hekim/patient/patientBrowse.html" />

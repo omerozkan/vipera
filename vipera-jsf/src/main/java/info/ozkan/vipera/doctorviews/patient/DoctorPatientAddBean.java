@@ -1,7 +1,7 @@
 package info.ozkan.vipera.doctorviews.patient;
 
 import info.ozkan.vipera.business.doctorpatient.DoctorPatientFacade;
-import info.ozkan.vipera.doctorviews.DoctorSession;
+import info.ozkan.vipera.doctorviews.DoctorSessionBean;
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.views.patient.PatientAddBean;
@@ -36,7 +36,7 @@ public class DoctorPatientAddBean extends PatientAddBean {
         patient.setEnable(Authorize.ENABLE);
         super.save();
         if (patientSaved) {
-            final Doctor doctor = DoctorSession.getDoctor();
+            final Doctor doctor = DoctorSessionBean.getDoctor();
             doctorPatientAssignFacade.assign(doctor, addedPatient);
         }
     }

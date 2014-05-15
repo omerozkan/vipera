@@ -1,6 +1,6 @@
 package info.ozkan.vipera.doctorviews.doctor;
 
-import info.ozkan.vipera.doctorviews.DoctorSession;
+import info.ozkan.vipera.doctorviews.DoctorSessionBean;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.views.doctor.DoctorUpdateBean;
 
@@ -28,7 +28,7 @@ public class DoctorProfileBean extends DoctorUpdateBean {
      */
     @PostConstruct
     public void setUp() {
-        final Doctor doctor = DoctorSession.getDoctor();
+        final Doctor doctor = DoctorSessionBean.getDoctor();
         setDoctor(doctor);
     }
 

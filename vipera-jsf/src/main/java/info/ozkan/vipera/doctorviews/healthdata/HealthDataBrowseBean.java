@@ -5,7 +5,7 @@ import info.ozkan.vipera.business.healthdata.HealthDataResult;
 import info.ozkan.vipera.business.healthdata.HealthDataSearchFilter;
 import info.ozkan.vipera.business.patient.PatientFacade;
 import info.ozkan.vipera.business.patient.PatientManagerResult;
-import info.ozkan.vipera.doctorviews.DoctorSession;
+import info.ozkan.vipera.doctorviews.DoctorSessionBean;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.HealthData;
 import info.ozkan.vipera.entities.Patient;
@@ -85,7 +85,7 @@ public class HealthDataBrowseBean {
      */
     public void loadPatient() {
         if (id != null) {
-            final Doctor doctor = DoctorSession.getDoctor();
+            final Doctor doctor = DoctorSessionBean.getDoctor();
             final PatientManagerResult result =
                     patientFacade.getById(id, doctor);
             if (result.isSuccess()) {
