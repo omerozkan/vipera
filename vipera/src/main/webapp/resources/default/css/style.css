@@ -120,3 +120,11 @@ body
 #context-wrapper {
 	margin-top: 5px;
 }
+
+.admin-profile {
+	position: absolute;
+	top: 125px;
+	left: 50%;
+	margin-left: 315px;
+	text-align: right;
+}
