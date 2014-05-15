@@ -1,6 +1,6 @@
 package info.ozkan.vipera.dao.healthdata;
 
-import info.ozkan.vipera.business.healthdata.HealthDataBrowseFilter;
+import info.ozkan.vipera.business.healthdata.HealthDataSearchFilter;
 import info.ozkan.vipera.business.healthdata.HealthDataResult;
 import info.ozkan.vipera.entities.HealthData;
 
@@ -25,7 +25,7 @@ public interface HealthDataDao {
      * @param filter
      * @return
      */
-    HealthDataResult find(HealthDataBrowseFilter filter);
+    HealthDataResult find(HealthDataSearchFilter filter);
 
     /**
      * Sağlık alanı sorgular

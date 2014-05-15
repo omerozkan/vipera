@@ -1,6 +1,6 @@
 package info.ozkan.vipera.dao.healthdata;
 
-import info.ozkan.vipera.business.healthdata.HealthDataBrowseFilter;
+import info.ozkan.vipera.business.healthdata.HealthDataSearchFilter;
 import info.ozkan.vipera.business.healthdata.HealthDataManagerStatus;
 import info.ozkan.vipera.business.healthdata.HealthDataResult;
 import info.ozkan.vipera.entities.HealthData;
@@ -60,7 +60,7 @@ public class HealthDataDaoImpl implements HealthDataDao {
         em = entityManager;
     }
 
-    public HealthDataResult find(final HealthDataBrowseFilter filter) {
+    public HealthDataResult find(final HealthDataSearchFilter filter) {
         final HealthDataResult result;
         final Query query = createQueryFromFilter(filter);
         final List<HealthData> list = query.getResultList();
@@ -75,7 +75,7 @@ public class HealthDataDaoImpl implements HealthDataDao {
      * @param filter
      * @return
      */
-    private Query createQueryFromFilter(final HealthDataBrowseFilter filter) {
+    private Query createQueryFromFilter(final HealthDataSearchFilter filter) {
         final CriteriaBuilder cb = em.getCriteriaBuilder();
         final CriteriaQuery<HealthData> cq = cb.createQuery(HealthData.class);
         final Root<HealthData> root = cq.from(HealthData.class);

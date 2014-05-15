@@ -63,25 +63,14 @@
 			<p:column headerText="Cinsiyeti">
 				<h:outputText value="#{patient.sex.title}" />
 			</p:column>
-
 			<p:column headerText="Doğum Tarihi">
 				<h:outputText value="#{patient.birthDate}" />
-			</p:column>
-			<p:column headerText="Baba Adı">
-				<h:outputText value="#{patient.fatherName}" />
-			</p:column>
-			<p:column headerText="Anne Adı">
-				<h:outputText value="#{patient.motherName}" />
 			</p:column>
 			<p:column headerText="Aktif">
 				<h:outputText value="#{patient.enable.title}" />
 			</p:column>
 			<ui:insert name="patient-result-buttons">
 				<p:column>
-					<p:button value="Sağlık Verileri" icon="ui-icon-print"
-						outcome="/hekim/healthdata/healthDataBrowse.html">
-						<f:param name="id" value="#{patient.id}" />
-					</p:button>
 					<p:button value="Düzenle" outcome="patientUpdate.html"
 						icon="ui-icon-pencil" iconPos="left">
 						<f:param name="id" value="#{patient.id}" />

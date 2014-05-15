@@ -24,7 +24,7 @@ public interface HealthDataFacade {
      * @param filter
      * @return
      */
-    HealthDataResult find(HealthDataBrowseFilter filter);
+    HealthDataResult find(HealthDataSearchFilter filter);
 
     /**
      * ID ve ve hekim e göre sağlık verisi sorgular

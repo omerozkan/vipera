@@ -24,7 +24,7 @@ public interface HealthDataService {
      * @param filter
      * @return
      */
-    HealthDataResult find(HealthDataBrowseFilter filter);
+    HealthDataResult find(HealthDataSearchFilter filter);
 
     /**
      * Sistemde kayıtlı bir alanı eğer hekimin görme yetkisi varsa dönderir

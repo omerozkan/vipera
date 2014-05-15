@@ -50,7 +50,7 @@ public class HealthDataServiceImpl implements HealthDataService {
 
     @Transactional
     @RolesAllowed(Role.ROLE_DOCTOR)
-    public HealthDataResult find(final HealthDataBrowseFilter filter) {
+    public HealthDataResult find(final HealthDataSearchFilter filter) {
         return healthDataDao.find(filter);
     }
 

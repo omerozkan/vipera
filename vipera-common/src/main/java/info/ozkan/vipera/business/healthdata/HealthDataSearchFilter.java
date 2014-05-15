@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Ömer Özkan
  * 
  */
-public class HealthDataBrowseFilter {
+public class HealthDataSearchFilter {
     /**
      * Hasta
      */

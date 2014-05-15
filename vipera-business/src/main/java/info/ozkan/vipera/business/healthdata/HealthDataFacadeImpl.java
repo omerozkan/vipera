@@ -24,7 +24,7 @@ public class HealthDataFacadeImpl implements HealthDataFacade {
         return healthDataService.add(healthData);
     }
 
-    public HealthDataResult find(final HealthDataBrowseFilter filter) {
+    public HealthDataResult find(final HealthDataSearchFilter filter) {
         return healthDataService.find(filter);
     }
 

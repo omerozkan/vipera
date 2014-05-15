@@ -57,15 +57,13 @@
 					</p:column>
 
 					<p:column>
-						<p:button value="Görüntüle" icon="ui-icon-extlink" outcome="healthDataView.html" >
-						  <f:param name="id" value="#{data.id}"></f:param>
-						</p:button>
+						<p:button value="Görüntüle" icon="ui-icon-extlink" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>
 		</h:form>
 		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade"
-			hideEffect="explode">
+			hideEffect="explode" width="950">
 			<ui:include src="/hekim/layout/patient/browse.xhtml" />
 		</p:dialog>
 	</ui:define>
@@ -73,7 +71,7 @@
 		<p:column>
 			<p:commandButton value="Seç"
 				actionListener="#{healthDataBrowse.selectPatient(patient)}"
-				oncomplete="ps.hide()" update=":health-data-browse" />
+				oncomplete="PF('ps').hide()" update=":health-data-browse" />
 		</p:column>
 	</ui:define>
 </ui:composition>

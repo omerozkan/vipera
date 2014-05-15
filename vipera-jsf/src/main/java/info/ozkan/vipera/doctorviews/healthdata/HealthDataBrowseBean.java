@@ -1,8 +1,8 @@
 package info.ozkan.vipera.doctorviews.healthdata;
 
-import info.ozkan.vipera.business.healthdata.HealthDataBrowseFilter;
 import info.ozkan.vipera.business.healthdata.HealthDataFacade;
 import info.ozkan.vipera.business.healthdata.HealthDataResult;
+import info.ozkan.vipera.business.healthdata.HealthDataSearchFilter;
 import info.ozkan.vipera.business.patient.PatientFacade;
 import info.ozkan.vipera.business.patient.PatientManagerResult;
 import info.ozkan.vipera.doctorviews.DoctorSession;
@@ -31,12 +31,24 @@ import org.springframework.context.annotation.Scope;
 @Named("healthDataBrowse")
 @Scope("session")
 public class HealthDataBrowseBean {
-    private static final String MSG_SELECT_PATIENT = "Lütfen hasta seçiniz!";
     /**
      * LOGGER
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HealthDataBrowseBean.class);
+    /**
+     * boş string
+     */
+    private static final String EMPTY = "";
+    /**
+     * veri bulunamadı
+     */
+    private static final String MSG_DATA_NOT_FOUND =
+            "Kayıtlı veri bulunmamaktadır!";
+    /**
+     * hasta seçiniz mesajı
+     */
+    private static final String MSG_SELECT_PATIENT = "Lütfen hasta seçiniz!";
     /**
      * Hasta id
      */
@@ -96,11 +108,11 @@ public class HealthDataBrowseBean {
      * arama işlemini gerçekleştirir
      */
     public void search() {
-        final HealthDataBrowseFilter filter = new HealthDataBrowseFilter();
+        final HealthDataSearchFilter filter = new HealthDataSearchFilter();
         final FacesContext context = FacesContext.getCurrentInstance();
         if (patient == null) {
             context.addMessage(null, new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, MSG_SELECT_PATIENT, ""));
+                    FacesMessage.SEVERITY_ERROR, MSG_SELECT_PATIENT, EMPTY));
         } else {
             filter.setPatient(patient);
             filter.setStartDate(startDate);
@@ -120,7 +132,7 @@ public class HealthDataBrowseBean {
     private void checkEmptySearch(final FacesContext context) {
         if (healthDataList.isEmpty()) {
             context.addMessage(null, new FacesMessage(
-                    FacesMessage.SEVERITY_INFO, "Hiç bir veri bulunamadı!", ""));
+                    FacesMessage.SEVERITY_INFO, MSG_DATA_NOT_FOUND, EMPTY));
         }
     }
 
