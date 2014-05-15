@@ -5,5 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	template="/hekim/layout/template.xhtml">
-	
+	<ui:define name="content">
+		<p:panel styleClass="index">
+			<div style="padding: 10px">
+				<h:outputText value="Hoş geldiniz " />
+				<h:outputText value="#{doctorSession.fullname}" styleClass="bold" />
+				<h:outputText value=", sistem ile ilgili aldığınız hataları " />
+				<p:link href="https://issues.ozkan.info/projects/bitirme-projesi"
+					target="_blank" value="hata takip sistemi" styleClass="bold" />
+				<h:outputText value="'nden gönderebilirsiniz!" />
+			</div>
+		</p:panel>
+	</ui:define>
 </ui:composition>
