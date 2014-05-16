@@ -37,4 +37,11 @@ public interface DoctorPatientManager {
      */
     DoctorPatientManagerResult removeAssignment(Doctor doctor, Patient patient);
 
+    /**
+     * Hastaya atanan hekimleri yükler
+     * 
+     * @param patient
+     */
+    void loadDoctors(Patient patient);
+
 }

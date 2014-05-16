@@ -21,9 +21,15 @@ import javax.persistence.Query;
 @Named("doctorPatientDao")
 public class DoctorPatientDaoImpl implements DoctorPatientDao {
     /**
+     * hastaya göre hekim dönderen jql sorgusu
+     */
+    private static final String JQL_GET_DOCTORS_BY_PATIENT =
+            "from Doctor d join fetch d.patients p WHERE p.id = :id";
+    /**
      * Hekime göre hasta dönderen jql sorgusu
      */
-    private static final String JQL_GET_PATIENTS_BY_DOCTOR = "from Patient p join fetch p.doctors d WHERE d.id = :id";
+    private static final String JQL_GET_PATIENTS_BY_DOCTOR =
+            "from Patient p join fetch p.doctors d WHERE d.id = :id";
     /**
      * EntityManager
      */
@@ -62,7 +68,8 @@ public class DoctorPatientDaoImpl implements DoctorPatientDao {
      */
     private DoctorPatientManagerResult createSuccessAssignResult(
             final Doctor doctor, final Patient patient) {
-        final DoctorPatientManagerResult result = new DoctorPatientManagerResult();
+        final DoctorPatientManagerResult result =
+                new DoctorPatientManagerResult();
         result.setStatus(DoctorPatientManagerStatus.SUCCESS);
         result.setDoctor(doctor);
         result.setPatient(patient);
@@ -95,4 +102,14 @@ public class DoctorPatientDaoImpl implements DoctorPatientDao {
         em = entityManager;
     }
 
+    public void loadDoctorsByPatient(final Patient patient) {
+        final List<Doctor> doctorList = getDoctorsByPatientId(patient.getId());
+        patient.setDoctors(doctorList);
+    }
+
+    private List<Doctor> getDoctorsByPatientId(final Long id) {
+        final Query query = em.createQuery(JQL_GET_DOCTORS_BY_PATIENT);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
 }

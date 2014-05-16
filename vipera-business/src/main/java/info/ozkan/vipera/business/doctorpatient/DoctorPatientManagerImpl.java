@@ -93,7 +93,8 @@ public class DoctorPatientManagerImpl implements DoctorPatientManager {
      * @return
      */
     private DoctorPatientManagerResult assigmentNotExistResult() {
-        final DoctorPatientManagerResult result = new DoctorPatientManagerResult();
+        final DoctorPatientManagerResult result =
+                new DoctorPatientManagerResult();
         result.setStatus(DoctorPatientManagerStatus.ASSIGNMENT_NOT_EXIST);
         return null;
     }
@@ -104,7 +105,8 @@ public class DoctorPatientManagerImpl implements DoctorPatientManager {
      * @return
      */
     private DoctorPatientManagerResult doctorNotExistResult() {
-        final DoctorPatientManagerResult result = new DoctorPatientManagerResult();
+        final DoctorPatientManagerResult result =
+                new DoctorPatientManagerResult();
         result.setStatus(DoctorPatientManagerStatus.DOCTOR_NOT_EXIST);
         return result;
     }
@@ -115,7 +117,8 @@ public class DoctorPatientManagerImpl implements DoctorPatientManager {
      * @return
      */
     private DoctorPatientManagerResult successResult() {
-        final DoctorPatientManagerResult result = new DoctorPatientManagerResult();
+        final DoctorPatientManagerResult result =
+                new DoctorPatientManagerResult();
         result.setStatus(DoctorPatientManagerStatus.SUCCESS);
         return result;
     }
@@ -133,6 +136,13 @@ public class DoctorPatientManagerImpl implements DoctorPatientManager {
      */
     public void setDoctorDao(final DoctorDao doctorDao) {
         this.doctorDao = doctorDao;
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_PATIENT)
+    public void loadDoctors(final Patient patient) {
+        doctorPatientDao.loadDoctorsByPatient(patient);
+
     }
 
 }

@@ -39,6 +39,11 @@ body
     margin: 150px auto;
 }
 
+.patientLoginPanel {
+	width: 310px;
+    margin: 150px auto;
+}
+
 /*----HEADER------*/
 
 #header
