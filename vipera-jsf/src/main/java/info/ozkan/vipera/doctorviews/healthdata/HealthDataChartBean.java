@@ -19,9 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,7 +92,7 @@ public class HealthDataChartBean {
     /**
      * chart
      */
-    private LineChartModel lineChartModel;
+    private CartesianChartModel lineChartModel;
     /**
      * chart render edilsin mi
      */
@@ -180,7 +178,7 @@ public class HealthDataChartBean {
      * @param datas
      */
     private void createChart(final List<HealthData> datas) {
-        final LineChartModel model = new LineChartModel();
+        final CartesianChartModel model = new CartesianChartModel();
         for (final String fieldName : selectedFields) {
             final HealthDataField field =
                     healthDataFieldFacade.getField(fieldName);
@@ -203,12 +201,6 @@ public class HealthDataChartBean {
      * grafiği yapılandırır
      */
     private void configureChart() {
-        lineChartModel.setTitle(CHART_TITLE);
-        final Axis axis = lineChartModel.getAxis(AxisType.X);
-        axis.setLabel(CHART_X_TITLE);
-        lineChartModel.setLegendPosition("e");
-        lineChartModel.setShowPointLabels(true);
-        lineChartModel.setShowPointLabels(false);
         renderChart = true;
     }
 
@@ -299,7 +291,7 @@ public class HealthDataChartBean {
     /**
      * @return the lineChartModel
      */
-    public LineChartModel getLineChartModel() {
+    public CartesianChartModel getLineChartModel() {
         return lineChartModel;
     }
 
@@ -307,7 +299,7 @@ public class HealthDataChartBean {
      * @param lineChartModel
      *            the lineChartModel to set
      */
-    public void setLineChartModel(final LineChartModel lineChartModel) {
+    public void setLineChartModel(final CartesianChartModel lineChartModel) {
         this.lineChartModel = lineChartModel;
     }
 

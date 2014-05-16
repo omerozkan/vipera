@@ -41,10 +41,9 @@
 			</p:panel>
 			<p:dialog header="İstatistikler" widgetVar="chartDialog"
 				showEffect="explode" hideEffect="explode" width="950">
-				<p:chart type="line" style="height: 500px; width: 950px"
-					model="#{healthDataChart.lineChartModel}"
-					rendered="#{healthDataChart.renderChart}">
-				</p:chart>
+				<p:lineChart value="#{healthDataChart.lineChartModel}"
+					rendered="#{healthDataChart.renderChart}" legendPosition="e"
+					title="Veriler" style="width: 945px; height: 500px;"/>
 			</p:dialog>
 		</h:form>
 		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade"

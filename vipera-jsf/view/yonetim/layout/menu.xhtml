@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	<p:menubar>
-	   <p:menuitem value="Anasayfa" url="/yonetim/index.html" />
+		<p:menuitem value="Anasayfa" url="/yonetim/index.html" />
 		<p:submenu label="Hekimler">
 			<p:menuitem value="Hekim Listesi"
 				url="/yonetim/doctor/doctorBrowse.html" />
@@ -33,7 +33,10 @@
 		</p:submenu>
 	</p:menubar>
 	<div class="admin-profile">
-		<h:outputText value="#{adminSession.username} | " styleClass="ui-widget"/>
-		<p:link href="/yonetim/logout" value="Çıkış Yap" />
+		<h:outputText value="#{adminSession.username} | "
+			styleClass="ui-widget" />
+		<h:outputLink value="#{request.contextPath}/yonetim/logout" styleClass="ui-widget">
+                       Çıkış Yap
+                    </h:outputLink>
 	</div>
 </ui:composition>

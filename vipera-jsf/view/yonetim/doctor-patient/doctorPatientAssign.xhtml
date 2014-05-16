@@ -85,7 +85,7 @@
 		<p:column>
 			<p:commandButton value="Seç"
 				actionListener="#{doctorPatientAssign.selectDoctor(doctor)}"
-				oncomplete="ds.hide()" update=":doctor-patient:doctor-panel" />
+				oncomplete="PF('ds').hide()" update=":doctor-patient:doctor-panel" />
 		</p:column>
 	</ui:define>
 	<ui:define name="patient-result-buttons">

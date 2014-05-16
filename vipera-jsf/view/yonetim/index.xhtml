@@ -11,8 +11,11 @@
 				<h:outputText value="Hoş geldiniz " />
 				<h:outputText value="#{adminSession.username}" styleClass="bold" />
 				<h:outputText value=", sistem ile ilgili aldığınız hataları " />
-				<p:link href="https://issues.ozkan.info/projects/bitirme-projesi"
-					target="_blank" value="hata takip sistemi" styleClass="bold" />
+				<h:outputLink
+					value="https://issues.ozkan.info/projects/bitirme-projesi"
+					target="_blank" styleClass="bold">
+					   hata takip sistemi
+					</h:outputLink>
 				<h:outputText value="'nden gönderebilirsiniz!" />
 			</div>
 		</p:panel>
