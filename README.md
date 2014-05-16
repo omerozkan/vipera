@@ -16,8 +16,8 @@ bulunduğu ana dizinde "mvn clean install" komutunu çalıştırmanız yeterlidi
 Uygulamayı Gereksinimleri
 ---------------------------
 
-JDK 1.7+
-Servlet Container (Tomcat, Jetty, vs)
+- JDK 1.7+
+- Servlet Container (Tomcat, Jetty, vs)
 
 
 Kullanılan Teknolojiler
