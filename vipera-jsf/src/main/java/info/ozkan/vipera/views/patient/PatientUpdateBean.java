@@ -36,15 +36,18 @@ public class PatientUpdateBean {
     /**
      * Beklenmeyen hata mesajı
      */
-    private static final String UNEXPECTED_ERROR_MSG = "Hasta güncellenemedi! Beklenmeyen hata!";
+    private static final String UNEXPECTED_ERROR_MSG =
+            "Hasta güncellenemedi! Beklenmeyen hata!";
     /**
      * Doğum tarihi geçersiz hata mesajı
      */
-    private static final String BIRTH_DATE_INVALID_ERROR_MSG = "Girdiğiniz doğum tarihi geçersiz!";
+    private static final String BIRTH_DATE_INVALID_ERROR_MSG =
+            "Girdiğiniz doğum tarihi geçersiz!";
     /**
      * Eposta geçersiz hata mesajı
      */
-    private static final String EMAIL_INVALID_ERROR_MSG = "Girdiğiniz eposta adresi geçersiz!";
+    private static final String EMAIL_INVALID_ERROR_MSG =
+            "Girdiğiniz eposta adresi geçersiz!";
     /**
      * Boş string
      */
@@ -69,7 +72,7 @@ public class PatientUpdateBean {
     /**
      * Üye aktifliği
      */
-    private boolean enabled;
+    protected boolean enabled;
     /**
      * hasta yeniden yüklensin mi
      */
@@ -115,7 +118,7 @@ public class PatientUpdateBean {
     /**
      * Hastanın üye aktifliğini nesneye atar
      */
-    private void setPatientActivation() {
+    protected void setPatientActivation() {
         if (enabled) {
             patient.setEnable(Authorize.ENABLE);
         } else {
@@ -147,10 +150,11 @@ public class PatientUpdateBean {
     private void updatePatient() {
         final PatientManagerResult result = patientFacade.update(patient);
         if (isSuccess(result)) {
-            final String message = String.format("%s %s güncellendi!",
-                    patient.getTckn(), patient.getFullname());
+            final String message =
+                    String.format("%s %s güncellendi!", patient.getTckn(),
+                            patient.getFullname());
             createSuccessMessage(message);
-            LOGGER.error("The patient({}-{}) has been updated!",
+            LOGGER.info("The patient({}-{}) has been updated!",
                     patient.getTckn(), patient.getFullname());
         } else {
             createErrorMessage(UNEXPECTED_ERROR_MSG);
