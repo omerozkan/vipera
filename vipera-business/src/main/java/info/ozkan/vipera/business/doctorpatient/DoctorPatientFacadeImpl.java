@@ -66,4 +66,9 @@ public class DoctorPatientFacadeImpl implements DoctorPatientFacade {
         return result;
     }
 
+    public void loadDoctors(final Patient patient) {
+        doctorPatientManager.loadDoctors(patient);
+
+    }
+
 }

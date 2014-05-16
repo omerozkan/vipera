@@ -21,10 +21,33 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
         <logout logout-url="/hekim/logout" invalidate-session="true"
             delete-cookies="true" logout-success-url="/hekim/login.html" />
     </http>
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/index.html" access="permitAll" />
+        <intercept-url pattern="/hasta/login.html" access="permitAll" />
+        <intercept-url pattern="/hasta/**" access="hasRole('ROLE_PATIENT')" />
+        <form-login login-page="/hasta/login.html" />
+        <form-login login-page="/index.html" />
+        <logout logout-url="/hasta/logout" invalidate-session="true"
+            delete-cookies="true" logout-success-url="/hasta/login.html" />
+    </http>
     <beans:bean id="administratorLoginManager"
         class="info.ozkan.vipera.business.login.AdministratorLoginManager" />
     <beans:bean id="doctorLoginManager"
         class="info.ozkan.vipera.business.login.DoctorLoginManager" />
+    <beans:bean id="patientLoginManager"
+        class="info.ozkan.vipera.business.login.PatientLoginManager" />
+    
+    <beans:bean id="patientAuthManager"
+        class="org.springframework.security.authentication.ProviderManager">
+        <beans:constructor-arg name="providers">
+            <beans:list>
+                <beans:ref bean="patientLoginManager" />
+            </beans:list>
+        </beans:constructor-arg>
+        <beans:property name="eraseCredentialsAfterAuthentication"
+            value="true" />
+    </beans:bean>
+    
     <beans:bean id="doctorAuthManager"
         class="org.springframework.security.authentication.ProviderManager">
         <beans:constructor-arg name="providers">
@@ -35,6 +58,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
         <beans:property name="eraseCredentialsAfterAuthentication"
             value="true" />
     </beans:bean>
+    
     <beans:bean id="adminAuthManager"
         class="org.springframework.security.authentication.ProviderManager">
         <beans:constructor-arg name="providers">
@@ -45,6 +69,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
         <beans:property name="eraseCredentialsAfterAuthentication"
             value="true" />
     </beans:bean>
+    
     <authentication-manager alias="adminAuthManager">
         <authentication-provider ref="administratorLoginManager" />
     </authentication-manager>

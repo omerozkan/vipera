@@ -47,7 +47,7 @@ public class PatientManagerImpl implements PatientManager {
     }
 
     @Transactional
-    @RolesAllowed({ Role.ROLE_ADMIN, Role.ROLE_DOCTOR })
+    @RolesAllowed({ Role.ROLE_ADMIN, Role.ROLE_DOCTOR, Role.ROLE_PATIENT })
     public PatientManagerResult update(final Patient patient) {
         return patientDao.update(patient);
     }

@@ -57,7 +57,9 @@
 					</p:column>
 
 					<p:column>
-						<p:button value="Görüntüle" icon="ui-icon-extlink" />
+						<p:button value="Görüntüle" icon="ui-icon-extlink" outcome="healthDataView.html">
+						  <f:param name="id" value="#{data.id}" />
+						</p:button>
 					</p:column>
 				</p:dataTable>
 			</p:panel>

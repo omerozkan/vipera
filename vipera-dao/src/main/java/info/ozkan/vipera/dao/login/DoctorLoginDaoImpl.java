@@ -20,6 +20,7 @@ import javax.persistence.Query;
  */
 @Named("doctorLoginDao")
 public class DoctorLoginDaoImpl implements DoctorLoginDao {
+    private static final String JQL_GET_BY_TCKN = "from Doctor d WHERE d.tckn = :tckn AND enabled = :enabled";
     /**
      * EntityManager
      */
@@ -28,7 +29,7 @@ public class DoctorLoginDaoImpl implements DoctorLoginDao {
     public DoctorLoginResult find(final Long tckn, final String password) {
         final DoctorLoginResult result = new DoctorLoginResult();
         final Query query = em
-                .createQuery("from Doctor d WHERE d.tckn = :tckn AND enabled = :enabled");
+                .createQuery(JQL_GET_BY_TCKN);
         query.setParameter("tckn", tckn);
         query.setParameter("enabled", Authorize.ENABLE);
         final List<Doctor> list = query.getResultList();
