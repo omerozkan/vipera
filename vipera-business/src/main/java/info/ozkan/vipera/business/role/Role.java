@@ -15,6 +15,10 @@ public class Role {
      * Hekim rolü
      */
     public static final String ROLE_DOCTOR = "ROLE_DOCTOR";
+    /**
+     * Hasta rolü
+     */
+    public static final String ROLE_PATIENT = "ROLE_PATIENT";
 
     /**
      * private
