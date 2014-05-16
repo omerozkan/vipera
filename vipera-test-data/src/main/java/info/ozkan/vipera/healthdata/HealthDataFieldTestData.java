@@ -15,7 +15,15 @@ public class HealthDataFieldTestData {
     /**
      * Alanlar
      */
-    private static final Map<Integer, HealthDataField> fields = new HashMap<Integer, HealthDataField>();
+    private static final Map<Integer, HealthDataField> FIELDS =
+            new HashMap<Integer, HealthDataField>();
+
+    /**
+     * alan adları
+     */
+    private static final String[] FIELD_NAMES = { "pulse", "systolic",
+            "diastolic", "respirations", "pulseOximetry", "bodyTemp", "bmi",
+            "glucoseLevel" };
 
     /**
      * utility class
@@ -31,24 +39,21 @@ public class HealthDataFieldTestData {
      * @return
      */
     public static HealthDataField getTestData(final int key) {
-        if (fields.isEmpty()) {
+        if (FIELDS.isEmpty()) {
             initiAlizeTestData();
         }
-        return fields.get(key);
+        return FIELDS.get(key);
     }
 
     /**
-     * Test verilerini üretir
+     * Test alanlarını üretir
      */
     private static void initiAlizeTestData() {
-        for (int i = 8; i < 12; i++) {
+        for (int i = 0; i < FIELD_NAMES.length; i++) {
             final HealthDataField field = new HealthDataField();
-            field.setId(Long.valueOf(i));
-            field.setName("testField" + i);
-            field.setTitle("Test Field " + i);
-            field.setUnit("tph");
-            fields.put(i - 8, field);
+            field.setName(FIELD_NAMES[i]);
+            FIELDS.put(i, field);
         }
-    }
 
+    }
 }

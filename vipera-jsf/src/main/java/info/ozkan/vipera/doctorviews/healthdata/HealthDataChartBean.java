@@ -206,9 +206,9 @@ public class HealthDataChartBean {
         lineChartModel.setTitle(CHART_TITLE);
         final Axis axis = lineChartModel.getAxis(AxisType.X);
         axis.setLabel(CHART_X_TITLE);
-        axis.setTickCount(1);
         lineChartModel.setLegendPosition("e");
         lineChartModel.setShowPointLabels(true);
+        lineChartModel.setShowPointLabels(false);
         renderChart = true;
     }
 

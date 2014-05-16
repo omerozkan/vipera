@@ -3,7 +3,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-
     <changeSet id="0-hsqldb" author="Omer Ozkan" dbms="hsqldb">
         <createSequence sequenceName="hibernate_sequence" />
         <alterSequence sequenceName="hibernate_sequence"
@@ -130,7 +129,7 @@
                     unique="true" />
             </column>
             <column name="title" type="varchar(255)" />
-            <column name="unit" type="varchar(10)" />
+            <column name="unit" type="varchar(255)" />
         </createTable>
     </changeSet>
     <changeSet id="6-devices" author="Omer Ozkan">
@@ -295,53 +294,78 @@
             <column name="patient_id" type="bigint">7</column>
         </insert>
     </changeSet>
-    <changeSet id="test-5" author="Omer Ozkan" context="test">
+    <changeSet id="data-5" author="Omer Ozkan" >
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">8</column>
-            <column name="name">testField8</column>
-            <column name="title">Test Field 8</column>
-            <column name="unit">tph</column>
+            <column name="name">pulse</column>
+            <column name="title">Pulse</column>
+            <column name="unit">bpm</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">9</column>
-            <column name="name">testField9</column>
-            <column name="title">Test Field 9</column>
-            <column name="unit">tph</column>
+            <column name="name">systolic</column>
+            <column name="title">Systolic Blood Presure</column>
+            <column name="unit">mmHg</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">10</column>
-            <column name="name">testField10</column>
-            <column name="title">Test Field 10</column>
-            <column name="unit">tph</column>
+            <column name="name">diastolic</column>
+            <column name="title">Diastolic Blood Presure</column>
+            <column name="unit">mmHg</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">11</column>
-            <column name="name">testField11</column>
-            <column name="title">Test Field 11</column>
-            <column name="unit">tph</column>
+            <column name="name">respirations</column>
+            <column name="title">Respirations</column>
+            <column name="unit">breaths per minute</column>
+        </insert>
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">12</column>
+            <column name="name">pulseOximetry</column>
+            <column name="title">Pulse Oximetry</column>
+            <column name="unit">%</column>
+        </insert>
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">13</column>
+            <column name="name">bodyTemp</column>
+            <column name="title">Body Temprature</column>
+            <column name="unit">C</column>
+        </insert>
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">14</column>
+            <column name="name">bmi</column>
+            <column name="title">Body Mask Index</column>
+            <column name="unit">kg/m2</column>
+        </insert>
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">15</column>
+            <column name="name">glucoseLevel</column>
+            <column name="title">Blood Glucose Level</column>
+            <column name="unit">mg/dl</column>
         </insert>
     </changeSet>
     <changeSet id="test-6" author="Omer Ozkan" context="test">
         <insert tableName="DEVICES">
-            <column name="id">12</column>
+            <column name="id">16</column>
             <column name="api_key">u8UAvzOTL1zJp87o</column>
             <column name="api_password">lFQ0BbsmGpfpAAI5</column>
             <column name="patient_id" >5</column>
             <column name="enabled">1</column>
         </insert>
         <insert tableName="DEVICES">
-            <column name="id">13</column>
+            <column name="id">17</column>
             <column name="api_key">UuIpbdV3W9a1IZny</column>
             <column name="api_password">34e3TnPyRC3WLhOt</column>
             <column name="patient_id" >6</column>
             <column name="enabled">1</column>
         </insert>
         <insert tableName="DEVICES">
-            <column name="id">14</column>
+            <column name="id">18</column>
             <column name="api_key">A9tydtP08vMQEwpx</column>
             <column name="api_password">vtnP22YGNci3m3po</column>
             <column name="patient_id" >7</column>
             <column name="enabled">1</column>
         </insert>
     </changeSet>
+    <include file="classpath:liquibase/db.changelog-healthdatas.xml"/>
 </databaseChangeLog>
