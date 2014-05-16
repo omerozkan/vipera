@@ -86,6 +86,9 @@ public class HealthDataAddService {
     @Path("/add")
     public Response addHealthData(final String body) {
         model = gson.fromJson(body, HealthDataModel.class);
+        if (model == null) {
+            return Response.status(400).build();
+        }
         final boolean credentialValid = checkCredential();
         if (!credentialValid) {
             response = Response.status(403).build();

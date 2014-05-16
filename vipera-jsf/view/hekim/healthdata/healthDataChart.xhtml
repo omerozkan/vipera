@@ -8,7 +8,7 @@
 	<ui:define name="title">Sağlık Verileri | Vipera Hekim</ui:define>
 	<ui:define name="content">
 		<h:form id="health-data-bar">
-		  <p:growl id="growl" />
+			<p:growl id="growl" />
 			<p:panel id="panel" header="Sağlık Verileri">
 				<h:panelGrid columns="3" cellspacing="10" cellpadding="5"
 					columnClasses="bold, normal">
@@ -34,12 +34,18 @@
 							itemLabel="#{field.title}" itemValue="#{field.name}" />
 					</p:selectCheckboxMenu>
 					<p:commandButton value="Görüntüle" icon="ui-icon-image"
-						actionListener="#{healthDataChart.show}" update=":health-data-bar"/>
+						actionListener="#{healthDataChart.show}" update=":health-data-bar"
+						oncomplete="PF('chartDialog').show()" />
 				</h:panelGrid>
-				<p:chart type="line" style="height: 500px;"
-					model="#{healthDataChart.lineChartModel}" rendered="#{healthDataChart.renderChart}"/>
 
 			</p:panel>
+			<p:dialog header="İstatistikler" widgetVar="chartDialog"
+				showEffect="explode" hideEffect="explode" width="950">
+				<p:chart type="line" style="height: 500px; width: 950px"
+					model="#{healthDataChart.lineChartModel}"
+					rendered="#{healthDataChart.renderChart}">
+				</p:chart>
+			</p:dialog>
 		</h:form>
 		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade"
 			hideEffect="explode" width="950">
