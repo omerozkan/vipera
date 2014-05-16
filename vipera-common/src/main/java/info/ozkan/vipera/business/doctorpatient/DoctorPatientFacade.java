@@ -41,4 +41,11 @@ public interface DoctorPatientFacade {
      * @return
      */
     DoctorPatientManagerResult removeAssignment(Doctor doctor, Patient patient);
+
+    /**
+     * Hastaya ait hekimleri yüker
+     * 
+     * @param patient
+     */
+    void loadDoctors(Patient patient);
 }

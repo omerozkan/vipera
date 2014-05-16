@@ -21,7 +21,8 @@ public interface DoctorPatientDao {
      *            Hasta
      * @return
      */
-    DoctorPatientManagerResult addPatientToDoctor(Doctor doctor, Patient patient);
+    DoctorPatientManagerResult
+            addPatientToDoctor(Doctor doctor, Patient patient);
 
     /**
      * Hekime ait hastaları veritabanından bularak hekim nesnesine atanma
@@ -30,5 +31,12 @@ public interface DoctorPatientDao {
      * @param doctor
      */
     void loadPatientsByDoctor(Doctor doctor);
+
+    /**
+     * Hastaya ait hekimleri veritabanından bulara nesnesine atama işlemi yapar
+     * 
+     * @param patient
+     */
+    void loadDoctorsByPatient(Patient patient);
 
 }

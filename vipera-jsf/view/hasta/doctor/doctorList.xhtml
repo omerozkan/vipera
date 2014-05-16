@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/hasta/layout/template.xhtml">
+	<ui:define name="title">Hekimleriniz | Vipera Hasta</ui:define>
+	<ui:define name="content">
+		<p:panel header="Hekim Listeniz">
+			<ui:repeat var="doctor" value="#{doctorList.doctors}">
+				<p:panel>
+					<h:panelGrid columns="2" columnClasses="bold, normal"
+						cellpadding="10" cellspacing="5">
+						<h:outputText value="Hekimin Adı:" />
+						<h:outputText value="#{doctor.fullname}" />
+						<h:outputText value="Uzmanlık Alanı:" />
+						<h:outputText value="#{doctor.province}" />
+						<h:outputText value="Telefonu:" />
+						<h:outputText value="#{doctor.phone}" />
+						<h:outputText value="Cep Telefonu:" />
+						<h:outputText value="#{doctor.mobilePhone}" />
+						<h:outputText value="ePosta Adresi:" />
+						<h:outputText value="#{doctor.email}" />
+						<h:outputText value="Websayfası:" />
+						<h:outputText value="#{doctor.webpage}" />
+					</h:panelGrid>
+				</p:panel>
+			</ui:repeat>
+		</p:panel>
+	</ui:define>
+</ui:composition>
