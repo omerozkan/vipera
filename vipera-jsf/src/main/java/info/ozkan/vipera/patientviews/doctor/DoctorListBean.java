@@ -25,6 +25,9 @@ public class DoctorListBean {
      * hekim listesi
      */
     private List<Doctor> doctors;
+    /**
+     * business
+     */
     @Inject
     private DoctorPatientFacade doctorPatientFacade;
 
@@ -36,6 +39,9 @@ public class DoctorListBean {
         return doctors;
     }
 
+    /**
+     * sistemden hekimleri sorgular
+     */
     private void getDoctorFromSystem() {
         final Patient patient = PatientSessionBean.getPatient();
         doctorPatientFacade.loadDoctors(patient);
