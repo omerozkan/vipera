@@ -74,10 +74,10 @@
 				<p:commandButton value="Kaydet" actionListener="#{doctorPatientAssign.assign}" style="margin-top: 20px" update="@form"/>
 			</p:panel>
 		</h:form>
-		<p:dialog header="Hekim Seç" widgetVar="ds" showEffect="explode">
+		<p:dialog header="Hekim Seç" widgetVar="ds" showEffect="explode" width="950">
 			<ui:include src="/yonetim/layout/doctor/browse.xhtml" />
 		</p:dialog>
-		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="explode">
+		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="explode" width="950">
 			<ui:include src="/yonetim/layout/patient/browse.xhtml" />
 		</p:dialog>
 	</ui:define>
