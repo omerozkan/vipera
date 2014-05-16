@@ -117,6 +117,11 @@ public class HealthDataAPITest {
         Assert.assertThat(result, containsString("200"));
     }
 
+    /**
+     * test verilerini girer
+     * 
+     * @throws Exception
+     */
     @Test
     public void generateTestData() throws Exception {
         for (int i = 0; i < 3; i++) {
@@ -167,12 +172,15 @@ public class HealthDataAPITest {
         model.setApiPassword(password);
     }
 
+    /**
+     * rastgele veriler üretir
+     */
     private List<HealthDataModel> generateRandomValues(final String apiKey,
             final String password) {
         final List<HealthDataModel> modelList =
                 new ArrayList<HealthDataModel>();
         final Random random = new Random();
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 50; i++) {
             final List<HealthDataValueModel> valueModels =
                     new ArrayList<HealthDataValueModel>();
             final HealthDataModel model = new HealthDataModel();
