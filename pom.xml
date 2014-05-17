@@ -50,13 +50,10 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.5.1</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>deployment</serverId>
                     <nexusUrl>http://repository.ozkan.info</nexusUrl>
-                    <!-- update this to the correct id! -->
-                    <stagingProfileId>1296f79efe04a4d0</stagingProfileId>
                 </configuration>
             </plugin>
         </plugins>
