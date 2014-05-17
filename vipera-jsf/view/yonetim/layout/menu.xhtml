@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<p:menubar>
+		<p:menuitem value="Anasayfa" url="/yonetim/index.html" />
+		<p:submenu label="Hekimler">
+			<p:menuitem value="Hekim Listesi"
+				url="/yonetim/doctor/doctorBrowse.html" />
+			<p:menuitem value="Hekim Ekle" url="/yonetim/doctor/doctorAdd.html" />
+			<p:menuitem value="Hasta Atama"
+				url="/yonetim/doctor-patient/doctorPatientAssign.html" />
+			<p:menuitem value="Atanan Hastalar"
+				url="/yonetim/doctor/doctorPatientList.html" />
+		</p:submenu>
+		<p:submenu label="Hastalar">
+			<p:menuitem value="Hasta Listesi"
+				url="/yonetim/patient/patientBrowse.html" />
+			<p:menuitem value="Hasta Ekle" url="/yonetim/patient/patientAdd.html" />
+			<p:menuitem value="Hekim Atama"
+				url="/yonetim/doctor-patient/doctorPatientAssign.html" />
+		</p:submenu>
+		<p:submenu label="Sağlık Verileri">
+			<p:menuitem value="Sağlık Verisi Alanları"
+				url="/yonetim/healthdata/healthDataFields.html" />
+		</p:submenu>
+		<p:submenu label="Cihazlar / API">
+			<p:menuitem value="Cihaz/API Ekle"
+				url="/yonetim/device/deviceAdd.html" />
+			<p:menuitem value="Cihaz Ara" url="/yonetim/device/deviceBrowse.html" />
+		</p:submenu>
+	</p:menubar>
+	<div class="admin-profile">
+		<h:outputText value="#{adminSession.username} | "
+			styleClass="ui-widget" />
+		<h:outputLink value="#{request.contextPath}/yonetim/logout" styleClass="ui-widget">
+                       Çıkış Yap
+                    </h:outputLink>
+	</div>
+</ui:composition>

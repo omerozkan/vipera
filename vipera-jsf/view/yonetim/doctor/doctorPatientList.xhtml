@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<f:metadata>
+		<f:viewParam name="id" value="#{doctorPatientList.id}" />
+		<f:event listener="#{doctorPatientList.loadDoctor}"
+			type="preRenderView" />
+	</f:metadata>
+	<ui:param name="selectedDoctor" value="#{doctorPatientList.doctor}" />
+	<ui:define name="title">#{doctor.fullname} Hasta Listesi | Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="doctor-patient-form">
+			<p:panel id="doctor-patient-list">
+				<p:messages id="msg" />
+				<p:panel header="Hekim Bilgileri">
+
+					<h:panelGrid columns="3" columnClasses="bold, normal">
+						<h:outputLabel value="T.C. Kimlik No:" for="tckn" />
+						<p:inputText value="#{selectedDoctor.tckn}" id="tckn"
+							disabled="true" />
+						<p:commandButton id="doctor-search" icon="ui-icon-search"
+							onclick="PF('ds').show()" type="button" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="bold, normal">
+						<h:outputText value="Hekim:" />
+						<h:outputText value="#{selectedDoctor.fullname}" />
+					</h:panelGrid>
+				</p:panel>
+
+				<div class="operations">
+					<p:button value="Yeni Hasta Ata" icon="ui-icon-document" outcome="/yonetim/doctor-patient/doctorPatientAssign.html" >
+					   <f:param name="doctorId" value="#{selectedDoctor.id}" />
+					</p:button>
+				</div>
+				<div class="clear" />
+				<p:dataTable id="results" value="#{selectedDoctor.patients}"
+					var="patient" paginator="true" rows="25"
+					emptyMessage="Atanmış bir hasta bulunamadı.">
+					<f:facet name="header">
+                  Hastalar
+              </f:facet>
+					<p:column headerText="T.C. Kimlik No">
+						<h:outputText value="#{patient.tckn}" />
+					</p:column>
+					<p:column headerText="Adı Soyadı">
+						<h:outputText value="#{patient.fullname}" />
+					</p:column>
+					<p:column headerText="Cinsiyeti">
+						<h:outputText value="#{patient.sex.title}" />
+					</p:column>
+
+					<p:column headerText="Doğum Tarihi">
+						<h:outputText value="#{patient.birthDate}" />
+					</p:column>
+					<p:column headerText="Baba Adı">
+						<h:outputText value="#{patient.fatherName}" />
+					</p:column>
+					<p:column headerText="Anne Adı">
+						<h:outputText value="#{patient.motherName}" />
+					</p:column>
+					<p:column>
+						<p:button value="Düzenle" icon="ui-icon-pencil" iconPos="left"
+							outcome="/yonetim/patient/patientUpdate.html">
+							<f:param name="id" value="#{patient.id}" />
+						</p:button>
+						<p:commandButton value="Kaldır" icon="ui-icon-trash"
+							iconPos="left"
+							actionListener="#{doctorPatientList.removeAssignment(patient)}"
+							update="@form" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+		<p:dialog header="Hekim Seç" widgetVar="ds" showEffect="explode" width="950">
+			<ui:include src="/yonetim/layout/doctor/browse.xhtml" />
+		</p:dialog>
+	</ui:define>
+	<ui:define name="doctor-result-buttons">
+		<p:column>
+			<p:commandButton value="Seç"
+				actionListener="#{doctorPatientList.selectDoctor(doctor)}"
+				oncomplete="ds.hide()"
+				update=":doctor-patient-form:doctor-patient-list" />
+		</p:column>
+	</ui:define>
+</ui:composition>

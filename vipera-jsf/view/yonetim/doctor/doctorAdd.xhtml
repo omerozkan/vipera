@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<ui:define name="title">Hekim Ekle | Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="doctor-add">
+			<p:panel id="panel" header="Yeni Hekim">
+				<p:messages id="msgs" autoUpdate="true" showDetail="false"/>
+				<h:panelGrid columns="3" cellpadding="20"
+					style="padding-left: 30px; margin-top: 10px">
+
+					<h:outputText value="T.C. Kimlik No:" />
+					<p:inputMask mask="99999999999" id="tckn" required="true"
+						value="#{doctorAdd.doctor.tckn}"
+						requiredMessage="TC Kimlik Numarası boş bırakılamaz!" 
+						converterMessage="TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!"
+						/>
+					<p:message for="tckn" display="icon" />
+
+					<h:outputText value="Adı:" />
+					<p:inputText id="name" required="true"
+						value="#{doctorAdd.doctor.name}"
+						requiredMessage="Hekim adı boş bırakılamaz!" />
+					<p:message for="name" display="icon" />
+
+					<h:outputText value="Soyadı:" />
+					<p:inputText id="surname" required="true"
+						value="#{doctorAdd.doctor.surname}"
+						requiredMessage="Hekim soyadı boş bırakılamaz!" />
+					<p:message for="surname" display="icon" />
+				</h:panelGrid>
+				<p:spacer height="30" />
+				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px">
+					<h:outputText value="Eposta:" />
+					<p:inputText id="email" value="#{doctorAdd.doctor.email}" />
+					<p:message for="email" display="icon" />
+
+					<h:outputText value="Parola:" />
+					<p:password id="password" feedback="true"
+						promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
+						goodLabel="Orta" strongLabel="Güçlü" required="true"
+						match="password2" value="#{doctorAdd.doctor.password}"
+						requiredMessage="Parola alanı boş bırakılamaz!" validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!">
+						</p:password>
+					<p:message for="password" display="icon" />
+
+					<h:outputText value="Parola Tekrar:" />
+					<p:password id="password2" required="true"
+						value="#{doctorAdd.passwordConfirm}"
+						requiredMessage="Parolanızı tekrar girmelisiniz!" />
+					<p:message for="password2" display="icon" />
+				</h:panelGrid>
+				<p:spacer height="30" />
+				<h:panelGrid columns="3" cellpadding="20"
+					style="padding-left: 30px; margin-bottom: 10px">
+					<h:outputText value="Ünvanı:" />
+					<p:selectOneMenu id="title" value="#{doctorAdd.doctor.title}">
+						<f:selectItems value="#{doctorAdd.doctorTitles}" var="t" itemValue="#{t}" itemLabel="#{t.title}"/>
+					</p:selectOneMenu>
+					<p:message for="title" display="icon" />
+
+					<h:outputText value="Uzmanlık Alanı:" />
+					<p:inputText id="province" value="#{doctorAdd.doctor.province}" />
+					<p:message for="province" />
+
+					<h:outputText value="Diploma No:" />
+					<p:inputText id="diploma" value="#{doctorAdd.doctor.diplomaNo}"/>
+					<p:message for="diploma" />
+				</h:panelGrid>
+				<p:spacer height="30" />
+				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px">
+					<h:outputText value="Websayfası:" />
+					<p:inputText id="webpage" value="#{doctorAdd.doctor.webpage}" />
+					<p:message for="webpage" />
+
+					<h:outputText value="Telefon No:" />
+					<p:inputText id="phone" value="#{doctorAdd.doctor.phone}" />
+					<p:message for="phone" />
+
+					<h:outputText value="Cep Telefonu:" />
+					<p:inputText id="mobile" value="#{doctorAdd.doctor.mobilePhone}" />
+					<p:message for="mobile" />
+
+					<h:outputText value="Hesap Aktif?:" />
+					<p:selectBooleanButton id="enable" onLabel="Aktif"
+						offLabel="Devre Dışı" offIcon="ui-icon-close"
+						onIcon="ui-icon-check" required="true" value="#{doctorAdd.enable}" />
+					<p:message for="enable" />
+					<p:commandButton value="Kaydet" actionListener="#{doctorAdd.save}"
+						update="panel" id="save"/>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

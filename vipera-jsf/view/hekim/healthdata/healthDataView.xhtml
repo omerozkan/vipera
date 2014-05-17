@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/hekim/layout/template.xhtml">
+	<f:metadata>
+		<f:viewParam name="id" value="#{healthDataView.id}" />
+		<f:event listener="#{healthDataView.loadData}" type="preRenderView" />
+	</f:metadata>
+	<ui:param name="data" value="#{healthDataView.data}" />
+	<ui:define name="title">Sağlık Verisi - #{data.id} | Vipera Hekim</ui:define>
+	<ui:define name="content">
+		<p:panel header="Sağlık Verisi">
+
+			<h:panelGrid columns="2" columnClasses="bold, normal">
+				<h:outputText value="No:" />
+				<h:outputText value="#{data.id}" />
+				<h:outputText value="Hasta:" />
+				<h:outputText value="#{data.patient.fullname} (#{data.patient.tckn})" />
+				<h:outputText value="Gönderen:" />
+				<h:outputText value="#{data.sendBy}" />
+				<h:outputText value="Tarih:" />
+				<h:outputText value="#{data.date}">
+					<f:convertDateTime pattern="d.M.yyyy" />
+				</h:outputText>
+			</h:panelGrid>
+			<div style="height: 30px"></div>
+			<p:dataTable id="datas" var="d" emptyMessage="Gönderilen veri yok!"
+				value="#{data.values}">
+				<f:facet name="header">
+                        Veriler
+                    </f:facet>
+				<p:column headerText="Alan">
+					<h:outputText value="#{d.field.title}" />
+				</p:column>
+				<p:column headerText="Değer">
+					<h:outputText value="#{d.value} #{d.field.unit}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>

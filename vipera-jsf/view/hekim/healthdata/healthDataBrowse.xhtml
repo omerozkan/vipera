@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/hekim/layout/template.xhtml">
+	<f:metadata>
+       <f:viewParam name="id" value="#{healthDataBrowse.id}" />
+       <f:event listener="#{healthDataBrowse.loadPatient}" type="preRenderView" />
+    </f:metadata>
+	<ui:define name="title">Sağlık Verileri | Vipera Hekim</ui:define>
+	<ui:define name="content">
+		<h:form id="health-data-browse">
+			<p:panel id="panel" header="Sağlık Verileri">
+				<p:growl id="growl" />
+				<h:panelGrid columns="3">
+					<p:commandButton value="Hasta Seç" onclick="PF('ps').show()"
+						type="button" />
+					<h:outputText value="Seçilen Hasta:" />
+					<h:outputText
+						value="#{healthDataBrowse.patient.fullname} - #{healthDataBrowse.patient.tckn}"
+						styleClass="bold" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Başlangıç Tarih:" for="startDate" />
+					<p:calendar id="startDate" locale="tr" showButtonPanel="true"
+						yearRange="2014:2020" navigator="true" style="width: 100px"
+						value="#{healthDataBrowse.startDate}" />
+					<h:outputLabel value="Bitiş Tarih:" for="endDate" />
+					<p:calendar id="endDate" locale="tr" showButtonPanel="true"
+						yearRange="2014:2020" navigator="true"
+						value="#{healthDataBrowse.endDate}" />
+				</h:panelGrid>
+
+				<p:commandButton value="Ara" icon="ui-icon-search"
+					actionListener="#{healthDataBrowse.search}"
+					style="margin-top: 15px; margin-bottom:15px"
+					update=":health-data-browse" />
+
+				<p:dataTable id="datas" paginator="true" var="data" rows="25"
+					value="#{healthDataBrowse.healthDataList}"
+					emptyMessage="Aradığınız kriterlere uygun sonuç bulunamadı veya hasta hakkında herhangi bir sağlık verisi bulunmamaktadır.">
+					<f:facet name="header">
+                        Sağlık Verileri
+                    </f:facet>
+					<p:column headerText="#">
+						<h:outputText value="#{data.id}" />
+					</p:column>
+
+					<p:column headerText="Tarih">
+						<h:outputText value="#{data.date}" />
+					</p:column>
+
+					<p:column headerText="Gönderen">
+						<h:outputText value="#{data.sendBy}" />
+					</p:column>
+
+					<p:column>
+						<p:button value="Görüntüle" icon="ui-icon-extlink" outcome="healthDataView.html">
+						  <f:param name="id" value="#{data.id}" />
+						</p:button>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade"
+			hideEffect="explode" width="950">
+			<ui:include src="/hekim/layout/patient/browse.xhtml" />
+		</p:dialog>
+	</ui:define>
+	<ui:define name="patient-result-buttons">
+		<p:column>
+			<p:commandButton value="Seç"
+				actionListener="#{healthDataBrowse.selectPatient(patient)}"
+				oncomplete="PF('ps').hide()" update=":health-data-browse" />
+		</p:column>
+	</ui:define>
+</ui:composition>

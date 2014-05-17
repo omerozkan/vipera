@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="title">Vipera Hekim Paneli</ui:insert>
+	</title>
+</h:head>
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="css/style.css" library="default" />
+	</f:facet>
+	<div id="container">
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="/common/header.xhtml" />
+			</ui:insert>
+		</div>
+		<!-- header -->
+		<div id="context-wrapper">
+		    <div id="left-menu">
+		          <ui:insert name="menu">
+		              <ui:include src="/hekim/layout/menu.xhtml" />
+		          </ui:insert>
+		    </div>
+			<div id="right-context">
+				<ui:insert name="content">
+					<ui:include src="/hekim/layout/content.xhtml" />
+				</ui:insert>
+			</div>
+		</div>
+		<div class="clear"></div>
+
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="/common/footer.xhtml" />
+			</ui:insert>
+		</div>
+
+	</div>
+	<!-- container -->
+</h:body>
+</html>

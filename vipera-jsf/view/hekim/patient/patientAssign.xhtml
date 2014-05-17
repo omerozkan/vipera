@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/hekim/layout/template.xhtml">
+	<ui:param name="selectedDoctor" value="#{patientAssign.doctor}" />
+	<ui:param name="selectedPatient" value="#{patientAssign.patient}" />
+	<ui:define name="title">Hasta Atama | Vipera Yönetim</ui:define>
+	<ui:define name="content">
+		<h:form id="patient-assign">
+			<p:panel id="doctor-patient-base">
+				<p:messages id="msgs" autoUpdate="true" showDetail="false" />
+				<p:panel id="doctor-panel" header="Hekim Seç">
+					<h:panelGrid columns="2" cellpadding="20"
+						style="padding-left: 30px; margin-top: 10px"
+						columnClasses="bold, normal, normal">
+						<h:outputText value="Hekim T.C. Kimlik No:" />
+						<h:outputText id="doctor-tckn" required="true"
+							value="#{selectedDoctor.tckn}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" cellpadding="20"
+						style="padding-left: 30px; margin-top: 10px"
+						columnClasses="bold, normal">
+						<h:outputText value="Hekim Adı:" />
+						<h:outputText value="#{selectedDoctor.fullname}" />
+						<h:outputText value="Uzmanlık Alanı:" />
+						<h:outputText value="#{selectedDoctor.province}" />
+					</h:panelGrid>
+					<p:spacer height="20" />
+				</p:panel>
+
+				<p:panel id="patient-panel" header="Hasta Seç">
+					<h:panelGrid columns="3" cellpadding="20"
+						style="padding-left: 30px; margin-top: 10px"
+						columnClasses="bold, normal, normal">
+						<h:outputText value="Hasta T.C. Kimlik No:" />
+						<p:inputMask mask="99999999999" id="patient-tckn" required="true"
+							value="#{selectedPatient.tckn}"
+							requiredMessage="TC Kimlik Numarası boş bırakılamaz!"
+							converterMessage="TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!"
+							disabled="true" />
+						<p:commandButton id="patient-search" icon="ui-icon-search"
+							onclick="PF('ps').show()" type="button" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" cellpadding="20"
+						style="padding-left: 30px; margin-top: 10px"
+						columnClasses="bold, normal">
+						<h:outputText value="Hasta Adı ve Soyadı:" />
+						<h:outputText value="#{selectedPatient.fullname}" />
+						<h:outputText value="Cinsiyet:" />
+						<h:outputText value="#{selectedPatient.sex.title}" />
+						<h:outputText value="Doğum Tarihi:" />
+						<h:outputText value="#{selectedPatient.birthDate}">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+						<h:outputText value="Baba Adı:" />
+						<h:outputText value="#{selectedPatient.fatherName}" />
+						<h:outputText value="Anne Adı:" />
+						<h:outputText value="#{selectedPatient.motherName}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:spacer height="20" />
+				<p:commandButton value="Kaydet"
+					actionListener="#{patientAssign.assign}" style="margin-top: 20px"
+					update="@form" />
+			</p:panel>
+		</h:form>
+		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="explode" width="950">
+			<ui:include src="/yonetim/layout/patient/browse.xhtml" />
+		</p:dialog>
+	</ui:define>
+	<ui:define name="patient-result-buttons">
+		<p:column>
+			<p:commandButton value="Seç"
+				actionListener="#{patientAssign.selectPatient(patient)}"
+				oncomplete="PF('ps').hide()" update=":patient-assign:patient-panel" />
+		</p:column>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<ui:param name="model" value="#{deviceBrowse.model}" />
+	<ui:define name="title">Cihaz Arama | Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="device-browse">
+		    <p:growl  id="msgs" showDetail="true"/>
+			<p:panel header="Cihaz Arama">
+				<div style="padding-left: 10px; padding-right: 10px">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Sahibi (Hasta):" />
+						<h:panelGrid columns="3">
+							<p:inputText id="patient" value="#{model.patient}" disabled="true" />
+							<p:commandButton id="patient-search" icon="ui-icon-search"
+								onclick="PF('ps').show()" type="button" value="Hasta Seç" />
+							<p:commandButton id="patient-search-reset" icon="ui-icon-cancel"
+							    actionListener="#{deviceBrowse.resetPatient}" value="Sıfırla" update="patient"/>
+						</h:panelGrid>
+						<h:outputLabel value="Cihaz API Anahtarı:" />
+						<p:inputText value="#{model.apiKey}" />
+					</h:panelGrid>
+					<p:commandButton id="search" value="Ara" icon="ui-icon-search"
+						style="margin-bottom: 20px; margin-top: 20px" actionListener="#{deviceBrowse.search}" update="results"/>
+				</div>
+			</p:panel>
+			<p:dataTable id="results" value="#{deviceBrowse.devices}" paginator="true" rows="25"
+				emptyMessage="Aradığınız kriterlere uygun sonuç bulunamadı." var="device">
+				<f:facet name="header">
+                            Arama Sonuçları
+                    </f:facet>
+				<p:column headerText="Sahibi">
+				    <h:outputText value="#{device.patient.fullname}" />
+				</p:column>
+				<p:column headerText="Cihaz API Anahtarı">
+				    <h:outputText value="#{device.apiKey}" />
+				    <h:outputText value="#{device.apiKey}" />
+				</p:column>
+				<p:column headerText="Aktif">
+				    <h:outputText value="#{device.enabled.title}" />
+				</p:column>
+				<p:column>
+					<p:button value="Düzenle" outcome="deviceUpdate.html">
+					   <f:param name="id" value="#{device.id}" />
+					</p:button>
+					<p:commandButton value="Sil" actionListener="#{deviceBrowse.delete(device.id)}" update=":device-browse" icon="ui-icon-trash"/>
+				</p:column>
+			</p:dataTable>
+			<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade"
+				hideEffect="explode" width="950">
+				<ui:include src="/yonetim/layout/patient/browse.xhtml" />
+			</p:dialog>
+		</h:form>
+	</ui:define>
+	<ui:define name="patient-result-buttons">
+		<p:column>
+			<p:commandButton value="Seç"
+				oncomplete="ps.hide()"  actionListener="#{deviceBrowse.selectPatient(patient)}" update=":device-browse:patient"/>
+		</p:column>
+	</ui:define>
+</ui:composition>

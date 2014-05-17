@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<ui:define name="title">Hasta Arama | Vipera</ui:define>
+	<ui:define name="content">
+		<ui:param name="model" value="#{patientBrowse.model}" />
+		<h:form id="patient-browse">
+			<p:panel header="Hasta Arama">
+				<h:panelGrid columns="2" rowClasses="left, left" cellpadding="20"
+					cellspacing="20">
+					<h:panelGrid columns="2"
+						style="padding-left: 30px; padding-right: 10px">
+						<h:outputText value="T.C. Kimlik No:" />
+						<p:inputMask mask="99999999999" id="tckn" value="#{model.tckn}" />
+
+						<h:outputText value="Ad:" />
+						<p:inputText id="name" value="#{model.name}" />
+
+						<h:outputText value="Soyad:" />
+						<p:inputText id="surname" value="#{model.surname}" />
+
+						<h:outputText value="Doğum Yılı:" />
+						<p:inputText id="birthYear" value="#{model.birthYear}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2"
+						style="padding-left: 30px; padding-right: 10px">
+						<h:outputText value="Cinsiyet:" />
+						<p:selectOneRadio id="sex" value="#{model.sex}">
+							<f:selectItem itemLabel="Hepsi" itemValue="" />
+							<f:selectItems value="#{sexList.sexList}" var="s"
+								itemLabel="#{s.title}" itemValue="#{s}" />
+						</p:selectOneRadio>
+
+						<h:outputText value="e-Posta:" />
+						<p:inputText id="email" value="#{model.email}" />
+
+						<h:outputText value="Baba Adı:" />
+						<p:inputText id="fatherName" value="#{model.fatherName}" />
+
+						<h:outputText value="Anne Adı" />
+						<p:inputText id="motherName" value="#{model.motherName}" />
+
+					</h:panelGrid>
+					<p:commandButton value="Ara" id="search" update="results"
+						actionListener="#{patientBrowse.search}" icon="ui-icon-search" />
+				</h:panelGrid>
+			</p:panel>
+
+			<p:dataTable id="results" value="#{patientBrowse.result}"
+				var="patient" paginator="true" rows="10"
+				emptyMessage="Aradığınız kriterlere uygun sonuç bulunamadı.">
+				<f:facet name="header">
+                  Arama Sonuçları
+              </f:facet>
+				<p:column headerText="T.C. Kimlik No">
+					<h:outputText value="#{patient.tckn}" />
+				</p:column>
+				<p:column headerText="Adı Soyadı">
+					<h:outputText value="#{patient.fullname}" />
+				</p:column>
+				<p:column headerText="Cinsiyeti">
+					<h:outputText value="#{patient.sex.title}" />
+				</p:column>
+
+				<p:column headerText="Doğum Tarihi">
+					<h:outputText value="#{patient.birthDate}" />
+				</p:column>
+				<p:column headerText="Baba Adı">
+					<h:outputText value="#{patient.fatherName}" />
+				</p:column>
+				<p:column headerText="Anne Adı">
+					<h:outputText value="#{patient.motherName}" />
+				</p:column>
+				<p:column headerText="Aktif">
+					<h:outputText value="#{patient.enable.title}" />
+				</p:column>
+				<ui:insert name="patient-result-buttons">
+					<p:column>
+						<p:button value="Düzenle" outcome="patientUpdate.html"
+							icon="ui-icon-pencil" iconPos="left">
+							<f:param name="id" value="#{patient.id}" />
+						</p:button>
+						<p:button value="Sil" outcome="patientDelete.html"
+							icon="ui-icon-trash" iconPos="left">
+							<f:param name="id" value="#{patient.id}" />
+						</p:button>
+					</p:column>
+				</ui:insert>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

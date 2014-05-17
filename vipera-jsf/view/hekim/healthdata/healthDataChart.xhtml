@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/hekim/layout/template.xhtml">
+	<ui:define name="title">Sağlık Verileri | Vipera Hekim</ui:define>
+	<ui:define name="content">
+		<h:form id="health-data-bar">
+			<p:growl id="growl" />
+			<p:panel id="panel" header="Sağlık Verileri">
+				<h:panelGrid columns="3" cellspacing="10" cellpadding="5"
+					columnClasses="bold, normal">
+					<h:outputText value="Hasta:" />
+					<h:outputText
+						value="#{healthDataChart.patient.fullname} (#{healthDataChart.patient.tckn})" />
+					<p:commandButton value="Hasta Seç" icon="ui-icon-search"
+						onclick="PF('ps').show()" />
+					<h:outputText value="Tarih Aralığı:" />
+					<p:calendar id="startDate" locale="tr" showButtonPanel="true"
+						value="#{healthDataChart.startDate}" yearRange="2014:2020"
+						navigator="true" style="width: 100px" />
+					<p:calendar id="endDate" locale="tr" showButtonPanel="true"
+						value="#{healthDataChart.endDate}" yearRange="2014:2020"
+						navigator="true" style="width: 100px" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" cellspacing="10" cellpadding="5"
+					columnClasses="bold, normal, normal">
+					<h:outputLabel value="Alanlar:" />
+					<p:selectCheckboxMenu label="Alan Seçiniz"
+						value="#{healthDataChart.selectedFields}">
+						<f:selectItems value="#{healthDataChart.fields}" var="field"
+							itemLabel="#{field.title}" itemValue="#{field.name}" />
+					</p:selectCheckboxMenu>
+					<p:commandButton value="Görüntüle" icon="ui-icon-image"
+						actionListener="#{healthDataChart.show}" update=":health-data-bar"
+						oncomplete="PF('chartDialog').show()" />
+				</h:panelGrid>
+
+			</p:panel>
+			<p:dialog header="İstatistikler" widgetVar="chartDialog"
+				showEffect="explode" hideEffect="explode" width="950">
+				<p:lineChart value="#{healthDataChart.lineChartModel}"
+					rendered="#{healthDataChart.renderChart}" legendPosition="e"
+					title="Veriler" style="width: 945px; height: 500px;"/>
+			</p:dialog>
+		</h:form>
+		<p:dialog header="Hasta Seç" widgetVar="ps" showEffect="fade"
+			hideEffect="explode" width="950">
+			<ui:include src="/hekim/layout/patient/browse.xhtml" />
+		</p:dialog>
+	</ui:define>
+	<ui:define name="patient-result-buttons">
+		<p:column>
+			<p:commandButton value="Seç" oncomplete="PF('ps').hide()"
+				actionListener="#{healthDataChart.selectPatient(patient)}"
+				update=":health-data-bar" />
+		</p:column>
+	</ui:define>
+</ui:composition>

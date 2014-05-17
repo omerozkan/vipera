@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util-3.0.xsd
+">
+
+    <context:component-scan base-package="info.ozkan.vipera.views" />
+    <context:component-scan base-package="info.ozkan.vipera.doctorviews" />
+    <context:component-scan base-package="info.ozkan.vipera.patientviews" />
+    <context:component-scan base-package="info.ozkan.vipera.api" />
+    <context:spring-configured />
+    <context:annotation-config />
+    <bean id="applicationProperties"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:env.properties" />
+    </bean>
+    <!-- DATABASE CONFIGURATION -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        p:driverClassName="${db.driverClass}" p:url="${db.url}"
+        p:username="${db.username}" p:password="${db.password}">
+        <property name="defaultAutoCommit" value="false" />
+    </bean>
+    <!-- LIQUIBASE CONFIGURATION -->
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog" value="classpath:liquibase/db.changelog.xml" />
+        <property name="dropFirst" value="${liquibase.dropFirst}" />
+    </bean>
+    <!-- JPA CONFIGURATION -->
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        depends-on="liquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="info.ozkan.vipera.entities" />
+        <property name="jpaVendorAdapter" ref="hibernateVendor" />
+        <property name="jpaPropertyMap" ref="jpaPropertyMap" />
+    </bean>
+    <bean id="hibernateVendor"
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+    <util:map id="jpaPropertyMap">
+        <entry key="hibernate.auto.detection" value="class" />
+        <entry key="hibernate.show_sql" value="${hb.show_sql}" />
+        <entry key="hibernate.format_sql" value="${hb.show_sql}" />
+        <entry key="hibernate.use_sql_comments" value="${hb.use_sql_comments}" />
+        <entry key="hibernate.hbm2ddl.auto" value="validate" />
+        <entry key="hibernate.dialect" value="${hb.dialect}" />
+    </util:map>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <bean
+        class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    <context:component-scan base-package="info.ozkan.vipera.views" />
+
+    <context:spring-configured />
+    <context:annotation-config />
+    <tx:annotation-driven />
+
+    <!-- PERSISTENCE LAYER BEANS -->
+    <bean id="administratorLoginDao"
+        class="info.ozkan.vipera.dao.login.AdministratorLoginDaoImpl" />
+    <bean id="doctorLoginDao" class="info.ozkan.vipera.dao.login.DoctorLoginDaoImpl" />
+    <bean id="patientLoginDao" class="info.ozkan.vipera.dao.login.PatientLoginDaoImpl" />
+    
+    <bean id="doctorDao" class="info.ozkan.vipera.dao.doctor.DoctorDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="patientDao" class="info.ozkan.vipera.dao.patient.PatientDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="doctorPatientDao"
+        class="info.ozkan.vipera.dao.doctorpatient.DoctorPatientDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataFieldDao"
+        class="info.ozkan.vipera.dao.healthdata.HealthDataFieldDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataDao" class="info.ozkan.vipera.dao.healthdata.HealthDataDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="deviceDao" class="info.ozkan.vipera.dao.device.DeviceDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <!-- BUSINESS LAYER BEANS -->
+    <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="doctorFacade" class="info.ozkan.vipera.business.doctor.DoctorFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="patientManager"
+        class="info.ozkan.vipera.business.patient.PatientManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="patientFacade" class="info.ozkan.vipera.business.patient.PatientFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="doctorPatientFacade"
+        class="info.ozkan.vipera.business.doctorpatient.DoctorPatientFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="doctorPatientManager"
+        class="info.ozkan.vipera.business.doctorpatient.DoctorPatientManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataFieldFacade"
+        class="info.ozkan.vipera.business.healthdata.HealthDataFieldFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataFieldManager"
+        class="info.ozkan.vipera.business.healthdata.HealthDataFieldManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataFacade"
+        class="info.ozkan.vipera.business.healthdata.HealthDataFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="healthDataService"
+        class="info.ozkan.vipera.business.healthdata.HealthDataServiceImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="deviceFacade" class="info.ozkan.vipera.business.device.DeviceFacadeImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="deviceManager" class="info.ozkan.vipera.business.device.DeviceManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+</beans>

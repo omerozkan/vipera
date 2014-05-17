@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<f:metadata>
+       <f:viewParam name="id" value="#{patientUpdate.id}" required="true" />
+       <f:event listener="#{patientUpdate.loadPatient}" type="preRenderView" />
+    </f:metadata>
+	<ui:define name="title">Hasta Düzenle | Vipera</ui:define>
+	<ui:define name="content">
+		<ui:param name="patient" value="#{patientUpdate.patient}"></ui:param>
+		<h:form id="patient-update">
+			<p:panel id="panel" header="#{patient.fullname} - Hasta Düzenle">
+				<p:messages id="msgs" autoUpdate="true" showDetail="false" />
+				<h:panelGrid columns="3" cellpadding="20"
+					style="padding-left: 30px; margin-top: 10px">
+
+					<h:outputText value="T.C. Kimlik No:" />
+					<p:inputMask mask="99999999999" id="tckn" disabled="true"
+						value="#{patient.tckn}"
+						requiredMessage="TC Kimlik Numarası boş bırakılamaz!"
+						converterMessage="TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!" />
+					<p:message for="tckn" display="icon" />
+
+					<h:outputText value="Adı:" />
+					<p:inputText id="name" required="true"
+						value="#{patient.name}"
+						requiredMessage="Hasta adı boş bırakılamaz!" />
+					<p:message for="name" display="icon" />
+
+					<h:outputText value="Soyadı:" />
+					<p:inputText id="surname" required="true"
+						value="#{patient.surname}"
+						requiredMessage="Hasta soyadı boş bırakılamaz!" />
+					<p:message for="surname" display="icon" />
+
+					<h:outputText value="Cinsiyet:" />
+					<p:selectOneMenu id="sex" required="true"
+						requiredMessage="Hasta cinsiyeti boş bırakılamaz!" value="#{patient.sex}">
+						<f:selectItem itemLabel="Seçiniz" />
+						<f:selectItems value="#{sexList.sexList}" var="t" itemValue="#{t}"
+							itemLabel="#{t.title}" />
+					</p:selectOneMenu>
+					<p:message for="sex" display="icon" />
+				</h:panelGrid>
+				<p:spacer height="30" />
+				<h:outputText
+					value="Parola değiştirmek için yeni bir parola giriniz:" />
+				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px">
+					<h:outputText value="Parola:" />
+					<p:password id="password" feedback="true"
+						promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
+						goodLabel="Orta" strongLabel="Güçlü" required="false"
+						match="password2" value="#{patient.password}"
+						requiredMessage="Parola alanı boş bırakılamaz!"
+						validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!">
+					</p:password>
+					<p:message for="password" display="icon" />
+
+					<h:outputText value="Parola Tekrar:" />
+					<p:password id="password2" required="false"
+						requiredMessage="Parolanızı tekrar girmelisiniz!" />
+					<p:message for="password2" display="icon" />
+				</h:panelGrid>
+				<p:spacer height="30" />
+				<h:panelGrid columns="3" cellpadding="20" style="padding-left:30px">
+					<h:outputText value="Eposta:" />
+					<p:inputText id="email" value="#{patient.email}" />
+					<p:message for="email" display="icon" />
+					<h:outputText value="Doğum Tarihi:" />
+					<p:calendar id="birthDate" locale="tr" showButtonPanel="true"
+						value="#{patient.birthDate}" required="true"
+						requiredMessage="Hasta doğum tarihi boş bırakılamaz!" yearRange="1900:2020"
+						navigator="true" />
+					<p:message for="birthDate" display="icon" />
+
+					<h:outputText value="Doğum Yeri:" />
+					<p:inputText value="#{patient.birthPlace}"
+						id="birthPlace" />
+					<p:message for="birthPlace" display="icon" />
+
+					<h:outputText value="Baba Adı:" />
+					<p:inputText value="#{patient.fatherName}"
+						id="fatherName" requiredMessage="Hasta baba adı boş bırakılamaz!" />
+					<p:message for="fatherName" display="icon" />
+
+					<h:outputText value="Anne Adı:" />
+					<p:inputText value="#{patient.motherName}"
+						id="motherName" requiredMessage="Hasta anne adı boş bırakılamaz!" />
+					<p:message for="motherName" display="icon" />
+				</h:panelGrid>
+				<p:spacer height="30" />
+				<h:panelGrid columns="3" cellpadding="20" style="padding-left: 30px">
+					<h:outputText value="Telefon No:" />
+					<p:inputText id="phone" value="#{patient.phone}" />
+					<p:message for="phone" display="icon" />
+
+					<h:outputText value="Cep Telefonu:" />
+					<p:inputText id="mobile" value="#{patient.mobilePhone}" />
+					<p:message for="mobile" display="icon" />
+
+					<h:outputText value="Hesap Aktif?:" />
+					<p:selectBooleanButton id="enable" onLabel="Aktif"
+						offLabel="Devre Dışı" offIcon="ui-icon-close"
+						onIcon="ui-icon-check" required="true"
+						value="#{patientUpdate.enabled}" />
+					<p:message for="enable" display="icon" />
+					<p:commandButton value="Kaydet" actionListener="#{patientUpdate.save}"
+						update="panel" id="save" />
+				    <p:button value="Sil" outcome="patientDelete.html" icon="ui-icon-trash">
+				        <f:param name="id" value="#{patient.id}" />
+				    </p:button>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

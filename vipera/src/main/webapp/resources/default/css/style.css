@@ -1,0 +1,139 @@
+@CHARSET "UTF-8";
+
+* {margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; text-decoration:none;}
+
+.clear {clear:both;}
+
+body
+{
+	background-color: #f3f3f3;
+	font-family: 'Cantarell', sans-serif;
+}
+
+.left {
+	flaot: left;
+}
+
+#container
+{
+	width: 960px;
+	margin: 10px auto;
+}
+/* PrimeFaces Styles */
+
+.ui-widget
+{
+	font-size: 14px !important;
+}
+
+/*----LOGIN----*/
+
+.loginPanel
+{
+	width: 300px;
+	margin: 150px auto;
+}
+
+.doctorLoginPanel {
+	width: 310px;
+    margin: 150px auto;
+}
+
+.patientLoginPanel {
+	width: 310px;
+    margin: 150px auto;
+}
+
+/*----HEADER------*/
+
+#header
+{
+	background: #033 url("../img/header.png.html?ln=default");
+	color: #fff;
+	height: 80px;
+	padding: 10px 10px 10px 0;
+	
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#header #logo
+{
+	text-shadow: 3px 3px 4px #000;
+	color: #fff;
+	text-align: center;
+	width: 200px;
+	margin: 8px 0 0 0;
+}
+
+#header h1
+{
+	font-size: 30px;
+}
+
+#header h2
+{
+	font-size: 12px;
+}
+
+#context {
+	width: 958px;
+	min-height: 300px;
+	margin-top: 10px;
+	/*background-color: #fff;*
+	border: 1px solid #ccc;*/
+}
+
+#footer {
+	width: 960px;
+	text-align: center;
+	margin-top: 10px;
+	color: #333;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.bold {
+	font-weight: 700;
+}
+
+.operations {
+	float:right;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/** DOCTOR PANEL **/
+
+#left-menu {
+	float: left;
+	margin-right: 10px;
+	width: 185px;
+}
+
+#right-context {
+	width: 763px;
+    min-height: 450px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    float: right;
+}
+#context-wrapper {
+	margin-top: 5px;
+}
+
+.admin-profile {
+	position: absolute;
+	top: 125px;
+	left: 50%;
+	margin-left: 315px;
+	text-align: right;
+}
+
+.index {
+	min-height: 450px;
+}
