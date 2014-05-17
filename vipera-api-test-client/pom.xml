@@ -8,7 +8,7 @@
     <parent>
         <groupId>info.ozkan.vipera</groupId>
         <artifactId>vipera-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-Alpha1</version>
     </parent>
     <dependencies>
         <dependency>
