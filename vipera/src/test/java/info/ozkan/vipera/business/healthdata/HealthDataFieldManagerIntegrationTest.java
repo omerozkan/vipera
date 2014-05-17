@@ -30,11 +30,11 @@ public class HealthDataFieldManagerIntegrationTest extends IntegrationTest {
      */
     @Test
     public void testGetField() throws Exception {
-        final HealthDataField testField = HealthDataFieldTestData
-                .getTestData(0);
-        final HealthDataField field = healthDataFieldManager.getField(testField
-                .getName());
-        Assert.assertNotNull(field);
-        Assert.assertEquals(testField.getTitle(), field.getTitle());
+        final HealthDataField testField =
+                HealthDataFieldTestData.getTestData(0);
+        final HealthDataField field =
+                healthDataFieldManager.getField(testField.getName());
+        Assert.assertNotNull(testField.getName());
+        Assert.assertEquals(testField.getName(), field.getName());
     }
 }
