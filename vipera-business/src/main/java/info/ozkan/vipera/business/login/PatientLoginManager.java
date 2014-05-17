@@ -79,8 +79,7 @@ public class PatientLoginManager implements AuthenticationProvider {
             final Authentication authentication) {
         final Long tckn = (Long) authentication.getPrincipal();
         final String password = authentication.getCredentials().toString();
-        final PatientLoginResult result = patientLoginDao.find(tckn, password);
-        return result;
+        return patientLoginDao.find(tckn, password);
     }
 
     public boolean supports(final Class<?> authentication) {

@@ -11,11 +11,11 @@ import java.util.Map;
  * @author Ömer Özkan
  * 
  */
-public class DeviceTestData {
+public final class DeviceTestData {
     /**
      * cihazlar
      */
-    private static Map<Integer, Device> DEVICES =
+    private static final Map<Integer, Device> DEVICES =
             new HashMap<Integer, Device>();
 
     /**

@@ -40,14 +40,6 @@ public class HealthDataChartBean {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HealthDataChartBean.class);
     /**
-     * grafik x ekseni başlığı
-     */
-    private static final String CHART_X_TITLE = "Gönderilen Veriler";
-    /**
-     * grafik başlığı
-     */
-    private static final String CHART_TITLE = "Veriler";
-    /**
      * grafik oluşturuldu mesajı
      */
     private static final String MSG_CHART_CREATED = "Grafik oluşturuldu!";

@@ -5,6 +5,7 @@ import info.ozkan.vipera.business.healthdata.HealthDataResult;
 import info.ozkan.vipera.doctorviews.DoctorSessionBean;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.HealthData;
+import info.ozkan.vipera.jsf.NotFoundException;
 
 import java.io.Serializable;
 
@@ -12,8 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
-
-import com.sun.faces.context.FacesFileNotFoundException;
 
 /**
  * Sağlık verisi görüntüleme ekranı
@@ -47,9 +46,8 @@ public class HealthDataViewBean implements Serializable {
     /**
      * sağlık verisinin yüklenmesini sağlar
      * 
-     * @throws FacesFileNotFoundException
      */
-    public void loadData() throws FacesFileNotFoundException {
+    public void loadData() {
         if (id != null) {
             final Doctor doctor = DoctorSessionBean.getDoctor();
             final HealthDataResult result =
@@ -57,10 +55,10 @@ public class HealthDataViewBean implements Serializable {
             if (result.isSuccess()) {
                 data = result.getHealthData();
             } else {
-                throw new FacesFileNotFoundException();
+                throw new NotFoundException();
             }
         } else {
-            throw new FacesFileNotFoundException();
+            throw new NotFoundException();
         }
     }
 

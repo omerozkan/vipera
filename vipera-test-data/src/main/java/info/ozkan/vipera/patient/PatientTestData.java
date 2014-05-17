@@ -18,6 +18,10 @@ import java.util.Map;
  */
 public final class PatientTestData {
     /**
+     * test telefon numarası
+     */
+    private static final String TEST_PHONE = "1123123123";
+    /**
      * Marvin id
      */
     public static final int MARVIN = 0;
@@ -32,7 +36,8 @@ public final class PatientTestData {
     /**
      * test nesneler
      */
-    private static final Map<Integer, Patient> testPatients = new HashMap<Integer, Patient>();
+    private static final Map<Integer, Patient> TEST_PATIENTS =
+            new HashMap<Integer, Patient>();
 
     /**
      * Utilty class
@@ -59,8 +64,8 @@ public final class PatientTestData {
         patient.setBirthPlace("New York");
         patient.setFatherName("Marshall");
         patient.setMotherName("Lily");
-        patient.setPhone("1123123123");
-        patient.setMobilePhone("1123123123");
+        patient.setPhone(TEST_PHONE);
+        patient.setMobilePhone(TEST_PHONE);
         patient.setEnable(Authorize.ENABLE);
         return patient;
     }
@@ -83,8 +88,8 @@ public final class PatientTestData {
         patient.setBirthPlace("Chicago");
         patient.setFatherName("Charlie");
         patient.setMotherName("Jennifer");
-        patient.setPhone("1123123123");
-        patient.setMobilePhone("1123123123");
+        patient.setPhone(TEST_PHONE);
+        patient.setMobilePhone(TEST_PHONE);
         patient.setEnable(Authorize.ENABLE);
         return patient;
     }
@@ -107,8 +112,8 @@ public final class PatientTestData {
         patient.setBirthPlace("Ceyhan");
         patient.setFatherName("Reşit");
         patient.setMotherName("Nesibe");
-        patient.setPhone("1123123123");
-        patient.setMobilePhone("1123123123");
+        patient.setPhone(TEST_PHONE);
+        patient.setMobilePhone(TEST_PHONE);
         patient.setEnable(Authorize.ENABLE);
         return patient;
     }
@@ -128,8 +133,7 @@ public final class PatientTestData {
             final int day) {
         final Calendar calendar = new GregorianCalendar();
         calendar.set(year, mounth, day);
-        final Date date = calendar.getTime();
-        return date;
+        return calendar.getTime();
     }
 
     /**
@@ -141,12 +145,16 @@ public final class PatientTestData {
      * @return
      */
     public static Patient getTestData(final int id) {
-        if (testPatients.isEmpty()) {
-            testPatients.put(MARVIN, createMarvin());
-            testPatients.put(SAM, createSam());
-            testPatients.put(OZKAN, createOzkan());
+        if (TEST_PATIENTS.isEmpty()) {
+            TEST_PATIENTS.put(MARVIN, createMarvin());
+            TEST_PATIENTS.put(SAM, createSam());
+            TEST_PATIENTS.put(OZKAN, createOzkan());
         }
-        final Patient patient = testPatients.get(id);
-        return (Patient) patient.clone();
+        final Patient patient = TEST_PATIENTS.get(id);
+        try {
+            return (Patient) patient.clone();
+        } catch (final CloneNotSupportedException e) {
+            throw new AssertionError(e.getMessage(), e);
+        }
     }
 }

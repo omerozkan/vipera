@@ -34,12 +34,12 @@ import com.google.gson.Gson;
  */
 @Path("/healthdata")
 @Named
-public class HealthDataAddService {
+public class HealthDataRestService {
     /**
      * LOGGER
      */
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(HealthDataAddService.class);
+            .getLogger(HealthDataRestService.class);
     /**
      * Gson
      */
@@ -104,21 +104,21 @@ public class HealthDataAddService {
      * @return
      */
     private Response saveData() {
-        Response response;
+        Response result;
         device = deviceResult.getDevice();
         final HealthData healthData = createHealthDataObject();
-        final HealthDataResult result = healthDataFacade.add(healthData);
-        if (result.isSuccess()) {
+        final HealthDataResult healthResult = healthDataFacade.add(healthData);
+        if (healthResult.isSuccess()) {
             final ResponseModel responseModel = createSuccessResponseModel();
             final String json = gson.toJson(responseModel);
-            response = Response.status(200).entity(json).build();
+            result = Response.status(200).entity(json).build();
             LOGGER.info("The new health data added to system by device-{}",
                     model.getApiKey());
         } else {
-            response = Response.status(500).build();
+            result = Response.status(500).build();
             LOGGER.error("The new health data cannot be added to system!");
         }
-        return response;
+        return result;
     }
 
     /**

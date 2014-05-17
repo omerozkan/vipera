@@ -17,8 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.sun.faces.context.FacesFileNotFoundException;
-
 /**
  * Hasta güncelleme ekranı
  * 
@@ -72,7 +70,7 @@ public class PatientUpdateBean {
     /**
      * Üye aktifliği
      */
-    protected boolean enabled;
+    private boolean enabled;
     /**
      * hasta yeniden yüklensin mi
      */
@@ -81,9 +79,8 @@ public class PatientUpdateBean {
     /**
      * Hastanın sistemden getirilmesini sağlar
      * 
-     * @throws FacesFileNotFoundException
      */
-    public void loadPatient() throws FacesFileNotFoundException {
+    public void loadPatient() {
         if (loadAgain) {
             patient = PatientLoader.loadPatient(patientFacade, id);
             setEnabledByPatient();

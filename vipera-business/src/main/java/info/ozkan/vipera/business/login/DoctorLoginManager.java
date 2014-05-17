@@ -59,12 +59,13 @@ public class DoctorLoginManager implements AuthenticationProvider {
      */
     private UsernamePasswordAuthenticationToken createToken(
             final DoctorLoginResult result) {
-        final Collection<? extends GrantedAuthority> authorities = AuthorityUtils
-                .createAuthorityList(Role.ROLE_DOCTOR);
+        final Collection<? extends GrantedAuthority> authorities =
+                AuthorityUtils.createAuthorityList(Role.ROLE_DOCTOR);
         final Doctor doctor = result.getDoctor();
         final String doctorPassword = doctor.getPassword();
-        final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                doctor, doctorPassword, authorities);
+        final UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(doctor, doctorPassword,
+                        authorities);
         return token;
     }
 
@@ -74,11 +75,11 @@ public class DoctorLoginManager implements AuthenticationProvider {
      * @param authentication
      * @return
      */
-    private DoctorLoginResult getLoginResult(final Authentication authentication) {
+    private DoctorLoginResult
+            getLoginResult(final Authentication authentication) {
         final Long tckn = (Long) authentication.getPrincipal();
         final String password = authentication.getCredentials().toString();
-        final DoctorLoginResult result = doctorLoginDao.find(tckn, password);
-        return result;
+        return doctorLoginDao.find(tckn, password);
     }
 
     public boolean supports(final Class<?> authentication) {

@@ -17,8 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.sun.faces.context.FacesFileNotFoundException;
-
 /**
  * Hasta - Hekim atama işlemini yapan bean sınıfı
  * 
@@ -31,15 +29,18 @@ public class DoctorPatientAssignBean {
     /**
      * atama başarılı olduğunda gösterilecek mesaj
      */
-    private static final String ASSIGN_SUCCESS_MSG_PATTERN = "Hasta %s, hekim %s'e başarı ile atandı!";
+    private static final String ASSIGN_SUCCESS_MSG_PATTERN =
+            "Hasta %s, hekim %s'e başarı ile atandı!";
     /**
      * Hasta daha önce hekime atanmışsa gösterilecek mesaj
      */
-    private static final String ASIGN_EXIST_ERROR_PATTERN = "Hasta %s, hekim %s'e daha önceden atanmış!";
+    private static final String ASIGN_EXIST_ERROR_PATTERN =
+            "Hasta %s, hekim %s'e daha önceden atanmış!";
     /**
      * alanlar boş olduğunda gösterilecek olan mesaj
      */
-    private static final String NULL_ENTRY_ERROR_MSG = "Atama işlemi için lütfen bir hekim ve bir hasta seçiniz!";
+    private static final String NULL_ENTRY_ERROR_MSG =
+            "Atama işlemi için lütfen bir hekim ve bir hasta seçiniz!";
     /**
      * LOGGER
      */
@@ -72,14 +73,10 @@ public class DoctorPatientAssignBean {
      * Eğer hekim önceden tanımlıysa hekim nesnesini oluşturur
      */
     public void loadDoctor() {
-        try {
-            if (doctorId != null) {
-                doctor = DoctorLoader.loadDoctor(doctorId, doctorFacade);
-                resetIdForNextRequests();
-                cleanPatientFromPage();
-            }
-        } catch (final FacesFileNotFoundException e) {
-            // DO NOTHING, ADMINISTRATOR CAN SELECT NEW DOCTOR
+        if (doctorId != null) {
+            doctor = DoctorLoader.loadDoctor(doctorId, doctorFacade);
+            resetIdForNextRequests();
+            cleanPatientFromPage();
         }
     }
 
@@ -134,8 +131,8 @@ public class DoctorPatientAssignBean {
      * @param context
      */
     private void assignPatient(final FacesContext context) {
-        final DoctorPatientManagerResult result = doctorPatientFacade.assign(
-                doctor, patient);
+        final DoctorPatientManagerResult result =
+                doctorPatientFacade.assign(doctor, patient);
         final DoctorPatientManagerStatus status = result.getStatus();
         if (status.equals(DoctorPatientManagerStatus.SUCCESS)) {
             createSuccessMessage(context);
@@ -168,8 +165,9 @@ public class DoctorPatientAssignBean {
      * @param context
      */
     private void createAssignmentExistErrorMsg(final FacesContext context) {
-        final String summary = String.format(ASIGN_EXIST_ERROR_PATTERN,
-                patient.getFullname(), doctor.getFullname());
+        final String summary =
+                String.format(ASIGN_EXIST_ERROR_PATTERN, patient.getFullname(),
+                        doctor.getFullname());
         createErrorMessage(context, summary);
     }
 
@@ -201,8 +199,9 @@ public class DoctorPatientAssignBean {
      *            Faces Context
      */
     private void createSuccessMessage(final FacesContext context) {
-        final String summary = String.format(ASSIGN_SUCCESS_MSG_PATTERN,
-                doctor.getFullname(), patient.getFullname());
+        final String summary =
+                String.format(ASSIGN_SUCCESS_MSG_PATTERN, doctor.getFullname(),
+                        patient.getFullname());
         context.addMessage(null, new FacesMessage2(FacesMessage.SEVERITY_INFO,
                 summary, ""));
     }
@@ -228,10 +227,6 @@ public class DoctorPatientAssignBean {
      */
     public Patient getPatient() {
         return patient;
-    }
-
-    private boolean patientAssignedBefore() {
-        return doctor.getPatients().contains(patient);
     }
 
     /**

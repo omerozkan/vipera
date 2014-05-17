@@ -6,7 +6,7 @@ package info.ozkan.vipera.business.role;
  * @author Ömer Özkan
  * 
  */
-public class Role {
+public final class Role {
     /**
      * Yönetici rolü
      */

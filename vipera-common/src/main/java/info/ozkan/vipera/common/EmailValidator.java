@@ -9,16 +9,17 @@ import java.util.regex.Pattern;
  * @author Ömer Özkan
  * 
  */
-public class EmailValidator {
+public final class EmailValidator {
     /**
      * Email Pattern
      */
-    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     /**
      * Pattern
      */
-    private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+    private static final Pattern PATTERN = Pattern.compile(EMAIL_PATTERN);
 
     /**
      * private Constructor
@@ -34,7 +35,7 @@ public class EmailValidator {
      * @return true valid hex, false invalid hex
      */
     public static boolean isValid(final String hex) {
-        final Matcher matcher = pattern.matcher(hex);
+        final Matcher matcher = PATTERN.matcher(hex);
         return matcher.matches();
 
     }

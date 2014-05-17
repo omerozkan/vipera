@@ -38,14 +38,14 @@ public class PatientBrowseBean {
      * Business
      */
     @Inject
-    protected PatientFacade patientFacade;
+    private PatientFacade patientFacade;
 
     /**
      * Arama işlemini gerçekleştirir
      */
     public void search() {
         final PatientSearchFilter filter = createFilterFromModel();
-        final PatientManagerResult list = patientFacade.search(filter);
+        final PatientManagerResult list = getPatientFacade().search(filter);
         result = list.getPatients();
         LOGGER.info("Found {} patients.", result.size());
     }
@@ -116,6 +116,21 @@ public class PatientBrowseBean {
      */
     public PatientBrowseModel getModel() {
         return model;
+    }
+
+    /**
+     * @return the patientFacade
+     */
+    protected PatientFacade getPatientFacade() {
+        return patientFacade;
+    }
+
+    /**
+     * @param patientFacade
+     *            the patientFacade to set
+     */
+    protected void setPatientFacade(final PatientFacade patientFacade) {
+        this.patientFacade = patientFacade;
     }
 
 }

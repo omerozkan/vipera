@@ -14,8 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.sun.faces.context.FacesFileNotFoundException;
-
 /**
  * Hekim silme Bean sınıfı
  * 
@@ -62,10 +60,8 @@ public class DoctorDeleteBean {
 
     /**
      * Silinmek istenen hekimi yükler eğer hekim silinmiş ise tekrar yüklenmez.
-     * 
-     * @throws FacesFileNotFoundException
      */
-    public void loadDoctor() throws FacesFileNotFoundException {
+    public void loadDoctor() {
         if (doctorHasChanged()) {
             setDoctor(DoctorLoader.loadDoctor(id, doctorFacade));
             disabled = false;

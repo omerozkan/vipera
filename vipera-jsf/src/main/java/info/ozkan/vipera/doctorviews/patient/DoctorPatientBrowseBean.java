@@ -31,7 +31,7 @@ public class DoctorPatientBrowseBean extends PatientBrowseBean {
     public void search() {
         final PatientSearchFilter filter = createFilterFromModel();
         final Doctor doctor = DoctorSessionBean.getDoctor();
-        final PatientManagerResult result = patientFacade
+        final PatientManagerResult result = getPatientFacade()
                 .search(filter, doctor);
         final List<Patient> list = result.getPatients();
         setResult(list);

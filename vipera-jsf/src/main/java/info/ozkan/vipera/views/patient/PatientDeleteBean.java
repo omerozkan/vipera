@@ -15,8 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.sun.faces.context.FacesFileNotFoundException;
-
 /**
  * Hasta silme ekranı
  * 
@@ -34,7 +32,8 @@ public class PatientDeleteBean {
     /**
      * Silme başarısız ise gösterilecek olan mesajın özeti
      */
-    private static final String DELETE_UNSUCCESSFULL_MSG_SUMMARY = "Silme Başarısız!";
+    private static final String DELETE_UNSUCCESSFULL_MSG_SUMMARY =
+            "Silme Başarısız!";
     /**
      * Silme işlemi başarılı ise gösterilecek olan mesajın özeti
      */
@@ -61,9 +60,8 @@ public class PatientDeleteBean {
     /**
      * Hasta yükleme işlemi yapar
      * 
-     * @throws FacesFileNotFoundException
      */
-    public void loadPatient() throws FacesFileNotFoundException {
+    public void loadPatient() {
         if (differentId()) {
             setPatient(PatientLoader.loadPatient(patientFacade, getId()));
             setDisabled(false);
@@ -76,9 +74,9 @@ public class PatientDeleteBean {
      * @param context
      */
     private void addSuccessfullMessage(final FacesContext context) {
-        final String detail = String.format(
-                "Hasta %s-%s sistemden kaldırıldı!", getPatient().getTckn(),
-                getPatient().getFullname());
+        final String detail =
+                String.format("Hasta %s-%s sistemden kaldırıldı!", getPatient()
+                        .getTckn(), getPatient().getFullname());
         context.addMessage(null, new FacesMessage2(FacesMessage.SEVERITY_INFO,
                 DELETED_MSG_SUMMARY, detail));
     }
@@ -89,7 +87,8 @@ public class PatientDeleteBean {
      * @param context
      */
     private void addUnsuccessfullMessage(final FacesContext context) {
-        final String detail = "Silme işlemi başarısız oldu! Hasta daha önce silinmiş olabilir!";
+        final String detail =
+                "Silme işlemi başarısız oldu! Hasta daha önce silinmiş olabilir!";
         context.addMessage(null, new FacesMessage2(FacesMessage.SEVERITY_FATAL,
                 DELETE_UNSUCCESSFULL_MSG_SUMMARY, detail));
     }

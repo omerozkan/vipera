@@ -13,8 +13,6 @@ import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 
-import com.sun.faces.context.FacesFileNotFoundException;
-
 /**
  * Hekim paneli cihaz güncelleme ekranı
  * 
@@ -37,7 +35,7 @@ public class DoctorDeviceUpdateBean extends DeviceUpdateBean {
     private boolean disabled = false;
 
     @Override
-    public void loadDevice() throws FacesFileNotFoundException {
+    public void loadDevice() {
         super.loadDevice();
         checkPatientForDoctor();
     }

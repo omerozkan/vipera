@@ -30,9 +30,10 @@ import org.slf4j.LoggerFactory;
 @Named("deviceDao")
 public class DeviceDaoImpl implements DeviceDao {
     /**
-     * 
+     * Cihaz arama JQL sorgusu
      */
-    private static final String JQL_FIND_DEVICE = "from Device d where d.apiKey = :apiKey AND d.apiPassword = :apiPassword";
+    private static final String JQL_FIND_DEVICE =
+            "from Device d where d.apiKey = :apiKey AND d.apiPassword = :apiPassword";
     /**
      * LOGGER
      */
@@ -74,8 +75,8 @@ public class DeviceDaoImpl implements DeviceDao {
      */
     private Query filterToCriteriaQuery(final DeviceManagerSearchFilter filter) {
         final CriteriaBuilder cb = em.getCriteriaBuilder();
-        final CriteriaQuery<Device> criteriaQuery = cb
-                .createQuery(Device.class);
+        final CriteriaQuery<Device> criteriaQuery =
+                cb.createQuery(Device.class);
         final Root<Device> root = criteriaQuery.from(Device.class);
         final List<Predicate> predicates = new ArrayList<Predicate>();
         final String apiKey = filter.getApiKey();
@@ -125,8 +126,7 @@ public class DeviceDaoImpl implements DeviceDao {
     }
 
     public Device getById(final Long id) {
-        final Device device = em.find(Device.class, id);
-        return device;
+        return em.find(Device.class, id);
     }
 
     public DeviceManagerResult update(final Device device) {

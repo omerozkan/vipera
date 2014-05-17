@@ -77,7 +77,6 @@ public class HealthDataResult {
     public void setHealthData(final HealthData healthData) {
         healthDatas.clear();
         healthDatas.add(healthData);
-        System.out.println(healthData);
     }
 
 }

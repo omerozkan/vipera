@@ -1,8 +1,8 @@
 package info.ozkan.vipera.dao.healthdata;
 
-import info.ozkan.vipera.business.healthdata.HealthDataSearchFilter;
 import info.ozkan.vipera.business.healthdata.HealthDataManagerStatus;
 import info.ozkan.vipera.business.healthdata.HealthDataResult;
+import info.ozkan.vipera.business.healthdata.HealthDataSearchFilter;
 import info.ozkan.vipera.entities.HealthData;
 import info.ozkan.vipera.entities.Patient;
 
@@ -94,8 +94,7 @@ public class HealthDataDaoImpl implements HealthDataDao {
         }
         final Predicate[] array = predicates.toArray(new Predicate[0]);
         cq.select(root).where(array);
-        final Query query = em.createQuery(cq);
-        return query;
+        return em.createQuery(cq);
     }
 
     public HealthDataResult getById(final Long id) {

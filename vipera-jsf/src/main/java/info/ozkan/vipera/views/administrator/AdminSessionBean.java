@@ -30,9 +30,9 @@ public class AdminSessionBean {
     public void setUp() {
         final Authentication obj =
                 SecurityContextHolder.getContext().getAuthentication();
-        final Object administrator = obj.getPrincipal();
-        if (administrator instanceof Administrator) {
-            this.administrator = (Administrator) administrator;
+        final Object admin = obj.getPrincipal();
+        if (admin instanceof Administrator) {
+            this.administrator = (Administrator) admin;
         }
     }
 

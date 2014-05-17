@@ -13,8 +13,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,12 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Named("healthDataService")
 public class HealthDataServiceImpl implements HealthDataService {
-    /**
-     * LOGGER
-     */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(HealthDataServiceImpl.class);
-
     /**
      * Dao nesnesi
      */

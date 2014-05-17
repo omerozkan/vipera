@@ -54,8 +54,20 @@
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <error-page>
-        <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
+        <exception-type>info.ozkan.vipera.jsf.NotFoundException</exception-type>
         <location>/404.html</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.html</location>
+    </error-page>
+    <error-page>
+        <exception-type>info.ozkan.vipera.jsf.UnauthorizedException</exception-type>
+        <location>/403.html</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403.html</location>
     </error-page>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>

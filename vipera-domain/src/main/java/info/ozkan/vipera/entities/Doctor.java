@@ -166,12 +166,8 @@ public class Doctor implements Serializable, Cloneable {
     private List<Patient> patients;
 
     @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (final CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     /**
@@ -419,9 +415,10 @@ public class Doctor implements Serializable, Cloneable {
     }
 
     /**
-     * @param enabled the enabled to set
+     * @param enabled
+     *            the enabled to set
      */
-    public void setEnabled(Authorize enabled) {
+    public void setEnabled(final Authorize enabled) {
         this.enabled = enabled;
     }
 }

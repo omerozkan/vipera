@@ -5,17 +5,14 @@ import info.ozkan.vipera.business.device.DeviceManagerResult;
 import info.ozkan.vipera.entities.Device;
 import info.ozkan.vipera.entities.Patient;
 import info.ozkan.vipera.jsf.FacesMessage2;
+import info.ozkan.vipera.jsf.NotFoundException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
-
-import com.sun.faces.context.FacesFileNotFoundException;
 
 /**
  * Cihaz güncelleme ekranı
@@ -27,13 +24,15 @@ import com.sun.faces.context.FacesFileNotFoundException;
 @Scope("session")
 public class DeviceUpdateBean {
     /**
-     * Ciha güncellenemedi mesajı
+     * Cihaz güncellenemedi mesajı
      */
-    private static final String DEVICE_CANNOT_BE_UPDATED = "Cihaz güncellenemedi";
+    private static final String DEVICE_CANNOT_BE_UPDATED =
+            "Cihaz güncellenemedi";
     /**
      * cihaz güncellenemedi mesaj detay deseni
      */
-    private static final String DEVICE_CANNOT_BE_UPDATED_MSG_PATTERN = "Cihaz %s güncellenemedi!";
+    private static final String DEVICE_CANNOT_BE_UPDATED_MSG_PATTERN =
+            "Cihaz %s güncellenemedi!";
     /**
      * cihaz güncellendi mesjaı
      */
@@ -41,12 +40,8 @@ public class DeviceUpdateBean {
     /**
      * cihaz güncellendi mesaj detayı deseni
      */
-    private static final String DEVICE_UPDATED_MSG_PATTERN = "Cihaz %s güncellendi!";
-    /**
-     * LOGGER
-     */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(DeviceUpdateBean.class);
+    private static final String DEVICE_UPDATED_MSG_PATTERN =
+            "Cihaz %s güncellendi!";
     /**
      * Id
      */
@@ -72,9 +67,8 @@ public class DeviceUpdateBean {
     /**
      * Cihazın yüklenmesini sağlar
      * 
-     * @throws FacesFileNotFoundException
      */
-    public void loadDevice() throws FacesFileNotFoundException {
+    public void loadDevice() {
         if (loadDevice) {
             getDeviceFromSystem();
         } else {
@@ -85,19 +79,18 @@ public class DeviceUpdateBean {
     /**
      * Sistemden ilgili cihazı getirir
      * 
-     * @throws FacesFileNotFoundException
      */
-    private void getDeviceFromSystem() throws FacesFileNotFoundException {
+    private void getDeviceFromSystem() {
         if (id != null) {
             final DeviceManagerResult result = deviceFacade.getById(id);
             if (result.isSuccess()) {
                 device = result.getDevice();
                 setSelectedPatient(device.getPatient());
             } else {
-                throw new FacesFileNotFoundException();
+                throw new NotFoundException();
             }
         } else {
-            throw new FacesFileNotFoundException();
+            throw new NotFoundException();
         }
     }
 
@@ -129,13 +122,14 @@ public class DeviceUpdateBean {
         final DeviceManagerResult result = deviceFacade.update(device);
 
         if (result.isSuccess()) {
-            final String detail = String.format(DEVICE_UPDATED_MSG_PATTERN,
-                    device.getApiKey());
+            final String detail =
+                    String.format(DEVICE_UPDATED_MSG_PATTERN,
+                            device.getApiKey());
             context.addMessage(null, new FacesMessage2(
                     FacesMessage.SEVERITY_INFO, DEVICE_UPDATED, detail));
         } else {
-            final String detail = String
-                    .format(DEVICE_CANNOT_BE_UPDATED_MSG_PATTERN);
+            final String detail =
+                    String.format(DEVICE_CANNOT_BE_UPDATED_MSG_PATTERN);
             context.addMessage(null, new FacesMessage2(null,
                     DEVICE_CANNOT_BE_UPDATED, detail));
         }

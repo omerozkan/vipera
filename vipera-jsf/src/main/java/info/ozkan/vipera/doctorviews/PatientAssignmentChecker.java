@@ -12,7 +12,13 @@ import java.util.List;
  * @author Ömer Özkan
  * 
  */
-public class PatientAssignmentChecker {
+public final class PatientAssignmentChecker {
+    /**
+     * private constructor
+     */
+    private PatientAssignmentChecker() {
+    }
+
     /**
      * Hastanın, hekime atanıp atanmadığını test eder
      * 

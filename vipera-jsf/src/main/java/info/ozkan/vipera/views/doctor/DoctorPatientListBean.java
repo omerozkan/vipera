@@ -17,8 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.sun.faces.context.FacesFileNotFoundException;
-
 /**
  * Hekime ait hasta listesi ekranı
  * 
@@ -36,11 +34,13 @@ public class DoctorPatientListBean {
     /**
      * Hata mesajı
      */
-    private static final String ERROR_MSG = "Hasta ataması daha önce kaldırıldı!";
+    private static final String ERROR_MSG =
+            "Hasta ataması daha önce kaldırıldı!";
     /**
      * Başarılı sonuç mesaj deseni
      */
-    private static final String SUCCESS_MSG_PATTERN = "Hasta %s, %s hasta listesinden kaldırıldı!";
+    private static final String SUCCESS_MSG_PATTERN =
+            "Hasta %s, %s hasta listesinden kaldırıldı!";
     /**
      * Hekim
      */
@@ -81,9 +81,8 @@ public class DoctorPatientListBean {
     /**
      * Hekim nesnesinin yüklenmesini sağlar
      * 
-     * @throws FacesFileNotFoundException
      */
-    public void loadDoctor() throws FacesFileNotFoundException {
+    public void loadDoctor() {
         if (id != null && loadDoctor) {
             doctor = DoctorLoader.loadDoctor(id, doctorFacade);
             doctorPatientFacade.loadPatients(doctor);
@@ -122,12 +121,13 @@ public class DoctorPatientListBean {
      */
     public void removeAssignment(final Patient patient) {
         final FacesContext context = FacesContext.getCurrentInstance();
-        final DoctorPatientManagerResult result = doctorPatientFacade
-                .removeAssignment(doctor, patient);
+        final DoctorPatientManagerResult result =
+                doctorPatientFacade.removeAssignment(doctor, patient);
         final DoctorPatientManagerStatus status = result.getStatus();
         if (status.equals(DoctorPatientManagerStatus.SUCCESS)) {
-            final String summary = String.format(SUCCESS_MSG_PATTERN,
-                    patient.getFullname(), doctor.getFullname());
+            final String summary =
+                    String.format(SUCCESS_MSG_PATTERN, patient.getFullname(),
+                            doctor.getFullname());
             createSuccessMessage(context, summary);
             LOGGER.info("The patient {} has removed from {}", patient, doctor);
         } else {

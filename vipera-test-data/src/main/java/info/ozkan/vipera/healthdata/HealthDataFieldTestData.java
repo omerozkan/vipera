@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Ömer Özkan
  * 
  */
-public class HealthDataFieldTestData {
+public final class HealthDataFieldTestData {
     /**
      * Alanlar
      */

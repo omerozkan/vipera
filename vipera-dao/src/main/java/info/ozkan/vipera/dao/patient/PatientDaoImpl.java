@@ -182,16 +182,14 @@ public class PatientDaoImpl implements PatientDao {
 
     public PatientManagerResult find(final PatientSearchFilter filter) {
         final CriteriaQuery<Patient> cq = createCriteriaFromFilter(filter);
-        final PatientManagerResult result = createManagerResultFromCriteria(cq);
-        return result;
+        return createManagerResultFromCriteria(cq);
     }
 
     public PatientManagerResult find(final PatientSearchFilter filter,
             final Doctor doctor) {
         final CriteriaQuery<Patient> cq =
                 createCriteriaFromFilter(filter, doctor);
-        final PatientManagerResult result = createManagerResultFromCriteria(cq);
-        return result;
+        return createManagerResultFromCriteria(cq);
     }
 
     public PatientManagerResult getById(final Long id) {

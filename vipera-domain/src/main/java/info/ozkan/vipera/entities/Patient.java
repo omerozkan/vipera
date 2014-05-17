@@ -168,20 +168,16 @@ public class Patient implements Serializable, Cloneable {
     private List<Device> devices;
 
     @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (final CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Patient) {
             final Patient patient = (Patient) obj;
-            final Long tckn = patient.tckn;
-            return tckn.equals(this.tckn);
+            final Long patientTckn = patient.tckn;
+            return patientTckn.equals(tckn);
         }
         return false;
     }
@@ -429,6 +425,21 @@ public class Patient implements Serializable, Cloneable {
      */
     public void setTckn(final Long tckn) {
         this.tckn = tckn;
+    }
+
+    /**
+     * @return the devices
+     */
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    /**
+     * @param devices
+     *            the devices to set
+     */
+    public void setDevices(final List<Device> devices) {
+        this.devices = devices;
     }
 
 }

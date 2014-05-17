@@ -8,7 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  * @author Ömer Özkan
  * 
  */
-public class PasswordGenerator {
+public final class PasswordGenerator {
     /**
      * private constructor
      */
@@ -21,7 +21,6 @@ public class PasswordGenerator {
      * @return
      */
     public static String generate() {
-        final String result = RandomStringUtils.random(16, true, true);
-        return result;
+        return RandomStringUtils.random(16, true, true);
     }
 }

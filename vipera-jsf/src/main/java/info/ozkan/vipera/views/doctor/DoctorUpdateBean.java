@@ -18,8 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.sun.faces.context.FacesFileNotFoundException;
-
 /**
  * Hekim güncelleme ekranı
  * 
@@ -64,7 +62,7 @@ public class DoctorUpdateBean implements Serializable {
     /**
      * Doctor nesnesi
      */
-    protected Doctor doctor;
+    private Doctor doctor;
     /**
      * İşletme katmanı
      */
@@ -85,11 +83,8 @@ public class DoctorUpdateBean implements Serializable {
 
     /**
      * Hekim in veritabanından sorgulanıp formda gösterilmesini sağlar
-     * 
-     * @throws FacesFileNotFoundException
-     *             Hekim bulunamadı hatası
      */
-    public void loadDoctor() throws FacesFileNotFoundException {
+    public void loadDoctor() {
         doctor = DoctorLoader.loadDoctor(id, doctorFacade);
     }
 
@@ -106,7 +101,7 @@ public class DoctorUpdateBean implements Serializable {
         if (password != null && !password.isEmpty()) {
             doctor.setPassword(password);
         }
-        if (enable == true) {
+        if (enable) {
             doctor.setEnabled(Authorize.ENABLE);
         }
         final DoctorManagerResult result = doctorFacade.update(doctor);

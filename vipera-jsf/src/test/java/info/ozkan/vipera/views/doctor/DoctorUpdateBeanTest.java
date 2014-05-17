@@ -5,6 +5,7 @@ import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.jsf.ViperaViewException;
 
 import javax.faces.context.FacesContext;
 
@@ -17,8 +18,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.sun.faces.context.FacesFileNotFoundException;
 
 /**
  * DoctorUpdateBean birim testleri
@@ -97,7 +96,7 @@ public class DoctorUpdateBeanTest {
      * 
      * @throws Exception
      */
-    @Test(expected = FacesFileNotFoundException.class)
+    @Test(expected = ViperaViewException.class)
     public void updateWithInvalidId() throws Exception {
         result.setSuccess(false);
         setDoctorIdAndLoad();
@@ -110,7 +109,7 @@ public class DoctorUpdateBeanTest {
      * 
      * @throws Exception
      */
-    @Test(expected = FacesFileNotFoundException.class)
+    @Test(expected = ViperaViewException.class)
     public void updateWithEmptyId() throws Exception {
         doctorUpdate.setId(null);
         doctorUpdate.loadDoctor();
@@ -158,10 +157,8 @@ public class DoctorUpdateBeanTest {
      * Başarılı update işlemi için gereken işlemleri gerçekleştirir.
      * 
      * @return
-     * @throws FacesFileNotFoundException
      */
-    private DoctorManagerResult createSuccessUpdateOperation()
-            throws FacesFileNotFoundException {
+    private DoctorManagerResult createSuccessUpdateOperation() {
         setDoctor();
         setDoctorNameAndSurname();
         setDoctorIdAndLoad();
@@ -182,10 +179,8 @@ public class DoctorUpdateBeanTest {
 
     /**
      * DoctorID'si atar ve hekim yükleme işlemini gerçekleştirir.
-     * 
-     * @throws FacesFileNotFoundException
      */
-    private void setDoctorIdAndLoad() throws FacesFileNotFoundException {
+    private void setDoctorIdAndLoad() {
         doctorUpdate.setId(doctor.getId());
         doctorUpdate.loadDoctor();
     }

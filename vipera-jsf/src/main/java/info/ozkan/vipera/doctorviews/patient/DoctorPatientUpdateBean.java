@@ -3,14 +3,13 @@ package info.ozkan.vipera.doctorviews.patient;
 import info.ozkan.vipera.business.doctorpatient.DoctorPatientFacade;
 import info.ozkan.vipera.doctorviews.PatientAssignmentChecker;
 import info.ozkan.vipera.entities.Patient;
+import info.ozkan.vipera.jsf.UnauthorizedException;
 import info.ozkan.vipera.views.patient.PatientUpdateBean;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
-
-import com.sun.faces.context.FacesFileNotFoundException;
 
 /**
  * Hekim, hasta güncelleme ekranı: Yönetim panelindeki ekrandan farkı hekimin
@@ -30,13 +29,13 @@ public class DoctorPatientUpdateBean extends PatientUpdateBean {
     private DoctorPatientFacade doctorPatientFacade;
 
     @Override
-    public void loadPatient() throws FacesFileNotFoundException {
+    public void loadPatient() {
         super.loadPatient();
         final Patient patient = getPatient();
         final boolean checkAssignment =
                 PatientAssignmentChecker.check(doctorPatientFacade, patient);
         if (!checkAssignment) {
-            throw new FacesFileNotFoundException();
+            throw new UnauthorizedException();
         }
     }
 }

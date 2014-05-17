@@ -84,7 +84,7 @@ public class PatientAddBean implements Serializable {
     /**
      * Yeni hasta
      */
-    protected Patient patient = new Patient();
+    private Patient patient = new Patient();
     /**
      * Parola
      */
@@ -100,12 +100,12 @@ public class PatientAddBean implements Serializable {
     /**
      * Hasta sisteme kaydedildi mi
      */
-    protected boolean patientSaved = false;
+    private boolean patientSaved = false;
 
     /**
      * son eklenen hasta
      */
-    protected Patient addedPatient;
+    private Patient addedPatient;
 
     /**
      * consructor
@@ -128,7 +128,7 @@ public class PatientAddBean implements Serializable {
      * Hastayı sisteme kaydeder
      */
     public void save() {
-        patientSaved = false;
+        setPatientSaved(false);
         final FacesContext context = FacesContext.getCurrentInstance();
         boolean success = true;
         setPassword();
@@ -167,7 +167,7 @@ public class PatientAddBean implements Serializable {
         final PatientManagerResult result = patientFacade.add(patient);
 
         if (result.getStatus().equals(PatientManagerStatus.SUCCESS)) {
-            patientSaved = true;
+            setPatientSaved(true);
             final String summary =
                     String.format(SUCCESS_MSG_FORMAT, patient.getTckn(),
                             patient.getFullname());
@@ -175,7 +175,7 @@ public class PatientAddBean implements Serializable {
                     new FacesMessage2(FacesMessage.SEVERITY_INFO, summary, "");
             addMessage(context, successMessage);
             LOGGER.info("The new patient has added! {}", patient.getFullname());
-            addedPatient = patient;
+            setAddedPatient(patient);
             patient = new Patient();
         } else if (result.getStatus().equals(
                 PatientManagerStatus.TCKN_HAS_EXIST)) {
@@ -300,5 +300,35 @@ public class PatientAddBean implements Serializable {
      */
     public void setPatientFacade(final PatientFacade patientFacade) {
         this.patientFacade = patientFacade;
+    }
+
+    /**
+     * @return the patientSaved
+     */
+    protected boolean isPatientSaved() {
+        return patientSaved;
+    }
+
+    /**
+     * @param patientSaved
+     *            the patientSaved to set
+     */
+    protected void setPatientSaved(final boolean patientSaved) {
+        this.patientSaved = patientSaved;
+    }
+
+    /**
+     * @return the addedPatient
+     */
+    protected Patient getAddedPatient() {
+        return addedPatient;
+    }
+
+    /**
+     * @param addedPatient
+     *            the addedPatient to set
+     */
+    protected void setAddedPatient(final Patient addedPatient) {
+        this.addedPatient = addedPatient;
     }
 }

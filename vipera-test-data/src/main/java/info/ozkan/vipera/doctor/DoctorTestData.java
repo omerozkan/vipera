@@ -29,7 +29,7 @@ public final class DoctorTestData {
     /**
      * Test verilerin çakışmaması için edinilen sonraki TCKN
      */
-    private static long NEXT_TCKN = 12345678904L;
+    private static long nextTckn = 12345678904L;
 
     /**
      * Hekim listesi
@@ -114,7 +114,7 @@ public final class DoctorTestData {
      * @return
      */
     public static long getNextTCKN() {
-        return NEXT_TCKN++;
+        return nextTckn++;
     }
 
     /**
@@ -125,11 +125,16 @@ public final class DoctorTestData {
      * @return
      */
     public static Doctor getTestData(final int id) {
+        final Doctor doctor;
         if (doctors == null) {
             initializeDoctors();
         }
-        final Doctor doctor = doctors.get(id);
-        return (Doctor) doctor.clone();
+        doctor = doctors.get(id);
+        try {
+            return (Doctor) doctor.clone();
+        } catch (final CloneNotSupportedException e) {
+            throw new AssertionError(e.getMessage(), e);
+        }
     }
 
     /**

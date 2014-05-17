@@ -4,11 +4,10 @@ import info.ozkan.vipera.business.patient.PatientFacade;
 import info.ozkan.vipera.business.patient.PatientManagerResult;
 import info.ozkan.vipera.business.patient.PatientManagerStatus;
 import info.ozkan.vipera.entities.Patient;
+import info.ozkan.vipera.jsf.NotFoundException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.sun.faces.context.FacesFileNotFoundException;
 
 /**
  * Hasta yükleme işlemini gerçekleştiren utility sınıfı
@@ -16,7 +15,7 @@ import com.sun.faces.context.FacesFileNotFoundException;
  * @author Ömer Özkan
  * 
  */
-public class PatientLoader {
+public final class PatientLoader {
     /**
      * LOGGER
      */
@@ -38,19 +37,17 @@ public class PatientLoader {
      * @param id
      *            Hasta id
      * @return hasta nesnesi
-     * @throws FacesFileNotFoundException
-     *             Hasta bulunamadığında fırlatılır
      */
     public static Patient loadPatient(final PatientFacade patientFacade,
-            final Long id) throws FacesFileNotFoundException {
+            final Long id) {
         if (id == null) {
             LOGGER.error("Parameter Id is empty!");
-            throw new FacesFileNotFoundException();
+            throw new NotFoundException();
         }
         final PatientManagerResult result = patientFacade.getById(id);
         if (!isSuccess(result)) {
             LOGGER.error("Patient has not found ID: {}!", id);
-            throw new FacesFileNotFoundException();
+            throw new NotFoundException();
         }
         return result.getPatient();
     }
