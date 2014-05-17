@@ -32,6 +32,14 @@ public class DeviceAddBean {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DeviceAddBean.class);
     /**
+     * api parolası uzunluğu
+     */
+    private static final int PASSWORD_LENGTH = 16;
+    /**
+     * api anahtarı uzunluğu
+     */
+    private static final int APIKEY_LENGTH = 16;
+    /**
      * hasta buluamadı
      */
     private static final String ERROR_PATIENT_NOT_FOUND = "Hasta bulunamadı!";
@@ -54,23 +62,28 @@ public class DeviceAddBean {
     /**
      * benzersiz api anahtarı mesajı
      */
-    private static final String MSG_NON_UNIQUE_API_KEY = "API anahtarı benzersiz olmalıdır. Lütfen yeni bir anahtar girin!";
+    private static final String MSG_NON_UNIQUE_API_KEY =
+            "API anahtarı benzersiz olmalıdır. Lütfen yeni bir anahtar girin!";
     /**
      * Hasta bulunamadı mesajı
      */
-    private static final String MSG_PATIENT_NOT_FOUND = "Cihaz eklemek istediğiniz hasta bulunamadı! Lütfen tekrar kontrol ediniz!";
+    private static final String MSG_PATIENT_NOT_FOUND =
+            "Cihaz eklemek istediğiniz hasta bulunamadı! Lütfen tekrar kontrol ediniz!";
     /**
      * yeni hasta kaydedildi mesajı
      */
-    private static final String MSG_NEW_PATIENT_SAVED_PATTERN = "%s hastaya ait yeni cihaz %s eklendi!";
+    private static final String MSG_NEW_PATIENT_SAVED_PATTERN =
+            "%s hastaya ait yeni cihaz %s eklendi!";
     /**
      * api parolası mesajı
      */
-    private static final String MSG_API_PASSWORD = "Lütfen API parolasını elle girmeyip üretilen parolayı kullanınız!";
+    private static final String MSG_API_PASSWORD =
+            "Lütfen API parolasını elle girmeyip üretilen parolayı kullanınız!";
     /**
      * api key uzunluk hata mesajı
      */
-    private static final String MSG_API_KEY_LENGTH = "API anahtarı 16 karakterden az olamaz";
+    private static final String MSG_API_KEY_LENGTH =
+            "API anahtarı 16 karakterden az olamaz";
     /**
      * hasta seçiniz hata mesajı
      */
@@ -135,8 +148,9 @@ public class DeviceAddBean {
         final DeviceManagerResult result = deviceFacade.add(device);
         final DeviceManagerStatus status = result.getStatus();
         if (result.isSuccess()) {
-            final String detail = String.format(MSG_NEW_PATIENT_SAVED_PATTERN,
-                    patient.getFullname(), device.getApiKey());
+            final String detail =
+                    String.format(MSG_NEW_PATIENT_SAVED_PATTERN,
+                            patient.getFullname(), device.getApiKey());
             createInfoMessage(context, INFO_SUCCESSFULL, detail);
             LOGGER.info("A new device {} added to {} ", device.getApiKey(),
                     patient);
@@ -164,11 +178,11 @@ public class DeviceAddBean {
             validFields = false;
             createErrorMessage(context, ERROR_PATIENT_NULL, MSG_SELECT_PATIENT);
         }
-        if (device.getApiKey().length() < 16) {
+        if (device.getApiKey().length() < APIKEY_LENGTH) {
             validFields = false;
             createErrorMessage(context, ERROR_API_KEY, MSG_API_KEY_LENGTH);
         }
-        if (device.getApiPassword().length() < 16) {
+        if (device.getApiPassword().length() < PASSWORD_LENGTH) {
             validFields = false;
             createErrorMessage(context, ERROR_API_PASSWORD, MSG_API_PASSWORD);
         }

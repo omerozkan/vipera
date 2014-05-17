@@ -27,6 +27,10 @@ public class PatientBrowseBean {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(PatientBrowseBean.class);
     /**
+     * TCKN uzunluğı
+     */
+    private static final int TCKN_LENGTH = 11;
+    /**
      * Model
      */
     private final PatientBrowseModel model = new PatientBrowseModel();
@@ -58,7 +62,7 @@ public class PatientBrowseBean {
      */
     protected PatientSearchFilter createFilterFromModel() {
         final PatientSearchFilter filter = new PatientSearchFilter();
-        if (model.getTckn().toString().length() == 11) {
+        if (model.getTckn().toString().length() == TCKN_LENGTH) {
             filter.addFilter(Patient.TCKN, model.getTckn());
         }
         if (checkNonEmpty(model.getName())) {
