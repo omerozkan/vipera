@@ -41,7 +41,7 @@
             <url>http://repository.ozkan.info/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>releases</id>
+            <id>deployment</id>
             <url>http://repository.ozkan.info/content/repositories/releases</url>
         </repository>
     </distributionManagement>
