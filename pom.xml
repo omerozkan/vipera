@@ -41,7 +41,7 @@
             <url>http://repository.ozkan.info/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>deployment</id>
+            <id>releases</id>
             <url>http://repository.ozkan.info/content/repositories/releases</url>
         </repository>
     </distributionManagement>
@@ -50,6 +50,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>deployment</serverId>
