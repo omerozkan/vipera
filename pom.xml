@@ -55,6 +55,7 @@
                 <configuration>
                     <serverId>deployment</serverId>
                     <nexusUrl>http://repository.ozkan.info</nexusUrl>
+                    <skipStaging>true</skipStaging>
                 </configuration>
             </plugin>
         </plugins>
