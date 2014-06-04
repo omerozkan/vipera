@@ -13,6 +13,8 @@
         <slf4j-version>1.7.5</slf4j-version>
         <spring-version>3.2.8.RELEASE</spring-version>
         <spring-security-version>3.2.1.RELEASE</spring-security-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <contributors>
         <contributor>
