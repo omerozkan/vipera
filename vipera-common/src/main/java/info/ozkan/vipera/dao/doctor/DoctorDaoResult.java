@@ -3,6 +3,12 @@ package info.ozkan.vipera.dao.doctor;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.entities.Doctor;
 
+/**
+ * Hekim işlemleri sonucu için kullanılan sonuç sınıfı
+ * 
+ * @author Ömer Özkan
+ * 
+ */
 public class DoctorDaoResult {
 
     /**

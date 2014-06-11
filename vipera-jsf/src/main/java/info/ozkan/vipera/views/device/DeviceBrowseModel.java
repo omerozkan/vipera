@@ -2,6 +2,12 @@ package info.ozkan.vipera.views.device;
 
 import info.ozkan.vipera.entities.Patient;
 
+/**
+ * Cihaz arama model sınıfı
+ * 
+ * @author Ömer Özkan
+ * 
+ */
 public class DeviceBrowseModel {
     /**
      * Hasta
@@ -11,28 +17,34 @@ public class DeviceBrowseModel {
      * API anahtarı
      */
     private String apiKey;
+
     /**
      * @return the patient
      */
     public Patient getPatient() {
         return patient;
     }
+
     /**
-     * @param patient the patient to set
+     * @param patient
+     *            the patient to set
      */
-    public void setPatient(Patient patient) {
+    public void setPatient(final Patient patient) {
         this.patient = patient;
     }
+
     /**
      * @return the apiKey
      */
     public String getApiKey() {
         return apiKey;
     }
+
     /**
-     * @param apiKey the apiKey to set
+     * @param apiKey
+     *            the apiKey to set
      */
-    public void setApiKey(String apiKey) {
+    public void setApiKey(final String apiKey) {
         this.apiKey = apiKey;
     }
 }
