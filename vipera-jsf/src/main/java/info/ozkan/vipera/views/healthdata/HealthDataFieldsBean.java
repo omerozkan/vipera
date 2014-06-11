@@ -25,9 +25,23 @@ import org.springframework.context.annotation.Scope;
 @Named("healthDataFields")
 @Scope("session")
 public class HealthDataFieldsBean {
-    private static final String DELETING_SUCCESS_MSG_DETAIL_PATTERN = "%s silindi!";
+    /**
+     * Silme işlemi başarılı mesaj detay deseni
+     */
+    private static final String DELETING_SUCCESS_MSG_DETAIL_PATTERN =
+            "%s silindi!";
+    /**
+     * Silme işlemi başarılı mesajı
+     */
     private static final String DELETING_SUCCESS_MSG = "Silme işlemi başarılı!";
-    private static final String DELETING_FAIL_MSG_DETAIL = "Silme işlemi gerçekleştirilemedi. Alan daha önce bir başkası tarafından silinmiş olabilir";
+    /**
+     * Silme işlemi başarısız mesaj detay deseni
+     */
+    private static final String DELETING_FAIL_MSG_DETAIL =
+            "Silme işlemi gerçekleştirilemedi. Alan daha önce bir başkası tarafından silinmiş olabilir";
+    /**
+     * Silme işlemi başarısız mesajı
+     */
     private static final String DELETING_FAIL_MSG = "Silme işlemi başarısız";
     /**
      * ekleme başaırsız hata mesajı
@@ -36,7 +50,8 @@ public class HealthDataFieldsBean {
     /**
      * Yeni alan eklendi detay mesajı deseni
      */
-    private static final String NEW_FIELD_ADDED_MSG_DETAIL_PATTERN = "%s sisteme eklendi!";
+    private static final String NEW_FIELD_ADDED_MSG_DETAIL_PATTERN =
+            "%s sisteme eklendi!";
     /**
      * yeni alan eklendi mesajı
      */
@@ -44,7 +59,8 @@ public class HealthDataFieldsBean {
     /**
      * alan adı benzersiz olmalıdır hata mesajı
      */
-    private static final String NON_UNIQUE_FIELD_NAME = "Alan adı benzersiz olmalıdır.";
+    private static final String NON_UNIQUE_FIELD_NAME =
+            "Alan adı benzersiz olmalıdır.";
     /**
      * güncelleme başarısız hata emsajı
      */
@@ -52,7 +68,8 @@ public class HealthDataFieldsBean {
     /**
      * güncelelme başarılı mesaj detayı deseni
      */
-    private static final String UPDATE_SUCCESS_MSG_DETAIL_PATTERN = "%s güncellendi!";
+    private static final String UPDATE_SUCCESS_MSG_DETAIL_PATTERN =
+            "%s güncellendi!";
     /**
      * Güncelleme başarılı hata mesajı
      */
@@ -102,7 +119,8 @@ public class HealthDataFieldsBean {
      */
     private Map<String, HealthDataField> createMapFromList(
             final List<HealthDataField> list) {
-        final Map<String, HealthDataField> fields = new HashMap<String, HealthDataField>();
+        final Map<String, HealthDataField> fields =
+                new HashMap<String, HealthDataField>();
         for (int i = 0; i < list.size(); i++) {
             final HealthDataField field = list.get(i);
             fields.put(field.getName(), field);
@@ -115,12 +133,12 @@ public class HealthDataFieldsBean {
      */
     public void update() {
         final FacesContext context = FacesContext.getCurrentInstance();
-        final HealthDataFieldResult result = healthDataFieldFacade
-                .update(getSelectedField());
+        final HealthDataFieldResult result =
+                healthDataFieldFacade.update(getSelectedField());
         if (result.isSuccess()) {
-            final String detail = String.format(
-                    UPDATE_SUCCESS_MSG_DETAIL_PATTERN, getSelectedField()
-                            .getTitle());
+            final String detail =
+                    String.format(UPDATE_SUCCESS_MSG_DETAIL_PATTERN,
+                            getSelectedField().getTitle());
             createInfoMessage(context, UPDATE_SUCCESS_MSG, detail);
         } else {
             createErrorMessage(context, UPDATE_UNSUCCESS_MSG,
@@ -133,11 +151,12 @@ public class HealthDataFieldsBean {
      */
     public void addNew() {
         final FacesContext context = FacesContext.getCurrentInstance();
-        final HealthDataFieldResult result = healthDataFieldFacade
-                .add(newField);
+        final HealthDataFieldResult result =
+                healthDataFieldFacade.add(newField);
         if (result.isSuccess()) {
-            final String detail = String.format(
-                    NEW_FIELD_ADDED_MSG_DETAIL_PATTERN, newField.getTitle());
+            final String detail =
+                    String.format(NEW_FIELD_ADDED_MSG_DETAIL_PATTERN,
+                            newField.getTitle());
             createInfoMessage(context, NEW_FIELD_ADDED_MSG, detail);
             updateFieldsForScreen();
         } else {
@@ -150,12 +169,12 @@ public class HealthDataFieldsBean {
      */
     public void delete() {
         final FacesContext context = FacesContext.getCurrentInstance();
-        final HealthDataFieldResult result = healthDataFieldFacade
-                .remove(selectedField);
+        final HealthDataFieldResult result =
+                healthDataFieldFacade.remove(selectedField);
         if (result.isSuccess()) {
-            final String detail = String.format(
-                    DELETING_SUCCESS_MSG_DETAIL_PATTERN,
-                    selectedField.getTitle());
+            final String detail =
+                    String.format(DELETING_SUCCESS_MSG_DETAIL_PATTERN,
+                            selectedField.getTitle());
             createInfoMessage(context, DELETING_SUCCESS_MSG, detail);
             updateFieldsForScreen();
         } else {

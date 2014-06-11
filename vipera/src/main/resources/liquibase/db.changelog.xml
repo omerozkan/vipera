@@ -20,6 +20,11 @@
                 <constraints unique="true" />
             </column>
             <column name="password" type="varchar(255)" />
+            <column name="email" type="varchar(255)" >
+                <constraints unique="true" />
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="enabled" type="int" />
         </createTable>
     </changeSet>
     <changeSet id="2-doctor-hsqldb" author="Omer Ozkan" dbms="hsqldb">
@@ -176,6 +181,9 @@
             <column name="id">1</column>
             <column name="username">admin</column>
             <column name="password">password</column>
+            <column name="name">Ömer Özkan</column>
+            <column name="email">omer@ozkan.info</column>
+            <column name="enabled">1</column>
         </insert>
     </changeSet>
     <changeSet id="test-2" author="Omer Ozkan" context="test">

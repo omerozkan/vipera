@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "ADMINISTRATORS")
 public class Administrator implements Serializable {
     /**
-     * 
+     * serial
      */
     private static final long serialVersionUID = 5726328017305109395L;
     /**
@@ -39,6 +41,24 @@ public class Administrator implements Serializable {
      */
     @Column(name = "password")
     private String password;
+    /**
+     * Yönetici adı
+     */
+    @Column(name = "name")
+    private String name;
+
+    /**
+     * Yönetici eposta
+     */
+    @Column(name = "email")
+    private String email;
+
+    /**
+     * Yönetici üyelik aktifliği
+     */
+    @Column(name = "enabled")
+    @Enumerated(EnumType.ORDINAL)
+    private Authorize enabled;
 
     /**
      * @return the id
@@ -83,5 +103,50 @@ public class Administrator implements Serializable {
      */
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email
+     *            the email to set
+     */
+    public void setEmail(final String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the enabled
+     */
+    public Authorize getEnabled() {
+        return enabled;
+    }
+
+    /**
+     * @param enabled
+     *            the enabled to set
+     */
+    public void setEnabled(final Authorize enabled) {
+        this.enabled = enabled;
     }
 }

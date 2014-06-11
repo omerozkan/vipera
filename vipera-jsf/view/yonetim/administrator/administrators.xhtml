@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<f:metadata>
+        <f:event listener="#{administrators.loadData}" type="preRenderView" />
+    </f:metadata>
+	<ui:define name="title">Yöneticiler | Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="form">
+			<p:panel header="Yöneticiler">
+				<div style="padding-left: 10px; padding-right: 10px">
+					<div class="operations">
+						<p:commandButton value="Yeni Ekle"
+							onclick="PF('newAdminDialog').show()" icon="ui-icon-document" />
+					</div>
+					<div class="clear" />
+					<p:growl id="growl" showDetail="true" />
+					<p:dataTable id="data" var="data" paginator="true" rows="25"
+						selectionMode="single" value="#{administrators.model}"
+						selection="#{administrators.selectedAdmin}">
+
+						<p:ajax event="rowSelect" update=":form:update :form:growl"
+							oncomplete="PF('adminDialog').show()" />
+						<p:ajax event="rowUnselect" update=":form:growl" />
+
+						<f:facet name="header">
+                            Sistemde kayıtlı yöneticiler aşağıda listelenmiştir. Düzenlemek istediğiniz alanın üzerine tıklayınız!
+						</f:facet>
+						<p:column headerText="Kullanıcı Adı">
+							<h:outputText value="#{data.username}" />
+						</p:column>
+
+						<p:column headerText="Yönetici Adı">
+							<h:outputText value="#{data.name}" />
+						</p:column>
+
+						<p:column headerText="Eposta Adresi">
+							<h:outputText value="#{data.email}" />
+						</p:column>
+						<p:column headerText="Üyelik Durumu">
+							<h:outputText value="#{data.enabled.title}" />
+						</p:column>
+					</p:dataTable>
+					<p:dialog id="dialog" header="admin" widgetVar="adminDialog"
+						resizable="false" showEffect="fade" hideEffect="explode">
+
+						<h:panelGrid id="update" columns="3" cellpadding="4">
+
+							<h:outputLabel value="Kullanıcı Adı:" for="username" />
+							<p:inputText id="username" required="true"
+								requiredMessage="Kullanıcı adı boş bırakılamaz!" value="#{administrators.selectedAdmin.username}"/>
+							<p:message for="username" />
+
+							<h:outputLabel value="Parola:" for="password" />
+							<p:password id="password" feedback="true"
+								promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
+								goodLabel="Orta" strongLabel="Güçlü" required="false"
+								match="password2"
+								requiredMessage="Parola alanı boş bırakılamaz!"
+								validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!" value="#{administrators.password}"/>
+							<p:message for="password" />
+
+							<h:outputLabel value="Parola Tekrar:" for="password2" />
+							<p:password id="password2" required="false"
+								requiredMessage="Parolanızı tekrar girmelisiniz!" validator="#{administrators.password2}"/>
+							<p:message for="password2" />
+
+							<h:outputLabel value="Yönetici Adı:" for="name" />
+							<p:inputText id="name" required="true"
+								requiredMessage="Yönetici adı boş bırakılamaz!"  value="#{administrators.selectedAdmin.name}"/>
+							<p:message for="name" />
+
+							<h:outputLabel value="Yönetici e-Posta:" for="email" />
+							<p:inputText id="email" required="true"
+								requiredMessage="Yönetici eposta adresi boş bırakılamaz!" value="#{administrators.selectedAdmin.email}"/>
+							<p:message for="email" />
+
+							<h:outputLabel value="Girişe izin ver?" for="enabled" />
+							<p:selectBooleanCheckbox id="enabled" value="#{administrators.enabled}"/>
+							<p:message for="enabled" />
+							<p:commandButton value="Kaydet"
+								update="@form"
+								oncomplete="PF('adminDialog').hide()" />
+							<p:commandButton value="Sil"
+								 update="@form"
+								oncomplete="PF('adminDialog').hide()" icon="ui-icon-trash" />
+
+						</h:panelGrid>
+					</p:dialog>
+				</div>
+			</p:panel>
+		</h:form>
+		<h:form id="add-update">
+			<p:dialog id="newField" header="Yeni Yönetici" widgetVar="newAdminDialog"
+				resizable="false" showEffect="fade" hideEffect="explode">
+
+				<h:panelGrid id="newOne" columns="3" cellpadding="4">
+
+					<h:outputLabel value="Kullanıcı Adı:" for="username" />
+					<p:inputText id="username" required="true"
+						requiredMessage="Kullanıcı adı boş bırakılamaz!" />
+					<p:message for="username" />
+
+					<h:outputLabel value="Parola:" for="password" />
+					<p:password id="password" feedback="true"
+						promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
+						goodLabel="Orta" strongLabel="Güçlü" required="true"
+						match="password2" requiredMessage="Parola alanı boş bırakılamaz!"
+						validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!" />
+					<p:message for="password" />
+
+					<h:outputLabel value="Parola Tekrar:" for="password2" />
+					<p:password id="password2" required="true"
+						requiredMessage="Parolanızı tekrar girmelisiniz!" />
+					<p:message for="password2" />
+
+					<h:outputLabel value="Yönetici Adı:" for="name" />
+					<p:inputText id="name" required="true"
+						requiredMessage="Yönetici adı boş bırakılamaz!" />
+					<p:message for="name" />
+
+					<h:outputLabel value="Yönetici e-Posta:" for="email" />
+					<p:inputText id="email" required="true"
+						requiredMessage="Yönetici eposta adresi boş bırakılamaz!" />
+					<p:message for="email" />
+
+					<h:outputLabel value="Girişe izin ver?" for="enabled" />
+					<p:selectBooleanCheckbox id="enabled" />
+					<p:message for="enabled" />
+
+					<p:commandButton value="Kaydet"
+						 update=":form"
+						oncomplete="PF('newAdminDialog').hide()" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

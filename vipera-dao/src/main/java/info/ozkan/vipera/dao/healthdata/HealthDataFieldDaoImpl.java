@@ -21,6 +21,10 @@ import javax.persistence.Query;
 @Named("healthDataFieldDao")
 public class HealthDataFieldDaoImpl implements HealthDataFieldDao {
     /**
+     * Veritabanından bütün sağlık verisi alanlarını dönderen JQL sorgusu
+     */
+    private static final String JQL_SELECT_ALL = "from HealthDataField f";
+    /**
      * EntityManager
      */
     private EntityManager em;
@@ -39,8 +43,8 @@ public class HealthDataFieldDaoImpl implements HealthDataFieldDao {
     }
 
     public HealthDataFieldResult getAllFields() {
-        final Query query = em.createQuery("from HealthDataField f",
-                HealthDataField.class);
+        final Query query =
+                em.createQuery(JQL_SELECT_ALL, HealthDataField.class);
         final List<HealthDataField> list = query.getResultList();
         final HealthDataFieldResult result = createSuccessResult();
         result.setHealthDataFields(list);
