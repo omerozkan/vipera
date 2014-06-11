@@ -50,4 +50,13 @@ public class AdministratorManagerResult {
         this.status = status;
     }
 
+    /**
+     * işlem sonu başarılı ise true, değilse false dönderir
+     * 
+     * @return
+     */
+    public boolean isSuccess() {
+        return status.equals(AdministratorManagerStatus.SUCCESS);
+    }
+
 }

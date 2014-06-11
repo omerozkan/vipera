@@ -149,4 +149,9 @@ public class Administrator implements Serializable {
     public void setEnabled(final Authorize enabled) {
         this.enabled = enabled;
     }
+
+    @Override
+    public String toString() {
+        return id + "-" + username;
+    }
 }

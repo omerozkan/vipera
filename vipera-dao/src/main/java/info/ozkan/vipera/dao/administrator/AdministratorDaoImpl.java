@@ -58,4 +58,12 @@ public class AdministratorDaoImpl implements AdministratorDao {
         em = entityManager;
     }
 
+    public AdministratorManagerResult update(final Administrator administrator) {
+        em.merge(administrator);
+        return createSuccessResult();
+    }
+
+    public AdministratorManagerResult add(final Administrator administrator) {
+        return update(administrator);
+    }
 }

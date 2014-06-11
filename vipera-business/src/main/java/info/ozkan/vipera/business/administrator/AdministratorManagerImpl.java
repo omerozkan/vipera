@@ -2,6 +2,7 @@ package info.ozkan.vipera.business.administrator;
 
 import info.ozkan.vipera.business.role.Role;
 import info.ozkan.vipera.dao.administrator.AdministratorDao;
+import info.ozkan.vipera.entities.Administrator;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -25,6 +26,18 @@ public class AdministratorManagerImpl implements AdministratorManager {
     @RolesAllowed(Role.ROLE_ADMIN)
     public AdministratorManagerResult getAll() {
         return administratorDao.getAll();
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public AdministratorManagerResult update(final Administrator administrator) {
+        return administratorDao.update(administrator);
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public AdministratorManagerResult add(final Administrator administrator) {
+        return administratorDao.add(administrator);
     }
 
 }

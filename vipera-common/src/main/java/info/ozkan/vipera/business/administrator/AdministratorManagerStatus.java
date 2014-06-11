@@ -7,5 +7,5 @@ package info.ozkan.vipera.business.administrator;
  * 
  */
 public enum AdministratorManagerStatus {
-    SUCCESS;
+    SUCCESS, NON_UNIQUE;
 }
