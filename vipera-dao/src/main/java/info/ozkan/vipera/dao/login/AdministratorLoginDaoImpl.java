@@ -2,6 +2,7 @@ package info.ozkan.vipera.dao.login;
 
 import info.ozkan.vipera.business.login.AdministratorLoginStatus;
 import info.ozkan.vipera.entities.Administrator;
+import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.login.AdministratorLoginResult;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
     /**
      * Yöneticiyi bilgibankasından çekmek için JQL sorgusu
      */
-    private static final String GET_USER_JQL = "from Administrator a where a.username = :username";
+    private static final String GET_USER_JQL =
+            "from Administrator a where a.username = :username AND a.enabled = :enabled";
     /**
      * Persistence
      */
@@ -52,6 +54,7 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
         final AdministratorLoginResult result = new AdministratorLoginResult();
         final Query query = em.createQuery(GET_USER_JQL);
         query.setParameter("username", username);
+        query.setParameter("enabled", Authorize.ENABLE);
         final List<Administrator> list = query.getResultList();
 
         if (checkUsername(list)) {

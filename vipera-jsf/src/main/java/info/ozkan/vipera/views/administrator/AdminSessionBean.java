@@ -53,6 +53,15 @@ public class AdminSessionBean {
     }
 
     /**
+     * Hesap adı
+     * 
+     * @return
+     */
+    public String getName() {
+        return administrator.getName();
+    }
+
+    /**
      * @return the administrator
      */
     public static Administrator getAdministrator() {
