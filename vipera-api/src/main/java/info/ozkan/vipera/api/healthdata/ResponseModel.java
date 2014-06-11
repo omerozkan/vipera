@@ -13,27 +13,12 @@ public class ResponseModel {
      * Kod
      */
     @Expose
-    private String code;
+    private int code;
     /**
      * Mesaj
      */
     @Expose
     private String message;
-
-    /**
-     * @return the code
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * @param code
-     *            the code to set
-     */
-    public void setCode(final String code) {
-        this.code = code;
-    }
 
     /**
      * @return the message
@@ -48,5 +33,20 @@ public class ResponseModel {
      */
     public void setMessage(final String message) {
         this.message = message;
+    }
+
+    /**
+     * @return the code
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * @param code
+     *            the code to set
+     */
+    public void setCode(final int code) {
+        this.code = code;
     }
 }

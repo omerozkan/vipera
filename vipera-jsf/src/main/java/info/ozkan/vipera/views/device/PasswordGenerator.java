@@ -10,6 +10,11 @@ import org.apache.commons.lang3.RandomStringUtils;
  */
 public final class PasswordGenerator {
     /**
+     * Parola boyutu
+     */
+    private static final int SIZE = 16;
+
+    /**
      * private constructor
      */
     private PasswordGenerator() {
@@ -21,6 +26,6 @@ public final class PasswordGenerator {
      * @return
      */
     public static String generate() {
-        return RandomStringUtils.random(16, true, true);
+        return RandomStringUtils.random(SIZE, true, true);
     }
 }

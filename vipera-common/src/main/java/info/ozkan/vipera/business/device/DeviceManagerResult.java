@@ -56,6 +56,11 @@ public class DeviceManagerResult {
         devices.add(device);
     }
 
+    /**
+     * işlem başarılı mı
+     * 
+     * @return
+     */
     public boolean isSuccess() {
         return status.equals(DeviceManagerStatus.SUCCESS);
     }

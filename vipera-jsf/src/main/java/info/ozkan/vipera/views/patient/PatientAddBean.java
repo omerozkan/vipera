@@ -37,6 +37,14 @@ public class PatientAddBean implements Serializable {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(PatientAddBean.class);
     /**
+     * varsayılan gün
+     */
+    private static final int DEFAULT_DAY = 1;
+    /**
+     * varsayılan yıl
+     */
+    private static final int DEFAULT_YEAR = 1990;
+    /**
      * Kaydedildi mesajı deseni
      */
     private static final String SUCCESS_MSG_FORMAT = "%s %s kaydedildi!";
@@ -120,7 +128,7 @@ public class PatientAddBean implements Serializable {
      */
     private void createDefaultDate() {
         final Calendar calendar = new GregorianCalendar();
-        calendar.set(1990, Calendar.JANUARY, 1);
+        calendar.set(DEFAULT_YEAR, Calendar.JANUARY, DEFAULT_DAY);
         patient.setBirthDate(calendar.getTime());
     }
 

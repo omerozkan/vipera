@@ -17,6 +17,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+/**
+ * Yönetici login ekranı
+ * 
+ * @author Ömer Özkan
+ * 
+ */
 @Named("adminLogin")
 @Scope("request")
 public class AdministratorLoginBean implements Serializable {
@@ -44,12 +50,14 @@ public class AdministratorLoginBean implements Serializable {
     /**
      * Alanların boş olduğu durumda gösterilecek olan hata mesajı
      */
-    public static final String EMPTY_FIELD_MESSAGE = "Lütfen kullanıcı adınızı ve parolanızı giriniz!";
+    public static final String EMPTY_FIELD_MESSAGE =
+            "Lütfen kullanıcı adınızı ve parolanızı giriniz!";
     /**
      * Girilen bilgilerin geçersiz olduğu durumda gösterilecek olan hata mesajı
      */
-    public static final String INVALID_LOGIN_MESSAGE = "Geçersiz kullanıcı adı ve parola girdiniz."
-            + "Lütfen bilgilerinizi kontrol ederek tekrar deneyin!";
+    public static final String INVALID_LOGIN_MESSAGE =
+            "Geçersiz kullanıcı adı ve parola girdiniz."
+                    + "Lütfen bilgilerinizi kontrol ederek tekrar deneyin!";
     /**
      * {@link AdministratorLoginBean#INVALID_LOGIN_MESSAGE} mesajını içeren
      * FacesMessage nesnesi
@@ -105,10 +113,11 @@ public class AdministratorLoginBean implements Serializable {
             return;
         }
         try {
-            final Authentication request = new UsernamePasswordAuthenticationToken(
-                    getUsername(), getPassword());
-            final Authentication result = adminAuthManager
-                    .authenticate(request);
+            final Authentication request =
+                    new UsernamePasswordAuthenticationToken(getUsername(),
+                            getPassword());
+            final Authentication result =
+                    adminAuthManager.authenticate(request);
             SecurityContextHolder.getContext().setAuthentication(result);
             isSuccess = true;
             LOGGER.info("{} has login to admin panel", getUsername());
@@ -118,7 +127,13 @@ public class AdministratorLoginBean implements Serializable {
         }
     }
 
-    public void setAdminAuthManager(final AuthenticationManager adminAuthManager) {
+    /**
+     * inject AuthenticationManager
+     * 
+     * @param adminAuthManager
+     */
+    public void
+            setAdminAuthManager(final AuthenticationManager adminAuthManager) {
         this.adminAuthManager = adminAuthManager;
     }
 

@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,8 +34,7 @@ public class PatientLoginManager implements AuthenticationProvider {
     /**
      * Login işlemini gerçekleştirir
      */
-    public Authentication authenticate(final Authentication authentication)
-            throws AuthenticationException {
+    public Authentication authenticate(final Authentication authentication) {
         final Authentication authToken;
         final PatientLoginResult result = getLoginResult(authentication);
         final PatientLoginStatus status = result.getStatus();
