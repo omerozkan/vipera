@@ -154,8 +154,8 @@
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="7-health-datas" author="Omer Ozkan">
-        <createTable tableName="HEALTH_DATAS">
+    <changeSet id="7-health-data" author="Omer Ozkan">
+        <createTable tableName="HEALTH_DATA">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" />
             </column>
@@ -375,5 +375,5 @@
             <column name="enabled">1</column>
         </insert>
     </changeSet>
-    <include file="classpath:liquibase/db.changelog-healthdatas.xml"/>
+    <include file="classpath:liquibase/db.changelog-healthdata.xml"/>
 </databaseChangeLog>
