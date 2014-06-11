@@ -58,6 +58,10 @@ public class AccountBean implements Serializable {
      * Yönetici
      */
     private Administrator profile;
+    /**
+     * Parola
+     */
+    private String password;
 
     /**
      * Business object
@@ -78,10 +82,20 @@ public class AccountBean implements Serializable {
      */
     public void update() {
         final FacesContext context = FacesContext.getCurrentInstance();
+        setAdminPassword();
         if (!isEmailValid(getProfile().getEmail())) {
             createErrorMessage(context, INVALID_EMAIL, INVALID_EMAIL_MSG);
         } else {
             updateAccount(context);
+        }
+    }
+
+    /**
+     * Yönetici parola girdi ise parola ata
+     */
+    private void setAdminPassword() {
+        if (password != null && !password.isEmpty()) {
+            profile.setPassword(password);
         }
     }
 
@@ -149,6 +163,21 @@ public class AccountBean implements Serializable {
      */
     public void setProfile(final Administrator profile) {
         this.profile = profile;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(final String password) {
+        this.password = password;
     }
 
 }
