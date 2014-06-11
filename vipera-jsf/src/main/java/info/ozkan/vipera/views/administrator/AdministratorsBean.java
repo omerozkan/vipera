@@ -29,24 +29,63 @@ import org.springframework.context.annotation.Scope;
 @Named("administrators")
 @Scope("session")
 public class AdministratorsBean implements Serializable {
+    /**
+     * Hesap silme mesajı deseni
+     */
     private static final String DELETING_SUCCESS_MSG_PATTERN =
             "%s sistemden silinmiştir!";
+    /**
+     * Silme başarılı
+     */
     private static final String DELETING_SUCCESS = "Silme başarılı!";
+    /**
+     * silme başarısız mesajı
+     */
     private static final String DELETING_FAIL_MESSAGE =
             "Yöneticiler kendilerini silemezler lütfen başka bir yönetici ile silme işlemi yapınız!";
+    /**
+     * silme başarısız
+     */
     private static final String DELETING_FAIL = "Silme başarısız!";
+    /**
+     * ekleme başarısız mesajı
+     */
     private static final String ADDING_FAIL_DETAIL =
             "Yönetici eklenemedi lütfen kullanıcı adı ve eposta alanlarının benzersiz olduğundan emin olun!";
+    /**
+     * ekleme başarısız
+     */
     private static final String ADDING_FAIL = "Yönetici ekleme başarısız!";
+    /**
+     * ekleme başarılı mesaj deseni
+     */
     private static final String ADDING_SUCCESS_DETAIL_PATTERN =
             "Yeni yönetici %s (%s) sisteme eklenmiştir!";
+    /**
+     * ekleme başarılı
+     */
     private static final String ADDING_SUCCESS = "Ekleme başarılı!";
+    /**
+     * Güncelleme başarılı
+     */
     private static final String UPDATE_SUCCESS = "Güncelleme başarılı!";
+    /**
+     * güncelleme başarısız mesajı
+     */
     private static final String UPDATE_FAIL_DETAIL =
             "Kullanıcı adı ve eposta alanları benzersiz olmalıdır. Lütfen kontrol ediniz!";
+    /**
+     * güncelleme başarısız
+     */
     private static final String UPDATE_FAIL = "Güncelleme başarısız!";
+    /**
+     * eposta geçersiz mesaji
+     */
     private static final String EMAIL_INVALID_DETAIL =
             "Lütfen girdiğiniz eposta adresini kontrol edin!";
+    /**
+     * eposta adresi geçersiz
+     */
     private static final String EMAIL_INVALID = "Eposta adresi geçersiz!";
     /**
      * Logger
@@ -91,6 +130,9 @@ public class AdministratorsBean implements Serializable {
      */
     @Inject
     private AdministratorFacade administratorFacade;
+    /**
+     * Facescontext
+     */
     private FacesContext context;
 
     /**
@@ -102,6 +144,9 @@ public class AdministratorsBean implements Serializable {
         }
     }
 
+    /**
+     * Güncelleme işlemi
+     */
     public void update() {
         context = FacesContext.getCurrentInstance();
         setPasswordForUpdate();
@@ -113,6 +158,9 @@ public class AdministratorsBean implements Serializable {
         initializeModel();
     }
 
+    /**
+     * ekleme işlemi
+     */
     public void add() {
         context = FacesContext.getCurrentInstance();
         setAuthorizationForAdding();
@@ -124,23 +172,38 @@ public class AdministratorsBean implements Serializable {
 
     }
 
+    /**
+     * silme işlemi
+     */
     public void delete() {
         context = FacesContext.getCurrentInstance();
         final Administrator currentUser = AdminSessionBean.getAdministrator();
         if (selectedAdmin.equals(currentUser)) {
             createErrorMessage(DELETING_FAIL, DELETING_FAIL_MESSAGE);
         } else {
-            administratorFacade.delete(selectedAdmin);
-            final String detail =
-                    String.format(DELETING_SUCCESS_MSG_PATTERN,
-                            selectedAdmin.getUsername());
-            createSuccessMessage(DELETING_SUCCESS, detail);
-            LOGGER.info("The admin {} has been deleted by {}!", selectedAdmin,
-                    currentUser);
-            initializeModel();
+            deleteAdministrator(currentUser);
         }
     }
 
+    /**
+     * yönetici siler
+     * 
+     * @param currentUser
+     */
+    private void deleteAdministrator(final Administrator currentUser) {
+        administratorFacade.delete(selectedAdmin);
+        final String detail =
+                String.format(DELETING_SUCCESS_MSG_PATTERN,
+                        selectedAdmin.getUsername());
+        createSuccessMessage(DELETING_SUCCESS, detail);
+        LOGGER.info("The admin {} has been deleted by {}!", selectedAdmin,
+                currentUser);
+        initializeModel();
+    }
+
+    /**
+     * yeni bir yönetici ekler
+     */
     private void addNewAdmin() {
         final AdministratorManagerResult result =
                 administratorFacade.add(newAdministrator);
@@ -159,6 +222,11 @@ public class AdministratorsBean implements Serializable {
         }
     }
 
+    /**
+     * yeni yöneticinin eposta adresini kontrol eder
+     * 
+     * @return
+     */
     private boolean checkNewAdminEmail() {
         boolean addAdmin = true;
         if (!emailValid(newAdministrator.getEmail())) {
@@ -168,6 +236,9 @@ public class AdministratorsBean implements Serializable {
         return addAdmin;
     }
 
+    /**
+     * yeni yöneticinin hesap aktifliğini tanımlar
+     */
     private void setAuthorizationForAdding() {
         if (newAdminAuth) {
             newAdministrator.setEnabled(Authorize.ENABLE);
@@ -176,6 +247,9 @@ public class AdministratorsBean implements Serializable {
         }
     }
 
+    /**
+     * yöneticiyi günceller
+     */
     private void updateAdmin() {
         final AdministratorManagerResult result =
                 administratorFacade.update(selectedAdmin);
@@ -187,6 +261,11 @@ public class AdministratorsBean implements Serializable {
         }
     }
 
+    /**
+     * güncelleme işlemi için eposta adresini kontrol eder
+     * 
+     * @return
+     */
     private boolean checkEmailForUpdate() {
         boolean updateAdmin = true;
         context = FacesContext.getCurrentInstance();
@@ -197,6 +276,9 @@ public class AdministratorsBean implements Serializable {
         return updateAdmin;
     }
 
+    /**
+     * güncellenecek yöneticinin hesap aktivitesini tanımlar
+     */
     private void setAuthorizationForUpdate() {
         if (enabled) {
             selectedAdmin.setEnabled(Authorize.ENABLE);
@@ -205,6 +287,9 @@ public class AdministratorsBean implements Serializable {
         }
     }
 
+    /**
+     * güncellenecek yöneticinin parolasını tanımlar
+     */
     private void setPasswordForUpdate() {
         if (!password.isEmpty()) {
             selectedAdmin.setPassword(password);
@@ -334,17 +419,35 @@ public class AdministratorsBean implements Serializable {
         return map;
     }
 
+    /**
+     * bilgi mesajı üretir
+     * 
+     * @param summary
+     * @param detail
+     */
     private void
             createSuccessMessage(final String summary, final String detail) {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 summary, detail));
     }
 
+    /**
+     * hata mesajı üretir
+     * 
+     * @param summary
+     * @param detail
+     */
     private void createErrorMessage(final String summary, final String detail) {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                 summary, detail));
     }
 
+    /**
+     * eposta adresinin geçerliliğini kontrol eder
+     * 
+     * @param email
+     * @return
+     */
     private boolean emailValid(final String email) {
         return EmailValidator.isValid(email);
     }
