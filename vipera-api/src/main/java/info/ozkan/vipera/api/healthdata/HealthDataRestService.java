@@ -87,11 +87,11 @@ public class HealthDataRestService {
     public Response addHealthData(final String body) {
         model = gson.fromJson(body, HealthDataModel.class);
         if (model == null) {
-            return Response.status(400).build();
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
         final boolean credentialValid = checkCredential();
         if (!credentialValid) {
-            response = Response.status(403).build();
+            response = Response.status(Response.Status.FORBIDDEN).build();
         } else {
             response = saveData();
         }
@@ -111,11 +111,13 @@ public class HealthDataRestService {
         if (healthResult.isSuccess()) {
             final ResponseModel responseModel = createSuccessResponseModel();
             final String json = gson.toJson(responseModel);
-            result = Response.status(200).entity(json).build();
+            result = Response.status(Response.Status.OK).entity(json).build();
             LOGGER.info("The new health data added to system by device-{}",
                     model.getApiKey());
         } else {
-            result = Response.status(500).build();
+            result =
+                    Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                            .build();
             LOGGER.error("The new health data cannot be added to system!");
         }
         return result;
@@ -128,7 +130,7 @@ public class HealthDataRestService {
      */
     private ResponseModel createSuccessResponseModel() {
         final ResponseModel responseModel = new ResponseModel();
-        responseModel.setCode("200");
+        responseModel.setCode(Response.Status.OK.ordinal());
         responseModel.setMessage("The health data added to system.");
         return responseModel;
     }
@@ -202,11 +204,11 @@ public class HealthDataRestService {
             final String apiPassword) {
         boolean credentialValid = true;
         if (apiKey == null || apiKey.isEmpty()) {
-            response = Response.status(401).build();
+            response = Response.status(Response.Status.UNAUTHORIZED).build();
             credentialValid = false;
         }
         if (apiPassword == null || apiPassword.isEmpty()) {
-            response = Response.status(401).build();
+            response = Response.status(Response.Status.UNAUTHORIZED).build();
             credentialValid = false;
         }
         return credentialValid;
