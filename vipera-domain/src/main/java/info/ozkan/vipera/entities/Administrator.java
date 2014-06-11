@@ -154,4 +154,20 @@ public class Administrator implements Serializable {
     public String toString() {
         return id + "-" + username;
     }
+
+    @Override
+    public int hashCode() {
+        final int result = id.intValue();
+        final int prime = 37;
+        return result * prime;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof Administrator) {
+            final Administrator admin = (Administrator) obj;
+            return id.equals(admin.getId());
+        }
+        return super.equals(obj);
+    }
 }

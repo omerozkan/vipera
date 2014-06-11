@@ -33,4 +33,12 @@ public interface AdministratorDao {
      */
     AdministratorManagerResult add(Administrator administrator);
 
+    /**
+     * Veritabanından bir yöneticiyi siler
+     * 
+     * @param administrator
+     * @return
+     */
+    AdministratorManagerResult delete(Administrator administrator);
+
 }

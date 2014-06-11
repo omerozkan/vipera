@@ -66,4 +66,9 @@ public class AdministratorDaoImpl implements AdministratorDao {
     public AdministratorManagerResult add(final Administrator administrator) {
         return update(administrator);
     }
+
+    public AdministratorManagerResult delete(final Administrator administrator) {
+        em.remove(em.merge(administrator));
+        return createSuccessResult();
+    }
 }

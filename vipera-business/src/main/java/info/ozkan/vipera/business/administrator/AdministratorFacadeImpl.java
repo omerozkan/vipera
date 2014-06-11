@@ -61,4 +61,8 @@ public class AdministratorFacadeImpl implements AdministratorFacade {
         return result;
     }
 
+    public AdministratorManagerResult delete(final Administrator administrator) {
+        return administratorManager.delete(administrator);
+    }
+
 }

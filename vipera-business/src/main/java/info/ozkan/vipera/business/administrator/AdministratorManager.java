@@ -33,4 +33,12 @@ public interface AdministratorManager {
      */
     AdministratorManagerResult add(Administrator administrator);
 
+    /**
+     * Sistemde kayıtlı bir yöneticiyi siler
+     * 
+     * @param administrator
+     * @return
+     */
+    AdministratorManagerResult delete(Administrator administrator);
+
 }

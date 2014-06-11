@@ -90,8 +90,9 @@
                                 update=":form"
                                 actionListener="#{administrators.update}" />
                             <p:commandButton value="Sil"
-                                 update="@form"
-                                oncomplete="PF('adminDialog').hide()" icon="ui-icon-trash" />
+                                 update="@form :form"
+                                 actionListener="#{administrators.delete}"
+                                 oncomplete="PF('adminDialog').hide()" icon="ui-icon-trash" />
 
                         </h:panelGrid>
                     </p:dialog>

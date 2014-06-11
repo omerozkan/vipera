@@ -33,4 +33,6 @@ public interface AdministratorFacade {
      */
     AdministratorManagerResult add(Administrator administrator);
 
+    AdministratorManagerResult delete(Administrator selectedAdmin);
+
 }

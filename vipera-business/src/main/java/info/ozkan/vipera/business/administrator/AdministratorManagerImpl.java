@@ -40,4 +40,10 @@ public class AdministratorManagerImpl implements AdministratorManager {
         return administratorDao.add(administrator);
     }
 
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public AdministratorManagerResult delete(final Administrator administrator) {
+        return administratorDao.delete(administrator);
+    }
+
 }

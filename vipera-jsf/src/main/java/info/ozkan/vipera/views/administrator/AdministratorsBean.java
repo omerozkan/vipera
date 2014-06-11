@@ -29,6 +29,12 @@ import org.springframework.context.annotation.Scope;
 @Named("administrators")
 @Scope("session")
 public class AdministratorsBean implements Serializable {
+    private static final String DELETING_SUCCESS_MSG_PATTERN =
+            "%s sistemden silinmiştir!";
+    private static final String DELETING_SUCCESS = "Silme başarılı!";
+    private static final String DELETING_FAIL_MESSAGE =
+            "Yöneticiler kendilerini silemezler lütfen başka bir yönetici ile silme işlemi yapınız!";
+    private static final String DELETING_FAIL = "Silme başarısız!";
     private static final String ADDING_FAIL_DETAIL =
             "Yönetici eklenemedi lütfen kullanıcı adı ve eposta alanlarının benzersiz olduğundan emin olun!";
     private static final String ADDING_FAIL = "Yönetici ekleme başarısız!";
@@ -97,6 +103,7 @@ public class AdministratorsBean implements Serializable {
     }
 
     public void update() {
+        context = FacesContext.getCurrentInstance();
         setPasswordForUpdate();
         setAuthorizationForUpdate();
         final boolean updateAdmin = checkEmailForUpdate();
@@ -115,6 +122,23 @@ public class AdministratorsBean implements Serializable {
         }
         initializeModel();
 
+    }
+
+    public void delete() {
+        context = FacesContext.getCurrentInstance();
+        final Administrator currentUser = AdminSessionBean.getAdministrator();
+        if (selectedAdmin.equals(currentUser)) {
+            createErrorMessage(DELETING_FAIL, DELETING_FAIL_MESSAGE);
+        } else {
+            administratorFacade.delete(selectedAdmin);
+            final String detail =
+                    String.format(DELETING_SUCCESS_MSG_PATTERN,
+                            selectedAdmin.getUsername());
+            createSuccessMessage(DELETING_SUCCESS, detail);
+            LOGGER.info("The admin {} has been deleted by {}!", selectedAdmin,
+                    currentUser);
+            initializeModel();
+        }
     }
 
     private void addNewAdmin() {
