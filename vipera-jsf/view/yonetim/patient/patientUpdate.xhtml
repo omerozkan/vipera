@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/yonetim/layout/template.xhtml">
 	<f:metadata>
-       <f:viewParam name="id" value="#{patientUpdate.id}" required="true" />
+       <f:viewParam name="id" value="#{patientUpdate.id}" id="id"/>
        <f:event listener="#{patientUpdate.loadPatient}" type="preRenderView" />
     </f:metadata>
 	<ui:define name="title">Hasta Düzenle | Vipera</ui:define>
