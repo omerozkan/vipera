@@ -34,7 +34,8 @@
 
 					<h:outputText value="Cinsiyet:" />
 					<p:selectOneMenu id="sex" required="true"
-						requiredMessage="Hasta cinsiyeti boş bırakılamaz!">
+						requiredMessage="Hasta cinsiyeti boş bırakılamaz!"
+						value="#{doctorPatientAdd.patient.sex}">
 						<f:selectItem itemLabel="Seçiniz" />
 						<f:selectItems value="#{sexList.sexList}" var="t" itemValue="#{t}"
 							itemLabel="#{t.title}" />
@@ -94,11 +95,12 @@
 					<p:message for="phone" display="icon" />
 
 					<h:outputText value="Cep Telefonu:" />
-					<p:inputText id="mobile" value="#{doctorPatientAdd.patient.mobilePhone}" />
+					<p:inputText id="mobile"
+						value="#{doctorPatientAdd.patient.mobilePhone}" />
 					<p:message for="mobile" display="icon" />
 
-					<p:commandButton value="Kaydet" actionListener="#{doctorPatientAdd.save}"
-						update="panel" id="save" />
+					<p:commandButton value="Kaydet"
+						actionListener="#{doctorPatientAdd.save}" update="panel" id="save" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>

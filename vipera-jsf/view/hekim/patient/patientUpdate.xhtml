@@ -6,8 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/hekim/layout/template.xhtml">
 	<f:metadata>
-		<f:viewParam name="id" value="#{doctorPatientUpdate.id}"
-			required="true" />
+		<f:viewParam name="id" value="#{doctorPatientUpdate.id}" />
 		<f:event listener="#{doctorPatientUpdate.loadPatient}"
 			type="preRenderView" />
 	</f:metadata>
@@ -67,7 +66,7 @@
 					<p:message for="birthDate" display="icon" />
 
 					<h:outputText value="Doğum Yeri:" />
-					<h:outputText value="#{patient.birthPlace}" id="birthPlace"/>
+					<h:outputText value="#{patient.birthPlace}" id="birthPlace" />
 					<p:message for="birthPlace" display="icon" />
 
 					<h:outputText value="Baba Adı:" />
