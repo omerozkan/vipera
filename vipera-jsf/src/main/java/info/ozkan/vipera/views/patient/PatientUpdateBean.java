@@ -138,17 +138,25 @@ public class PatientUpdateBean implements Serializable {
      */
     private boolean checkFields() {
         boolean success = true;
-        if (!patient.getEmail().isEmpty()) {
-            if (!EmailValidator.isValid(patient.getEmail())) {
-                createErrorMessage(EMAIL_INVALID_ERROR_MSG);
-                success = false;
-            }
+        if (isValidEmail()) {
+            createErrorMessage(EMAIL_INVALID_ERROR_MSG);
+            success = false;
         }
         if (!BirthDateChecker.checkBirthDateInPast(patient.getBirthDate())) {
             createErrorMessage(BIRTH_DATE_INVALID_ERROR_MSG);
             success = false;
         }
         return success;
+    }
+
+    /**
+     * Eposta adresinin geçerliliğini kontrol eder
+     * 
+     * @return
+     */
+    private boolean isValidEmail() {
+        return !patient.getEmail().isEmpty()
+                && !EmailValidator.isValid(patient.getEmail());
     }
 
     /**
