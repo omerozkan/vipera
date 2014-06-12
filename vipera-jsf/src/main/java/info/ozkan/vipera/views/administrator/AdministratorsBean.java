@@ -324,8 +324,8 @@ public class AdministratorsBean implements Serializable {
      */
     public void setSelectedAdmin(final Administrator selectedAdmin) {
         this.selectedAdmin = selectedAdmin;
-        final Authorize enabled = selectedAdmin.getEnabled();
-        this.enabled = enabled.equals(Authorize.ENABLE) ? true : false;
+        final Authorize authorize = selectedAdmin.getEnabled();
+        this.enabled = authorize.equals(Authorize.ENABLE) ? true : false;
     }
 
     /**
