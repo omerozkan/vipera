@@ -1,5 +1,7 @@
 package info.ozkan.vipera.views.login;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -22,8 +24,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * 
  */
 @Named("patientLogin")
-@Scope("request")
-public class PatientLoginBean {
+@Scope("session")
+public class PatientLoginBean implements Serializable {
+    /**
+     * Serial
+     */
+    private static final long serialVersionUID = 4238662025570027643L;
+
     /**
      * LOGGER
      */
@@ -44,10 +51,6 @@ public class PatientLoginBean {
      */
     private static final String INDEX_PAGE =
             "/hasta/index.html?faces-redirect=true";
-    /**
-     * login sayfası
-     */
-    private static final String LOGIN_PAGE = "/index.html";
     /**
      * TCKN
      */
@@ -75,7 +78,7 @@ public class PatientLoginBean {
      * @return
      */
     public String login() {
-        return isSuccess ? INDEX_PAGE : LOGIN_PAGE;
+        return isSuccess ? INDEX_PAGE : null;
     }
 
     /**

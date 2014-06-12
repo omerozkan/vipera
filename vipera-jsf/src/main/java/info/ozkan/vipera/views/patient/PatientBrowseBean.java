@@ -81,7 +81,7 @@ public class PatientBrowseBean {
             filter.addFilter(Patient.MOTHER_NAME, model.getMotherName());
         }
         if (model.getSex() != null) {
-            filter.addFilter(Patient.SEX, model.getSex());
+            filter.addFilter(Patient.SEX, model.getSex().getKey());
         }
         if (checkNonEmpty(model.getBirthYear())) {
             filter.addFilter(Patient.BIRTH_DATE, model.getBirthYear());

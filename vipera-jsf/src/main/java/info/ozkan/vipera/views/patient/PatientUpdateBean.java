@@ -8,6 +8,8 @@ import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Patient;
 import info.ozkan.vipera.jsf.FacesMessage2;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -25,7 +27,11 @@ import org.springframework.context.annotation.Scope;
  */
 @Named("patientUpdate")
 @Scope("session")
-public class PatientUpdateBean {
+public class PatientUpdateBean implements Serializable {
+    /**
+     * Serial
+     */
+    private static final long serialVersionUID = -3592733254263641264L;
     /**
      * LOGGER
      */
@@ -95,6 +101,8 @@ public class PatientUpdateBean {
     private void setEnabledByPatient() {
         if (patient.getEnable().equals(Authorize.ENABLE)) {
             enabled = true;
+        } else {
+            enabled = false;
         }
     }
 
@@ -130,7 +138,7 @@ public class PatientUpdateBean {
      */
     private boolean checkFields() {
         boolean success = true;
-        if (!EmailValidator.isValid(patient.getEmail())) {
+        if (isValidEmail()) {
             createErrorMessage(EMAIL_INVALID_ERROR_MSG);
             success = false;
         }
@@ -139,6 +147,16 @@ public class PatientUpdateBean {
             success = false;
         }
         return success;
+    }
+
+    /**
+     * Eposta adresinin geçerliliğini kontrol eder
+     * 
+     * @return
+     */
+    private boolean isValidEmail() {
+        return !patient.getEmail().isEmpty()
+                && !EmailValidator.isValid(patient.getEmail());
     }
 
     /**

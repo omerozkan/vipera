@@ -24,7 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * 
  */
 @Named("adminLogin")
-@Scope("request")
+@Scope("session")
 public class AdministratorLoginBean implements Serializable {
     /**
      * Serial

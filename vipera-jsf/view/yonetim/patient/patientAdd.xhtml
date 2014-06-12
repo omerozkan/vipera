@@ -34,7 +34,7 @@
 
 					<h:outputText value="Cinsiyet:" />
 					<p:selectOneMenu id="sex" required="true"
-						requiredMessage="Hasta cinsiyeti boş bırakılamaz!">
+						requiredMessage="Hasta cinsiyeti boş bırakılamaz!" value="#{patientAdd.patient.sex}">
 						<f:selectItem itemLabel="Seçiniz" />
 						<f:selectItems value="#{sexList.sexList}" var="t" itemValue="#{t}"
 							itemLabel="#{t.title}" />

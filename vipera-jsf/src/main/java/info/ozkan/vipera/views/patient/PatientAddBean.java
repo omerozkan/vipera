@@ -185,6 +185,8 @@ public class PatientAddBean implements Serializable {
             LOGGER.info("The new patient has added! {}", patient.getFullname());
             setAddedPatient(patient);
             patient = new Patient();
+            enabled = true;
+            createDefaultDate();
         } else if (result.getStatus().equals(
                 PatientManagerStatus.TCKN_HAS_EXIST)) {
             addMessage(context, DUPLICATE_PATIENT_MSG);

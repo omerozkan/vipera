@@ -14,7 +14,8 @@
 }
 
 body {
-	background-color: #008383;
+	/*background-color: #008383;*/
+	background-image: url("../img/bg.png.html?ln=default");
 	font-family: 'Cantarell', sans-serif;
 }
 
