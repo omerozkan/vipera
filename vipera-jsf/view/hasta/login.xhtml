@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
-	<title>Vipera Hasta Takip ve Analiz Sistemi</title>
+	<title>Vipera Hasta Paneli</title>
 	<link href="#{resource['default:img/favicon.ico']}" rel="shortcut icon"
         type="image/x-icon" />
 </h:head> 
@@ -27,7 +27,7 @@
 				    requiredMessage="Parola alanı boş bırakılamaz!"
 				/>
 			</h:panelGrid>
-			<p:commandButton id="loginButton" value="Giriş" update="growl" action="#{patientLogin.login}"
+			<p:commandButton id="loginButton" value="Giriş" update=":loginForm" action="#{patientLogin.login}"
 			 actionListener="#{patientLogin.login}"
 			 styleClass="loginSubmit" />
 		</p:panel>
