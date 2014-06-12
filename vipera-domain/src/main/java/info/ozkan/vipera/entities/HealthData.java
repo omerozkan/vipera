@@ -30,7 +30,7 @@ import org.hibernate.annotations.CascadeType;
  * 
  */
 @Entity
-@Table(name = "HEALTH_DATAS")
+@Table(name = "HEALTH_DATA")
 public class HealthData implements Serializable {
     /**
      * Serial

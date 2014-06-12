@@ -20,6 +20,11 @@
                 <constraints unique="true" />
             </column>
             <column name="password" type="varchar(255)" />
+            <column name="email" type="varchar(255)" >
+                <constraints unique="true" />
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="enabled" type="int" />
         </createTable>
     </changeSet>
     <changeSet id="2-doctor-hsqldb" author="Omer Ozkan" dbms="hsqldb">
@@ -149,8 +154,8 @@
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="7-health-datas" author="Omer Ozkan">
-        <createTable tableName="HEALTH_DATAS">
+    <changeSet id="7-health-data" author="Omer Ozkan">
+        <createTable tableName="HEALTH_DATA">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" />
             </column>
@@ -176,6 +181,9 @@
             <column name="id">1</column>
             <column name="username">admin</column>
             <column name="password">password</column>
+            <column name="name">Ömer Özkan</column>
+            <column name="email">omer@ozkan.info</column>
+            <column name="enabled">1</column>
         </insert>
     </changeSet>
     <changeSet id="test-2" author="Omer Ozkan" context="test">
@@ -367,5 +375,5 @@
             <column name="enabled">1</column>
         </insert>
     </changeSet>
-    <include file="classpath:liquibase/db.changelog-healthdatas.xml"/>
+    <include file="classpath:liquibase/db.changelog-healthdata.xml"/>
 </databaseChangeLog>

@@ -21,18 +21,25 @@ public class AdminSessionBean {
     /**
      * Yönetici
      */
-    private Administrator administrator;
+    private static Administrator administrator;
 
     /**
      * setup
      */
     @PostConstruct
     public void setUp() {
+        getSession();
+    }
+
+    /**
+     * Oturum açmış olan yöneticiyi set eder
+     */
+    private static void getSession() {
         final Authentication obj =
                 SecurityContextHolder.getContext().getAuthentication();
         final Object admin = obj.getPrincipal();
         if (admin instanceof Administrator) {
-            this.administrator = (Administrator) admin;
+            administrator = (Administrator) admin;
         }
     }
 
@@ -42,6 +49,26 @@ public class AdminSessionBean {
      * @return
      */
     public String getUsername() {
-        return administrator.getUsername();
+        return getAdministrator().getUsername();
     }
+
+    /**
+     * Hesap adı
+     * 
+     * @return
+     */
+    public String getName() {
+        return administrator.getName();
+    }
+
+    /**
+     * @return the administrator
+     */
+    public static Administrator getAdministrator() {
+        if (administrator == null) {
+            getSession();
+        }
+        return administrator;
+    }
+
 }

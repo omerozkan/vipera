@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<ui:define name="title">Hesabınız| Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="account">
+		    <p:growl id="msgs" showDetail="true"/>
+			<p:panel id="panel" header="#{adminSession.name}">
+				<h:panelGrid columns="3" cellpadding="20"
+					style="padding-left: 30px; margin-top: 10px; margin-bottom:10px">
+					<h:outputLabel value="Kullanıcı Adı:" for="username" />
+					<p:inputText id="username" required="true"
+						requiredMessage="Kullanıcı adı boş bırakılamaz!" value="#{account.profile.username}" />
+					<p:message for="username" />
+
+					<h:outputLabel value="Parola:" for="password" />
+					<p:password id="password" feedback="true"
+						promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
+						goodLabel="Orta" strongLabel="Güçlü" required="false"
+						match="password2" requiredMessage="Parola alanı boş bırakılamaz!"
+						validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!" value="#{account.password}" />
+					<p:message for="password" />
+
+					<h:outputLabel value="Parola Tekrar:" for="password2" />
+					<p:password id="password2" required="false"
+						requiredMessage="Parolanızı tekrar girmelisiniz!" />
+					<p:message for="password2" />
+
+					<h:outputLabel value="Yönetici Adı:" for="name" />
+					<p:inputText id="name" required="true"
+						requiredMessage="Yönetici adı boş bırakılamaz!" value="#{account.profile.name}"/>
+					<p:message for="name" />
+
+					<h:outputLabel value="Yönetici e-Posta:" for="email" />
+					<p:inputText id="email" required="true"
+						requiredMessage="Yönetici eposta adresi boş bırakılamaz!" value="#{account.profile.email}"/>
+					<p:message for="email" />
+
+				</h:panelGrid>
+				<p:commandButton value="Güncelle" update="@form" actionListener="#{account.update}"/>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

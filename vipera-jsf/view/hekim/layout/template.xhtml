@@ -8,6 +8,8 @@
 <h:head>
 	<title><ui:insert name="title">Vipera Hekim Paneli</ui:insert>
 	</title>
+	<link href="#{resource['default:img/favicon.ico']}" rel="shortcut icon"
+		type="image/x-icon" />
 </h:head>
 <h:body>
 	<f:facet name="last">
@@ -21,11 +23,11 @@
 		</div>
 		<!-- header -->
 		<div id="context-wrapper">
-		    <div id="left-menu">
-		          <ui:insert name="menu">
-		              <ui:include src="/hekim/layout/menu.xhtml" />
-		          </ui:insert>
-		    </div>
+			<div id="left-menu">
+				<ui:insert name="menu">
+					<ui:include src="/hekim/layout/menu.xhtml" />
+				</ui:insert>
+			</div>
 			<div id="right-context">
 				<ui:insert name="content">
 					<ui:include src="/hekim/layout/content.xhtml" />
