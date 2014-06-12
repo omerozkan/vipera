@@ -86,6 +86,8 @@ public class DoctorUpdateBean implements Serializable {
      */
     public void loadDoctor() {
         doctor = DoctorLoader.loadDoctor(id, doctorFacade);
+        final Authorize enabled = doctor.getEnabled();
+        enable = enabled.equals(Authorize.ENABLE);
     }
 
     /**
@@ -101,14 +103,23 @@ public class DoctorUpdateBean implements Serializable {
         if (password != null && !password.isEmpty()) {
             doctor.setPassword(password);
         }
-        if (enable) {
-            doctor.setEnabled(Authorize.ENABLE);
-        }
+        setDoctorActivation();
         final DoctorManagerResult result = doctorFacade.update(doctor);
         if (result.isSuccess()) {
             LOGGER.info("The doctor {} has been updated!", doctor.getFullname());
             SUCCESS.setSummary(doctor.getFullname() + " güncellendi!");
             context.addMessage(null, SUCCESS);
+        }
+    }
+
+    /**
+     * Hekimin hesap aktifliğini tanımlar
+     */
+    private void setDoctorActivation() {
+        if (enable) {
+            doctor.setEnabled(Authorize.ENABLE);
+        } else {
+            doctor.setEnabled(Authorize.DISABLE);
         }
     }
 
@@ -148,7 +159,7 @@ public class DoctorUpdateBean implements Serializable {
      * @return
      */
     public boolean getEnable() {
-        return doctor.getEnabled().equals(Doctor.ENABLE);
+        return enable;
     }
 
     /**
