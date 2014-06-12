@@ -31,7 +31,7 @@ public class AdministratorLoginDaoImpl implements AdministratorLoginDao {
     /**
      * Yöneticiyi bilgibankasından çekmek için JQL sorgusu
      */
-    private static final String GET_USER_JQL =
+    protected static final String GET_USER_JQL =
             "from Administrator a where a.username = :username AND a.enabled = :enabled";
     /**
      * Persistence
