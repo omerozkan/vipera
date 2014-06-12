@@ -140,6 +140,7 @@ public class HealthDataFieldsBean {
                     String.format(UPDATE_SUCCESS_MSG_DETAIL_PATTERN,
                             getSelectedField().getTitle());
             createInfoMessage(context, UPDATE_SUCCESS_MSG, detail);
+            initializeModel();
         } else {
             createErrorMessage(context, UPDATE_UNSUCCESS_MSG,
                     NON_UNIQUE_FIELD_NAME);
