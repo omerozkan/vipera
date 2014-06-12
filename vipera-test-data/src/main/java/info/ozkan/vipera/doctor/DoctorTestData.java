@@ -1,5 +1,6 @@
 package info.ozkan.vipera.doctor;
 
+import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorTitle;
 
@@ -60,6 +61,7 @@ public final class DoctorTestData {
         demirci.setProvince("Dahiliye");
         demirci.setPhone("+905555555");
         demirci.setMobilePhone("+905553333333");
+        demirci.setEnabled(Authorize.ENABLE);
         return demirci;
     }
 
@@ -82,6 +84,7 @@ public final class DoctorTestData {
         house.setWebpage("http://www.greghouse.com");
         house.setPhone("+905555555");
         house.setMobilePhone("+905553333333");
+        house.setEnabled(Authorize.ENABLE);
         return house;
     }
 
@@ -104,6 +107,7 @@ public final class DoctorTestData {
         ozkan.setWebpage("http://ozkan.info");
         ozkan.setPhone("+905555555");
         ozkan.setMobilePhone("+905553333333");
+        ozkan.setEnabled(Authorize.ENABLE);
         return ozkan;
 
     }
