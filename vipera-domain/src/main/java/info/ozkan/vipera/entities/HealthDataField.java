@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "HEALTH_DATA_FIELDS")
-public class HealthDataField implements Serializable {
+public class HealthDataField implements Serializable, Cloneable {
     /**
      * Serial
      */
@@ -44,6 +44,22 @@ public class HealthDataField implements Serializable {
      */
     @Column(name = "unit")
     private String unit;
+    /**
+     * Üst sınır
+     */
+    @Column(name = "upper_limit")
+    private Double upperLimit;
+    /**
+     * Alt sınır
+     */
+    @Column(name = "lower_limit")
+    private Double lowerLimit;
+
+    /**
+     * Hekim bilgilendirilebilir
+     */
+    @Column(name = "notification", nullable = false)
+    private Boolean notification;
 
     /**
      * @return the id
@@ -103,5 +119,59 @@ public class HealthDataField implements Serializable {
      */
     public void setUnit(final String unit) {
         this.unit = unit;
+    }
+
+    /**
+     * @return the upperLimit
+     */
+    public Double getUpperLimit() {
+        return upperLimit;
+    }
+
+    /**
+     * @param upperLimit
+     *            the upperLimit to set
+     */
+    public void setUpperLimit(final Double upperLimit) {
+        this.upperLimit = upperLimit;
+    }
+
+    /**
+     * @return the lowerLimit
+     */
+    public Double getLowerLimit() {
+        return lowerLimit;
+    }
+
+    /**
+     * @param lowerLimit
+     *            the lowerLimit to set
+     */
+    public void setLowerLimit(final Double lowerLimit) {
+        this.lowerLimit = lowerLimit;
+    }
+
+    /**
+     * @return the notification
+     */
+    public Boolean getNotification() {
+        return notification;
+    }
+
+    /**
+     * @param notification
+     *            the notification to set
+     */
+    public void setNotification(final Boolean notification) {
+        this.notification = notification;
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (final CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
     }
 }

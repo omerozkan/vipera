@@ -24,50 +24,78 @@
 						selection="#{healthDataFields.selectedField}"
 						selectionMode="single">
 
-						<p:ajax event="rowSelect" update=":form:test :form:growl"
+						<p:ajax event="rowSelect" update=":update:fieldForm :form:growl"
 							oncomplete="PF('dataDialog').show()" />
 						<p:ajax event="rowUnselect" update=":form:growl" />
 
 						<f:facet name="header">
                             Sağlık verisi alanları aşağıda listelenmiştir. Düzenlemek istediğiniz alanın üzerine tıklayınız!
 						</f:facet>
-						<p:column headerText="Alan Adı:">
+						<p:column headerText="Alan Adı">
 							<h:outputText value="#{data.name}" />
 						</p:column>
 
-						<p:column headerText="Başlık:">
+						<p:column headerText="Başlık">
 							<h:outputText value="#{data.title}" />
 						</p:column>
 
-						<p:column headerText="Birimi:">
+						<p:column headerText="Birimi">
 							<h:outputText value="#{data.unit}" />
 						</p:column>
+
+						<p:column headerText="Alt Limit">
+							<h:outputText value="#{data.lowerLimit}" />
+						</p:column>
+
+						<p:column headerText="Üst Limit">
+							<h:outputText value="#{data.upperLimit}" />
+						</p:column>
+
+						<p:column headerText="Hekime Bildir">
+							<h:outputText value="#{data.notification ? 'Evet' : 'Hayır'}" />
+						</p:column>
+
 					</p:dataTable>
-					<p:dialog id="dialog" header="Alan Bilgisi" widgetVar="dataDialog"
-						resizable="false" showEffect="fade" hideEffect="explode">
 
-						<h:panelGrid id="test" columns="2" cellpadding="4">
-
-							<h:outputLabel value="Alan Adı:" />
-							<p:inputText value="#{healthDataFields.selectedField.name}" />
-
-							<h:outputLabel value="Başlık:" />
-							<p:inputText value="#{healthDataFields.selectedField.title}" />
-
-							<h:outputLabel value="Birimi:" />
-							<p:inputText value="#{healthDataFields.selectedField.unit}" />
-
-							<p:commandButton value="Kaydet"
-								actionListener="#{healthDataFields.update}" update="@form"
-								oncomplete="PF('dataDialog').hide()" />
-							<p:commandButton value="Sil"
-								actionListener="#{healthDataFields.delete}" update="@form"
-								oncomplete="PF('dataDialog').hide()" icon="ui-icon-trash"/>
-						     
-						</h:panelGrid>
-					</p:dialog>
 				</div>
 			</p:panel>
+		</h:form>
+		<h:form id="update">
+			<p:dialog id="dialog" header="Alan Bilgisi" widgetVar="dataDialog"
+				resizable="false" showEffect="fade" hideEffect="explode">
+
+				<h:panelGrid id="fieldForm" columns="2" cellpadding="4">
+
+					<h:outputLabel value="Alan Adı:" />
+					<p:inputText value="#{healthDataFields.selectedField.name}" />
+
+					<h:outputLabel value="Başlık:" />
+					<p:inputText value="#{healthDataFields.selectedField.title}" />
+
+					<h:outputLabel value="Birimi:" />
+					<p:inputText value="#{healthDataFields.selectedField.unit}" />
+
+					<h:outputLabel value="Alt Sınır:" />
+					<p:spinner id="upperLimit" stepFactor="0.25"
+						value="#{healthDataFields.selectedField.lowerLimit}" />
+
+					<h:outputLabel value="Üst Sınır:" />
+					<p:spinner id="lowerLimit" stepFactor="0.25"
+						value="#{healthDataFields.selectedField.upperLimit}" />
+
+					<h:outputLabel value="Hekime Bildir:" />
+					<p:selectBooleanCheckbox id="notificate"
+						value="#{healthDataFields.selectedField.notification}" />
+
+
+					<p:commandButton value="Kaydet"
+						actionListener="#{healthDataFields.update}" update=":form" />
+					<p:commandButton value="Sil"
+						actionListener="#{healthDataFields.delete}" update=":form @form"
+						oncomplete="PF('dataDialog').hide()" icon="ui-icon-trash" />
+
+				</h:panelGrid>
+			</p:dialog>
 		</h:form>
 		<h:form id="add-update">
 			<p:dialog id="newField" header="Yeni Alan" widgetVar="newFieldDialog"
@@ -83,6 +111,18 @@
 
 					<h:outputLabel value="Birimi:" />
 					<p:inputText value="#{healthDataFields.newField.unit}" />
+
+					<h:outputLabel value="Alt Sınır" />
+					<p:spinner id="upperLimit" stepFactor="0.25"
+						value="#{healthDataFields.newField.lowerLimit}" />
+
+					<h:outputLabel value="Üst Sınır" />
+					<p:spinner id="lowerLimit" stepFactor="0.25"
+						value="#{healthDataFields.newField.upperLimit}" />
+
+					<h:outputLabel value="Hekime Bildir" />
+					<p:selectBooleanCheckbox id="notificate"
+						value="#{healthDataFields.newField.notification}" />
 
 					<p:commandButton value="Kaydet"
 						actionListener="#{healthDataFields.addNew}" update=":form"

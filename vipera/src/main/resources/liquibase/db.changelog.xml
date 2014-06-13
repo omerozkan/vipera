@@ -9,7 +9,8 @@
             minValue="1000" />
     </changeSet>
     <changeSet id="0-postgres" author="Omer Ozkan" dbms="postgresql">
-        <createSequence sequenceName="hibernate_sequence" minValue="1000"/>
+        <createSequence sequenceName="hibernate_sequence"
+            minValue="1000" />
     </changeSet>
     <changeSet id="1" author="Omer Ozkan">
         <createTable tableName="ADMINISTRATORS">
@@ -20,7 +21,7 @@
                 <constraints unique="true" />
             </column>
             <column name="password" type="varchar(255)" />
-            <column name="email" type="varchar(255)" >
+            <column name="email" type="varchar(255)">
                 <constraints unique="true" />
             </column>
             <column name="name" type="varchar(255)" />
@@ -48,7 +49,8 @@
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="2-doctor-postgresql" author="Omer Ozkan" dbms="postgresql">
+    <changeSet id="2-doctor-postgresql" author="Omer Ozkan"
+        dbms="postgresql">
         <createTable tableName="DOCTORS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" unique="true" />
@@ -69,7 +71,8 @@
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="3-patients-hsqldb" author="Omer Ozkan" dbms="hsqldb">
+    <changeSet id="3-patients-hsqldb" author="Omer Ozkan"
+        dbms="hsqldb">
         <createTable tableName="PATIENTS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" unique="true" />
@@ -91,7 +94,8 @@
             <column name="enable" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="3-patients-postgresql" author="Omer Ozkan" dbms="postgresql">
+    <changeSet id="3-patients-postgresql" author="Omer Ozkan"
+        dbms="postgresql">
         <createTable tableName="PATIENTS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" unique="true" />
@@ -135,6 +139,9 @@
             </column>
             <column name="title" type="varchar(255)" />
             <column name="unit" type="varchar(255)" />
+            <column name="lower_limit" type="double" />
+            <column name="upper_limit" type="double" />
+            <column name="notification" type="boolean" />
         </createTable>
     </changeSet>
     <changeSet id="6-devices" author="Omer Ozkan">
@@ -148,7 +155,7 @@
                     unique="true" />
             </column>
             <column name="api_password" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="patient_id" type="bigint" />
             <column name="enabled" type="int" />
@@ -302,54 +309,78 @@
             <column name="patient_id" type="bigint">7</column>
         </insert>
     </changeSet>
-    <changeSet id="data-5" author="Omer Ozkan" >
+    <changeSet id="data-5" author="Omer Ozkan">
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">8</column>
             <column name="name">pulse</column>
             <column name="title">Pulse</column>
             <column name="unit">bpm</column>
+            <column name="lower_limit">60</column>
+            <column name="upper_limit">100</column>
+            <column name="notification">false</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">9</column>
             <column name="name">systolic</column>
-            <column name="title">Systolic Blood Presure</column>
+            <column name="title">Systolic Blood Pressure</column>
             <column name="unit">mmHg</column>
+            <column name="lower_limit">90</column>
+            <column name="upper_limit">140</column>
+            <column name="notification">false</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">10</column>
             <column name="name">diastolic</column>
-            <column name="title">Diastolic Blood Presure</column>
+            <column name="title">Diastolic Blood Pressure</column>
             <column name="unit">mmHg</column>
+            <column name="lower_limit">60</column>
+            <column name="upper_limit">90</column>
+            <column name="notification">false</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">11</column>
             <column name="name">respirations</column>
             <column name="title">Respirations</column>
             <column name="unit">breaths per minute</column>
+            <column name="lower_limit">12</column>
+            <column name="upper_limit">20</column>
+            <column name="notification">false</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">12</column>
             <column name="name">pulseOximetry</column>
             <column name="title">Pulse Oximetry</column>
             <column name="unit">%</column>
+            <column name="lower_limit">95</column>
+            <column name="upper_limit">100</column>
+            <column name="notification">false</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">13</column>
             <column name="name">bodyTemp</column>
-            <column name="title">Body Temprature</column>
+            <column name="title">Body Temperature</column>
             <column name="unit">C</column>
+            <column name="lower_limit">36.5</column>
+            <column name="upper_limit">37.5</column>
+            <column name="notification">false</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">14</column>
             <column name="name">bmi</column>
             <column name="title">Body Mask Index</column>
             <column name="unit">kg/m2</column>
+            <column name="lower_limit">18.5</column>
+            <column name="upper_limit">24.9</column>
+            <column name="notification">false</column>
         </insert>
         <insert tableName="HEALTH_DATA_FIELDS">
             <column name="id">15</column>
             <column name="name">glucoseLevel</column>
             <column name="title">Blood Glucose Level</column>
             <column name="unit">mg/dl</column>
+            <column name="lower_limit">59</column>
+            <column name="upper_limit">120</column>
+            <column name="notification">false</column>
         </insert>
     </changeSet>
     <changeSet id="test-6" author="Omer Ozkan" context="test">
@@ -357,23 +388,23 @@
             <column name="id">16</column>
             <column name="api_key">u8UAvzOTL1zJp87o</column>
             <column name="api_password">lFQ0BbsmGpfpAAI5</column>
-            <column name="patient_id" >5</column>
+            <column name="patient_id">5</column>
             <column name="enabled">1</column>
         </insert>
         <insert tableName="DEVICES">
             <column name="id">17</column>
             <column name="api_key">UuIpbdV3W9a1IZny</column>
             <column name="api_password">34e3TnPyRC3WLhOt</column>
-            <column name="patient_id" >6</column>
+            <column name="patient_id">6</column>
             <column name="enabled">1</column>
         </insert>
         <insert tableName="DEVICES">
             <column name="id">18</column>
             <column name="api_key">A9tydtP08vMQEwpx</column>
             <column name="api_password">vtnP22YGNci3m3po</column>
-            <column name="patient_id" >7</column>
+            <column name="patient_id">7</column>
             <column name="enabled">1</column>
         </insert>
     </changeSet>
-    <include file="classpath:liquibase/db.changelog-healthdata.xml"/>
+    <include file="classpath:liquibase/db.changelog-healthdata.xml" />
 </databaseChangeLog>
