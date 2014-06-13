@@ -4,7 +4,7 @@
     <parent>
         <groupId>info.ozkan.vipera</groupId>
         <artifactId>vipera-parent</artifactId>
-        <version>1.1.0-Alpha2</version>
+        <version>1.2-SNAPSHOT</version>
     </parent>
     <artifactId>vipera-test-data</artifactId>
     <name>vipera-test-data</name>
