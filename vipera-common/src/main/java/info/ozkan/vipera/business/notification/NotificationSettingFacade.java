@@ -18,4 +18,11 @@ public interface NotificationSettingFacade {
      */
     void saveAll(List<NotificationSetting> notificationSettings);
 
+    /**
+     * Sistemde kayıtlı bütün bildirim ayarlarını dönderir
+     * 
+     * @return
+     */
+    List<NotificationSetting> getAll();
+
 }

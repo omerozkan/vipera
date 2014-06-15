@@ -15,13 +15,22 @@ import javax.inject.Inject;
 public class NotificationSettingFacadeImpl implements NotificationSettingFacade {
 
     /**
-     * business object
+     * notification setting manager
      */
     @Inject
     private NotificationSettingManager notificationSettingManager;
+    /**
+     * notification provider manager
+     */
+    @Inject
+    private NotificationProviderManager notificationProviderManager;
 
     public void saveAll(final List<NotificationSetting> notificationSettings) {
         notificationSettingManager.saveAll(notificationSettings);
+    }
+
+    public List<NotificationSetting> getAll() {
+        return notificationProviderManager.getNotificationSettings();
     }
 
 }

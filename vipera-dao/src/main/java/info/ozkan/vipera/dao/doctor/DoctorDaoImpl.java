@@ -2,6 +2,7 @@ package info.ozkan.vipera.dao.doctor;
 
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorNotificationSetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,16 @@ import javax.persistence.criteria.Root;
  */
 @Named("doctorDao")
 public class DoctorDaoImpl implements DoctorDao {
-    private static final String JQL_GET_BY_ID = "from Doctor d where d.id = :id";
-    protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
+    /**
+     * Hekimi id ile arar
+     */
+    private static final String JQL_GET_BY_ID =
+            "from Doctor d where d.id = :id";
+    /**
+     * hekimi tckn ile arar
+     */
+    protected static final String JQL_GET_BY_TCKN =
+            "from Doctor d where d.tckn = :tckn";
     /**
      * Persistence nesne
      */
@@ -137,6 +146,9 @@ public class DoctorDaoImpl implements DoctorDao {
     public DoctorDaoResult update(final Doctor doctor) {
         final DoctorDaoResult result = new DoctorDaoResult();
         em.merge(doctor);
+        for (final DoctorNotificationSetting setting : doctor.getSettings()) {
+            em.merge(setting);
+        }
         result.setSuccess(true);
         result.setDoctor(doctor);
         return result;

@@ -2,12 +2,19 @@ package info.ozkan.vipera.views.doctor;
 
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
+import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.common.EmailValidator;
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorNotificationSetting;
+import info.ozkan.vipera.entities.NotificationSetting;
 import info.ozkan.vipera.jsf.FacesMessage2;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -80,6 +87,11 @@ public class DoctorUpdateBean implements Serializable {
      * Hekim üyelik aktifliği
      */
     private boolean enable;
+    /**
+     * bildirim ayarları işletme nesnesi
+     */
+    @Inject
+    private NotificationSettingFacade notificationSettingFacade;
 
     /**
      * Hekim in veritabanından sorgulanıp formda gösterilmesini sağlar
@@ -88,6 +100,56 @@ public class DoctorUpdateBean implements Serializable {
         doctor = DoctorLoader.loadDoctor(id, doctorFacade);
         final Authorize enabled = doctor.getEnabled();
         enable = enabled.equals(Authorize.ENABLE);
+        initializeNotificationSettings();
+    }
+
+    private void initializeNotificationSettings() {
+        final List<NotificationSetting> notificationSettings =
+                notificationSettingFacade.getAll();
+        final Map<String, DoctorNotificationSetting> doctorNotificationSettings =
+                createMapFromSettings();
+        final List<DoctorNotificationSetting> newSettings =
+                refreshDoctorNotificationSettings(notificationSettings,
+                        doctorNotificationSettings);
+        doctor.setSettings(newSettings);
+    }
+
+    private List<DoctorNotificationSetting> refreshDoctorNotificationSettings(
+            final List<NotificationSetting> systemSettings,
+            final Map<String, DoctorNotificationSetting> doctorSettings) {
+        final List<DoctorNotificationSetting> newSettings =
+                new ArrayList<DoctorNotificationSetting>();
+        for (final NotificationSetting notificationSetting : systemSettings) {
+            final String providerId = notificationSetting.getProviderId();
+            if (doctorSettings.containsKey(providerId)) {
+                newSettings.add(doctorSettings.get(providerId));
+            } else {
+                final DoctorNotificationSetting setting =
+                        createNewNotificationSetting(providerId);
+                newSettings.add(setting);
+            }
+        }
+        return newSettings;
+    }
+
+    private DoctorNotificationSetting createNewNotificationSetting(
+            final String providerId) {
+        final DoctorNotificationSetting setting =
+                new DoctorNotificationSetting();
+        setting.setDoctor(doctor);
+        setting.setProviderId(providerId);
+        setting.setEnabled(false);
+        return setting;
+    }
+
+    private Map<String, DoctorNotificationSetting> createMapFromSettings() {
+        final Map<String, DoctorNotificationSetting> map =
+                new HashMap<String, DoctorNotificationSetting>();
+        final List<DoctorNotificationSetting> settings = doctor.getSettings();
+        for (final DoctorNotificationSetting setting : settings) {
+            map.put(setting.getProviderId(), setting);
+        }
+        return map;
     }
 
     /**
