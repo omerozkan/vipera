@@ -58,6 +58,9 @@ public class DoctorDeleteBean {
      */
     private boolean disabled = false;
 
+    /**
+     * silinmiş hekimin tekrar yüklenmesini engeller
+     */
     private boolean deleted = false;
 
     /**
@@ -69,15 +72,6 @@ public class DoctorDeleteBean {
             disabled = false;
         }
         deleted = false;
-    }
-
-    /**
-     * Bir önceki yüklenen hekimden farklı mı?
-     * 
-     * @return
-     */
-    private boolean doctorHasChanged() {
-        return doctor == null || doctor.getId() != id;
     }
 
     /**

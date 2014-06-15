@@ -1,6 +1,5 @@
 package info.ozkan.vipera.views.notification;
 
-import info.ozkan.vipera.business.notification.NotificationProviderManager;
 import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.entities.NotificationSetting;
 
@@ -13,9 +12,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Bildirim ayarları sayfası
  * 
@@ -25,6 +21,9 @@ import org.slf4j.LoggerFactory;
 @Named("notificationSettings")
 public class NotificationSettingsBean implements Serializable {
 
+    /**
+     * kaydedildi mesajı
+     */
     private static final String SAVED = "Ayarlar Kaydedildi!";
 
     /**
@@ -32,25 +31,29 @@ public class NotificationSettingsBean implements Serializable {
      */
     private static final long serialVersionUID = -3422211005015794330L;
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(NotificationSettingsBean.class);
-
+    /**
+     * bildirim ayarı listesi
+     */
     private List<NotificationSetting> notificationSettings;
-
+    /**
+     * business
+     */
     @Inject
-    private NotificationProviderManager notificationProviderManager;
+    private NotificationSettingFacade notificationSettingFacade;
 
-    @Inject
-    private NotificationSettingFacade notificationFacade;
-
+    /**
+     * bildirimleri bilgibankasından yükler
+     */
     @PostConstruct
     public void setUp() {
-        setNotificationSettings(notificationProviderManager
-                .getNotificationSettings());
+        setNotificationSettings(notificationSettingFacade.getAll());
     }
 
+    /**
+     * bildirim ayarlarını kaydeder
+     */
     public void save() {
-        notificationFacade.saveAll(notificationSettings);
+        notificationSettingFacade.saveAll(notificationSettings);
         final FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 SAVED, ""));
@@ -72,6 +75,11 @@ public class NotificationSettingsBean implements Serializable {
         this.notificationSettings = notificationSettings;
     }
 
+    /**
+     * eğer herhangi bir sağlayıcı yoksa true dönderir
+     * 
+     * @return
+     */
     public boolean getEmptyProvider() {
         return notificationSettings.size() == 0;
     }
