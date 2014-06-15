@@ -164,6 +164,9 @@ public class Patient implements Serializable, Cloneable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "patients")
     private List<Doctor> doctors;
 
+    /**
+     * Cihazlar
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     private List<Device> devices;
 

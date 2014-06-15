@@ -183,6 +183,35 @@
             <column name="value" type="double" />
         </createTable>
     </changeSet>
+    <changeSet id="9-notifications" author="Omer Ozkan">
+        <createTable tableName="NOTIFICATIONS">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="patient_id" type="bigint" />
+            <column name="doctor_id" type="bigint" />
+            <column name="provider" type="varchar(255)" />
+            <column name="health_data_value_id" type="bigint" />
+        </createTable>
+    </changeSet>
+    <changeSet id="10-doctor_notification_setting" author="Omer Ozkan">
+        <createTable tableName="DOCTOR_NOTIFICATION_SETTINGS">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="doctor_id" type="bigint" />
+            <column name="provider_id" type="varchar(255)" />
+            <column name="enabled" type="boolean" />
+        </createTable>
+    </changeSet>
+    <changeSet id="11-notification_setting" author="Omer Ozkan">
+        <createTable tableName="NOTIFICATION_SETTINGS">
+            <column name="provider_id" type="varchar(255)" />
+            <column name="key" type="varchar(255)" />
+            <column name="password" type="varchar(255)" />
+            <column name="enabled" type="boolean" />
+        </createTable>
+    </changeSet>
     <changeSet id="test-1" author="Ömer Özkan" context="test">
         <insert tableName="ADMINISTRATORS">
             <column name="id">1</column>
