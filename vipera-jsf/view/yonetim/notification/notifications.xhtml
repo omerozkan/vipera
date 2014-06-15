@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/yonetim/layout/template.xhtml">
+	<ui:define name="title">Bildirim Ayarları | Vipera</ui:define>
+	<ui:define name="content">
+		<h:form id="notification">
+			<p:panel id="panel" header="Bildirim Ayarları">
+				<p:messages id="msgs" showDetail="true" />
+				<h:outputText
+					value="Sistemde kayıtlı bir bildirim sağlayıcı bulunmamaktadır."
+					rendered="#{notificationSettings.emptyProvider}" />
+				<ui:repeat var="s"
+					value="#{notificationSettings.notificationSettings}">
+					<h:panelGrid columns="2" cellpadding="20"
+						style="padding-left: 30px; margin-top: 10px; margin-bottom:10px"
+						cellspacing="10">
+
+						<h:outputText value="Sağlayıcı Adı:" />
+						<h:outputText value="#{s.providerId}" styleClass="bold" />
+
+						<h:outputText value="Aktivasyon:" for="#{s.providerId}-enabled" />
+						<p:selectBooleanButton onLabel="Aktif" offLabel="Devre dışı"
+							onIcon="ui-icon-check" offIcon="ui-icon-close"
+							value="#{s.enabled}">
+						</p:selectBooleanButton>
+
+						<h:outputText value="Api Anahtarı:" />
+						<p:inputText value="#{s.key}" />
+
+						<h:outputText value="Api Parolası:" />
+						<p:inputText value="#{s.password}" />
+
+					</h:panelGrid>
+				</ui:repeat>
+				<p:commandButton actionListener="#{notificationSettings.save}"
+					value="Kaydet" update="msgs"
+					rendered="#{not notificationSettings.emptyProvider}" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

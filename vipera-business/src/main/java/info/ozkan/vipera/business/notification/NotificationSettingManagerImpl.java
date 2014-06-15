@@ -1,13 +1,18 @@
 package info.ozkan.vipera.business.notification;
 
-import info.ozkan.vipera.business.notification.NotificationSettingManager;
+import info.ozkan.vipera.business.role.Role;
 import info.ozkan.vipera.dao.notification.NotificationSettingDao;
 import info.ozkan.vipera.entities.NotificationSetting;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * {@link NotificationSettingManager} arayüzünün gerçekleştirimi
@@ -15,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author Ömer Özkan
  * 
  */
+@Named("notificationSettingManager")
 public class NotificationSettingManagerImpl implements
         NotificationSettingManager {
     /**
@@ -25,7 +31,13 @@ public class NotificationSettingManagerImpl implements
     /**
      * Dao
      */
+    @Inject
     private NotificationSettingDao notificationSettingDao;
+    /**
+     * provider manager
+     */
+    @Inject
+    private NotificationProviderManager notificationProviderManager;
     /**
      * Ayarlar, her seferinde veritabanından sürekli sorgulamamak için
      */
@@ -40,6 +52,13 @@ public class NotificationSettingManagerImpl implements
             settings = notificationSettingDao.getAll();
         }
         return settings;
+    }
+
+    @Transactional
+    @RolesAllowed(Role.ROLE_ADMIN)
+    public void saveAll(final List<NotificationSetting> notificationSettings) {
+        notificationSettingDao.saveAll(notificationSettings);
+        notificationProviderManager.setSettings(notificationSettings);
     }
 
 }

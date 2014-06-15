@@ -18,4 +18,11 @@ public interface NotificationSettingDao {
      */
     List<NotificationSetting> getAll();
 
+    /**
+     * Bildirim ayarlarını kaydeder
+     * 
+     * @param notificationSettings
+     */
+    void saveAll(List<NotificationSetting> notificationSettings);
+
 }

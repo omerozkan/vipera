@@ -1,12 +1,10 @@
 package info.ozkan.vipera.business.notification;
 
-import info.ozkan.vipera.business.notification.NotificationProvider;
 import info.ozkan.vipera.entities.Notification;
 import info.ozkan.vipera.entities.NotificationSetting;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Bildirimlerin gönderilmesini ve sistemde tanımlanmasını sağlar
@@ -24,11 +22,6 @@ public interface NotificationProviderManager {
     void sendNotifications(List<Notification> notifications);
 
     /**
-     * @return the providers
-     */
-    Set<String> getProviders();
-
-    /**
      * @param providers
      *            the providers to set
      */
@@ -40,4 +33,10 @@ public interface NotificationProviderManager {
      */
     void setSettings(List<NotificationSetting> settings);
 
+    /**
+     * Sistemde tanımlı olan bildirimlerin ayarlarını dönderir
+     * 
+     * @return
+     */
+    List<NotificationSetting> getNotificationSettings();
 }

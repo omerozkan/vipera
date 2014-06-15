@@ -41,4 +41,10 @@ public class NotificationSettingDaoImpl implements NotificationSettingDao {
         em = entityManager;
     }
 
+    public void saveAll(final List<NotificationSetting> notificationSettings) {
+        for (final NotificationSetting setting : notificationSettings) {
+            em.merge(setting);
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-package info.ozkan.vipera.business.notificaiton;
+package info.ozkan.vipera.business.notification;
 
 import static java.util.Arrays.asList;
 import info.ozkan.vipera.business.notification.NotificationGenerator;

@@ -5,21 +5,14 @@ import info.ozkan.vipera.entities.NotificationSetting;
 import java.util.List;
 
 /**
- * Bildiri ayar yöneticisi
+ * Bildirimler üzerinde işlem yapan Facade
  * 
  * @author Ömer Özkan
  * 
  */
-public interface NotificationSettingManager {
+public interface NotificationSettingFacade {
     /**
-     * Sistemde kayıtlı olan bütün bildiri ayarlarını dönderir
-     * 
-     * @return
-     */
-    List<NotificationSetting> getAll();
-
-    /**
-     * Sisteme bildirim ayarlarını kaydeder
+     * Bildiri ayarlarını sisteme kaydeder
      * 
      * @param notificationSettings
      */

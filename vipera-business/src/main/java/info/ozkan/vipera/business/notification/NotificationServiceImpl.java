@@ -1,6 +1,5 @@
 package info.ozkan.vipera.business.notification;
 
-import info.ozkan.vipera.business.notification.NotificationSettingManager;
 import info.ozkan.vipera.dao.doctorpatient.DoctorPatientDao;
 import info.ozkan.vipera.dao.notification.NotificationDao;
 import info.ozkan.vipera.entities.HealthData;
@@ -11,8 +10,12 @@ import info.ozkan.vipera.entities.Patient;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * {@link NotificationService} arayüzünün implementasyonu
@@ -20,6 +23,7 @@ import org.slf4j.LoggerFactory;
  * @author Ömer Özkan
  * 
  */
+@Named("notificationService")
 public class NotificationServiceImpl implements NotificationService {
     /**
      * LOGGER
@@ -29,14 +33,17 @@ public class NotificationServiceImpl implements NotificationService {
     /**
      * ayar yöneticisi
      */
+    @Inject
     private NotificationSettingManager notificationSettingManager;
     /**
      * bildirim yöneticisi
      */
+    @Inject
     private NotificationProviderManager notificationProviderManager;
     /**
      * dao nesnesi
      */
+    @Inject
     private NotificationDao notificationDao;
     /**
      * filtreleyiic
@@ -48,11 +55,13 @@ public class NotificationServiceImpl implements NotificationService {
      */
     private final NotificationGenerator generator = new NotificationGenerator();
 
+    @Inject
     private DoctorPatientDao doctorPatientDao;
 
     /**
      * Hekimlere bildirim gönderir
      */
+    @Transactional
     public void sendNotifications(final HealthData healthData) {
         final boolean sendNotification = checkNotificationSettings();
         if (sendNotification) {

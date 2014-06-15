@@ -93,6 +93,10 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
     <bean id="deviceDao" class="info.ozkan.vipera.dao.device.DeviceDaoImpl">
+        
+    </bean>
+    <bean id="notificationSettingDao"
+        class="info.ozkan.vipera.dao.notification.NotificationSettingDaoImpl" >
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
     <!-- BUSINESS LAYER BEANS -->
@@ -100,7 +104,8 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
         class="info.ozkan.vipera.business.administrator.AdministratorManagerImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
-    <bean id="administratorFacade" class="info.ozkan.vipera.business.administrator.AdministratorFacadeImpl">
+    <bean id="administratorFacade"
+        class="info.ozkan.vipera.business.administrator.AdministratorFacadeImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
     <bean id="doctorManager" class="info.ozkan.vipera.business.doctor.DoctorManagerImpl">
@@ -145,5 +150,23 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
     </bean>
     <bean id="deviceManager" class="info.ozkan.vipera.business.device.DeviceManagerImpl">
         <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="notificationSettingManager"
+        class="info.ozkan.vipera.business.notification.NotificationSettingManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="notificationSettingFacade" class="info.ozkan.vipera.business.notification.NotificationSettingFacadeImpl" >
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <!-- NOTIFICATION -->
+    <bean id="mockProvider" class="info.ozkan.vipera.business.notification.MockProvider" />
+    <bean id="notificationProviderManager" class="info.ozkan.vipera.business.notification.NotificationProviderManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+        <constructor-arg>
+            <map>
+                <entry key="sms" value-ref="mockProvider" />
+                <entry key="android" value-ref="mockProvider" />
+            </map>
+        </constructor-arg>
     </bean>
 </beans>

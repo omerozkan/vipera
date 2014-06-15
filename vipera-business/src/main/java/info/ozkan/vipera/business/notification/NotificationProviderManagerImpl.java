@@ -1,17 +1,20 @@
 package info.ozkan.vipera.business.notification;
 
-import info.ozkan.vipera.business.notification.NotificationProvider;
-import info.ozkan.vipera.business.notification.NotificationSettingManager;
 import info.ozkan.vipera.entities.Notification;
 import info.ozkan.vipera.entities.NotificationSetting;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Bildirimlerin gönderilmesini ve sistemde tanımlanmasını sağlar
@@ -19,7 +22,9 @@ import org.slf4j.LoggerFactory;
  * @author Ömer Özkan
  * 
  */
-public class NotificationProviderManagerImpl implements NotificationProviderManager {
+@Named("notificationProviderManager")
+public class NotificationProviderManagerImpl implements
+        NotificationProviderManager {
     /**
      * Logger
      */
@@ -33,17 +38,18 @@ public class NotificationProviderManagerImpl implements NotificationProviderMana
     /**
      * Bildiri ayarları
      */
-    private Map<String, NotificationSetting> settings;
+    private final Map<String, NotificationSetting> settings =
+            new HashMap<String, NotificationSetting>();
     /**
      * bildiri ayar yöneticisi
      */
+    @Inject
     private NotificationSettingManager notificationSettingManager;
 
     /**
      * Bildiri yöneticisi üretir
      */
     public NotificationProviderManagerImpl() {
-        getSystemSettings();
     }
 
     /**
@@ -55,21 +61,19 @@ public class NotificationProviderManagerImpl implements NotificationProviderMana
     public NotificationProviderManagerImpl(
             final Map<String, NotificationProvider> providers) {
         setProviders(providers);
-        getSystemSettings();
     }
 
     /**
      * Sistem ayarını alır ve kullanmak üzere kaydeder
      */
-    private void getSystemSettings() {
+    @PostConstruct
+    private void setUp() {
         final List<NotificationSetting> settings =
                 notificationSettingManager.getAll();
         setSettings(settings);
     }
 
-    /* (non-Javadoc)
-     * @see info.ozkan.vipera.business.notificaiton.NotificationProviderManager#sendNotifications(java.util.List)
-     */
+    @Transactional
     public void sendNotifications(final List<Notification> notifications) {
         for (final Notification notification : notifications) {
             final String provider = notification.getProvider();
@@ -82,22 +86,15 @@ public class NotificationProviderManagerImpl implements NotificationProviderMana
         }
     }
 
-    /* (non-Javadoc)
-     * @see info.ozkan.vipera.business.notificaiton.NotificationProviderManager#getProviders()
-     */
-    public Set<String> getProviders() {
-        return providers.keySet();
-    }
-
-    /* (non-Javadoc)
-     * @see info.ozkan.vipera.business.notificaiton.NotificationProviderManager#setProviders(java.util.Map)
+    /**
+     * Bildirim sağlayıcılar
      */
     public void setProviders(final Map<String, NotificationProvider> providers) {
         this.providers = providers;
     }
 
-    /* (non-Javadoc)
-     * @see info.ozkan.vipera.business.notificaiton.NotificationProviderManager#setSettings(java.util.List)
+    /**
+     * Ayarlar
      */
     public void setSettings(final List<NotificationSetting> settings) {
         LOGGER.info("System settings reconfigured!");
@@ -107,6 +104,41 @@ public class NotificationProviderManagerImpl implements NotificationProviderMana
                 this.settings.put(setting.getProviderId(), setting);
             }
         }
+        checkNewProviders();
+    }
+
+    /**
+     * Yeni sağlayıcıların ayarları olup olmadığını kontrol eder eğer yok ise
+     * boş bir ayar nesnesi üretir
+     */
+    private void checkNewProviders() {
+        for (final String providerId : providers.keySet()) {
+            if (!settings.containsKey(providerId)) {
+                createEmptyNotificationSetting(providerId);
+            }
+        }
+    }
+
+    /**
+     * sağlayıcı için boş bir ayar nesnesi üretir
+     * 
+     * @param providerId
+     */
+    private void createEmptyNotificationSetting(final String providerId) {
+        final NotificationSetting notificationSetting =
+                new NotificationSetting();
+        notificationSetting.setProviderId(providerId);
+        notificationSetting.setEnabled(false);
+        settings.put(providerId, notificationSetting);
+    }
+
+    /**
+     * Sistemde kayıtlı olan ayarları dönderir
+     * 
+     * @return
+     */
+    public List<NotificationSetting> getNotificationSettings() {
+        return new ArrayList<NotificationSetting>(settings.values());
     }
 
 }
