@@ -103,7 +103,10 @@ public class DoctorUpdateBean implements Serializable {
         initializeNotificationSettings();
     }
 
-    private void initializeNotificationSettings() {
+    /**
+     * Bildirim ayarlarını ilklendirir
+     */
+    protected void initializeNotificationSettings() {
         final List<NotificationSetting> notificationSettings =
                 notificationSettingFacade.getAll();
         final Map<String, DoctorNotificationSetting> doctorNotificationSettings =
@@ -114,6 +117,13 @@ public class DoctorUpdateBean implements Serializable {
         doctor.setSettings(newSettings);
     }
 
+    /**
+     * hekimin bildirim ayarlarını yeniler
+     * 
+     * @param systemSettings
+     * @param doctorSettings
+     * @return
+     */
     private List<DoctorNotificationSetting> refreshDoctorNotificationSettings(
             final List<NotificationSetting> systemSettings,
             final Map<String, DoctorNotificationSetting> doctorSettings) {
@@ -132,6 +142,12 @@ public class DoctorUpdateBean implements Serializable {
         return newSettings;
     }
 
+    /**
+     * yeni bir bildirim ayarı üretir
+     * 
+     * @param providerId
+     * @return
+     */
     private DoctorNotificationSetting createNewNotificationSetting(
             final String providerId) {
         final DoctorNotificationSetting setting =
@@ -142,6 +158,11 @@ public class DoctorUpdateBean implements Serializable {
         return setting;
     }
 
+    /**
+     * bildirimlerden map üretir
+     * 
+     * @return
+     */
     private Map<String, DoctorNotificationSetting> createMapFromSettings() {
         final Map<String, DoctorNotificationSetting> map =
                 new HashMap<String, DoctorNotificationSetting>();

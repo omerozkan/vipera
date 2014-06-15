@@ -94,7 +94,7 @@
 					<p:message for="enable" />
 				</h:panelGrid>
 				<p:spacer height="30" />
-				<p:panel header="Bildirim Ayarları">
+				<p:panel header="Bildirim Ayarları" rendered="#{not notificationSettings.emptyProvider}">
 				    <ui:repeat var="s" value="#{doctorUpdate.doctor.settings}">
 				    <h:panelGrid columns="2" cellpadding="20" cellspacing="10">
 				        <h:outputText value="#{s.providerId} ile bildirim al:" />

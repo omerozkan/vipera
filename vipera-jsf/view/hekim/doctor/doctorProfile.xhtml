@@ -80,6 +80,19 @@
 					<p:inputText id="mobile" value="#{doctorProfile.doctor.mobilePhone}" />
 					<p:message for="mobile" />
 				</h:panelGrid>
+				<p:spacer height="30" />
+				<p:panel header="Bildirim Ayarlarınız" rendered="#{not notificationSettings.emptyProvider}">
+                    <ui:repeat var="s" value="#{doctorProfile.doctor.settings}">
+                    <h:panelGrid columns="2" cellpadding="20" cellspacing="10">
+                        <h:outputText value="#{s.providerId} ile bildirim al:" />
+                        <p:selectBooleanButton onLabel="Aktif" offLabel="Devre dışı"
+                            onIcon="ui-icon-check" offIcon="ui-icon-close"
+                            value="#{s.enabled}">
+                        </p:selectBooleanButton>
+                    </h:panelGrid>
+                    </ui:repeat>
+                </p:panel>
+                <p:spacer height="20" />
 				<h:panelGrid columns="2">
 				    <p:commandButton value="Kaydet"
                         actionListener="#{doctorProfile.save}" update="panel" id="save" />

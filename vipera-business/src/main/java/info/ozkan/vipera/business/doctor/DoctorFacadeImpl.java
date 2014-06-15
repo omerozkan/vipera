@@ -22,6 +22,9 @@ public class DoctorFacadeImpl implements DoctorFacade, Serializable {
      * Serial
      */
     private static final long serialVersionUID = 8697253621847617425L;
+    /**
+     * DoctorManager
+     */
     @Inject
     private DoctorManager doctorManager;
 

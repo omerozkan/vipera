@@ -1,7 +1,7 @@
 package info.ozkan.vipera.views.notification;
 
-import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.business.notification.NotificationProviderManager;
+import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.entities.NotificationSetting;
 
 import java.io.Serializable;
@@ -47,7 +47,6 @@ public class NotificationSettingsBean implements Serializable {
     public void setUp() {
         setNotificationSettings(notificationProviderManager
                 .getNotificationSettings());
-        LOGGER.info(getNotificationSettings().size() + "");
     }
 
     public void save() {

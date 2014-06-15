@@ -3,14 +3,20 @@ package info.ozkan.vipera.views.doctor;
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
+import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.common.EmailValidator;
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorNotificationSetting;
 import info.ozkan.vipera.entities.DoctorTitle;
+import info.ozkan.vipera.entities.NotificationSetting;
 import info.ozkan.vipera.jsf.FacesMessage2;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -53,19 +59,23 @@ public class DoctorAddBean implements Serializable {
     /**
      * TCKN'e ait kayıltı hekim var hata mesajı
      */
-    public static final String TCKN_HAS_EXIST_MSG = "Girdiğiniz TC kimlik numarası ile kayıtlı bir başka hekim bulunmaktadır!";
+    public static final String TCKN_HAS_EXIST_MSG =
+            "Girdiğiniz TC kimlik numarası ile kayıtlı bir başka hekim bulunmaktadır!";
     /**
      * Geçersiz eposta hata mesajı
      */
-    public static final String INVALID_EMAIL_MSG = "Girdiğiniz eposta adresi geçerli değil!";
+    public static final String INVALID_EMAIL_MSG =
+            "Girdiğiniz eposta adresi geçerli değil!";
     /**
      * Parola eşleşmeme hata mesajı
      */
-    public static final String PASSWORDS_DONT_MATH_MSG = "Girdiğiniz parolalar birbiriyle uyuşmuyor!";
+    public static final String PASSWORDS_DONT_MATH_MSG =
+            "Girdiğiniz parolalar birbiriyle uyuşmuyor!";
     /**
      * Geçersiz TC Kimlik no hata mesajı
      */
-    public static final String INVALID_TCKN_MSG = "TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!";
+    public static final String INVALID_TCKN_MSG =
+            "TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!";
     /**
      * Geçersiz TC Kimlik No hatası
      */
@@ -74,8 +84,9 @@ public class DoctorAddBean implements Serializable {
     /**
      * Parola eşleşmeme hatası
      */
-    protected static final FacesMessage2 PASSWORDS_DONT_MATCH = new FacesMessage2(
-            FacesMessage.SEVERITY_ERROR, PASSWORDS_DONT_MATH_MSG, "");
+    protected static final FacesMessage2 PASSWORDS_DONT_MATCH =
+            new FacesMessage2(FacesMessage.SEVERITY_ERROR,
+                    PASSWORDS_DONT_MATH_MSG, "");
     /**
      * Eposta geçersiz hatası
      */
@@ -94,7 +105,7 @@ public class DoctorAddBean implements Serializable {
     /**
      * Doktor domain nesnesi
      */
-    private Doctor doctor = new Doctor();
+    private Doctor doctor;
     /**
      * Üyeliği aktif olup olmadığı
      */
@@ -108,6 +119,19 @@ public class DoctorAddBean implements Serializable {
      */
     @Inject
     private DoctorFacade doctorFacade;
+    /**
+     * Sistem bildirim ayarları
+     */
+    @Inject
+    private NotificationSettingFacade notificationSettingFacade;
+
+    /**
+     * hekimi ilkendirir
+     */
+    @PostConstruct
+    public void setUp() {
+        initializeDoctor();
+    }
 
     /**
      * Hekimi sisteme kaydeder
@@ -125,7 +149,7 @@ public class DoctorAddBean implements Serializable {
                 LOGGER.info("Duplicate doctor with TCKN {}", getDoctor()
                         .getTckn());
                 context.addMessage(null, TCKN_HAS_EXIST);
-                doctor = new Doctor();
+                initializeDoctor();
             }
         } else {
             SUCCESS.setSummary(String.format(SAVED_MSG_PATTERN,
@@ -134,8 +158,42 @@ public class DoctorAddBean implements Serializable {
             LOGGER.info("The new doctor {} has been saved",
                     doctor.getFullname());
             context.addMessage(null, SUCCESS);
-            doctor = new Doctor();
+            initializeDoctor();
         }
+    }
+
+    /**
+     * Yeni bir hekimi ilklendirir
+     */
+    private void initializeDoctor() {
+        doctor = new Doctor();
+        final List<NotificationSetting> systemSettings =
+                notificationSettingFacade.getAll();
+        final List<DoctorNotificationSetting> doctorSettings =
+                createNotificationSettingsFromSystem(systemSettings);
+        doctor.setSettings(doctorSettings);
+    }
+
+    /**
+     * hekim bildirim ayarı üretir
+     * 
+     * @param systemSettings
+     * @return
+     */
+    private List<DoctorNotificationSetting>
+            createNotificationSettingsFromSystem(
+                    final List<NotificationSetting> systemSettings) {
+        final List<DoctorNotificationSetting> doctorSettings =
+                new ArrayList<DoctorNotificationSetting>();
+        for (final NotificationSetting systemSetting : systemSettings) {
+            final DoctorNotificationSetting doctorSetting =
+                    new DoctorNotificationSetting();
+            doctorSetting.setDoctor(doctor);
+            doctorSetting.setEnabled(false);
+            doctorSetting.setProviderId(systemSetting.getProviderId());
+            doctorSettings.add(doctorSetting);
+        }
+        return doctorSettings;
     }
 
     /**

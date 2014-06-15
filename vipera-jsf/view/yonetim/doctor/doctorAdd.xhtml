@@ -9,16 +9,15 @@
 	<ui:define name="content">
 		<h:form id="doctor-add">
 			<p:panel id="panel" header="Yeni Hekim">
-				<p:messages id="msgs" autoUpdate="true" showDetail="false"/>
+				<p:messages id="msgs" autoUpdate="true" showDetail="false" />
 				<h:panelGrid columns="3" cellpadding="20"
 					style="padding-left: 30px; margin-top: 10px">
 
 					<h:outputText value="T.C. Kimlik No:" />
 					<p:inputMask mask="99999999999" id="tckn" required="true"
 						value="#{doctorAdd.doctor.tckn}"
-						requiredMessage="TC Kimlik Numarası boş bırakılamaz!" 
-						converterMessage="TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!"
-						/>
+						requiredMessage="TC Kimlik Numarası boş bırakılamaz!"
+						converterMessage="TC Kimlik Numarası 11 haneli ve sayılardan oluşmalıdır!" />
 					<p:message for="tckn" display="icon" />
 
 					<h:outputText value="Adı:" />
@@ -44,8 +43,9 @@
 						promptLabel="Lütfen parola giriniz!" weakLabel="Zayıf"
 						goodLabel="Orta" strongLabel="Güçlü" required="true"
 						match="password2" value="#{doctorAdd.doctor.password}"
-						requiredMessage="Parola alanı boş bırakılamaz!" validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!">
-						</p:password>
+						requiredMessage="Parola alanı boş bırakılamaz!"
+						validatorMessage="Girdiğiniz parolalar birbiri ile uyuşmuyor!">
+					</p:password>
 					<p:message for="password" display="icon" />
 
 					<h:outputText value="Parola Tekrar:" />
@@ -59,7 +59,8 @@
 					style="padding-left: 30px; margin-bottom: 10px">
 					<h:outputText value="Ünvanı:" />
 					<p:selectOneMenu id="title" value="#{doctorAdd.doctor.title}">
-						<f:selectItems value="#{doctorAdd.doctorTitles}" var="t" itemValue="#{t}" itemLabel="#{t.title}"/>
+						<f:selectItems value="#{doctorAdd.doctorTitles}" var="t"
+							itemValue="#{t}" itemLabel="#{t.title}" />
 					</p:selectOneMenu>
 					<p:message for="title" display="icon" />
 
@@ -68,7 +69,7 @@
 					<p:message for="province" />
 
 					<h:outputText value="Diploma No:" />
-					<p:inputText id="diploma" value="#{doctorAdd.doctor.diplomaNo}"/>
+					<p:inputText id="diploma" value="#{doctorAdd.doctor.diplomaNo}" />
 					<p:message for="diploma" />
 				</h:panelGrid>
 				<p:spacer height="30" />
@@ -90,9 +91,23 @@
 						offLabel="Devre Dışı" offIcon="ui-icon-close"
 						onIcon="ui-icon-check" required="true" value="#{doctorAdd.enable}" />
 					<p:message for="enable" />
-					<p:commandButton value="Kaydet" actionListener="#{doctorAdd.save}"
-						update="panel" id="save"/>
 				</h:panelGrid>
+				<p:spacer height="30" />
+				<p:panel header="Bildirim Ayarları"
+					rendered="#{not notificationSettings.emptyProvider}">
+					<ui:repeat var="s" value="#{doctorAdd.doctor.settings}">
+						<h:panelGrid columns="2" cellpadding="20" cellspacing="10">
+							<h:outputText value="#{s.providerId} ile bildirim al:" />
+							<p:selectBooleanButton onLabel="Aktif" offLabel="Devre dışı"
+								onIcon="ui-icon-check" offIcon="ui-icon-close"
+								value="#{s.enabled}">
+							</p:selectBooleanButton>
+						</h:panelGrid>
+					</ui:repeat>
+				</p:panel>
+				<p:spacer height="20" />
+				<p:commandButton value="Kaydet" actionListener="#{doctorAdd.save}"
+					update="panel" id="save" />
 			</p:panel>
 		</h:form>
 	</ui:define>

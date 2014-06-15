@@ -49,6 +49,9 @@ public class DoctorDaoImpl implements DoctorDao {
     public DoctorDaoResult add(final Doctor doctor) {
         final DoctorDaoResult result = new DoctorDaoResult();
         em.persist(doctor);
+        for (final DoctorNotificationSetting setting : doctor.getSettings()) {
+            em.merge(setting);
+        }
         result.setSuccess(true);
         return result;
     }
