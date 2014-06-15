@@ -1,5 +1,6 @@
 package info.ozkan.vipera.business.healthdata;
 
+import info.ozkan.vipera.business.notification.NotificationService;
 import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.HealthData;
 
@@ -19,9 +20,16 @@ public class HealthDataFacadeImpl implements HealthDataFacade {
      */
     @Inject
     private HealthDataService healthDataService;
+    /**
+     * bildirim servisi
+     */
+    @Inject
+    private NotificationService notificationService;
 
     public HealthDataResult add(final HealthData healthData) {
-        return healthDataService.add(healthData);
+        final HealthDataResult result = healthDataService.add(healthData);
+        notificationService.sendNotifications(healthData);
+        return result;
     }
 
     public HealthDataResult find(final HealthDataSearchFilter filter) {

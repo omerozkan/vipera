@@ -99,6 +99,9 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
         class="info.ozkan.vipera.dao.notification.NotificationSettingDaoImpl" >
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
+    <bean id="notificationDao" class="info.ozkan.vipera.dao.notification.NotificationDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
     <!-- BUSINESS LAYER BEANS -->
     <bean id="administratorManager"
         class="info.ozkan.vipera.business.administrator.AdministratorManagerImpl">
@@ -158,6 +161,11 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
     <bean id="notificationSettingFacade" class="info.ozkan.vipera.business.notification.NotificationSettingFacadeImpl" >
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
+    
+    <bean id="notificationService" class="info.ozkan.vipera.business.notification.NotificationServiceImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    
     <!-- NOTIFICATION -->
     <bean id="mockProvider" class="info.ozkan.vipera.business.notification.MockProvider" />
     <bean id="notificationProviderManager" class="info.ozkan.vipera.business.notification.NotificationProviderManagerImpl">

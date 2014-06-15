@@ -57,6 +57,7 @@ public class NotificationSettingManagerImpl implements
     @Transactional
     @RolesAllowed(Role.ROLE_ADMIN)
     public void saveAll(final List<NotificationSetting> notificationSettings) {
+        settings = notificationSettings;
         notificationSettingDao.saveAll(notificationSettings);
         notificationProviderManager.setSettings(notificationSettings);
     }

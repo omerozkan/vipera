@@ -104,7 +104,6 @@ public class HealthDataAPITest {
      * @throws Exception
      */
     @Test
-    @Ignore
     public void testSuccessfullAdding() throws Exception {
         final Device device = DeviceTestData.get(0);
         setKeyAndPassword(device.getApiKey(), device.getApiPassword());
@@ -123,6 +122,7 @@ public class HealthDataAPITest {
      * @throws Exception
      */
     @Test
+    @Ignore
     public void generateTestData() throws Exception {
         for (int i = 0; i < 3; i++) {
             final Device device = DeviceTestData.get(i);
@@ -151,7 +151,7 @@ public class HealthDataAPITest {
                 new ArrayList<HealthDataValueModel>();
         final HealthDataValueModel model1 = new HealthDataValueModel();
         model1.setKey(testField1.getName());
-        model1.setValue(80.12);
+        model1.setValue(100.12);
         final HealthDataValueModel model2 = new HealthDataValueModel();
         model2.setKey(testField2.getName());
         model2.setValue(120.312);

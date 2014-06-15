@@ -63,9 +63,12 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Transactional
     public void sendNotifications(final HealthData healthData) {
+        LOGGER.info("notificationSend");
         final boolean sendNotification = checkNotificationSettings();
         if (sendNotification) {
             sendNotification(healthData);
+        } else {
+            LOGGER.info("There is no enabled provider!");
         }
     }
 
@@ -84,6 +87,8 @@ public class NotificationServiceImpl implements NotificationService {
                     generator.generate(healthData, filteredData);
             notificationProviderManager.sendNotifications(notifications);
             notificationDao.saveAll(notifications);
+        } else {
+            LOGGER.info("All values are regular! No need to sent any notification!");
         }
     }
 

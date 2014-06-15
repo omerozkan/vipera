@@ -130,7 +130,7 @@ public class HealthDataRestService {
      */
     private ResponseModel createSuccessResponseModel() {
         final ResponseModel responseModel = new ResponseModel();
-        responseModel.setCode(Response.Status.OK.ordinal());
+        responseModel.setCode(200);
         responseModel.setMessage("The health data added to system.");
         return responseModel;
     }
