@@ -28,6 +28,9 @@ public class Notification implements Serializable {
      * Serial
      */
     private static final long serialVersionUID = -2584272873773133203L;
+    /**
+     * Id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
