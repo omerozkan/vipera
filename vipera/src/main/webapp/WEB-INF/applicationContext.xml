@@ -103,6 +103,12 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
         class="info.ozkan.vipera.dao.notification.NotificationDaoImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
+    
+    <bean id="androidRegistrationDao"
+        class="info.ozkan.vipera.dao.notification.android.AndroidRegistrationDaoImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    
     <!-- BUSINESS LAYER BEANS -->
     <bean id="administratorManager"
         class="info.ozkan.vipera.business.administrator.AdministratorManagerImpl">
@@ -173,6 +179,14 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
     </bean>
     <bean id="notificationService"
         class="info.ozkan.vipera.business.notification.NotificationServiceImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="androidRegistrationManager"
+        class="info.ozkan.vipera.business.notification.android.AndroidRegistrationManagerImpl">
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+    <bean id="androidRegistrationFacade"
+        class="info.ozkan.vipera.business.notification.android.AndroidRegistrationFacadeImpl">
         <aop:scoped-proxy proxy-target-class="true" />
     </bean>
 
