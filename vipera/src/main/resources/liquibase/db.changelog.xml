@@ -238,6 +238,7 @@
             <column name="phone">+905555555555</column>
             <column name="mobile_phone">+905555555555</column>
             <column name="webpage">http://www.greghouse.com</column>
+            <column name="api_key">eeda2ced4fede33c</column>
             <column name="enabled">1</column>
         </insert>
         <insert tableName="DOCTORS">
@@ -412,6 +413,7 @@
             <column name="upper_limit">120</column>
             <column name="notification">false</column>
         </insert>
+
     </changeSet>
     <changeSet id="test-6" author="Omer Ozkan" context="test">
         <insert tableName="DEVICES">
@@ -434,6 +436,29 @@
             <column name="api_password">vtnP22YGNci3m3po</column>
             <column name="patient_id">7</column>
             <column name="enabled">1</column>
+        </insert>
+    </changeSet>
+    <changeSet id="test-7" author="Omer Ozkan" context="test">
+        <insert tableName="HEALTH_DATA_FIELDS">
+            <column name="id">19</column>
+            <column name="name">notificationTest</column>
+            <column name="title">Notification Test</column>
+            <column name="unit">test</column>
+            <column name="lower_limit">20</column>
+            <column name="upper_limit">100</column>
+            <column name="notification">true</column>
+        </insert>
+        <insert tableName="DOCTOR_NOTIFICATION_SETTINGS">
+            <column name="id" type="bigint">20</column>
+            <column name="doctor_id">2</column>
+            <column name="provider_id">test</column>
+            <column name="enabled">true</column>
+        </insert>
+        <insert tableName="NOTIFICATION_SETTINGS">
+            <column name="provider_id">test</column>
+            <column name="key">blabla</column>
+            <column name="password">blabla</column>
+            <column name="enabled">true</column>
         </insert>
     </changeSet>
     <include file="classpath:liquibase/db.changelog-healthdata.xml" />

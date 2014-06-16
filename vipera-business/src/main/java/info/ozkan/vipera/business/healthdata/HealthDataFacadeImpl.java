@@ -28,7 +28,9 @@ public class HealthDataFacadeImpl implements HealthDataFacade {
 
     public HealthDataResult add(final HealthData healthData) {
         final HealthDataResult result = healthDataService.add(healthData);
-        notificationService.sendNotifications(healthData);
+        if (result.isSuccess()) {
+            notificationService.sendNotifications(healthData);
+        }
         return result;
     }
 

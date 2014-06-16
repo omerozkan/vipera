@@ -52,4 +52,12 @@ public interface DoctorFacade {
      */
     DoctorManagerResult delete(Doctor doctor);
 
+    /**
+     * API anahtarı ile hekimi sorgular
+     * 
+     * @param apiKey
+     * @return
+     */
+    DoctorManagerResult getByApi(String apiKey);
+
 }

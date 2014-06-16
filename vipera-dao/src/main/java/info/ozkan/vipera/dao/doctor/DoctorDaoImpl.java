@@ -26,6 +26,11 @@ import javax.persistence.criteria.Root;
 @Named("doctorDao")
 public class DoctorDaoImpl implements DoctorDao {
     /**
+     * Hekimi api ile arar
+     */
+    private static final String JQL_BY_API =
+            "from Doctor d WHERE d.apiKey = :apiKey";
+    /**
      * Hekimi id ile arar
      */
     private static final String JQL_GET_BY_ID =
@@ -126,6 +131,18 @@ public class DoctorDaoImpl implements DoctorDao {
         query.setParameter(Doctor.TCKN, tckn);
         final DoctorDaoResult result = new DoctorDaoResult();
         final List resultList = query.getResultList();
+        getSingleResult(result, resultList);
+        return result;
+    }
+
+    /**
+     * Eğer kayıt varsa ilk kaydı sonuca ekler
+     * 
+     * @param result
+     * @param resultList
+     */
+    private void getSingleResult(final DoctorDaoResult result,
+            final List resultList) {
         if (resultList.size() == 0) {
             result.setSuccess(false);
             result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
@@ -133,7 +150,6 @@ public class DoctorDaoImpl implements DoctorDao {
             result.setSuccess(true);
             result.setDoctor((Doctor) resultList.get(0));
         }
-        return result;
     }
 
     /**
@@ -154,6 +170,15 @@ public class DoctorDaoImpl implements DoctorDao {
         }
         result.setSuccess(true);
         result.setDoctor(doctor);
+        return result;
+    }
+
+    public DoctorDaoResult getByApi(final String apiKey) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        final Query query = em.createQuery(JQL_BY_API);
+        query.setParameter("apiKey", apiKey);
+        final List<Doctor> resultList = query.getResultList();
+        getSingleResult(result, resultList);
         return result;
     }
 

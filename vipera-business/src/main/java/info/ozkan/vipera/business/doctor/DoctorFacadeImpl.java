@@ -70,4 +70,8 @@ public class DoctorFacadeImpl implements DoctorFacade, Serializable {
         return doctorManager.delete(doctor);
     }
 
+    public DoctorManagerResult getByApi(final String apiKey) {
+        return doctorManager.getByApi(apiKey);
+    }
+
 }

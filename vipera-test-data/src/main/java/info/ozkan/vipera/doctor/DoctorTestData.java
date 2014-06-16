@@ -85,6 +85,7 @@ public final class DoctorTestData {
         house.setPhone("+905555555");
         house.setMobilePhone("+905553333333");
         house.setEnabled(Authorize.ENABLE);
+        house.setApiKey("eeda2ced4fede33c");
         return house;
     }
 

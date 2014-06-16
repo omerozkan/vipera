@@ -23,7 +23,7 @@ public final class HealthDataFieldTestData {
      */
     private static final String[] FIELD_NAMES = { "pulse", "systolic",
             "diastolic", "respirations", "pulseOximetry", "bodyTemp", "bmi",
-            "glucoseLevel" };
+            "glucoseLevel", "notificationTest" };
 
     /**
      * utility class
@@ -43,6 +43,15 @@ public final class HealthDataFieldTestData {
             initiAlizeTestData();
         }
         return FIELDS.get(key);
+    }
+
+    /**
+     * Bildirim için kullanılan alanı dönderir
+     * 
+     * @return
+     */
+    public static HealthDataField getTestNotificationField() {
+        return getTestData(8);
     }
 
     /**
