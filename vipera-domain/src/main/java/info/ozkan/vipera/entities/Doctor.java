@@ -171,6 +171,12 @@ public class Doctor implements Serializable, Cloneable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
     private List<DoctorNotificationSetting> settings;
 
+    /**
+     * API anahtarı
+     */
+    @Column(name = "api_key", unique = true)
+    private String apiKey;
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -441,5 +447,20 @@ public class Doctor implements Serializable, Cloneable {
      */
     public void setSettings(final List<DoctorNotificationSetting> settings) {
         this.settings = settings;
+    }
+
+    /**
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    /**
+     * @param apiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String apiKey) {
+        this.apiKey = apiKey;
     }
 }

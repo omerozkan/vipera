@@ -81,6 +81,14 @@
 					<p:message for="mobile" />
 				</h:panelGrid>
 				<p:spacer height="30" />
+                <p:panel header="API Ayarları" rendered="#{not notificationSettings.emptyProvider}">
+                    <h:panelGrid columns="3" cellpadding="20" cellspacing="10">
+                        <h:outputText value="API Anahtarınız:" />
+                        <p:inputText value="#{doctorProfile.apiKey}" id="apiKey"  disabled="true" />
+                        <p:commandButton value="Değiştir"  actionListener="#{doctorProfile.changeApiKey}" update=":doctor-update:apiKey"  icon="ui-icon-locked"/>
+                    </h:panelGrid>
+                </p:panel>
+				<p:spacer height="30" />
 				<p:panel header="Bildirim Ayarlarınız" rendered="#{not notificationSettings.emptyProvider}">
                     <ui:repeat var="s" value="#{doctorProfile.doctor.settings}">
                     <h:panelGrid columns="2" cellpadding="20" cellspacing="10">

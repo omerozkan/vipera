@@ -46,6 +46,7 @@
             <column name="phone" type="varchar(255)" />
             <column name="mobile_phone" type="varchar(255)" />
             <column name="webpage" type="varchar(255)" />
+            <column name="api_key" type="varchar(32)" />
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>

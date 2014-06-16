@@ -9,6 +9,7 @@ import info.ozkan.vipera.entities.Doctor;
 import info.ozkan.vipera.entities.DoctorNotificationSetting;
 import info.ozkan.vipera.entities.NotificationSetting;
 import info.ozkan.vipera.jsf.FacesMessage2;
+import info.ozkan.vipera.views.device.PasswordGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -84,6 +85,14 @@ public class DoctorUpdateBean implements Serializable {
      */
     private String password2;
     /**
+     * Hekim yüklensin mi
+     */
+    private boolean loadDoctor = true;
+    /**
+     * 
+     */
+    private String apiKey;
+    /**
      * Hekim üyelik aktifliği
      */
     private boolean enable;
@@ -97,10 +106,14 @@ public class DoctorUpdateBean implements Serializable {
      * Hekim in veritabanından sorgulanıp formda gösterilmesini sağlar
      */
     public void loadDoctor() {
-        doctor = DoctorLoader.loadDoctor(id, doctorFacade);
-        final Authorize enabled = doctor.getEnabled();
-        enable = enabled.equals(Authorize.ENABLE);
-        initializeNotificationSettings();
+        if (loadDoctor) {
+            doctor = DoctorLoader.loadDoctor(id, doctorFacade);
+            final Authorize enabled = doctor.getEnabled();
+            enable = enabled.equals(Authorize.ENABLE);
+            initializeNotificationSettings();
+            apiKey = doctor.getApiKey();
+        }
+        loadDoctor = true;
     }
 
     /**
@@ -187,12 +200,21 @@ public class DoctorUpdateBean implements Serializable {
             doctor.setPassword(password);
         }
         setDoctorActivation();
+        doctor.setApiKey(apiKey);
         final DoctorManagerResult result = doctorFacade.update(doctor);
         if (result.isSuccess()) {
             LOGGER.info("The doctor {} has been updated!", doctor.getFullname());
             SUCCESS.setSummary(doctor.getFullname() + " güncellendi!");
             context.addMessage(null, SUCCESS);
         }
+    }
+
+    /**
+     * Hekime bir api anahtarı üretir
+     */
+    public void changeApiKey() {
+        apiKey = PasswordGenerator.generate(doctor.getTckn().toString());
+        loadDoctor = false;
     }
 
     /**
@@ -314,6 +336,21 @@ public class DoctorUpdateBean implements Serializable {
      */
     public void setEnable(final boolean enable) {
         this.enable = enable;
+    }
+
+    /**
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    /**
+     * @param apiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String apiKey) {
+        this.apiKey = apiKey;
     }
 
 }
