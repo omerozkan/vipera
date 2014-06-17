@@ -73,7 +73,7 @@ public class NotificationListAPITest {
         final NotificationListRequestModel notificationListModel =
                 new NotificationListRequestModel();
         notificationListModel.setApiKey(doctor.getApiKey());
-        notificationListModel.setProvider("test");
+        notificationListModel.setProvider("sms");
         final String json = gson.toJson(notificationListModel);
         final Request request =
                 Request.Post(URL_FOR_QUERYING).bodyString(json,

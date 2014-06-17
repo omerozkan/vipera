@@ -243,8 +243,8 @@
             <column name="diploma_no">12345</column>
             <column name="province">Bulaşıcı Hastalıklar ve Nefroloji
             </column>
-            <column name="phone">+905555555555</column>
-            <column name="mobile_phone">+905555555555</column>
+            <column name="phone"></column>
+            <column name="mobile_phone"></column>
             <column name="webpage">http://www.greghouse.com</column>
             <column name="api_key">eeda2ced4fede33c</column>
             <column name="enabled">1</column>
@@ -259,8 +259,8 @@
             <column name="title">2</column>
             <column name="diploma_no">12345</column>
             <column name="province">Dahiliye</column>
-            <column name="phone">+905555555555</column>
-            <column name="mobile_phone">+905555555555</column>
+            <column name="phone"></column>
+            <column name="mobile_phone"></column>
             <column name="webpage"></column>
             <column name="enabled">1</column>
         </insert>
@@ -274,8 +274,8 @@
             <column name="title">1</column>
             <column name="diploma_no">12345</column>
             <column name="province">Deletable data</column>
-            <column name="phone">+905555555555</column>
-            <column name="mobile_phone">+905555555555</column>
+            <column name="phone"></column>
+            <column name="mobile_phone"></column>
             <column name="webpage">http://ozkan.info</column>
             <column name="enabled">1</column>
         </insert>
@@ -293,8 +293,8 @@
             <column name="birth_place">New York</column>
             <column name="father_name">Marshall</column>
             <column name="mother_name">Lily</column>
-            <column name="phone">+1123123123</column>
-            <column name="mobile_phone">+1123123123</column>
+            <column name="phone"></column>
+            <column name="mobile_phone"></column>
             <column name="enable">1</column>
         </insert>
         <insert tableName="PATIENTS">

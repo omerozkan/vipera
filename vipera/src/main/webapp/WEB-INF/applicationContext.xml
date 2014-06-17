@@ -192,12 +192,14 @@ http://www.springframework.org/schema/util/spring-util-3.0.xsd
 
     <!-- NOTIFICATION -->
     <bean id="mockProvider" class="info.ozkan.vipera.business.notification.MockProvider" />
+    <bean id="smsProvider" class="info.ozkan.vipera.business.notification.SmsKobiNotificationProvider" />
     <bean id="notificationProviderManager"
         class="info.ozkan.vipera.business.notification.NotificationProviderManagerImpl">
         <aop:scoped-proxy proxy-target-class="true" />
         <constructor-arg>
             <map>
                 <entry key="test" value-ref="mockProvider" />
+                <entry key="sms" value-ref="smsProvider" />
             </map>
         </constructor-arg>
     </bean>

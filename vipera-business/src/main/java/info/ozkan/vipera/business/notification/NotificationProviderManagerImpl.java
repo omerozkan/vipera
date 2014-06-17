@@ -105,6 +105,19 @@ public class NotificationProviderManagerImpl implements
             }
         }
         checkNewProviders();
+        setApiAndPassword();
+    }
+
+    /**
+     * sağlayıcıların kullanıcı adlarını ve parolalarını yeniden tanımlar
+     */
+    private void setApiAndPassword() {
+        for (final String providerId : providers.keySet()) {
+            final NotificationProvider provider = providers.get(providerId);
+            final NotificationSetting setting = settings.get(providerId);
+            provider.setKey(setting.getKey());
+            provider.setPassword(setting.getPassword());
+        }
     }
 
     /**
