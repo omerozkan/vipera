@@ -2,8 +2,10 @@ package info.ozkan.vipera.doctor;
 
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorNotificationSetting;
 import info.ozkan.vipera.entities.DoctorTitle;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +64,7 @@ public final class DoctorTestData {
         demirci.setPhone("+905555555");
         demirci.setMobilePhone("+905553333333");
         demirci.setEnabled(Authorize.ENABLE);
+        demirci.setSettings(new ArrayList<DoctorNotificationSetting>());
         return demirci;
     }
 
@@ -86,6 +89,7 @@ public final class DoctorTestData {
         house.setMobilePhone("+905553333333");
         house.setEnabled(Authorize.ENABLE);
         house.setApiKey("eeda2ced4fede33c");
+        house.setSettings(new ArrayList<DoctorNotificationSetting>());
         return house;
     }
 
@@ -109,6 +113,7 @@ public final class DoctorTestData {
         ozkan.setPhone("+905555555");
         ozkan.setMobilePhone("+905553333333");
         ozkan.setEnabled(Authorize.ENABLE);
+        ozkan.setSettings(new ArrayList<DoctorNotificationSetting>());
         return ozkan;
 
     }

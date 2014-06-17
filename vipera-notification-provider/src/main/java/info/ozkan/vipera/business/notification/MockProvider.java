@@ -8,11 +8,23 @@ import info.ozkan.vipera.entities.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Bildirim sistemini test etmek için kullanılan sadece gelen bildirimleri log
+ * olarak gösteren bildirim sağlayıcı
+ * 
+ * @author Ömer Özkan
+ * 
+ */
 public class MockProvider implements NotificationProvider {
-
+    /**
+     * LOGGER
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MockProvider.class);
 
+    /**
+     * Bildirim gönderir
+     */
     public void send(final Notification notification) {
         final Patient patient = notification.getPatient();
         final Doctor doctor = notification.getDoctor();
@@ -22,13 +34,17 @@ public class MockProvider implements NotificationProvider {
                 patient, field.getName());
     }
 
+    /**
+     * Api anahtarı
+     */
     public void setKey(final String apiKey) {
-        // TODO Auto-generated method stub
 
     }
 
+    /**
+     * Api password
+     */
     public void setPassword(final String password) {
-        // TODO Auto-generated method stub
 
     }
 

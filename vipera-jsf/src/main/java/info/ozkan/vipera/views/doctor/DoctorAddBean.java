@@ -303,4 +303,13 @@ public class DoctorAddBean implements Serializable {
     public void setDoctorFacade(final DoctorFacade doctorFacade) {
         this.doctorFacade = doctorFacade;
     }
+
+    /**
+     * @param notificationSettingFacade
+     *            the notificationSettingFacade to set
+     */
+    public void setNotificationSettingFacade(
+            final NotificationSettingFacade notificationSettingFacade) {
+        this.notificationSettingFacade = notificationSettingFacade;
+    }
 }

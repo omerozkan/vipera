@@ -6,7 +6,9 @@ import static org.junit.Assert.assertTrue;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorNotificationSetting;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.persistence.EntityManager;
@@ -48,6 +50,7 @@ public class DoctorDaoImplTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         doctorDao.setEntityManager(em);
+        doctor.setSettings(new ArrayList<DoctorNotificationSetting>());
     }
 
     /**

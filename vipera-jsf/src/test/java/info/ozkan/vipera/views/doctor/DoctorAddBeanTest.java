@@ -4,9 +4,13 @@ import static org.junit.Assert.assertEquals;
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
+import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.NotificationSetting;
+
+import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -51,6 +55,11 @@ public class DoctorAddBeanTest {
     private DoctorAddBean addDoctorBean;
 
     /**
+     * NotificaitonSettingFacade
+     */
+    private NotificationSettingFacade notificationSettingFacade;
+
+    /**
      * Test verilerini hazırlama
      * 
      * @throws Exception
@@ -58,13 +67,19 @@ public class DoctorAddBeanTest {
     @Before
     public void setUp() throws Exception {
         context = Mockito.mock(FacesContext.class);
+        notificationSettingFacade =
+                Mockito.mock(NotificationSettingFacade.class);
         PowerMockito.mockStatic(FacesContext.class);
         PowerMockito.doReturn(context).when(FacesContext.class,
                 "getCurrentInstance");
+        Mockito.when(notificationSettingFacade.getAll()).thenReturn(
+                new ArrayList<NotificationSetting>());
         addDoctorBean = new DoctorAddBean();
         final Doctor doctor = createValidDoctorObject();
         addDoctorBean.setPasswordConfirm(PASSWORD);
         addDoctorBean.setDoctor(doctor);
+        addDoctorBean.setNotificationSettingFacade(notificationSettingFacade);
+
     }
 
     /**
@@ -74,7 +89,7 @@ public class DoctorAddBeanTest {
      */
     private Doctor createValidDoctorObject() {
         final Doctor doctor = DoctorTestData.getTestData(DoctorTestData.HOUSE);
-        addDoctorBean.setEnable(true);
+        // addDoctorBean.setEnable(true);
         return doctor;
     }
 

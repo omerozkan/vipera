@@ -353,4 +353,13 @@ public class DoctorUpdateBean implements Serializable {
         this.apiKey = apiKey;
     }
 
+    /**
+     * @param notificationSettingFacade
+     *            the notificationSettingFacade to set
+     */
+    public void setNotificationSettingFacade(
+            final NotificationSettingFacade notificationSettingFacade) {
+        this.notificationSettingFacade = notificationSettingFacade;
+    }
+
 }
