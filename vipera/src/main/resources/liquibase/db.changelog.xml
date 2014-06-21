@@ -215,8 +215,8 @@
     </changeSet>
     <changeSet id="12-doctor_android_devices" author="Omer Ozkan">
         <createTable tableName="DOCTOR_ANDROID_DEVICES">
-            <column name="registration_id" type="varchar(255)" >
-                <constraints primaryKey="true"/>
+            <column name="registration_id" type="varchar(255)">
+                <constraints primaryKey="true" />
             </column>
             <column name="doctor_id" type="bigint" />
         </createTable>
@@ -235,17 +235,17 @@
         <insert tableName="DOCTORS">
             <column name="id">2</column>
             <column name="tckn">12345678901</column>
-            <column name="name">Gregory</column>
-            <column name="surname">House</column>
-            <column name="email">gregory@housemd.com</column>
-            <column name="password">123456</column>
+            <column name="name">Metin</column>
+            <column name="surname">Özkan</column>
+            <column name="email">metin@vipera.ozkan.info</column>
+            <column name="password">password</column>
             <column name="title">2</column>
             <column name="diploma_no">12345</column>
-            <column name="province">Bulaşıcı Hastalıklar ve Nefroloji
+            <column name="province">Acil Tıp Uzmanı
             </column>
-            <column name="phone"></column>
-            <column name="mobile_phone"></column>
-            <column name="webpage">http://www.greghouse.com</column>
+            <column name="phone">+905557715375</column>
+            <column name="mobile_phone">+905557715375</column>
+            <column name="webpage"></column>
             <column name="api_key">eeda2ced4fede33c</column>
             <column name="enabled">1</column>
         </insert>
@@ -285,14 +285,14 @@
             <column name="id">5</column>
             <column name="tckn">22345678901</column>
             <column name="password">password</column>
-            <column name="name">Marvin</column>
-            <column name="surname">Ericson</column>
-            <column name="email">demo@vipera.ozkan.info</column>
+            <column name="name">Hüseyin</column>
+            <column name="surname">Çalışkan</column>
+            <column name="email">huseyin@vipera.ozkan.info</column>
             <column name="sex">1</column>
             <column name="birth_date">2012-1-1</column>
-            <column name="birth_place">New York</column>
-            <column name="father_name">Marshall</column>
-            <column name="mother_name">Lily</column>
+            <column name="birth_place">Ankara</column>
+            <column name="father_name">Ömer</column>
+            <column name="mother_name">Fatma</column>
             <column name="phone"></column>
             <column name="mobile_phone"></column>
             <column name="enable">1</column>
@@ -301,30 +301,30 @@
             <column name="id">6</column>
             <column name="tckn">22345678902</column>
             <column name="password">password</column>
-            <column name="name">Sam</column>
-            <column name="surname">Goodson</column>
-            <column name="email">demo@vipera.ozkan.info</column>
-            <column name="sex">0</column>
+            <column name="name">İlhan</column>
+            <column name="surname">Edis</column>
+            <column name="email">ie@vipera.ozkan.info</column>
+            <column name="sex">1</column>
             <column name="birth_date">2012-1-1</column>
-            <column name="birth_place">New York</column>
-            <column name="father_name">Charlie</column>
-            <column name="mother_name">Jennifer</column>
-            <column name="phone">+1123123123</column>
-            <column name="mobile_phone">+1123123123</column>
+            <column name="birth_place">Dörtyol</column>
+            <column name="father_name">Ahmet</column>
+            <column name="mother_name">Ayşe</column>
+            <column name="phone"></column>
+            <column name="mobile_phone"></column>
             <column name="enable">1</column>
         </insert>
         <insert tableName="PATIENTS">
             <column name="id">7</column>
             <column name="tckn">22345678903</column>
             <column name="password">password</column>
-            <column name="name">Ömer</column>
+            <column name="name">Merve</column>
             <column name="surname">Özkan</column>
             <column name="email">vipera@ozkan.info</column>
-            <column name="sex">1</column>
-            <column name="birth_date">1990-10-20</column>
-            <column name="birth_place">Ceyhan</column>
-            <column name="father_name">Reşit</column>
-            <column name="mother_name">Nesibe</column>
+            <column name="sex">0</column>
+            <column name="birth_date">1990-03-03</column>
+            <column name="birth_place">Sivas</column>
+            <column name="father_name">Hasan</column>
+            <column name="mother_name">Hatice</column>
             <column name="phone">+1123123123</column>
             <column name="mobile_phone">+1123123123</column>
             <column name="enable">1</column>
@@ -459,13 +459,15 @@
         <insert tableName="DOCTOR_NOTIFICATION_SETTINGS">
             <column name="id" type="bigint">20</column>
             <column name="doctor_id">2</column>
-            <column name="provider_id">test</column>
+            <column name="provider_id">android</column>
+            <column name="enabled">true</column>
+            <column name="provider_id">sms</column>
             <column name="enabled">true</column>
         </insert>
         <insert tableName="NOTIFICATION_SETTINGS">
-            <column name="provider_id">test</column>
-            <column name="key">blabla</column>
-            <column name="password">blabla</column>
+            <column name="provider_id">android</column>
+            <column name="key">AIzaSyDsDliZKFgAamf-fQKOi130HwxhpGkCYVo</column>
+            <column name="password"></column>
             <column name="enabled">true</column>
         </insert>
     </changeSet>
