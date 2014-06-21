@@ -79,8 +79,8 @@ public final class DoctorTestData {
         house.setTckn(12345678901L);
         house.setPassword("password");
         house.setEmail("doctor@doctor.com");
-        house.setName("Gregory");
-        house.setSurname("House");
+        house.setName("Metin");
+        house.setSurname("Özkan");
         house.setTitle(DoctorTitle.SPECIALIST);
         house.setDiplomaNo("12345");
         house.setProvince("Bulaşıcı Hastalıklar ve Nefroloji");
