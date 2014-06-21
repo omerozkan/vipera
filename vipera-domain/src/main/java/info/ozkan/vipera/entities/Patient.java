@@ -145,12 +145,12 @@ public class Patient implements Serializable, Cloneable {
     /**
      * Sabit telefon
      */
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     private String phone;
     /**
      * Cep telefonu
      */
-    @Column(name = "mobile_phone")
+    @Column(name = "mobile_phone", nullable = false)
     private String mobilePhone;
     /**
      * Hesabın yetkinliği

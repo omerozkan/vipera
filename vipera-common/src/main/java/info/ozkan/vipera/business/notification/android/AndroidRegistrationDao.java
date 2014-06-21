@@ -27,4 +27,9 @@ public interface AndroidRegistrationDao {
      */
     AndroidRegistrationResult remove(Doctor doctor, String registrationId);
 
+    /**
+     * Hekimlere ait cihazları arar
+     */
+    AndroidRegistrationResult findDevices(Doctor doctor);
+
 }

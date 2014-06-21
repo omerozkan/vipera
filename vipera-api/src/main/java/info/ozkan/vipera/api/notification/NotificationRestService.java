@@ -156,10 +156,12 @@ public class NotificationRestService {
                 notification.getHealthDataValue();
         final HealthDataField field = healthDataValue.getField();
         final NotificationModel notificationModel = new NotificationModel();
-        notificationModel.setPatientTckn(tckn);
-        notificationModel.setPatientName(patient.getFullname());
+        notificationModel.setPatientName(tckn + "-" + patient.getFullname());
         notificationModel.setFieldTitle(field.getTitle());
         notificationModel.setValue(healthDataValue.getValue());
+        notificationModel.setFieldUnit(field.getUnit());
+        notificationModel.setPhone(patient.getPhone());
+        notificationModel.setMobilePhone(patient.getMobilePhone());
         return notificationModel;
     }
 

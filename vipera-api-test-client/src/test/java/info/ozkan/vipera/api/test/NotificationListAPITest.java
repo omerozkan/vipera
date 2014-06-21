@@ -73,7 +73,7 @@ public class NotificationListAPITest {
         final NotificationListRequestModel notificationListModel =
                 new NotificationListRequestModel();
         notificationListModel.setApiKey(doctor.getApiKey());
-        notificationListModel.setProvider("sms");
+        notificationListModel.setProvider("android");
         final String json = gson.toJson(notificationListModel);
         final Request request =
                 Request.Post(URL_FOR_QUERYING).bodyString(json,
@@ -114,7 +114,7 @@ public class NotificationListAPITest {
                 new ArrayList<HealthDataValueModel>();
         final HealthDataValueModel model1 = new HealthDataValueModel();
         model1.setKey(testField.getName());
-        model1.setValue(120.12);
+        model1.setValue(160.12);
         values.add(model1);
 
         model.setValues(values);

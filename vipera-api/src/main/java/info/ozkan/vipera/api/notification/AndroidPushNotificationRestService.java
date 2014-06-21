@@ -160,12 +160,23 @@ public class AndroidPushNotificationRestService {
             final String registrationId) {
         final Response response;
         final Doctor doctor = result.getDoctor();
+        final AndroidRegistrationResponseModel model =
+                new AndroidRegistrationResponseModel();
         final AndroidRegistrationResult registrationResult =
                 androidRegistrationFacade.register(doctor, registrationId);
         if (registrationResult.isSuccess()) {
+            model.setDoctorName(doctor.getFullname());
+            final String json = gson.toJson(model);
             LOGGER.info("{} has added new android device: {}", doctor,
                     registrationId);
-            response = Response.status(Response.Status.OK).build();
+            response = Response.status(Response.Status.OK).entity(json).build();
+        } else if (registrationResult.hasExist()) {
+            model.setDoctorName(doctor.getFullname());
+            final String json = gson.toJson(model);
+            response = Response.status(Response.Status.OK).entity(json).build();
+            LOGGER.info(
+                    "{} has added android device but the device has already registered!",
+                    doctor);
         } else {
             response =
                     Response.status(Response.Status.INTERNAL_SERVER_ERROR)

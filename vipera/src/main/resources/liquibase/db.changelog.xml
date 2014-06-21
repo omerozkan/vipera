@@ -216,7 +216,7 @@
     <changeSet id="12-doctor_android_devices" author="Omer Ozkan">
         <createTable tableName="DOCTOR_ANDROID_DEVICES">
             <column name="registration_id" type="varchar(255)" >
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="doctor_id" type="bigint" />
         </createTable>

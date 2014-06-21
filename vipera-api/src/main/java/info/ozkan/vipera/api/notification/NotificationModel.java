@@ -8,10 +8,6 @@ package info.ozkan.vipera.api.notification;
  */
 public class NotificationModel {
     /**
-     * hasta tck kimlik no ilk 4 hanesi
-     */
-    private String patientTckn;
-    /**
      * Hasta adı
      */
     private String patientName;
@@ -20,55 +16,109 @@ public class NotificationModel {
      */
     private String fieldTitle;
     /**
+     * Birim
+     */
+    private String fieldUnit;
+    /**
      * Değeri
      */
     private Double value;
     /**
-     * @return the patientTckn
+     * Telefon
      */
-    public String getPatientTckn() {
-        return patientTckn;
-    }
+    private String phone;
     /**
-     * @param patientTckn the patientTckn to set
+     * Mobil telefon
      */
-    public void setPatientTckn(String patientTckn) {
-        this.patientTckn = patientTckn;
-    }
+    private String mobilePhone;
+
     /**
      * @return the patientName
      */
     public String getPatientName() {
         return patientName;
     }
+
     /**
-     * @param patientName the patientName to set
+     * @param patientName
+     *            the patientName to set
      */
-    public void setPatientName(String patientName) {
+    public void setPatientName(final String patientName) {
         this.patientName = patientName;
     }
+
     /**
      * @return the fieldTitle
      */
     public String getFieldTitle() {
         return fieldTitle;
     }
+
     /**
-     * @param fieldTitle the fieldTitle to set
+     * @param fieldTitle
+     *            the fieldTitle to set
      */
-    public void setFieldTitle(String fieldTitle) {
+    public void setFieldTitle(final String fieldTitle) {
         this.fieldTitle = fieldTitle;
     }
+
     /**
      * @return the value
      */
     public Double getValue() {
         return value;
     }
+
     /**
-     * @param value the value to set
+     * @param value
+     *            the value to set
      */
-    public void setValue(Double value) {
+    public void setValue(final Double value) {
         this.value = value;
+    }
+
+    /**
+     * @return the fieldUnit
+     */
+    public String getFieldUnit() {
+        return fieldUnit;
+    }
+
+    /**
+     * @param fieldUnit
+     *            the fieldUnit to set
+     */
+    public void setFieldUnit(final String fieldUnit) {
+        this.fieldUnit = fieldUnit;
+    }
+
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone
+     *            the phone to set
+     */
+    public void setPhone(final String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * @return the mobilePhone
+     */
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    /**
+     * @param mobilePhone
+     *            the mobilePhone to set
+     */
+    public void setMobilePhone(final String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 }

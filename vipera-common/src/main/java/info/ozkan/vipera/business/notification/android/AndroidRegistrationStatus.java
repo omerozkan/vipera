@@ -7,5 +7,5 @@ package info.ozkan.vipera.business.notification.android;
  * 
  */
 public enum AndroidRegistrationStatus {
-    SUCCESS;
+    SUCCESS, NOT_FOUND, HAS_EXIST;
 }
