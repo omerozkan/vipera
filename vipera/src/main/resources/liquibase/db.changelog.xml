@@ -309,8 +309,8 @@
             <column name="birth_place">Dörtyol</column>
             <column name="father_name">Ahmet</column>
             <column name="mother_name">Ayşe</column>
-            <column name="phone"></column>
-            <column name="mobile_phone"></column>
+            <column name="phone">+90123456789</column>
+            <column name="mobile_phone">+9087654312</column>
             <column name="enable">1</column>
         </insert>
         <insert tableName="PATIENTS">
