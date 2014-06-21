@@ -337,7 +337,7 @@ public class HealthDataFieldsBean implements Serializable {
             updatedFieldClone = (HealthDataField) selectedField.clone();
         } catch (final CloneNotSupportedException e) {
             // never
-            throw new AssertionError();
+            throw new AssertionError(e);
         }
     }
 }
