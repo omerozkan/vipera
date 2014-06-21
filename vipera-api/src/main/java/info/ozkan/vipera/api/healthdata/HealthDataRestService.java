@@ -36,6 +36,10 @@ import com.google.gson.Gson;
 @Named
 public class HealthDataRestService {
     /**
+     * 200
+     */
+    private static final int OK = 200;
+    /**
      * LOGGER
      */
     private static final Logger LOGGER = LoggerFactory
@@ -107,18 +111,27 @@ public class HealthDataRestService {
         Response result;
         device = deviceResult.getDevice();
         final HealthData healthData = createHealthDataObject();
-        final HealthDataResult healthResult = healthDataFacade.add(healthData);
-        if (healthResult.isSuccess()) {
-            final ResponseModel responseModel = createSuccessResponseModel();
-            final String json = gson.toJson(responseModel);
-            result = Response.status(Response.Status.OK).entity(json).build();
-            LOGGER.info("The new health data added to system by device-{}",
-                    model.getApiKey());
+        if (healthData.getValues().isEmpty()) {
+            result = Response.status(Response.Status.NO_CONTENT).build();
         } else {
-            result =
-                    Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                            .build();
-            LOGGER.error("The new health data cannot be added to system!");
+
+            final HealthDataResult healthResult =
+                    healthDataFacade.add(healthData);
+            if (healthResult.isSuccess()) {
+                final ResponseModel responseModel =
+                        createSuccessResponseModel();
+                final String json = gson.toJson(responseModel);
+                result =
+                        Response.status(Response.Status.OK).entity(json)
+                                .build();
+                LOGGER.info("The new health data added to system by device-{}",
+                        model.getApiKey());
+            } else {
+                result =
+                        Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                                .build();
+                LOGGER.error("The new health data cannot be added to system!");
+            }
         }
         return result;
     }
@@ -130,7 +143,7 @@ public class HealthDataRestService {
      */
     private ResponseModel createSuccessResponseModel() {
         final ResponseModel responseModel = new ResponseModel();
-        responseModel.setCode(Response.Status.OK.ordinal());
+        responseModel.setCode(OK);
         responseModel.setMessage("The health data added to system.");
         return responseModel;
     }
@@ -164,6 +177,9 @@ public class HealthDataRestService {
         for (final HealthDataValueModel valueModel : valueModels) {
             final String key = valueModel.getKey();
             final HealthDataField field = healthDataFieldFacade.getField(key);
+            if (field == null) {
+                break;
+            }
             final Double value = valueModel.getValue();
             final HealthDataValue dataValue = new HealthDataValue();
             dataValue.setData(healthData);

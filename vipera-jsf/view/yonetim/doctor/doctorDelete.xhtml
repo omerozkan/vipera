@@ -30,7 +30,7 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="#{doctorDelete.buttonValue}"
 						actionListener="#{doctorDelete.delete}"
-						disabled="#{doctorDelete.disabled}" update="@form" />
+						disabled="#{doctorDelete.disabled}" update=":doctor-delete" />
 					<p:button outcome="doctorBrowse.html" value="Geri Dön" icon="ui-icon-arrowreturnthick-1-s" iconPos="left"/>
 				</h:panelGrid>
 			</p:panel>

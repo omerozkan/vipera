@@ -145,12 +145,12 @@ public class Patient implements Serializable, Cloneable {
     /**
      * Sabit telefon
      */
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     private String phone;
     /**
      * Cep telefonu
      */
-    @Column(name = "mobile_phone")
+    @Column(name = "mobile_phone", nullable = false)
     private String mobilePhone;
     /**
      * Hesabın yetkinliği
@@ -164,6 +164,9 @@ public class Patient implements Serializable, Cloneable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "patients")
     private List<Doctor> doctors;
 
+    /**
+     * Cihazlar
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     private List<Device> devices;
 

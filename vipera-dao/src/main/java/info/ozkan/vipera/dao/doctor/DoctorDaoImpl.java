@@ -2,6 +2,7 @@ package info.ozkan.vipera.dao.doctor;
 
 import info.ozkan.vipera.business.doctor.DoctorManagerError;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorNotificationSetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,21 @@ import javax.persistence.criteria.Root;
  */
 @Named("doctorDao")
 public class DoctorDaoImpl implements DoctorDao {
-    private static final String JQL_GET_BY_ID = "from Doctor d where d.id = :id";
-    protected static final String JQL_GET_BY_TCKN = "from Doctor d where d.tckn = :tckn";
+    /**
+     * Hekimi api ile arar
+     */
+    private static final String JQL_BY_API =
+            "from Doctor d WHERE d.apiKey = :apiKey";
+    /**
+     * Hekimi id ile arar
+     */
+    private static final String JQL_GET_BY_ID =
+            "from Doctor d where d.id = :id";
+    /**
+     * hekimi tckn ile arar
+     */
+    protected static final String JQL_GET_BY_TCKN =
+            "from Doctor d where d.tckn = :tckn";
     /**
      * Persistence nesne
      */
@@ -40,6 +54,9 @@ public class DoctorDaoImpl implements DoctorDao {
     public DoctorDaoResult add(final Doctor doctor) {
         final DoctorDaoResult result = new DoctorDaoResult();
         em.persist(doctor);
+        for (final DoctorNotificationSetting setting : doctor.getSettings()) {
+            em.merge(setting);
+        }
         result.setSuccess(true);
         return result;
     }
@@ -114,6 +131,18 @@ public class DoctorDaoImpl implements DoctorDao {
         query.setParameter(Doctor.TCKN, tckn);
         final DoctorDaoResult result = new DoctorDaoResult();
         final List resultList = query.getResultList();
+        getSingleResult(result, resultList);
+        return result;
+    }
+
+    /**
+     * Eğer kayıt varsa ilk kaydı sonuca ekler
+     * 
+     * @param result
+     * @param resultList
+     */
+    private void getSingleResult(final DoctorDaoResult result,
+            final List resultList) {
         if (resultList.size() == 0) {
             result.setSuccess(false);
             result.setError(DoctorManagerError.DOCTOR_NOT_EXIST);
@@ -121,7 +150,6 @@ public class DoctorDaoImpl implements DoctorDao {
             result.setSuccess(true);
             result.setDoctor((Doctor) resultList.get(0));
         }
-        return result;
     }
 
     /**
@@ -137,8 +165,20 @@ public class DoctorDaoImpl implements DoctorDao {
     public DoctorDaoResult update(final Doctor doctor) {
         final DoctorDaoResult result = new DoctorDaoResult();
         em.merge(doctor);
+        for (final DoctorNotificationSetting setting : doctor.getSettings()) {
+            em.merge(setting);
+        }
         result.setSuccess(true);
         result.setDoctor(doctor);
+        return result;
+    }
+
+    public DoctorDaoResult getByApi(final String apiKey) {
+        final DoctorDaoResult result = new DoctorDaoResult();
+        final Query query = em.createQuery(JQL_BY_API);
+        query.setParameter("apiKey", apiKey);
+        final List<Doctor> resultList = query.getResultList();
+        getSingleResult(result, resultList);
         return result;
     }
 

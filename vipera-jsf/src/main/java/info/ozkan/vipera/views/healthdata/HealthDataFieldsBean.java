@@ -5,6 +5,7 @@ import info.ozkan.vipera.business.healthdata.HealthDataFieldResult;
 import info.ozkan.vipera.entities.HealthDataField;
 import info.ozkan.vipera.jsf.FacesMessage2;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,20 @@ import org.springframework.context.annotation.Scope;
  */
 @Named("healthDataFields")
 @Scope("session")
-public class HealthDataFieldsBean {
+public class HealthDataFieldsBean implements Serializable {
+    /**
+     * Serial
+     */
+    private static final long serialVersionUID = 7947972699865779552L;
+    /**
+     * Limit tutarsız hata mesajı
+     */
+    private static final String LIMIT_ERROR_MSG =
+            "Alt limit üst limitten daha büyük olamaz! Lütfen kontrol ediniz!";
+    /**
+     * Limit hatası
+     */
+    private static final String LIMIT_ERROR = "Alt/Üst Limit Hatası";
     /**
      * Silme işlemi başarılı mesaj detay deseni
      */
@@ -74,6 +88,10 @@ public class HealthDataFieldsBean {
      * Güncelleme başarılı hata mesajı
      */
     private static final String UPDATE_SUCCESS_MSG = "Güncelleme Başarılı!";
+    /**
+     * Güncelenecek alanın klonu
+     */
+    private HealthDataField updatedFieldClone;
     /**
      * Seçilen alan
      */
@@ -133,13 +151,28 @@ public class HealthDataFieldsBean {
      */
     public void update() {
         final FacesContext context = FacesContext.getCurrentInstance();
+        final HealthDataField field = updatedFieldClone;
+        final boolean updateField = checkLimits(field, context);
+        if (updateField) {
+            updateField(context);
+        }
+    }
+
+    /**
+     * Alanın güncel halini sisteme kaydeder
+     * 
+     * @param context
+     */
+    private void updateField(final FacesContext context) {
+        selectedField = updatedFieldClone;
         final HealthDataFieldResult result =
-                healthDataFieldFacade.update(getSelectedField());
+                healthDataFieldFacade.update(selectedField);
         if (result.isSuccess()) {
             final String detail =
                     String.format(UPDATE_SUCCESS_MSG_DETAIL_PATTERN,
                             getSelectedField().getTitle());
             createInfoMessage(context, UPDATE_SUCCESS_MSG, detail);
+
             initializeModel();
         } else {
             createErrorMessage(context, UPDATE_UNSUCCESS_MSG,
@@ -148,10 +181,41 @@ public class HealthDataFieldsBean {
     }
 
     /**
-     * Yeni bir alan ekler
+     * Alt limitin üst limitten küçük olup olmadığın kontrol eder
+     * 
+     * @param field
+     * @param context
+     * @return
+     */
+    private boolean checkLimits(final HealthDataField field,
+            final FacesContext context) {
+        boolean isValid = true;
+        final Double upperLimit = field.getUpperLimit();
+        final Double lowerLimit = field.getLowerLimit();
+        if (upperLimit.compareTo(lowerLimit) < 0) {
+            createErrorMessage(context, LIMIT_ERROR, LIMIT_ERROR_MSG);
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    /**
+     * Yeni bir alan ekleme kaydet butonu
      */
     public void addNew() {
         final FacesContext context = FacesContext.getCurrentInstance();
+        final boolean addNew = checkLimits(newField, context);
+        if (addNew) {
+            addField(context);
+        }
+    }
+
+    /**
+     * Veritabanına yeni bir alan ekler
+     * 
+     * @param context
+     */
+    private void addField(final FacesContext context) {
         final HealthDataFieldResult result =
                 healthDataFieldFacade.add(newField);
         if (result.isSuccess()) {
@@ -171,11 +235,11 @@ public class HealthDataFieldsBean {
     public void delete() {
         final FacesContext context = FacesContext.getCurrentInstance();
         final HealthDataFieldResult result =
-                healthDataFieldFacade.remove(selectedField);
+                healthDataFieldFacade.remove(updatedFieldClone);
         if (result.isSuccess()) {
             final String detail =
                     String.format(DELETING_SUCCESS_MSG_DETAIL_PATTERN,
-                            selectedField.getTitle());
+                            updatedFieldClone.getTitle());
             createInfoMessage(context, DELETING_SUCCESS_MSG, detail);
             updateFieldsForScreen();
         } else {
@@ -222,7 +286,7 @@ public class HealthDataFieldsBean {
     private void updateFieldsForScreen() {
         initializeModel();
         newField = new HealthDataField();
-        selectedField = new HealthDataField();
+        updatedFieldClone = new HealthDataField();
     }
 
     /**
@@ -260,7 +324,7 @@ public class HealthDataFieldsBean {
      * @return the selectedField
      */
     public HealthDataField getSelectedField() {
-        return selectedField;
+        return updatedFieldClone;
     }
 
     /**
@@ -269,5 +333,11 @@ public class HealthDataFieldsBean {
      */
     public void setSelectedField(final HealthDataField selectedField) {
         this.selectedField = selectedField;
+        try {
+            updatedFieldClone = (HealthDataField) selectedField.clone();
+        } catch (final CloneNotSupportedException e) {
+            // never
+            throw new AssertionError();
+        }
     }
 }

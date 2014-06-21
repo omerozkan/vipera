@@ -116,6 +116,11 @@
         </dependency>
         <dependency>
             <groupId>info.ozkan.vipera</groupId>
+            <artifactId>vipera-notification-provider</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.ozkan.vipera</groupId>
             <artifactId>vipera-test-data</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

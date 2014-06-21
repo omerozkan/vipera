@@ -57,4 +57,12 @@ public interface DoctorManager {
      * @return
      */
     DoctorManagerResult delete(Doctor doctor);
+
+    /**
+     * Sistemde kayıtlı hekimi api anahtarına göre sorgular
+     * 
+     * @param apiKey
+     * @return
+     */
+    DoctorManagerResult getByApi(String apiKey);
 }

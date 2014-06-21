@@ -50,8 +50,8 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
         demirci.setTckn(DoctorTestData.getNextTCKN());
         final DoctorDaoResult result = doctorDao.add(demirci);
         assertTrue(result.isSuccess());
-        final Doctor resultDoctor = doctorDao.getByTckn(demirci.getTckn())
-                .getDoctor();
+        final Doctor resultDoctor =
+                doctorDao.getByTckn(demirci.getTckn()).getDoctor();
         assertEquals(demirci, resultDoctor);
     }
 
@@ -78,12 +78,11 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
      */
     @Test
     public void findDoctorByName() throws Exception {
-        final Doctor doctor = DoctorTestData.getTestData(DoctorTestData.HOUSE);
         final DoctorBrowseFilter model = new DoctorBrowseFilter();
-        model.addFilter(Doctor.NAME, "reg");
+        model.addFilter(Doctor.NAME, house.getName().substring(1, 3));
         final List<Doctor> result = doctorDao.find(model);
         assertEquals(1, result.size());
-        assertEquals(doctor, result.get(0));
+        assertEquals(house, result.get(0));
     }
 
     /**
@@ -134,8 +133,8 @@ public class DoctorDaoIntegrationTest extends IntegrationTest {
         doctor.setSurname(surname);
         final DoctorDaoResult result = doctorDao.update(doctor);
         assertTrue(result.isSuccess());
-        final Doctor updatedDoctor = doctorDao.getById(house.getId())
-                .getDoctor();
+        final Doctor updatedDoctor =
+                doctorDao.getById(house.getId()).getDoctor();
         Assert.assertNotNull(updatedDoctor);
         assertEquals(name, updatedDoctor.getName());
         assertEquals(surname, updatedDoctor.getSurname());

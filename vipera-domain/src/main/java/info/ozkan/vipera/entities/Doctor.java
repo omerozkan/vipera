@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -164,6 +165,17 @@ public class Doctor implements Serializable, Cloneable {
             inverseJoinColumns = { @JoinColumn(referencedColumnName = "id",
                     name = "patient_id") })
     private List<Patient> patients;
+    /**
+     * Doktor bildirim ayaları
+     */
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
+    private List<DoctorNotificationSetting> settings;
+
+    /**
+     * API anahtarı
+     */
+    @Column(name = "api_key", unique = true)
+    private String apiKey;
 
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -420,5 +432,35 @@ public class Doctor implements Serializable, Cloneable {
      */
     public void setEnabled(final Authorize enabled) {
         this.enabled = enabled;
+    }
+
+    /**
+     * @return the settings
+     */
+    public List<DoctorNotificationSetting> getSettings() {
+        return settings;
+    }
+
+    /**
+     * @param settings
+     *            the settings to set
+     */
+    public void setSettings(final List<DoctorNotificationSetting> settings) {
+        this.settings = settings;
+    }
+
+    /**
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    /**
+     * @param apiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String apiKey) {
+        this.apiKey = apiKey;
     }
 }

@@ -3,9 +3,13 @@ package info.ozkan.vipera.views.doctor;
 import static org.junit.Assert.assertEquals;
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
+import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.doctor.DoctorTestData;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.NotificationSetting;
 import info.ozkan.vipera.jsf.ViperaViewException;
+
+import java.util.ArrayList;
 
 import javax.faces.context.FacesContext;
 
@@ -51,6 +55,9 @@ public class DoctorUpdateBeanTest {
      */
     private final DoctorManagerResult result = new DoctorManagerResult();
 
+    @Mock
+    private NotificationSettingFacade notificationSettingFacade;
+
     /**
      * Test verilerini ilklendirir
      * 
@@ -64,6 +71,9 @@ public class DoctorUpdateBeanTest {
                 "getCurrentInstance");
         doctor = DoctorTestData.getTestData(DoctorTestData.HOUSE);
         doctorUpdate.setDoctorFacade(facade);
+        doctorUpdate.setNotificationSettingFacade(notificationSettingFacade);
+        Mockito.when(notificationSettingFacade.getAll()).thenReturn(
+                new ArrayList<NotificationSetting>());
         Mockito.when(facade.getById(doctor.getId())).thenReturn(result);
     }
 

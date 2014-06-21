@@ -22,6 +22,9 @@ public class DoctorFacadeImpl implements DoctorFacade, Serializable {
      * Serial
      */
     private static final long serialVersionUID = 8697253621847617425L;
+    /**
+     * DoctorManager
+     */
     @Inject
     private DoctorManager doctorManager;
 
@@ -65,6 +68,10 @@ public class DoctorFacadeImpl implements DoctorFacade, Serializable {
 
     public DoctorManagerResult delete(final Doctor doctor) {
         return doctorManager.delete(doctor);
+    }
+
+    public DoctorManagerResult getByApi(final String apiKey) {
+        return doctorManager.getByApi(apiKey);
     }
 
 }

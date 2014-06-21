@@ -13,6 +13,11 @@ import java.util.Map;
  */
 public final class HealthDataFieldTestData {
     /**
+     * test data id
+     */
+    private static final int TEST_DATA_ID = 8;
+
+    /**
      * Alanlar
      */
     private static final Map<Integer, HealthDataField> FIELDS =
@@ -23,7 +28,7 @@ public final class HealthDataFieldTestData {
      */
     private static final String[] FIELD_NAMES = { "pulse", "systolic",
             "diastolic", "respirations", "pulseOximetry", "bodyTemp", "bmi",
-            "glucoseLevel" };
+            "glucoseLevel", "notificationTest" };
 
     /**
      * utility class
@@ -43,6 +48,15 @@ public final class HealthDataFieldTestData {
             initiAlizeTestData();
         }
         return FIELDS.get(key);
+    }
+
+    /**
+     * Bildirim için kullanılan alanı dönderir
+     * 
+     * @return
+     */
+    public static HealthDataField getTestNotificationField() {
+        return getTestData(TEST_DATA_ID);
     }
 
     /**

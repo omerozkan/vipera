@@ -71,6 +71,7 @@
         <module>vipera-jsf</module>
         <module>vipera</module>
         <module>vipera-api</module>
+        <module>vipera-notification-provider</module>
     </modules>
     <dependencies>
         <!-- JSR-330 -->

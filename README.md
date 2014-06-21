@@ -7,6 +7,12 @@ Hasta Takip ve Analiz Sistemi
 
 - Kod Analizi: http://sonar.ozkan.info/dashboard/index/1
 
+Vipera Android Bildirim Sistemi Uygulaması
+-------------------------------------------
+
+http://github.com/omerozkan/vipera-android adresinden erişebilirsiniz.
+
+
 Uygulamayı Derlemek
 --------------------
 

@@ -59,22 +59,19 @@ public class DoctorDeleteBean {
     private boolean disabled = false;
 
     /**
+     * silinmiş hekimin tekrar yüklenmesini engeller
+     */
+    private boolean deleted = false;
+
+    /**
      * Silinmek istenen hekimi yükler eğer hekim silinmiş ise tekrar yüklenmez.
      */
     public void loadDoctor() {
-        if (doctorHasChanged()) {
+        if (!deleted) {
             setDoctor(DoctorLoader.loadDoctor(id, doctorFacade));
             disabled = false;
         }
-    }
-
-    /**
-     * Bir önceki yüklenen hekimden farklı mı?
-     * 
-     * @return
-     */
-    private boolean doctorHasChanged() {
-        return doctor == null || doctor.getId() != id;
+        deleted = false;
     }
 
     /**
@@ -89,6 +86,7 @@ public class DoctorDeleteBean {
             context.addMessage(null, new FacesMessage2(
                     FacesMessage.SEVERITY_INFO, message, detail));
             setDisabled(true);
+            deleted = true;
             LOGGER.info("The doctor {}-{} has been deleted!", doctor.getTckn(),
                     doctor.getFullname());
         } else {

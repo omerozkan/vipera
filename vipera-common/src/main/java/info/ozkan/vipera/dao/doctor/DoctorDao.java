@@ -64,4 +64,12 @@ public interface DoctorDao {
      * @return
      */
     DoctorDaoResult delete(Doctor doctor);
+
+    /**
+     * Veritabanında kayıtlı bir hekimi api anahtarına göre sorgular
+     * 
+     * @param apiKey
+     * @return
+     */
+    DoctorDaoResult getByApi(String apiKey);
 }

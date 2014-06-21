@@ -30,6 +30,8 @@ public class DoctorProfileBean extends DoctorUpdateBean {
     public void setUp() {
         final Doctor doctor = DoctorSessionBean.getDoctor();
         setDoctor(doctor);
+        initializeNotificationSettings();
+        setApiKey(doctor.getApiKey());
     }
 
 }

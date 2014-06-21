@@ -144,4 +144,10 @@ public class DoctorManagerImpl implements DoctorManager {
         return result;
     }
 
+    @Transactional
+    public DoctorManagerResult getByApi(final String apiKey) {
+        final DoctorDaoResult daoResult = doctorDao.getByApi(apiKey);
+        return daoResultToManagerResult(daoResult);
+    }
+
 }

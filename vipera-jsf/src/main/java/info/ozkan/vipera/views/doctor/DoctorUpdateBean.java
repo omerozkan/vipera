@@ -2,12 +2,20 @@ package info.ozkan.vipera.views.doctor;
 
 import info.ozkan.vipera.business.doctor.DoctorFacade;
 import info.ozkan.vipera.business.doctor.DoctorManagerResult;
+import info.ozkan.vipera.business.notification.NotificationSettingFacade;
 import info.ozkan.vipera.common.EmailValidator;
 import info.ozkan.vipera.entities.Authorize;
 import info.ozkan.vipera.entities.Doctor;
+import info.ozkan.vipera.entities.DoctorNotificationSetting;
+import info.ozkan.vipera.entities.NotificationSetting;
 import info.ozkan.vipera.jsf.FacesMessage2;
+import info.ozkan.vipera.views.device.PasswordGenerator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -77,17 +85,105 @@ public class DoctorUpdateBean implements Serializable {
      */
     private String password2;
     /**
+     * Hekim yüklensin mi
+     */
+    private boolean loadDoctor = true;
+    /**
+     * 
+     */
+    private String apiKey;
+    /**
      * Hekim üyelik aktifliği
      */
     private boolean enable;
+    /**
+     * bildirim ayarları işletme nesnesi
+     */
+    @Inject
+    private NotificationSettingFacade notificationSettingFacade;
 
     /**
      * Hekim in veritabanından sorgulanıp formda gösterilmesini sağlar
      */
     public void loadDoctor() {
-        doctor = DoctorLoader.loadDoctor(id, doctorFacade);
-        final Authorize enabled = doctor.getEnabled();
-        enable = enabled.equals(Authorize.ENABLE);
+        if (loadDoctor) {
+            doctor = DoctorLoader.loadDoctor(id, doctorFacade);
+            final Authorize enabled = doctor.getEnabled();
+            enable = enabled.equals(Authorize.ENABLE);
+            initializeNotificationSettings();
+            apiKey = doctor.getApiKey();
+        }
+        loadDoctor = true;
+    }
+
+    /**
+     * Bildirim ayarlarını ilklendirir
+     */
+    protected void initializeNotificationSettings() {
+        final List<NotificationSetting> notificationSettings =
+                notificationSettingFacade.getAll();
+        final Map<String, DoctorNotificationSetting> doctorNotificationSettings =
+                createMapFromSettings();
+        final List<DoctorNotificationSetting> newSettings =
+                refreshDoctorNotificationSettings(notificationSettings,
+                        doctorNotificationSettings);
+        doctor.setSettings(newSettings);
+    }
+
+    /**
+     * hekimin bildirim ayarlarını yeniler
+     * 
+     * @param systemSettings
+     * @param doctorSettings
+     * @return
+     */
+    private List<DoctorNotificationSetting> refreshDoctorNotificationSettings(
+            final List<NotificationSetting> systemSettings,
+            final Map<String, DoctorNotificationSetting> doctorSettings) {
+        final List<DoctorNotificationSetting> newSettings =
+                new ArrayList<DoctorNotificationSetting>();
+        for (final NotificationSetting notificationSetting : systemSettings) {
+            final String providerId = notificationSetting.getProviderId();
+            if (doctorSettings.containsKey(providerId)) {
+                newSettings.add(doctorSettings.get(providerId));
+            } else {
+                final DoctorNotificationSetting setting =
+                        createNewNotificationSetting(providerId);
+                newSettings.add(setting);
+            }
+        }
+        return newSettings;
+    }
+
+    /**
+     * yeni bir bildirim ayarı üretir
+     * 
+     * @param providerId
+     * @return
+     */
+    private DoctorNotificationSetting createNewNotificationSetting(
+            final String providerId) {
+        final DoctorNotificationSetting setting =
+                new DoctorNotificationSetting();
+        setting.setDoctor(doctor);
+        setting.setProviderId(providerId);
+        setting.setEnabled(false);
+        return setting;
+    }
+
+    /**
+     * bildirimlerden map üretir
+     * 
+     * @return
+     */
+    private Map<String, DoctorNotificationSetting> createMapFromSettings() {
+        final Map<String, DoctorNotificationSetting> map =
+                new HashMap<String, DoctorNotificationSetting>();
+        final List<DoctorNotificationSetting> settings = doctor.getSettings();
+        for (final DoctorNotificationSetting setting : settings) {
+            map.put(setting.getProviderId(), setting);
+        }
+        return map;
     }
 
     /**
@@ -104,12 +200,21 @@ public class DoctorUpdateBean implements Serializable {
             doctor.setPassword(password);
         }
         setDoctorActivation();
+        doctor.setApiKey(apiKey);
         final DoctorManagerResult result = doctorFacade.update(doctor);
         if (result.isSuccess()) {
             LOGGER.info("The doctor {} has been updated!", doctor.getFullname());
             SUCCESS.setSummary(doctor.getFullname() + " güncellendi!");
             context.addMessage(null, SUCCESS);
         }
+    }
+
+    /**
+     * Hekime bir api anahtarı üretir
+     */
+    public void changeApiKey() {
+        apiKey = PasswordGenerator.generate(doctor.getTckn().toString());
+        loadDoctor = false;
     }
 
     /**
@@ -231,6 +336,30 @@ public class DoctorUpdateBean implements Serializable {
      */
     public void setEnable(final boolean enable) {
         this.enable = enable;
+    }
+
+    /**
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    /**
+     * @param apiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(final String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    /**
+     * @param notificationSettingFacade
+     *            the notificationSettingFacade to set
+     */
+    public void setNotificationSettingFacade(
+            final NotificationSettingFacade notificationSettingFacade) {
+        this.notificationSettingFacade = notificationSettingFacade;
     }
 
 }
