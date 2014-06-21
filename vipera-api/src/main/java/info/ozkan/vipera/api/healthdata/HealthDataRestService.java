@@ -36,6 +36,10 @@ import com.google.gson.Gson;
 @Named
 public class HealthDataRestService {
     /**
+     * 200
+     */
+    private static final int OK = 200;
+    /**
      * LOGGER
      */
     private static final Logger LOGGER = LoggerFactory
@@ -139,7 +143,7 @@ public class HealthDataRestService {
      */
     private ResponseModel createSuccessResponseModel() {
         final ResponseModel responseModel = new ResponseModel();
-        responseModel.setCode(200);
+        responseModel.setCode(OK);
         responseModel.setMessage("The health data added to system.");
         return responseModel;
     }

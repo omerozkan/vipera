@@ -167,7 +167,7 @@ public class HealthDataField implements Serializable, Cloneable {
     }
 
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
         try {
             return super.clone();
         } catch (final CloneNotSupportedException e) {

@@ -26,19 +26,43 @@ public class SmsKobiNotificationProvider implements NotificationProvider {
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(SmsKobiNotificationProvider.class);
-
+    /**
+     * SMS Kobi Url
+     */
     private static final String SMS_KOBI_URL =
             "http://api.smskobi.com/api/xml_api.php";
-
+    /**
+     * SMS kobi pattern
+     */
     private static final String SMS_PATTERN =
             "Sayin %s, hastaniz %s-%s a ait %s degeri %s ve sinirlarin disinda oldugu saptanmistir.";
-
-    private static int DOCTOR_NAME_LIMIT = 25;
-    private static int PATIENT_TCKN_LIMIT = 4;
-    private static int PATIENT_NAME_LIMIT = 20;
-    private static int FIELD_NAME_LIMIT = 25;
-    private static int VALUE_LIMIT = 8;
+    /**
+     * Hekim adı sınırı
+     */
+    private static final int DOCTOR_NAME_LIMIT = 25;
+    /**
+     * hasta tckn sınırı
+     */
+    private static final int PATIENT_TCKN_LIMIT = 4;
+    /**
+     * hasta adı sınırı
+     */
+    private static final int PATIENT_NAME_LIMIT = 20;
+    /**
+     * alan adı sınırı
+     */
+    private static final int FIELD_NAME_LIMIT = 25;
+    /**
+     * değer sınırı
+     */
+    private static final int VALUE_LIMIT = 8;
+    /**
+     * api anahtarı
+     */
     private String apiKey;
+    /**
+     * parola
+     */
     private String password;
 
     public void send(final Notification notification) {
@@ -71,6 +95,13 @@ public class SmsKobiNotificationProvider implements NotificationProvider {
 
     }
 
+    /**
+     * XML üretir
+     * 
+     * @param message
+     * @param mobileNumber
+     * @return
+     */
     private String createXML(final String message, final String mobileNumber) {
         final String xmlPattern =
                 "<SMS>" + "<oturum>" + "<kullanici>%s</kullanici>"
@@ -83,6 +114,12 @@ public class SmsKobiNotificationProvider implements NotificationProvider {
         return xml;
     }
 
+    /**
+     * Gönderilecek smsi üretir
+     * 
+     * @param notification
+     * @return
+     */
     private String generateMessage(final Notification notification) {
         final Doctor doctor = notification.getDoctor();
         final Patient patient = notification.getPatient();
@@ -106,17 +143,30 @@ public class SmsKobiNotificationProvider implements NotificationProvider {
         return message;
     }
 
-    private String filterTurkishCharacter(String message) {
-        message = message.replaceAll("Ö", "O");
-        message = message.replaceAll("Ü", "U");
-        message = message.replaceAll("Ç", "C");
-        message = message.replaceAll("Ç", "C");
-        message = message.replaceAll("Ş", "S");
-        message = message.replaceAll("Ğ", "G");
-        message = message.replaceAll("İ", "I");
-        return message;
+    /**
+     * Türkçe karakterleri filtreler
+     * 
+     * @param message
+     * @return
+     */
+    private String filterTurkishCharacter(final String message) {
+        String result = message;
+        result = result.replaceAll("Ö", "O");
+        result = result.replaceAll("Ü", "U");
+        result = result.replaceAll("Ç", "C");
+        result = result.replaceAll("Ç", "C");
+        result = result.replaceAll("Ş", "S");
+        result = result.replaceAll("Ğ", "G");
+        result = result.replaceAll("İ", "I");
+        return result;
     }
 
+    /**
+     * Değeri üretir
+     * 
+     * @param value
+     * @return
+     */
     private String getValue(final HealthDataValue value) {
         final Double fieldValue = value.getValue();
 
@@ -128,6 +178,12 @@ public class SmsKobiNotificationProvider implements NotificationProvider {
         return valueString.toUpperCase();
     }
 
+    /**
+     * hekim adını üretir
+     * 
+     * @param doctor
+     * @return
+     */
     private String getDoctorName(final Doctor doctor) {
         String doctorName = doctor.getFullname();
         if (doctorName.length() > DOCTOR_NAME_LIMIT) {
@@ -144,6 +200,12 @@ public class SmsKobiNotificationProvider implements NotificationProvider {
         return doctorName.toUpperCase();
     }
 
+    /**
+     * alanı üretir
+     * 
+     * @param field
+     * @return
+     */
     private String getFieldName(final HealthDataField field) {
         String fieldName = field.getTitle();
         if (fieldName.length() > FIELD_NAME_LIMIT) {
@@ -155,6 +217,12 @@ public class SmsKobiNotificationProvider implements NotificationProvider {
         return fieldName.toUpperCase();
     }
 
+    /**
+     * hasta adını üretir
+     * 
+     * @param patient
+     * @return
+     */
     private String getPatientName(final Patient patient) {
         String patientName = patient.getFullname();
         if (patientName.length() > PATIENT_NAME_LIMIT) {

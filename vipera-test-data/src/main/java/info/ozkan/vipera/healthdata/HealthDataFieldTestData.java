@@ -13,6 +13,11 @@ import java.util.Map;
  */
 public final class HealthDataFieldTestData {
     /**
+     * test data id
+     */
+    private static final int TEST_DATA_ID = 8;
+
+    /**
      * Alanlar
      */
     private static final Map<Integer, HealthDataField> FIELDS =
@@ -51,7 +56,7 @@ public final class HealthDataFieldTestData {
      * @return
      */
     public static HealthDataField getTestNotificationField() {
-        return getTestData(8);
+        return getTestData(TEST_DATA_ID);
     }
 
     /**

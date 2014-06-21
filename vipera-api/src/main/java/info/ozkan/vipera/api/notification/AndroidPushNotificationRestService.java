@@ -27,6 +27,14 @@ import com.google.gson.Gson;
 @Named
 public class AndroidPushNotificationRestService {
     /**
+     * Unregister
+     */
+    private static final String UNREGISTER = "unregister";
+    /**
+     * Register
+     */
+    private static final String REGISTER = "register";
+    /**
      * LOGGER
      */
     private static final Logger LOGGER = LoggerFactory
@@ -53,18 +61,31 @@ public class AndroidPushNotificationRestService {
      * @return
      */
     @POST
-    @Path("register")
+    @Path(REGISTER)
     public Response registerService(final String body) {
-        return doOperation(body, "register");
+        return doOperation(body, REGISTER);
     }
 
+    /**
+     * unregister işlemini gerçekleştirir
+     * 
+     * @param body
+     * @return
+     */
     @POST
-    @Path("unregister")
+    @Path(UNREGISTER)
     public Response unregisterService(final String body) {
-        return doOperation(body, "unregister");
+        return doOperation(body, UNREGISTER);
 
     }
 
+    /**
+     * register veya unregister işlemlerini yürütür
+     * 
+     * @param body
+     * @param operation
+     * @return
+     */
     private Response doOperation(final String body, final String operation) {
         final Response response;
         final AndroidRegistrationModel model =
@@ -92,7 +113,7 @@ public class AndroidPushNotificationRestService {
         if (!result.isSuccess()) {
             response = Response.status(Response.Status.UNAUTHORIZED).build();
         } else {
-            if (operation.equals("register")) {
+            if (operation.equals(REGISTER)) {
                 response = register(model, result);
             } else {
                 response = unregister(model, result);
@@ -110,7 +131,7 @@ public class AndroidPushNotificationRestService {
      */
     private Response unregister(final AndroidRegistrationModel model,
             final DoctorManagerResult result) {
-        return checkDeviceAndProcess(model, result, "unregister");
+        return checkDeviceAndProcess(model, result, UNREGISTER);
     }
 
     /**
@@ -122,7 +143,7 @@ public class AndroidPushNotificationRestService {
      */
     private Response register(final AndroidRegistrationModel model,
             final DoctorManagerResult result) {
-        return checkDeviceAndProcess(model, result, "register");
+        return checkDeviceAndProcess(model, result, REGISTER);
     }
 
     /**
@@ -140,7 +161,7 @@ public class AndroidPushNotificationRestService {
         if (registrationId == null || registrationId.isEmpty()) {
             response = Response.status(Response.Status.FORBIDDEN).build();
         } else {
-            if (operation.equals("register")) {
+            if (operation.equals(REGISTER)) {
                 response = saveDevice(result, registrationId);
             } else {
                 response = removeDevice(result, registrationId);

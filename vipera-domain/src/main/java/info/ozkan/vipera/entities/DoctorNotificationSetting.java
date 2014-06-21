@@ -96,4 +96,18 @@ public class DoctorNotificationSetting implements Serializable {
     public void setEnabled(final Boolean enabled) {
         this.enabled = enabled;
     }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

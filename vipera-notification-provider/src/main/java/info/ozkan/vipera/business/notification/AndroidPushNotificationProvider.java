@@ -33,6 +33,10 @@ import com.google.gson.Gson;
  */
 public class AndroidPushNotificationProvider implements NotificationProvider {
     /**
+     * Gönderilecek olan tckn boyutu
+     */
+    private static final int TCKN_SIZE = 4;
+    /**
      * Bildiri mesaj deseni
      */
     private static final String NOTIFICATION_MSG_PATTERN =
@@ -117,7 +121,7 @@ public class AndroidPushNotificationProvider implements NotificationProvider {
         final HealthDataField field = value.getField();
         final Map<String, String> map = new HashMap<String, String>();
         final String patientName =
-                patient.getTckn().toString().substring(0, 4) + "-"
+                patient.getTckn().toString().substring(0, TCKN_SIZE) + "-"
                         + patient.getFullname();
         final String msg =
                 String.format(NOTIFICATION_MSG_PATTERN, patientName,

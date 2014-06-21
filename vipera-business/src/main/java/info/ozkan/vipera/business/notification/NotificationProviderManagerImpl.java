@@ -60,17 +60,17 @@ public class NotificationProviderManagerImpl implements
      */
     public NotificationProviderManagerImpl(
             final Map<String, NotificationProvider> providers) {
-        setProviders(providers);
+        this.providers = providers;
     }
 
     /**
      * Sistem ayarını alır ve kullanmak üzere kaydeder
      */
     @PostConstruct
-    private void setUp() {
-        final List<NotificationSetting> settings =
+    public void setUp() {
+        final List<NotificationSetting> settingsFromManager =
                 notificationSettingManager.getAll();
-        setSettings(settings);
+        setSettings(settingsFromManager);
     }
 
     @Transactional

@@ -13,6 +13,8 @@ import org.apache.commons.lang3.RandomStringUtils;
  * 
  */
 public final class PasswordGenerator {
+    private static final String ALGORITHM = "MD5";
+    private static final String CHARSET = "utf-8";
     /**
      * Parola boyutu
      */
@@ -39,9 +41,9 @@ public final class PasswordGenerator {
             String generated = generate();
             generated += uniqueString;
             MessageDigest md;
-            md = MessageDigest.getInstance("MD5");
+            md = MessageDigest.getInstance(ALGORITHM);
             byte[] md5 = new byte[54];
-            md.update(generated.getBytes("utf-8"), 0, generated.length());
+            md.update(generated.getBytes(CHARSET), 0, generated.length());
             md5 = md.digest();
             str = convertedToHex(md5);
 
@@ -50,7 +52,7 @@ public final class PasswordGenerator {
         } catch (final UnsupportedEncodingException e) {
             str = generate();
         }
-        return str.substring(16);
+        return str.substring(SIZE);
     }
 
     private static String convertedToHex(final byte[] data) {

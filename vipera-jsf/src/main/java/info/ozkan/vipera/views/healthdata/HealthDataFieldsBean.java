@@ -333,6 +333,11 @@ public class HealthDataFieldsBean implements Serializable {
      */
     public void setSelectedField(final HealthDataField selectedField) {
         this.selectedField = selectedField;
-        updatedFieldClone = (HealthDataField) selectedField.clone();
+        try {
+            updatedFieldClone = (HealthDataField) selectedField.clone();
+        } catch (final CloneNotSupportedException e) {
+            // never
+            throw new AssertionError();
+        }
     }
 }
