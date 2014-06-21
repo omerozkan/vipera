@@ -22,6 +22,16 @@ import javax.persistence.Query;
  */
 @Named("androidRegistrationDao")
 public class AndroidRegistrationDaoImpl implements AndroidRegistrationDao {
+    /**
+     * cihazın kayıtlı olup olmadığını sorgulayan jql sorgusu
+     */
+    private static final String JQL_HAS_EXIST =
+            "from DoctorAndroidDevice a JOIN FETCH a.doctor WHERE a.doctor = :doctor "
+                    + "AND a.registrationId = :registrationId";
+
+    /**
+     * hekime göre cihaz arar
+     */
     private static final String JQL_SELECT_BY_DOCTOR =
             "from DoctorAndroidDevice a JOIN FETCH a.doctor WHERE a.doctor = :doctor";
     /**
@@ -46,16 +56,27 @@ public class AndroidRegistrationDaoImpl implements AndroidRegistrationDao {
         }
     }
 
+    /**
+     * cihazın daha önceden kayıtlı olup olmadığını sorgular
+     * 
+     * @param doctor
+     * @param registrationId
+     * @return
+     */
     private boolean checkHasExist(final Doctor doctor,
             final String registrationId) {
-        final Query query =
-                em.createQuery("from DoctorAndroidDevice a JOIN FETCH a.doctor WHERE a.doctor = :doctor AND a.registrationId = :registrationId");
+        final Query query = em.createQuery(JQL_HAS_EXIST);
         query.setParameter("doctor", doctor);
         query.setParameter("registrationId", registrationId);
         final List<DoctorAndroidDevice> devices = query.getResultList();
         return devices.size() != 0;
     }
 
+    /**
+     * başarılı sonuç mesajı üretir
+     * 
+     * @return
+     */
     private AndroidRegistrationResult createSuccessResult() {
         final AndroidRegistrationResult result =
                 new AndroidRegistrationResult();
@@ -65,9 +86,12 @@ public class AndroidRegistrationDaoImpl implements AndroidRegistrationDao {
 
     public AndroidRegistrationResult remove(final Doctor doctor,
             final String registrationId) {
+
         final DoctorAndroidDevice device =
                 em.find(DoctorAndroidDevice.class, registrationId);
-        em.remove(device);
+        if (device != null) {
+            em.remove(device);
+        }
         return createSuccessResult();
     }
 
