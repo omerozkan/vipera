@@ -17,7 +17,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.javavids.main.Main</mainClass>
+                            <mainClass>info.ozkan.vipera.client.ViperaClient</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

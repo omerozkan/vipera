@@ -459,9 +459,13 @@
         <insert tableName="DOCTOR_NOTIFICATION_SETTINGS">
             <column name="id" type="bigint">20</column>
             <column name="doctor_id">2</column>
-            <column name="provider_id">android</column>
-            <column name="enabled">true</column>
             <column name="provider_id">sms</column>
+            <column name="enabled">true</column>
+        </insert>
+        <insert tableName="DOCTOR_NOTIFICATION_SETTINGS">
+            <column name="id" type="bigint">21</column>
+            <column name="doctor_id">2</column>
+            <column name="provider_id">android</column>
             <column name="enabled">true</column>
         </insert>
         <insert tableName="NOTIFICATION_SETTINGS">

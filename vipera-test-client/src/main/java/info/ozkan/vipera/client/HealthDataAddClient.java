@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package info.ozkan.vipera.client.vipera.test.client;
+package info.ozkan.vipera.client;
 
 import info.ozkan.vipera.api.healthdata.HealthDataModel;
 
