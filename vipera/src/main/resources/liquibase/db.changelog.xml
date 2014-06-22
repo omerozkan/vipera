@@ -28,30 +28,7 @@
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="2-doctor-hsqldb" author="Omer Ozkan" dbms="hsqldb">
-        <createTable tableName="DOCTORS">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" unique="true" />
-            </column>
-            <column name="tckn" type="bigint(11)">
-                <constraints primaryKey="true" unique="true" />
-            </column>
-            <column name="name" type="varchar(255)" />
-            <column name="surname" type="varchar(255)" />
-            <column name="email" type="varchar(255)" />
-            <column name="password" type="varchar(255)" />
-            <column name="title" type="int" />
-            <column name="diploma_no" type="varchar(255)" />
-            <column name="province" type="varchar(255)" />
-            <column name="phone" type="varchar(255)" />
-            <column name="mobile_phone" type="varchar(255)" />
-            <column name="webpage" type="varchar(255)" />
-            <column name="api_key" type="varchar(32)" />
-            <column name="enabled" type="int" />
-        </createTable>
-    </changeSet>
-    <changeSet id="2-doctor-postgresql" author="Omer Ozkan"
-        dbms="postgresql">
+    <changeSet id="2-doctor" author="Omer Ozkan">
         <createTable tableName="DOCTORS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" unique="true" />
@@ -69,34 +46,12 @@
             <column name="phone" type="varchar(255)" />
             <column name="mobile_phone" type="varchar(255)" />
             <column name="webpage" type="varchar(255)" />
+            <column name="api_key" type="varchar(32)" />
             <column name="enabled" type="int" />
         </createTable>
     </changeSet>
-    <changeSet id="3-patients-hsqldb" author="Omer Ozkan"
-        dbms="hsqldb">
-        <createTable tableName="PATIENTS">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" unique="true" />
-            </column>
-            <column name="tckn" type="bigint(11)">
-                <constraints primaryKey="true" unique="true" />
-            </column>
-            <column name="password" type="varchar(255)" />
-            <column name="name" type="varchar(255)" />
-            <column name="surname" type="varchar(255)" />
-            <column name="email" type="varchar(255)" />
-            <column name="sex" type="int" />
-            <column name="birth_date" type="date" />
-            <column name="birth_place" type="varchar(255)" />
-            <column name="father_name" type="varchar(255)" />
-            <column name="mother_name" type="varchar(255)" />
-            <column name="phone" type="varchar(255)" />
-            <column name="mobile_phone" type="varchar(255)" />
-            <column name="enable" type="int" />
-        </createTable>
-    </changeSet>
-    <changeSet id="3-patients-postgresql" author="Omer Ozkan"
-        dbms="postgresql">
+
+    <changeSet id="3-patients" author="Omer Ozkan">
         <createTable tableName="PATIENTS">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" unique="true" />
@@ -470,7 +425,8 @@
         </insert>
         <insert tableName="NOTIFICATION_SETTINGS">
             <column name="provider_id">android</column>
-            <column name="key">AIzaSyDsDliZKFgAamf-fQKOi130HwxhpGkCYVo</column>
+            <column name="key">AIzaSyDsDliZKFgAamf-fQKOi130HwxhpGkCYVo
+            </column>
             <column name="password"></column>
             <column name="enabled">true</column>
         </insert>
