@@ -176,3 +176,11 @@ body {
 	text-align: center;
 	font-size: 20px;
 }
+
+#error h3 a {
+	color: #ff6;
+}
+
+#error h2.sub {
+	font-size: 18px !important;
+}

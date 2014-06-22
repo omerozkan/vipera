@@ -1,8 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <h:html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
-    <ui:include src="/hasta/login.xhtml" />
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Vipera</title>
+	<link href="#{resource['default:img/favicon.ico']}" rel="shortcut icon"
+		type="image/x-icon" />
+</h:head>
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="css/style.css" library="default" />
+	</f:facet>
+	<div id="error">
+		<h1>Vipera</h1>
+		<h2 class="sub">Hasta Sağlık Sistemi</h2>
+		<h3><a href="hasta">Hasta Girişi</a> | <a href="hekim"> Hekim Girişi</a> </h3>
+	</div>
+</h:body>
+
 </h:html>
