@@ -5,7 +5,7 @@ Hasta Takip ve Analiz Sistemi
 
 - İş ve Hata Takibi için: https://issues.ozkan.info/projects/bitirme-projesi
 
-- Kod Analizi: http://sonar.ozkan.info/dashboard/index/1
+- Kod Analizi: http://sonar.sifirbir.org/dashboard/index/1
 
 Vipera Android Bildirim Sistemi Uygulaması
 -------------------------------------------
