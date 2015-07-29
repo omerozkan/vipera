@@ -1,5 +1,5 @@
 language: java
 jdk:
-  - oraclejdk7
+  - oraclejdk6
 notifications:
   - webhooks: http://office.ifountain.com:9115/v1/json/travisci?apiKey=7a874d77-e11d-49ce-8399-75be3e7fecf1
