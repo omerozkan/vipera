@@ -31,7 +31,7 @@ Kullanılan Teknolojiler
 -----------------------------
 
 - Spring 3.2
-- JSF 2.2 - Primefaces 5.0
+- JSF 2.2 - Primefaces 4.0
 - JPA 2.0 - Hibernate 4.2
 - Spring Security
 - PostgreSQL
