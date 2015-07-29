@@ -1,4 +1,4 @@
-package info.ozkan.vipera.api.healthdata;
+package info.ozkan.vipera.api.healthdata
 
 import java.io.Serializable;
 import java.util.List;
